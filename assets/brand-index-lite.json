@@ -794,7 +794,7 @@
     },
     "anthropic": {
       "name": "Anthropic",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg",
       "color": "#191919"
     },
     "antigravity-google": {
@@ -13994,7 +13994,7 @@
     },
     "openai": {
       "name": "OpenAI",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg",
       "color": "#000000"
     },
     "openai-chatgpt": {
