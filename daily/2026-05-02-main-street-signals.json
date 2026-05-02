@@ -12,95 +12,100 @@
   },
   "sections": [
     {
-      "heading": "Coverage Area",
-      "body": "Total businesses cataloged: 1,218 across Archer Heights (60632) and Burbank (60459). Archer Heights: 838 businesses. Burbank: 379 businesses. Research notes: 29 entries.",
-      "level": 1,
+      "heading": "1,218 Businesses Cataloged Across Two Southwest Side ZIPs",
+      "body": "Combined business inventory for Archer Heights (60632) and Burbank (60459). Archer Heights contributes 838 businesses, reflecting its dense industrial corridor along the Clearing rail yards. Burbank adds 379 businesses, primarily retail along Cicero Avenue. Database includes 29 research notes covering commercial corridors, industrial districts, and municipal context.",
       "data": {
-        "total": 1218,
+        "total_businesses": 1218,
         "archer_heights": 838,
         "burbank": 379,
-        "research_notes": 29
+        "research_notes": 29,
+        "zip_codes": 2
       }
     },
     {
-      "heading": "Business Type Breakdown (Top 15)",
-      "body": "The most common business types across both areas reflect the mixed industrial-retail-residential character of Chicago's southwest side.",
-      "level": 1,
+      "heading": "Business Type Breakdown",
+      "body": "The top 15 business types across both areas. 'Other' (415) includes industrial, manufacturing, warehousing \u2014 a significant presence reflecting Archer Heights' industrial character. Retail (128) dominates in Burbank's Cicero Avenue corridor. Schools (60) and fast food (60) round out the top tiers.",
       "data": {
         "top_types": [
           {
-            "type": "other",
-            "count": 415
-          },
-          {
-            "type": "retail",
+            "type": "Retail",
             "count": 128
           },
           {
-            "type": "school",
+            "type": "School",
             "count": 60
           },
           {
-            "type": "fast_food",
+            "type": "Fast Food",
             "count": 60
           },
           {
-            "type": "restaurant",
+            "type": "Restaurant",
             "count": 35
           },
           {
-            "type": "yes",
-            "count": 32
-          },
-          {
-            "type": "church",
+            "type": "Church",
             "count": 24
           },
           {
-            "type": "place_of_worship",
+            "type": "Place of Worship",
             "count": 23
           },
           {
-            "type": "bicycle_rental",
+            "type": "Bicycle Rental",
             "count": 23
           },
           {
-            "type": "commercial",
+            "type": "Commercial",
             "count": 18
           },
           {
-            "type": "mobile_phone",
+            "type": "Mobile Phone",
             "count": 17
           },
           {
-            "type": "convenience",
+            "type": "Convenience",
             "count": 17
           },
           {
-            "type": "bakery",
+            "type": "Bakery",
             "count": 14
           },
           {
-            "type": "bank",
+            "type": "Bank",
             "count": 13
           },
           {
-            "type": "parking",
+            "type": "Parking",
             "count": 12
+          },
+          {
+            "type": "Industrial",
+            "count": 11
+          },
+          {
+            "type": "Medical Clinic",
+            "count": 9
           }
         ]
       }
     },
     {
-      "heading": "Key Corridors",
-      "body": "Cicero Avenue (retail, 2.5M sq ft GLA), 79th Street (commercial), Pulaski Road (industrial), Archer Avenue (mixed). The Clearing Industrial District and Bedford Park rail yards anchor the industrial side.",
-      "level": 1
+      "heading": "Key Commercial Corridors",
+      "body": "Cicero Avenue is the primary retail spine \u2014 ~2.5 million sq ft of retail GLA anchored by Burbank Station (303K sf, supermarket-anchored), Burbank Plaza (Jewel-Osco at 79th & Cicero), and the adjacent Ford City Mall (1.2M sf). Traffic counts at 79th & Cicero exceed 69,100 vehicles per day. The industrial base centers on the Clearing Industrial District and Bedford Park intermodal yards, connecting to the broader Chicago rail network.",
+      "data": {}
+    },
+    {
+      "heading": "Coverage Notes",
+      "body": "Data sourced from OpenStreetMap with web enrichment via commercial real estate listings and municipal sources. The 1,218 figure represents OSM-mapped businesses only \u2014 the real total including unmapped small businesses is likely 2-3x higher. OSM data favors retail/chain businesses; residential services, home-based businesses, and very small shops are underrepresented.",
+      "data": {}
     }
   ],
   "sources": [
-    "OpenStreetMap API",
-    "LoopNet commercial listings",
-    "Burbank Chamber of Commerce",
-    "Cook County property records"
+    "OpenStreetMap API \u2014 api.openstreetmap.org",
+    "LoopNet Commercial Listings \u2014 loopnet.com",
+    "Burbank Chamber of Commerce \u2014 burbankilchamber.com",
+    "Abbell Associates \u2014 Burbank Station",
+    "Cook County Property Records"
   ]
 }
