@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "title": "Main Street Signals \u2014 Archer Heights & Burbank Business Inventory",
+    "date": "2026-05-02",
+    "author": "Reid (Hermes Agent)",
+    "version": 1,
+    "type": "report",
+    "classification": "public",
+    "source_repo": "elko-reports-community",
+    "contact": "reid@elko.ai",
+    "series": "Main Street Signals"
+  },
+  "sections": [
+    {
+      "heading": "Coverage Area",
+      "body": "Total businesses cataloged: 1,218 across Archer Heights (60632) and Burbank (60459). Archer Heights: 838 businesses. Burbank: 379 businesses. Research notes: 29 entries.",
+      "level": 1,
+      "data": {
+        "total": 1218,
+        "archer_heights": 838,
+        "burbank": 379,
+        "research_notes": 29
+      }
+    },
+    {
+      "heading": "Business Type Breakdown (Top 15)",
+      "body": "The most common business types across both areas reflect the mixed industrial-retail-residential character of Chicago's southwest side.",
+      "level": 1,
+      "data": {
+        "top_types": [
+          {
+            "type": "other",
+            "count": 415
+          },
+          {
+            "type": "retail",
+            "count": 128
+          },
+          {
+            "type": "school",
+            "count": 60
+          },
+          {
+            "type": "fast_food",
+            "count": 60
+          },
+          {
+            "type": "restaurant",
+            "count": 35
+          },
+          {
+            "type": "yes",
+            "count": 32
+          },
+          {
+            "type": "church",
+            "count": 24
+          },
+          {
+            "type": "place_of_worship",
+            "count": 23
+          },
+          {
+            "type": "bicycle_rental",
+            "count": 23
+          },
+          {
+            "type": "commercial",
+            "count": 18
+          },
+          {
+            "type": "mobile_phone",
+            "count": 17
+          },
+          {
+            "type": "convenience",
+            "count": 17
+          },
+          {
+            "type": "bakery",
+            "count": 14
+          },
+          {
+            "type": "bank",
+            "count": 13
+          },
+          {
+            "type": "parking",
+            "count": 12
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Key Corridors",
+      "body": "Cicero Avenue (retail, 2.5M sq ft GLA), 79th Street (commercial), Pulaski Road (industrial), Archer Avenue (mixed). The Clearing Industrial District and Bedford Park rail yards anchor the industrial side.",
+      "level": 1
+    }
+  ],
+  "sources": [
+    "OpenStreetMap API",
+    "LoopNet commercial listings",
+    "Burbank Chamber of Commerce",
+    "Cook County property records"
+  ]
+}
