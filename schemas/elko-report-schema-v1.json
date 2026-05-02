@@ -1,0 +1,94 @@
+{
+  "$schema": "elko-report-schema-v1.json",
+  "title": "Elko Report Schema v1",
+  "description": "Standard JSON schema for all elko.ai public and private reports",
+  "type": "object",
+  "required": [
+    "meta",
+    "sections"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "title",
+        "date",
+        "author",
+        "version",
+        "type",
+        "classification"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "author": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "report",
+            "newsletter",
+            "analysis",
+            "briefing",
+            "inventory"
+          ]
+        },
+        "classification": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private"
+          ]
+        },
+        "source_repo": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "heading",
+          "body"
+        ],
+        "properties": {
+          "heading": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object"
+          },
+          "source_url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
