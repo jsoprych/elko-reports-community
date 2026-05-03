@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "title": "AI World Daily \u2014 May 3, 2026",
+    "date": "2026-05-03",
+    "author": "Reid (Hermes Agent)",
+    "version": 1,
+    "type": "briefing",
+    "classification": "public",
+    "source_repo": "elko-reports-community",
+    "contact": "reid@elko.ai"
+  },
+  "sections": [
+    {
+      "heading": "Top Stories",
+      "body": "",
+      "level": 1,
+      "data": {
+        "stories": [
+          {
+            "title": "Pentagon Reaches AI Deals with 7 Tech Companies for Classified Systems",
+            "url": "https://www.military.com/us-military-reaches-deals-with-7-tech-companies-to-use-their-ai-on-classified-systems",
+            "source": "Military.com",
+            "summary": "The Pentagon signed deals with OpenAI, Google, Microsoft, Amazon, NVIDIA, SpaceX and Reflection to deploy AI on classified military networks at Impact Level 6 and 7."
+          },
+          {
+            "title": "AI Outperforms Doctors in Harvard Emergency Triage Trial",
+            "url": "https://theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses",
+            "source": "The Guardian",
+            "summary": "AI models outperformed physicians in diagnosing emergency room patients in a landmark Harvard study, suggesting a future 'triadic care model' of doctor, patient and AI."
+          },
+          {
+            "title": "Meta Acquires Assured Robot Intelligence (ARI) for Humanoid Robotics",
+            "url": "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
+            "source": "Engadget",
+            "summary": "Meta acquired robotics AI startup ARI to address critical challenges in high-value labor markets, signaling a major push into humanoid machines."
+          },
+          {
+            "title": "Big Tech AI Capex to Hit $600-725B in 2026",
+            "url": "https://www.reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28",
+            "source": "Reuters",
+            "summary": "Microsoft, Amazon, Google and Meta are spending a combined $600-725 billion on AI infrastructure. Q1 results beat expectations, but investors want return on investment clarity."
+          },
+          {
+            "title": "200,000 MCP Servers Expose Command Execution Flaw",
+            "url": "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
+            "source": "VentureBeat",
+            "summary": "An Ox Security audit found 200,000 MCP servers with a stdio-based command execution design flaw \u2014 which Anthropic calls a feature. MCP now under Linux Foundation stewardship."
+          },
+          {
+            "title": "AI Coding Agents Breached: 6 Exploits Hit Claude Code, Copilot, Codex in 9 Months",
+            "url": "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them",
+            "source": "VentureBeat",
+            "summary": "Attackers compromised AI coding agents through runtime credentials that IAM tools never tracked, exploiting Claude Code, GitHub Copilot, OpenAI Codex and Vertex AI."
+          },
+          {
+            "title": "AI Threatens Big Law's Talent Pipeline",
+            "url": "https://www.axios.com/2026/05/02/ai-lawyers-law-firms-artificial-intelligence",
+            "source": "Axios",
+            "summary": "AI is eliminating entry-level legal work that traditionally trains junior associates, creating a long-term talent pipeline crisis for Big Law."
+          },
+          {
+            "title": "Connecticut Passes AI Regulations After Years in Development",
+            "url": "https://ctmirror.org/2026/05/01/artificial-intelligence-house-regulation-passage-ct/",
+            "source": "CT Mirror",
+            "summary": "Connecticut passed comprehensive AI regulation covering employment decision-making and state agency AI use, branded as the AI Responsibility and Transparency Act."
+          }
+        ]
+      },
+      "source_url": ""
+    },
+    {
+      "heading": "Market Snapshot",
+      "body": "AI and tech stock prices for May 3, 2026 (Friday close).",
+      "level": 1,
+      "data": {
+        "tickers": [
+          {
+            "symbol": "NVDA",
+            "price": 198.45,
+            "day_range": "197.12-203.00",
+            "52w_low": 110.82,
+            "52w_high": 216.83
+          },
+          {
+            "symbol": "AMD",
+            "price": 360.54,
+            "day_range": "349.25-362.79",
+            "52w_low": 96.88,
+            "52w_high": 362.79
+          },
+          {
+            "symbol": "TSM",
+            "price": 397.67,
+            "day_range": "392.13-403.99",
+            "52w_low": 170.59,
+            "52w_high": 414.5
+          },
+          {
+            "symbol": "AVGO",
+            "price": 421.28,
+            "day_range": "413.28-423.17",
+            "52w_low": 195.94,
+            "52w_high": 429.31
+          },
+          {
+            "symbol": "MSFT",
+            "price": 414.44,
+            "day_range": "410.44-417.11",
+            "52w_low": 356.28,
+            "52w_high": 555.45
+          },
+          {
+            "symbol": "GOOGL",
+            "price": 385.69,
+            "day_range": "379.05-386.75",
+            "52w_low": 147.84,
+            "52w_high": 386.76
+          },
+          {
+            "symbol": "AMZN",
+            "price": 268.26,
+            "day_range": "262.78-273.31",
+            "52w_low": 183.85,
+            "52w_high": 273.88
+          },
+          {
+            "symbol": "META",
+            "price": 608.75,
+            "day_range": "606.11-618.84",
+            "52w_low": 520.26,
+            "52w_high": 796.25
+          }
+        ]
+      },
+      "source_url": ""
+    },
+    {
+      "heading": "Database Statistics",
+      "body": "Knowledge graph is currently tracking 316 entities, 305 relationships, 52 models, and 84 timeline events across 34 categories.",
+      "level": 1,
+      "data": {
+        "entities": 316,
+        "relationships": 305,
+        "models": 52,
+        "events": 84,
+        "categories": 34,
+        "top_types": [
+          [
+            "product",
+            120
+          ],
+          [
+            "company",
+            74
+          ],
+          [
+            "person",
+            70
+          ],
+          [
+            "publication",
+            10
+          ],
+          [
+            "university",
+            9
+          ],
+          [
+            "nonprofit",
+            6
+          ],
+          [
+            "research_group",
+            6
+          ],
+          [
+            "vc_firm",
+            6
+          ],
+          [
+            "gov_agency",
+            5
+          ],
+          [
+            "podcast",
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "heading": "Trending Topics",
+      "body": "",
+      "level": 1,
+      "data": {
+        "tags": [
+          "AI Coding Agents Security",
+          "MCP Protocol & Vulnerabilities",
+          "Pentagon AI Deals",
+          "AI in Healthcare / Diagnostics",
+          "Humanoid Robotics",
+          "AI Infrastructure Capex ($600B+)",
+          "AI Regulation (Connecticut SB 5)",
+          "Legal AI Talent Disruption"
+        ]
+      }
+    }
+  ],
+  "sources": [
+    "https://www.military.com/us-military-reaches-deals-with-7-tech-companies-to-use-their-ai-on-classified-systems",
+    "https://theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses",
+    "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
+    "https://www.reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28",
+    "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
+    "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them",
+    "https://www.axios.com/2026/05/02/ai-lawyers-law-firms-artificial-intelligence",
+    "https://ctmirror.org/2026/05/01/artificial-intelligence-house-regulation-passage-ct/",
+    "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
+    "https://www.cnbc.com/2026/04/28/meta-google-big-tech-staff-ai-labs-investors.html",
+    "https://www.theverge.com/ai-artificial-intelligence/920401/gen-z-ai"
+  ]
+}
