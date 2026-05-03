@@ -154,7 +154,17 @@ text-transform: uppercase; letter-spacing: 0.5px;
 }
 td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
 tr:last-child td { border-bottom: none; }
-.td-highlight { color: var(--accent); font-weight: 700; }
+  .td-highlight { color: var(--accent); font-weight: 700; }
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; padding: 4px 2px !important; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; vertical-align: middle; }
+  .ticker-svg-fallback {
+    display: inline-block; width: 22px; height: 22px; line-height: 22px;
+    font-size: 8px; font-weight: 800; color: var(--text-muted);
+    text-align: center; vertical-align: middle;
+  }
 
 /* NEWS LIST */
 .news-list { list-style: none; margin: 12px 0 20px; }
@@ -401,28 +411,112 @@ ARC Prize Foundation analyzed GPT-5.5 and Claude Opus 4.7 on ARC-AGI-3. Both sco
 
 <!-- MARKET SNAPSHOT -->
 <div class="section-header"><span class="icon">📊</span><h2>Market Snapshot — AI & Tech Stocks</h2><span class="accent-line"></span></div>
-<p class="section-body">Closing prices May 2, 2026. Notable: <strong>INTC</strong> at 52-week high ($100.45), <strong>GOOGL</strong> at 52-week high ($386.76), <strong>AMD</strong> at all-time high ($362.79). The AI capex super-cycle continues lifting chip and infrastructure names.</p>
+<p class="section-body">Closing prices May 2, 2026 vs prior close. Notable: <strong>INTC</strong> at 52-week high ($100.45, +5.44%), <strong>AMD</strong> at all-time high ($362.79, +1.71%), <strong>META</strong> slipped 0.52%. The AI capex super-cycle continues lifting chip and infrastructure names.</p>
 <div class="table-wrap">
 <table>
 <thead>
 <tr>
+<th></th>
 <th>Ticker</th>
 <th>Price</th>
+<th>Change</th>
+<th>%</th>
 <th>Day Range</th>
 <th>52W Range</th>
 <th>Note</th>
 </tr>
 </thead>
 <tbody>
-<tr><td><strong>NVDA</strong></td><td>$198.45</td><td>$197.12–$203.00</td><td>$110.82–$216.83</td><td></td></tr>
-<tr><td><strong>AMD</strong></td><td>$360.54</td><td>$349.25–$362.79</td><td>$96.88–$362.79</td><td class="td-highlight">52W High ⬆</td></tr>
-<tr><td><strong>TSM</strong></td><td>$397.67</td><td>$392.13–$403.99</td><td>$170.59–$414.50</td><td></td></tr>
-<tr><td><strong>AVGO</strong></td><td>$421.28</td><td>$413.28–$423.17</td><td>$195.94–$429.31</td><td></td></tr>
-<tr><td><strong>INTC</strong></td><td>$99.62</td><td>$92.62–$100.45</td><td>$18.97–$100.45</td><td class="td-highlight">52W High ⬆</td></tr>
-<tr><td><strong>MSFT</strong></td><td>$414.44</td><td>$410.44–$417.11</td><td>$356.28–$555.45</td><td></td></tr>
-<tr><td><strong>GOOGL</strong></td><td>$385.69</td><td>$379.05–$386.75</td><td>$147.84–$386.76</td><td class="td-highlight">52W High ⬆</td></tr>
-<tr><td><strong>AMZN</strong></td><td>$268.26</td><td>$262.78–$273.31</td><td>$183.85–$273.88</td><td></td></tr>
-<tr><td><strong>META</strong></td><td>$608.75</td><td>$606.11–$618.84</td><td>$520.26–$796.25</td><td></td></tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="NVDA" class="ticker-svg"></td>
+  <td><strong>NVDA</strong></td>
+  <td class="td-price td-red">$198.45</td>
+  <td class="td-red">-$1.12</td>
+  <td class="td-red">-0.56%</td>
+  <td>$197.12–$203.00</td>
+  <td>$110.82–$216.83</td>
+  <td></td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" class="ticker-svg"></td>
+  <td><strong>AMD</strong></td>
+  <td class="td-price td-green">$360.54</td>
+  <td class="td-green">+$6.05</td>
+  <td class="td-green">+1.71%</td>
+  <td>$349.25–$362.79</td>
+  <td>$96.88–$362.79</td>
+  <td class="td-highlight">ATH ⬆</td>
+</tr>
+<tr>
+  <td class="td-svg"><span class="ticker-svg-fallback">TSM</span></td>
+  <td><strong>TSM</strong></td>
+  <td class="td-price td-green">$397.67</td>
+  <td class="td-green">+$1.61</td>
+  <td class="td-green">+0.41%</td>
+  <td>$392.13–$403.99</td>
+  <td>$170.59–$414.50</td>
+  <td></td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" alt="AVGO" class="ticker-svg"></td>
+  <td><strong>AVGO</strong></td>
+  <td class="td-price td-green">$421.28</td>
+  <td class="td-green">+$3.85</td>
+  <td class="td-green">+0.92%</td>
+  <td>$413.28–$423.17</td>
+  <td>$195.94–$429.31</td>
+  <td></td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="INTC" class="ticker-svg"></td>
+  <td><strong>INTC</strong></td>
+  <td class="td-price td-green">$99.62</td>
+  <td class="td-green">+$5.14</td>
+  <td class="td-green">+5.44%</td>
+  <td>$92.62–$100.45</td>
+  <td>$18.97–$100.45</td>
+  <td class="td-highlight">52W High ⬆</td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="MSFT" class="ticker-svg"></td>
+  <td><strong>MSFT</strong></td>
+  <td class="td-price td-green">$414.44</td>
+  <td class="td-green">+$6.66</td>
+  <td class="td-green">+1.63%</td>
+  <td>$410.44–$417.11</td>
+  <td>$356.28–$555.45</td>
+  <td></td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="GOOGL" class="ticker-svg"></td>
+  <td><strong>GOOGL</strong></td>
+  <td class="td-price td-green">$385.69</td>
+  <td class="td-green">+$0.89</td>
+  <td class="td-green">+0.23%</td>
+  <td>$379.05–$386.75</td>
+  <td>$147.84–$386.76</td>
+  <td class="td-highlight">52W High ⬆</td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="AMZN" class="ticker-svg"></td>
+  <td><strong>AMZN</strong></td>
+  <td class="td-price td-green">$268.26</td>
+  <td class="td-green">+$3.20</td>
+  <td class="td-green">+1.21%</td>
+  <td>$262.78–$273.31</td>
+  <td>$183.85–$273.88</td>
+  <td></td>
+</tr>
+<tr>
+  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="META" class="ticker-svg"></td>
+  <td><strong>META</strong></td>
+  <td class="td-price td-red">$608.75</td>
+  <td class="td-red">-$3.16</td>
+  <td class="td-red">-0.52%</td>
+  <td>$606.11–$618.84</td>
+  <td>$520.26–$796.25</td>
+  <td></td>
+</tr>
 </tbody>
 </table>
 </div>
