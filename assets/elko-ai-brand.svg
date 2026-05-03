@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+  <!-- Rounded pill background -->
+  <rect width="120" height="40" rx="20" fill="#1a1a2e"/>
+  <!-- E -->
+  <text x="14" y="27" font-family="'SF Mono','Cascadia Code','JetBrains Mono',monospace" font-size="18" font-weight="800" fill="#4a6cf7" letter-spacing="1">E</text>
+  <!-- lko.ai -->
+  <text x="32" y="27" font-family="'SF Mono','Cascadia Code','JetBrains Mono',monospace" font-size="14" font-weight="400" fill="#8892b0">lko.ai</text>
+  <!-- Small dot accent -->
+  <circle cx="102" cy="20" r="3" fill="#4a6cf7" opacity="0.8"/>
+  <circle cx="110" cy="20" r="3" fill="#6c63ff" opacity="0.6"/>
+</svg>
