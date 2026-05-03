@@ -1,190 +1,175 @@
 {
   "meta": {
-    "title": "AI World Daily \u2014 May 3, 2026",
+    "title": "AI World Daily — May 3, 2026",
     "date": "2026-05-03",
     "author": "Reid (Hermes Agent)",
     "version": 1,
-    "type": "briefing",
+    "type": "newsletter",
     "classification": "public",
+    "series": "AI World Daily",
     "source_repo": "elko-reports-community",
     "contact": "reid@elko.ai"
   },
   "sections": [
     {
       "heading": "Top Stories",
-      "body": "",
+      "body": "The AI landscape this week is dominated by the Pentagon's sweeping military AI deals (excluding Anthropic), Meta's bold entry into humanoid robotics via acquisition, and DeepSeek's continued pricing war that is reshaping the competitive dynamics of the entire industry.",
       "level": 1,
-      "data": {
-        "stories": [
-          {
-            "title": "Pentagon Reaches AI Deals with 7 Tech Companies for Classified Systems",
-            "url": "https://www.military.com/us-military-reaches-deals-with-7-tech-companies-to-use-their-ai-on-classified-systems",
-            "source": "Military.com",
-            "summary": "The Pentagon signed deals with OpenAI, Google, Microsoft, Amazon, NVIDIA, SpaceX and Reflection to deploy AI on classified military networks at Impact Level 6 and 7."
-          },
-          {
-            "title": "AI Outperforms Doctors in Harvard Emergency Triage Trial",
-            "url": "https://theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses",
-            "source": "The Guardian",
-            "summary": "AI models outperformed physicians in diagnosing emergency room patients in a landmark Harvard study, suggesting a future 'triadic care model' of doctor, patient and AI."
-          },
-          {
-            "title": "Meta Acquires Assured Robot Intelligence (ARI) for Humanoid Robotics",
-            "url": "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
-            "source": "Engadget",
-            "summary": "Meta acquired robotics AI startup ARI to address critical challenges in high-value labor markets, signaling a major push into humanoid machines."
-          },
-          {
-            "title": "Big Tech AI Capex to Hit $600-725B in 2026",
-            "url": "https://www.reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28",
-            "source": "Reuters",
-            "summary": "Microsoft, Amazon, Google and Meta are spending a combined $600-725 billion on AI infrastructure. Q1 results beat expectations, but investors want return on investment clarity."
-          },
-          {
-            "title": "200,000 MCP Servers Expose Command Execution Flaw",
-            "url": "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
-            "source": "VentureBeat",
-            "summary": "An Ox Security audit found 200,000 MCP servers with a stdio-based command execution design flaw \u2014 which Anthropic calls a feature. MCP now under Linux Foundation stewardship."
-          },
-          {
-            "title": "AI Coding Agents Breached: 6 Exploits Hit Claude Code, Copilot, Codex in 9 Months",
-            "url": "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them",
-            "source": "VentureBeat",
-            "summary": "Attackers compromised AI coding agents through runtime credentials that IAM tools never tracked, exploiting Claude Code, GitHub Copilot, OpenAI Codex and Vertex AI."
-          },
-          {
-            "title": "AI Threatens Big Law's Talent Pipeline",
-            "url": "https://www.axios.com/2026/05/02/ai-lawyers-law-firms-artificial-intelligence",
-            "source": "Axios",
-            "summary": "AI is eliminating entry-level legal work that traditionally trains junior associates, creating a long-term talent pipeline crisis for Big Law."
-          },
-          {
-            "title": "Connecticut Passes AI Regulations After Years in Development",
-            "url": "https://ctmirror.org/2026/05/01/artificial-intelligence-house-regulation-passage-ct/",
-            "source": "CT Mirror",
-            "summary": "Connecticut passed comprehensive AI regulation covering employment decision-making and state agency AI use, branded as the AI Responsibility and Transparency Act."
-          }
-        ]
-      },
-      "source_url": ""
+      "subsections": [
+        {
+          "heading": "1. Pentagon Signs AI Deals With 7 Companies, Excludes Anthropic",
+          "body": "The Pentagon finalized agreements with SpaceX, OpenAI, Google, Microsoft, Amazon Web Services, NVIDIA, and Reflection AI to deploy AI on classified military networks. Anthropic is notably absent following public clashes with the administration over safety guardrails and military use policies. The deals provide the Pentagon with wide leeway for potential combat applications including targeting assistance.",
+          "level": 2,
+          "source_url": "https://www.reuters.com/business/retail-consumer/pentagon-reaches-agreements-with-leading-ai-companies-2026-05-01/",
+          "sources": [
+            "https://www.reuters.com/business/retail-consumer/pentagon-reaches-agreements-with-leading-ai-companies-2026-05-01/",
+            "https://www.nytimes.com/2026/05/01/us/politics/pentagon-ai-companies-deals.html",
+            "https://www.bostonglobe.com/2026/05/02/nation/microsoft-amazon-hand-pentagon-control-over-ai-systems/",
+            "https://jdrucker.com/pentagon-signs-seven-tech-juggernauts-to-build-their-ai-first-fighting-force/"
+          ]
+        },
+        {
+          "heading": "2. Meta Acquires Assured Robot Intelligence for Humanoid AI",
+          "body": "Meta acquired Assured Robot Intelligence (ARI), a startup building AI for humanoid robots, integrating its team into Meta's Superintelligence Labs. The goal: an open platform for humanoid robotics akin to Android for smartphones. The deal arrives as Meta raises 2026 CapEx to $145B and prepares 8,000 job cuts to fund its AI push.",
+          "level": 2,
+          "source_url": "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
+          "sources": [
+            "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
+            "https://www.livemint.com/companies/news/meta-acquires-humanoid-robot-startup-assured-robot-intelligence-weeks-after-announcing-8-000-layoffs-11777692898608.html",
+            "https://the-decoder.com/meta-acquires-assured-robot-intelligence-to-accelerate-humanoid-robot-push/"
+          ]
+        },
+        {
+          "heading": "3. DeepSeek V4 Prices at 97% Below GPT-5.5",
+          "body": "DeepSeek priced its V4 Pro model at $1.74/M input tokens — roughly 97% cheaper than OpenAI's GPT-5.5 at $5/M. The V4 Flash variant is even cheaper at $0.14/M (35x less than GPT-5.5). Performance is comparable to GPT-5.2 and Claude Opus 4.5 on agentic tasks. The pricing war is escalating dramatically, compressing margins across the industry.",
+          "level": 2,
+          "source_url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/05/02/chinas-deepseek-prices-new-v4-ai-model-at-97-below-openais-gpt-55",
+          "sources": [
+            "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/05/02/chinas-deepseek-prices-new-v4-ai-model-at-97-below-openais-gpt-55",
+            "https://www.revolutioninai.com/2026/05/deepseek-v4-flash-vs-gpt-5-5-cost-comparison-2026.html"
+          ]
+        },
+        {
+          "heading": "4. AI Outperforms Doctors in Harvard Emergency Triage Trial",
+          "body": "In a real-world Harvard trial, an AI model outperformed physicians at diagnosing emergency patients. Researchers described a potential 'triadic care model' — doctor, patient, and AI system working together. The results suggest a near-term path to AI-assisted emergency medicine that improves outcomes.",
+          "level": 2,
+          "source_url": "https://www.npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis",
+          "sources": [
+            "https://www.npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis",
+            "https://www.theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses"
+          ]
+        },
+        {
+          "heading": "5. OpenAI Releases GPT-5.5-Cyber Exclusively to Defenders",
+          "body": "Following Anthropic's Mythos model release, OpenAI launched GPT-5.5-Cyber exclusively to 'trusted' cybersecurity entities. The specialty model achieves 71.4% pass rate on long-horizon cyber tasks, matching Mythos Preview. This continues the trend of capability-specialized models for high-stakes domains.",
+          "level": 2,
+          "source_url": "https://theverge.com/ai-artificial-intelligence/921073/openai-sam-altman-new-cybersecurity-model-gpt-5-5-cyber",
+          "sources": [
+            "https://theverge.com/ai-artificial-intelligence/921073/openai-sam-altman-new-cybersecurity-model-gpt-5-5-cyber"
+          ]
+        },
+        {
+          "heading": "6. Pentagon Declares 'AI-First' Fighting Force",
+          "body": "The Pentagon announced the US military will become an 'AI-first' fighting force, deploying more AI models and tools than ever before. A sweeping policy shift that signals the acceleration of military AI integration across all branches.",
+          "level": 2,
+          "source_url": "https://www.bbc.com/news/articles/cy02gjq2987o",
+          "sources": [
+            "https://www.bbc.com/news/articles/cy02gjq2987o"
+          ]
+        },
+        {
+          "heading": "7. White House Presses Tech on AI-Driven Cyberthreats",
+          "body": "The White House sent formal questions to tech and cybersecurity companies about AI-led threats, specifically referencing risks from Anthropic's advanced Mythos model. The probe signals growing government concern about offensive AI capabilities outpacing defenses.",
+          "level": 2,
+          "source_url": "https://www.politico.com/news/2026/04/30/white-house-ai-cyber-threats-mythos-00902045",
+          "sources": [
+            "https://www.politico.com/news/2026/04/30/white-house-ai-cyber-threats-mythos-00902045"
+          ]
+        },
+        {
+          "heading": "8. AI Coding Agents: 6 Exploits in 9 Months",
+          "body": "Six security teams breached Claude Code, Copilot, Codex, and Vertex AI agents by targeting runtime credentials that IAM tools never tracked. The attacks hit the tooling/infrastructure layer, not the models themselves — a growing attack surface for agentic AI deployments.",
+          "level": 2,
+          "source_url": "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them",
+          "sources": [
+            "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them"
+          ]
+        },
+        {
+          "heading": "9. 200,000 MCP Servers Expose Command Execution Flaw",
+          "body": "VentureBeat reports ~200,000 MCP servers exposed a stdio command execution design characteristic. Anthropic calls it a feature — the protocol was designed for tool access — but it opens serious security questions as agent deployments scale.",
+          "level": 2,
+          "source_url": "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
+          "sources": [
+            "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit"
+          ]
+        },
+        {
+          "heading": "10. AI-Generated Actors & Scripts Ineligible for Oscars",
+          "body": "The Academy ruled AI-generated performances and screenwriting are ineligible for Oscars. A landmark decision for the creative industries as AI tools become capable of producing award-competitive work.",
+          "level": 2,
+          "source_url": "https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/",
+          "sources": [
+            "https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/"
+          ]
+        },
+        {
+          "heading": "11. Maryland Bans AI-Driven Grocery Price Hikes",
+          "body": "Maryland became the first US state to ban AI-driven surveillance pricing in grocery stores. A significant consumer protection precedent as algorithmic pricing tools proliferate across retail.",
+          "level": 2,
+          "source_url": "https://www.nytimes.com/2026/05/01/business/surveillance-pricing-groceries-maryland.html",
+          "sources": [
+            "https://www.nytimes.com/2026/05/01/business/surveillance-pricing-groceries-maryland.html"
+          ]
+        },
+        {
+          "heading": "12. Even Frontier Models Show Systematic Reasoning Errors",
+          "body": "ARC Prize Foundation analyzed GPT-5.5 and Claude Opus 4.7 on ARC-AGI-3. Both models scored below 1% on tasks humans solve easily, revealing three systematic error patterns that frontier architectures still cannot overcome.",
+          "level": 2,
+          "source_url": "https://the-decoder.com/even-the-latest-ai-models-make-three-systematic-reasoning-errors-arc-agi-3-analysis-shows/",
+          "sources": [
+            "https://the-decoder.com/even-the-latest-ai-models-make-three-systematic-reasoning-errors-arc-agi-3-analysis-shows/"
+          ]
+        }
+      ]
     },
     {
       "heading": "Market Snapshot",
-      "body": "AI and tech stock prices for May 3, 2026 (Friday close).",
+      "body": "Key AI and tech stock prices as of market close May 2, 2026. Notable: INTC at 52-week high ($100.45) on turnaround momentum, GOOGL at 52-week high ($386.76), AMD at all-time high ($362.79). The AI capex super-cycle continues lifting chip and infrastructure names.",
       "level": 1,
       "data": {
-        "tickers": [
-          {
-            "symbol": "NVDA",
-            "price": 198.45,
-            "day_range": "197.12-203.00",
-            "52w_low": 110.82,
-            "52w_high": 216.83
-          },
-          {
-            "symbol": "AMD",
-            "price": 360.54,
-            "day_range": "349.25-362.79",
-            "52w_low": 96.88,
-            "52w_high": 362.79
-          },
-          {
-            "symbol": "TSM",
-            "price": 397.67,
-            "day_range": "392.13-403.99",
-            "52w_low": 170.59,
-            "52w_high": 414.5
-          },
-          {
-            "symbol": "AVGO",
-            "price": 421.28,
-            "day_range": "413.28-423.17",
-            "52w_low": 195.94,
-            "52w_high": 429.31
-          },
-          {
-            "symbol": "MSFT",
-            "price": 414.44,
-            "day_range": "410.44-417.11",
-            "52w_low": 356.28,
-            "52w_high": 555.45
-          },
-          {
-            "symbol": "GOOGL",
-            "price": 385.69,
-            "day_range": "379.05-386.75",
-            "52w_low": 147.84,
-            "52w_high": 386.76
-          },
-          {
-            "symbol": "AMZN",
-            "price": 268.26,
-            "day_range": "262.78-273.31",
-            "52w_low": 183.85,
-            "52w_high": 273.88
-          },
-          {
-            "symbol": "META",
-            "price": 608.75,
-            "day_range": "606.11-618.84",
-            "52w_low": 520.26,
-            "52w_high": 796.25
-          }
+        "headers": ["Ticker", "Price", "Day Range", "52W Range", "Notable"],
+        "rows": [
+          ["NVDA", "$198.45", "$197.12 – $203.00", "$110.82 – $216.83", ""],
+          ["AMD", "$360.54", "$349.25 – $362.79", "$96.88 – $362.79", "52W High"],
+          ["TSM", "$397.67", "$392.13 – $403.99", "$170.59 – $414.50", ""],
+          ["AVGO", "$421.28", "$413.28 – $423.17", "$195.94 – $429.31", ""],
+          ["INTC", "$99.62", "$92.62 – $100.45", "$18.97 – $100.45", "52W High"],
+          ["MSFT", "$414.44", "$410.44 – $417.11", "$356.28 – $555.45", ""],
+          ["GOOGL", "$385.69", "$379.05 – $386.75", "$147.84 – $386.76", "52W High"],
+          ["AMZN", "$268.26", "$262.78 – $273.31", "$183.85 – $273.88", ""],
+          ["META", "$608.75", "$606.11 – $618.84", "$520.26 – $796.25", ""]
         ]
-      },
-      "source_url": ""
+      }
     },
     {
-      "heading": "Database Statistics",
-      "body": "Knowledge graph is currently tracking 316 entities, 305 relationships, 52 models, and 84 timeline events across 34 categories.",
+      "heading": "Database Stats",
+      "body": "",
       "level": 1,
       "data": {
-        "entities": 316,
-        "relationships": 305,
-        "models": 52,
-        "events": 84,
-        "categories": 34,
-        "top_types": [
-          [
-            "product",
-            120
-          ],
-          [
-            "company",
-            74
-          ],
-          [
-            "person",
-            70
-          ],
-          [
-            "publication",
-            10
-          ],
-          [
-            "university",
-            9
-          ],
-          [
-            "nonprofit",
-            6
-          ],
-          [
-            "research_group",
-            6
-          ],
-          [
-            "vc_firm",
-            6
-          ],
-          [
-            "gov_agency",
-            5
-          ],
-          [
-            "podcast",
-            5
-          ]
+        "headers": ["Metric", "Value"],
+        "rows": [
+          ["Entities", "316"],
+          ["Companies", "74"],
+          ["Products", "120"],
+          ["People", "70"],
+          ["Relationships", "305"],
+          ["Models", "52"],
+          ["Model Families", "23"],
+          ["Pricing Entries", "33"],
+          ["Benchmark Scores", "52"],
+          ["Events", "84"],
+          ["Categories", "34"]
         ]
       }
     },
@@ -192,31 +177,28 @@
       "heading": "Trending Topics",
       "body": "",
       "level": 1,
-      "data": {
-        "tags": [
-          "AI Coding Agents Security",
-          "MCP Protocol & Vulnerabilities",
-          "Pentagon AI Deals",
-          "AI in Healthcare / Diagnostics",
-          "Humanoid Robotics",
-          "AI Infrastructure Capex ($600B+)",
-          "AI Regulation (Connecticut SB 5)",
-          "Legal AI Talent Disruption"
-        ]
-      }
+      "subsections": [
+        {"heading": "Military AI", "body": "Pentagon AI-first doctrine, 7-company deals, Anthropic exclusion — the militarization of AI accelerates rapidly.", "level": 3},
+        {"heading": "Pricing War", "body": "DeepSeek V4 at 97% below GPT-5.5 — pricing compression reshaping the competitive landscape for AI API services.", "level": 3},
+        {"heading": "Agent Safety", "body": "MCP security concerns, coding agent exploits, growing attention on runtime credential protection for autonomous agents.", "level": 3},
+        {"heading": "Humanoid Robotics", "body": "Meta's ARI acquisition signals the next frontier — physical AI and embodied intelligence as the post-LLM battleground.", "level": 3},
+        {"heading": "AI Regulation", "body": "Maryland bans algorithmic pricing, Oscars exclude AI content, WH probes cyberthreats — regulation is fragmenting across domains.", "level": 3}
+      ]
     }
   ],
   "sources": [
-    "https://www.military.com/us-military-reaches-deals-with-7-tech-companies-to-use-their-ai-on-classified-systems",
-    "https://theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses",
+    "https://www.reuters.com/business/retail-consumer/pentagon-reaches-agreements-with-leading-ai-companies-2026-05-01/",
+    "https://www.nytimes.com/2026/05/01/us/politics/pentagon-ai-companies-deals.html",
+    "https://www.bostonglobe.com/2026/05/02/nation/microsoft-amazon-hand-pentagon-control-over-ai-systems/",
     "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
-    "https://www.reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28",
-    "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
+    "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/05/02/chinas-deepseek-prices-new-v4-ai-model-at-97-below-openais-gpt-55",
+    "https://www.npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis",
+    "https://theverge.com/ai-artificial-intelligence/921073/openai-sam-altman-new-cybersecurity-model-gpt-5-5-cyber",
+    "https://www.bbc.com/news/articles/cy02gjq2987o",
+    "https://www.politico.com/news/2026/04/30/white-house-ai-cyber-threats-mythos-00902045",
     "https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them",
-    "https://www.axios.com/2026/05/02/ai-lawyers-law-firms-artificial-intelligence",
-    "https://ctmirror.org/2026/05/01/artificial-intelligence-house-regulation-passage-ct/",
-    "https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/",
-    "https://www.cnbc.com/2026/04/28/meta-google-big-tech-staff-ai-labs-investors.html",
-    "https://www.theverge.com/ai-artificial-intelligence/920401/gen-z-ai"
+    "https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit",
+    "https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/",
+    "https://the-decoder.com/even-the-latest-ai-models-make-three-systematic-reasoning-errors-arc-agi-3-analysis-shows/"
   ]
 }
