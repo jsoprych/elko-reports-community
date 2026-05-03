@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-<title>AI World Daily — May 3, 2026 — elko.ai</title>
-<script>
-(function(){
+     1|<!DOCTYPE html>
+     2|<html lang="en">
+     3|<head>
+     4|<meta charset="utf-8">
+     5|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6|<meta name="color-scheme" content="light dark">
+     7|<title>AI World Daily — May 3, 2026 — elko.ai</title>
+     8|<script>
+     9|(function(){
 const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -186,8 +186,23 @@ font-weight: 800; color: var(--link-label);
 text-transform: uppercase; letter-spacing: 0.5px;
 margin-right: 2px;
 }
-.news-sublinks a { color: var(--text-muted); text-decoration: none; }
-.news-sublinks a:hover { color: var(--accent); text-decoration: underline; }
+  .news-sublinks a { color: var(--text-muted); text-decoration: none; }
+  .news-sublinks a:hover { color: var(--accent); text-decoration: underline; }
+
+  /* ENTITY BADGES inside news items */
+  .entity-badges {
+    margin-top: 6px; display: flex; flex-wrap: wrap; gap: 3px; align-items: center;
+  }
+  .entity-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9px; font-weight: 600; color: var(--text-muted);
+    background: var(--tag-bg); border-radius: 4px; padding: 1px 6px 1px 2px;
+    line-height: 1; text-decoration: none;
+  }
+  .entity-badge:hover { background: var(--accent); color: #fff; }
+  .entity-badge img {
+    width: 14px; height: 14px; border-radius: 2px; object-fit: contain;
+  }
 
 /* TRENDING TAGS */
 .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
@@ -303,6 +318,7 @@ The Pentagon finalized agreements with SpaceX, OpenAI, Google, Microsoft, AWS, N
 <a href="https://jdrucker.com/pentagon-signs-seven-tech-juggernauts-to-build-their-ai-first-fighting-force/" target="_blank">J. Drucker</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI">OpenAI</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="Google">Google</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="Microsoft">Microsoft</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="NVIDIA">NVIDIA</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="AWS">AWS</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/spacex/default.svg" alt="SpaceX">SpaceX</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--accent-light);"></span>
@@ -314,6 +330,7 @@ Meta acquired humanoid robotics AI startup ARI, integrating it into Superintelli
 <a href="https://www.livemint.com/companies/news/meta-acquires-humanoid-robot-startup-assured-robot-intelligence-weeks-after-announcing-8-000-layoffs-11777692898608.html" target="_blank">Livemint</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="Meta">Meta</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--success);"></span>
@@ -324,6 +341,7 @@ DeepSeek V4 Pro: $1.74/M input tokens. V4 Flash: $0.14/M (35x cheaper than GPT-5
 <a href="https://www.revolutioninai.com/2026/05/deepseek-v4-flash-vs-gpt-5-5-cost-comparison-2026.html" target="_blank">Revolution in AI</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek">DeepSeek</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI">OpenAI</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--warning);"></span>
@@ -343,6 +361,7 @@ Following Anthropic's Mythos model, OpenAI launched GPT-5.5-Cyber exclusively to
 <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://theverge.com/ai-artificial-intelligence/921073/openai-sam-altman-new-cybersecurity-model-gpt-5-5-cyber" target="_blank">The Verge</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI">OpenAI</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--accent);"></span>
@@ -361,6 +380,7 @@ White House sent formal questions to tech and cybersecurity companies about AI-l
 <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.politico.com/news/2026/04/30/white-house-ai-cyber-threats-mythos-00902045" target="_blank">Politico</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--danger);"></span>
@@ -370,6 +390,7 @@ Six security teams breached Claude Code, Copilot, Codex, and Vertex AI agents vi
 <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them" target="_blank">VentureBeat</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--danger);"></span>
@@ -379,6 +400,7 @@ Six security teams breached Claude Code, Copilot, Codex, and Vertex AI agents vi
 <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank">VentureBeat</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 <li class="news-item">
 <span class="news-bullet" style="background: var(--warning);"></span>
@@ -406,6 +428,7 @@ ARC Prize Foundation analyzed GPT-5.5 and Claude Opus 4.7 on ARC-AGI-3. Both sco
 <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://the-decoder.com/even-the-latest-ai-models-make-three-systematic-reasoning-errors-arc-agi-3-analysis-shows/" target="_blank">The Decoder</a>
 </span>
 </span>
+<span class="entity-badges"><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI">OpenAI</span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic">Anthropic</span></span>
 </li>
 </ul>
 
@@ -483,95 +506,3 @@ ARC Prize Foundation analyzed GPT-5.5 and Claude Opus 4.7 on ARC-AGI-3. Both sco
   <td class="td-price td-green">$414.44</td>
   <td class="td-green">+$6.66</td>
   <td class="td-green">+1.63%</td>
-  <td>$410.44–$417.11</td>
-  <td>$356.28–$555.45</td>
-  <td></td>
-</tr>
-<tr>
-  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="GOOGL" class="ticker-svg"></td>
-  <td><strong>GOOGL</strong></td>
-  <td class="td-price td-green">$385.69</td>
-  <td class="td-green">+$0.89</td>
-  <td class="td-green">+0.23%</td>
-  <td>$379.05–$386.75</td>
-  <td>$147.84–$386.76</td>
-  <td class="td-highlight">52W High ⬆</td>
-</tr>
-<tr>
-  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="AMZN" class="ticker-svg"></td>
-  <td><strong>AMZN</strong></td>
-  <td class="td-price td-green">$268.26</td>
-  <td class="td-green">+$3.20</td>
-  <td class="td-green">+1.21%</td>
-  <td>$262.78–$273.31</td>
-  <td>$183.85–$273.88</td>
-  <td></td>
-</tr>
-<tr>
-  <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="META" class="ticker-svg"></td>
-  <td><strong>META</strong></td>
-  <td class="td-price td-red">$608.75</td>
-  <td class="td-red">-$3.16</td>
-  <td class="td-red">-0.52%</td>
-  <td>$606.11–$618.84</td>
-  <td>$520.26–$796.25</td>
-  <td></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<!-- DATABASE STATS -->
-<div class="section-header"><span class="icon">🗄️</span><h2>AI World Knowledge Graph — Database Stats</h2><span class="accent-line"></span></div>
-<div class="metric-row">
-<div class="metric-card"><div class="metric-value">316</div><div class="metric-label">Entities</div></div>
-<div class="metric-card"><div class="metric-value">74</div><div class="metric-label">Companies</div></div>
-<div class="metric-card"><div class="metric-value">120</div><div class="metric-label">Products</div></div>
-<div class="metric-card"><div class="metric-value">70</div><div class="metric-label">People</div></div>
-<div class="metric-card"><div class="metric-value">52</div><div class="metric-label">Models</div></div>
-<div class="metric-card"><div class="metric-value">23</div><div class="metric-label">Model Families</div></div>
-<div class="metric-card"><div class="metric-value">84</div><div class="metric-label">Events</div></div>
-<div class="metric-card"><div class="metric-value">305</div><div class="metric-label">Relationships</div></div>
-</div>
-
-<!-- TRENDING TOPICS -->
-<div class="section-header"><span class="icon">🔥</span><h2>Trending Topics</h2><span class="accent-line"></span></div>
-<div class="tag-cloud">
-<span class="topic-tag">🏛️ Military AI — Pentagon AI-first doctrine, 7-company deals, Anthropic exclusion</span>
-<span class="topic-tag">💰 Pricing War — DeepSeek V4 at 97% below GPT-5.5, margins compressing</span>
-<span class="topic-tag">🔒 Agent Safety — MCP security concerns, coding agent exploits, credential risks</span>
-<span class="topic-tag">🤖 Humanoid Robotics — Meta acquires ARI, physical AI as post-LLM battleground</span>
-<span class="topic-tag">⚖️ AI Regulation — Maryland bans algo pricing, Oscars exclude AI, WH probes cyberthreats</span>
-</div>
-
-<!-- SOURCES -->
-<div class="sources">
-<h3>Sources</h3>
-<a href="https://www.reuters.com/business/retail-consumer/pentagon-reaches-agreements-with-leading-ai-companies-2026-05-01/" target="_blank">Reuters — Pentagon AI Deals</a>
-<a href="https://www.nytimes.com/2026/05/01/us/politics/pentagon-ai-companies-deals.html" target="_blank">NYT — Pentagon AI</a>
-<a href="https://www.bostonglobe.com/2026/05/02/nation/microsoft-amazon-hand-pentagon-control-over-ai-systems/" target="_blank">Boston Globe — Military AI</a>
-<a href="https://jdrucker.com/pentagon-signs-seven-tech-juggernauts-to-build-their-ai-first-fighting-force/" target="_blank">J. Drucker — AI First Force</a>
-<a href="https://www.engadget.com/2162606/meta-acquires-assured-robot-intelligence-humanoid-ai/" target="_blank">Engadget — Meta ARI Acquisition</a>
-<a href="https://www.thestar.com.my/aseanplus/aseanplus-news/2026/05/02/chinas-deepseek-prices-new-v4-ai-model-at-97-below-openais-gpt-55" target="_blank">The Star — DeepSeek V4 Pricing</a>
-<a href="https://www.npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis" target="_blank">NPR — Harvard AI Triage</a>
-<a href="https://theverge.com/ai-artificial-intelligence/921073/openai-sam-altman-new-cybersecurity-model-gpt-5-5-cyber" target="_blank">The Verge — GPT-5.5-Cyber</a>
-<a href="https://www.bbc.com/news/articles/cy02gjq2987o" target="_blank">BBC — AI-First Military</a>
-<a href="https://www.politico.com/news/2026/04/30/white-house-ai-cyber-threats-mythos-00902045" target="_blank">Politico — WH Cyber Probe</a>
-<a href="https://venturebeat.com/security/six-exploits-broke-ai-coding-agents-iam-never-saw-them" target="_blank">VentureBeat — Agent Exploits</a>
-<a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank">VentureBeat — MCP Security</a>
-<a href="https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/" target="_blank">TechCrunch — Oscars AI Ban</a>
-<a href="https://the-decoder.com/even-the-latest-ai-models-make-three-systematic-reasoning-errors-arc-agi-3-analysis-shows/" target="_blank">The Decoder — ARC-AGI-3 Errors</a>
-<a href="https://www.nytimes.com/2026/05/01/business/surveillance-pricing-groceries-maryland.html" target="_blank">NYT — Maryland AI Pricing Ban</a>
-</div>
-
-   <!-- FOOTER -->
-   <div class="report-footer">
-   Generated by <a href="https://elko.ai" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700;">elko.ai</a> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
-   <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-03-ai-world-daily.html">GitHub Pages</a> 
-<a href="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/daily/2026-05-03-ai-world-daily.json">📋 JSON Data</a> 
-<a href="https://github.com/jsoprych/elko-reports-community/blob/main/daily/2026-05-03-ai-world-daily.html">Source HTML</a>
-</div>
-
-</div>
-</body>
-</html>
