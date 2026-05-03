@@ -109,6 +109,36 @@
   .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
   .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
 
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px; margin-bottom: 24px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px 8px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(74,108,247,0.15); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 3px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-value { font-size: 20px; font-weight: 800; color: var(--accent); }
+  .entity-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-weight: 600; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px; margin-bottom: 20px;
+    border: 1px solid var(--border); border-left: 4px solid var(--warning);
+    text-align: center; font-size: 12px; color: var(--text-muted);
+  }
+  .feedback-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .feedback-bar a:hover { text-decoration: underline; }
+
   /* TABLE */
   .table-wrap {
     overflow-x: auto; margin: 16px 0 24px;
@@ -211,6 +241,25 @@
   <div class="hero-card">
     <h2>🏛️ Pentagon Signs AI Deals With 7 Companies — Anthropic Excluded</h2>
     <p>The Pentagon finalized agreements with SpaceX, OpenAI, Google, Microsoft, AWS, NVIDIA, and Reflection AI to deploy their AI on classified military networks. Anthropic is notably absent following clashes over safety guardrails. Simultaneously, Meta acquired Assured Robot Intelligence for humanoid AI, DeepSeek V4 prices at 97% below GPT-5.5, and Maryland became the first state to ban AI-driven grocery price hikes — a massive week for AI policy, pricing, and physical intelligence.</p>
+  </div>
+
+  <div class="feedback-bar">
+    💬 Questions? Feedback? Reply to this email or write to <a href="mailto:reid@elko.ai">reid@elko.ai</a> — issues are reported directly to our team.
+  </div>
+
+  <div class="entity-row">
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI"><div class="entity-label">OpenAI</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic"><div class="entity-label">Anthropic</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek"><div class="entity-label">DeepSeek</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="Google"><div class="entity-label">Google</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="Microsoft"><div class="entity-label">Microsoft</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="Meta"><div class="entity-label">Meta</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="NVIDIA"><div class="entity-label">NVIDIA</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="Amazon"><div class="entity-label">Amazon</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/spacex/default.svg" alt="SpaceX"><div class="entity-label">SpaceX</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel"><div class="entity-label">Intel</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD"><div class="entity-label">AMD</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle"><div class="entity-label">Oracle</div></div>
   </div>
 
   <div class="metric-row">
