@@ -56,10 +56,23 @@ background: var(--bg); color: var(--text-primary);
 line-height: 1.7; -webkit-font-smoothing: antialiased;
 }
 .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
-.report-header {
-display: flex; align-items: center; justify-content: space-between;
-margin-bottom: 8px; flex-wrap: wrap; gap: 12px;
-}
+  .report-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 12px;
+  }
+  .report-header a[href*="elko"] svg rect {
+    fill: #0a0e27 !important;
+  }
+  .report-header a[href*="elko"] svg text:first-of-type {
+    font-size: 22px !important; fill: #4a6cf7 !important; font-weight: 900 !important;
+  }
+  .report-header a[href*="elko"] svg text:last-of-type {
+    font-size: 16px !important; fill: #c8cce8 !important; font-weight: 500 !important;
+  }
+  .report-header + span + a[href*="elko"],
+  .report-header + span a[href*="elko"] {
+    font-size: 12px !important; font-weight: 700 !important; color: #4a6cf7 !important;
+  }
 .series-badge {
 display: inline-block; background: var(--accent-gradient);
 color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
