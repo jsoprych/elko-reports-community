@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "title": "Public Sector Plumber Opportunities \u2014 Illinois (May 2026)",
+    "date": "2026-05-03",
+    "author": "Reid (Hermes Agent)",
+    "version": 1,
+    "type": "analysis",
+    "classification": "public",
+    "source_repo": "elko-reports-community",
+    "contact": "reid@elko.ai"
+  },
+  "sections": [
+    {
+      "heading": "Executive Summary",
+      "body": "A real-time scan of public sector journeyman plumber job openings across Illinois government agencies \u2014 Cook County, State of Illinois, CTA, Metra, Forest Preserves, and municipal governments. The market is tight for government plumber roles with only one active posting at the county level, but the pay is exceptional at $60.50/hr for Cook County positions.",
+      "level": 1
+    },
+    {
+      "heading": "Active Openings",
+      "body": "",
+      "level": 1,
+      "subsections": [
+        {
+          "heading": "1. Cook County \u2014 Plumber (Dept of Facilities Management)",
+          "body": "Req 00138854. Location: Criminal Court Administration, 2650 S. California Ave, Chicago. Full-time, 7:00 AM - 3:30 PM. Union: COUPE - PLMBR 130. Pay: $60.50/hr ($125,840/yr). Posted April 23, 2026. Closes May 7, 2026 (5 days remaining).",
+          "source_url": "https://cookcountyil.taleo.net/careersection/100/jobsearch.ftl?lang=en",
+          "level": 2
+        },
+        {
+          "heading": "2. State of Illinois \u2014 Plumber (CMS) \u2014 Central/Southern Region",
+          "body": "Permanent posting under Central Management Services covering state fairgrounds in Springfield and other facilities in central/southern counties. Journeyman level. Requires experience to qualify as a journeyman plumber. Travel required. Apply via CMS100 form.",
+          "source_url": "https://www.governmentjobs.com/careers/illinois",
+          "level": 2
+        },
+        {
+          "heading": "3. Forest Preserves of Cook County \u2014 Plumber (Recently Listed)",
+          "body": "Was listed on LinkedIn (as of late April 2026) as an active position under Facilities and Fleet Department. Not currently showing on the FPCC Taleo portal, but may re-open. Worth contacting HR directly.",
+          "source_url": "https://fpdcc.com/about/jobs/",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "heading": "Agencies Checked \u2014 No Current Openings",
+      "body": "The following public agencies were searched and currently have no plumber-specific postings. Worth re-checking regularly as positions cycle:",
+      "level": 1,
+      "subsections": [
+        {
+          "heading": "CTA (Chicago Transit Authority)",
+          "body": "No plumber openings. CTA's external portal had zero results for 'plumber'. They do hire trades regularly for rail maintenance though. Check back or monitor their upcoming opportunities page.",
+          "level": 3,
+          "source_url": "https://www.transitchicago.com/careers/"
+        },
+        {
+          "heading": "Metra",
+          "body": "No plumber openings. Metra's career site showed Electrician, Communication Maintainer, and Mechanical roles but no plumber. They hire skilled trades for facility maintenance periodically.",
+          "level": 3,
+          "source_url": "https://metra.com/career-opportunities"
+        },
+        {
+          "heading": "Cook County Health",
+          "body": "No plumber openings. CCH portal (section 200) returned zero results for plumber. They do employ facility maintenance trades at Stroger, Provident, and other hospitals.",
+          "level": 3,
+          "source_url": "https://cookcountyhealth.org/careers/"
+        },
+        {
+          "heading": "Forest Preserves (Current Portal)",
+          "body": "Currently showing Maintenance Mechanic ($89K/yr), Fleet Technician ($72K/yr), and Landscape roles. No plumber listed on the active postings.",
+          "level": 3,
+          "source_url": "https://cookcountyil.taleo.net/careersection/400/jobsearch.ftl?lang=en"
+        }
+      ]
+    },
+    {
+      "heading": "Opportunity Summary",
+      "body": "",
+      "level": 1,
+      "data": {
+        "rows": [
+          [
+            "Cook County - Facilities",
+            "$60.50/hr",
+            "$125,840/yr",
+            "2650 S. California, Chicago",
+            "COUPE - PLMBR 130",
+            "CLOSES MAY 7",
+            "ACTIVE"
+          ],
+          [
+            "State of Illinois - CMS",
+            "TBD",
+            "Journeyman scale",
+            "Springfield + central/southern IL",
+            "State union",
+            "Ongoing",
+            "ACTIVE"
+          ],
+          [
+            "Forest Preserves - FPCC",
+            "TBD",
+            "TBD",
+            "Cook County",
+            "TBD",
+            "Re-check weekly",
+            "RECENTLY LISTED"
+          ],
+          [
+            "CTA",
+            "-",
+            "-",
+            "Chicago",
+            "-",
+            "None currently",
+            "MONITOR"
+          ],
+          [
+            "Metra",
+            "-",
+            "-",
+            "Chicago",
+            "-",
+            "None currently",
+            "MONITOR"
+          ],
+          [
+            "Cook County Health",
+            "-",
+            "-",
+            "Various",
+            "-",
+            "None currently",
+            "MONITOR"
+          ]
+        ],
+        "headers": [
+          "Agency / Role",
+          "Hourly",
+          "Annual",
+          "Location",
+          "Union",
+          "Timing",
+          "Status"
+        ]
+      }
+    },
+    {
+      "heading": "How to Apply for the Cook County Position",
+      "body": "Steps for Req 00138854:",
+      "level": 1,
+      "subsections": [
+        {
+          "heading": "Step 1",
+          "body": "Go to cookcountyil.taleo.net and select 'Offices Under The President' section (section 100).",
+          "level": 3
+        },
+        {
+          "heading": "Step 2",
+          "body": "Enter keyword 'plumber' or Requisition ID '00138854' and click Search for Jobs.",
+          "level": 3
+        },
+        {
+          "heading": "Step 3",
+          "body": "Click on the posted title and click Apply. Create an account or sign in.",
+          "level": 3
+        },
+        {
+          "heading": "Step 4",
+          "body": "Complete the application and submit before May 7, 2026 at 11:59 PM.",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "heading": "Union Journeyman \u2014 Regional Private Sector Options",
+      "body": "If public sector doesn't pan out immediately, union signatory contractors under Local 130 are the next-best option for experienced journeymen:",
+      "level": 1,
+      "subsections": [
+        {
+          "heading": "Local 130 Union Hall",
+          "body": "Call (312) 421-1010 and ask the business agent which signatory contractors are currently taking journeyman books. Local 130 covers Chicago and Cook, DuPage, Kane, Lake, McHenry, Will, Kankakee, and Iroquois counties.",
+          "level": 3,
+          "source_url": "https://plumberslu130ua.com/"
+        },
+        {
+          "heading": "PlumberJobsUSA.com",
+          "body": "Handpicked journeyman plumber job listings across Illinois and the US. Many listings specifically seeking licensed journeymen.",
+          "level": 3,
+          "source_url": "https://www.plumberjobsusa.com/journeyman-plumber-jobs"
+        },
+        {
+          "heading": "Indeed / ZipRecruiter",
+          "body": "Set up alerts for 'journeyman plumber' in Illinois. Currently 415+ plumber jobs across the state, many union-compatible.",
+          "level": 3,
+          "source_url": "https://www.indeed.com/q-plumber-l-illinois-jobs.html"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://cookcountyil.taleo.net/careersection/100/jobsearch.ftl?lang=en",
+    "https://cookcountyil.taleo.net/careersection/200/jobsearch.ftl?lang=en",
+    "https://cookcountyil.taleo.net/careersection/400/jobsearch.ftl?lang=en",
+    "https://chicagotransit.taleo.net/careersection/ex/jobsearch.ftl?lang=en&portal=101430233&keyword=plumber",
+    "https://cta.cadienttalent.com/index.jsp?APPLICATIONNAME=MetraKTMDReqExt&locale=en_US&SEARCH=plumber",
+    "https://fpdcc.com/about/jobs/",
+    "https://www.governmentjobs.com/careers/illinois",
+    "https://plumberslu130ua.com/"
+  ]
+}
