@@ -8,7 +8,7 @@
   },
   "brands": {
     "01dotai": {
-      "name": "01.AI (\u96f6\u4e00\u4e07\u7269)",
+      "name": "01.AI (零一万物)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/01dotai/color.svg",
       "color": "#003425"
     },
@@ -398,7 +398,7 @@
       "color": "#E91E63"
     },
     "ai360-360": {
-      "name": "Ai360 (360\u667a\u8111)",
+      "name": "Ai360 (360智脑)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ai360-360/color.svg",
       "color": "#006ffb"
     },
@@ -408,12 +408,12 @@
       "color": "#7F2B7B"
     },
     "aihubmix": {
-      "name": "AiHubMix (\u63a8\u7406\u65f6\u4ee3)",
+      "name": "AiHubMix (推理时代)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/aihubmix/color.svg",
       "color": "#006FFB"
     },
     "aimass": {
-      "name": "AiMass (\u7d2b\u4e1c\u592a\u521d)",
+      "name": "AiMass (紫东太初)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/aimass/color.svg",
       "color": "#fff"
     },
@@ -548,7 +548,7 @@
       "color": "#FF6A00"
     },
     "alibabacloud": {
-      "name": "AlibabaCloud (\u963f\u91cc\u4e91)",
+      "name": "AlibabaCloud (阿里云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibabacloud/color.svg",
       "color": "#FF6A00"
     },
@@ -1069,7 +1069,7 @@
     },
     "apple": {
       "name": "Apple",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/mono.svg",
       "color": "#fff"
     },
     "apple-arcade": {
@@ -3163,7 +3163,7 @@
       "color": "#14AECB"
     },
     "baai": {
-      "name": "BAAI (\u667a\u6e90\u7814\u7a76\u9662)",
+      "name": "BAAI (智源研究院)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baai/mono.svg",
       "color": "#000"
     },
@@ -3213,7 +3213,7 @@
       "color": "#783BF9"
     },
     "baichuan": {
-      "name": "Baichuan (\u767e\u5ddd)",
+      "name": "Baichuan (百川)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baichuan/color.svg",
       "color": "#FF6933"
     },
@@ -3223,12 +3223,12 @@
       "color": "#2932E1"
     },
     "baiducloud": {
-      "name": "BaiduCloud (\u767e\u5ea6\u667a\u80fd\u4e91)",
+      "name": "BaiduCloud (百度智能云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baiducloud/color.svg",
       "color": "#2468f2"
     },
     "bailian": {
-      "name": "Bailian (\u963f\u91cc\u4e91\u767e\u70bc)",
+      "name": "Bailian (阿里云百炼)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/bailian/color.svg",
       "color": "#615ced"
     },
@@ -4348,7 +4348,7 @@
       "color": "#0066FF"
     },
     "chatglm": {
-      "name": "ChatGLM (\u667a\u8c31)",
+      "name": "ChatGLM (智谱)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/chatglm/color.svg",
       "color": "#4268FA"
     },
@@ -5543,7 +5543,7 @@
       "color": "#FFC63A"
     },
     "dall-e-openai": {
-      "name": "DALL\u00b7E (OpenAI)",
+      "name": "DALL·E (OpenAI)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/dall-e-openai/color.svg",
       "color": "#000"
     },
@@ -6173,7 +6173,7 @@
       "color": "#24D2C8"
     },
     "doubao": {
-      "name": "Doubao (\u8c46\u5305)",
+      "name": "Doubao (豆包)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/doubao/color.svg",
       "color": "#FFF"
     },
@@ -9108,7 +9108,7 @@
       "color": "#2E9FE6"
     },
     "hailuo": {
-      "name": "Hailuo (\u6d77\u87ba)",
+      "name": "Hailuo (海螺)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hailuo/color.svg",
       "color": "#fff"
     },
@@ -9573,7 +9573,7 @@
       "color": "#FF0000"
     },
     "huaweicloud": {
-      "name": "HuaweiCloud (\u534e\u4e3a\u4e91)",
+      "name": "HuaweiCloud (华为云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/huaweicloud/color.svg",
       "color": "#C7000B"
     },
@@ -9623,7 +9623,7 @@
       "color": "#D0021B"
     },
     "hunyuan": {
-      "name": "Hunyuan (\u817e\u8baf\u6df7\u5143)",
+      "name": "Hunyuan (腾讯混元)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hunyuan/color.svg",
       "color": "#0053e0"
     },
@@ -9778,7 +9778,7 @@
       "color": "#2A4AF4"
     },
     "iflytekcloud": {
-      "name": "IFlyTekCloud (\u8baf\u98de\u5f00\u653e\u5e73\u53f0)",
+      "name": "IFlyTekCloud (讯飞开放平台)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/iflytekcloud/color.svg",
       "color": "#2A80E2"
     },
@@ -9918,7 +9918,7 @@
       "color": "#4334F5"
     },
     "infinigence": {
-      "name": "Infinigence (\u65e0\u95ee\u82af\u7a79)",
+      "name": "Infinigence (无问芯穹)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/infinigence/color.svg",
       "color": "#7952ea"
     },
@@ -10378,7 +10378,7 @@
       "color": "#7C3AED"
     },
     "jimeng": {
-      "name": "Jimeng (\u5373\u68a6)",
+      "name": "Jimeng (即梦)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/jimeng/color.svg",
       "color": "#000"
     },
@@ -10883,7 +10883,7 @@
       "color": "#1D4B00"
     },
     "kling": {
-      "name": "Kling (\u53ef\u7075)",
+      "name": "Kling (可灵)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/kling/color.svg",
       "color": "#000"
     },
@@ -10973,7 +10973,7 @@
       "color": "#000000"
     },
     "kolors": {
-      "name": "Kolors (\u5feb\u624b\u53ef\u56fe)",
+      "name": "Kolors (快手可图)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/kolors/color.svg",
       "color": "#83FF63"
     },
@@ -12619,7 +12619,7 @@
     },
     "midjourney": {
       "name": "Midjourney",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/midjourney/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/midjourney/light.svg",
       "color": "#fff"
     },
     "migadu": {
@@ -12913,7 +12913,7 @@
       "color": "#6F53F3"
     },
     "moonshot": {
-      "name": "Moonshot (\u6708\u4e4b\u6697\u9762)",
+      "name": "Moonshot (月之暗面)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/moonshot/mono.svg",
       "color": "#16191E"
     },
@@ -13744,7 +13744,7 @@
     },
     "nvidia": {
       "name": "NVIDIA",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg",
       "color": "#76B900"
     },
     "nvidia-nemotron": {
@@ -13899,7 +13899,7 @@
     },
     "ollama": {
       "name": "Ollama",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ollama/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ollama/mono.svg",
       "color": "#fff"
     },
     "omada-cloud": {
@@ -15789,7 +15789,7 @@
     },
     "qdrant": {
       "name": "Qdrant",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/qdrant/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/qdrant/light.svg",
       "color": "#000000"
     },
     "qemu": {
@@ -15813,12 +15813,12 @@
       "color": "#55C500"
     },
     "qingyan": {
-      "name": "Qingyan (\u667a\u8c31\u6e05\u8a00)",
+      "name": "Qingyan (智谱清言)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/qingyan/color.svg",
       "color": "#1041F3"
     },
     "qiniu": {
-      "name": "Qiniu (\u4e03\u725b\u4e91)",
+      "name": "Qiniu (七牛云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/qiniu/color.svg",
       "color": "#06AEEF"
     },
@@ -16389,7 +16389,7 @@
     },
     "replicate": {
       "name": "Replicate",
-      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/replicate/default.svg",
+      "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/replicate/mono.svg",
       "color": "#EA2805"
     },
     "replit": {
@@ -17208,7 +17208,7 @@
       "color": "#000000"
     },
     "sensenova": {
-      "name": "SenseNova (\u5546\u6c64)",
+      "name": "SenseNova (商汤)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/sensenova/color.svg",
       "color": "#5B2AD8"
     },
@@ -17523,7 +17523,7 @@
       "color": "#000000"
     },
     "skywork": {
-      "name": "Skywork (\u5929\u5de5)",
+      "name": "Skywork (天工)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/skywork/color.svg",
       "color": "#fff"
     },
@@ -17843,7 +17843,7 @@
       "color": "#09A3D5"
     },
     "spark": {
-      "name": "Spark (\u8baf\u98de\u661f\u706b)",
+      "name": "Spark (讯飞星火)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/spark/color.svg",
       "color": "#0070f0"
     },
@@ -18123,7 +18123,7 @@
       "color": "#FF269E"
     },
     "statecloud": {
-      "name": "StateCloud (\u5929\u7ffc\u4e91)",
+      "name": "StateCloud (天翼云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/statecloud/color.svg",
       "color": "#DF0428"
     },
@@ -18203,7 +18203,7 @@
       "color": "#8E1C04"
     },
     "stepfun": {
-      "name": "Stepfun (\u9636\u8dc3\u661f\u8fb0)",
+      "name": "Stepfun (阶跃星辰)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/stepfun/color.svg",
       "color": "#005AFF"
     },
@@ -18573,7 +18573,7 @@
       "color": "#7935D2"
     },
     "tado": {
-      "name": "tado\u00b0",
+      "name": "tado°",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tado/default.svg",
       "color": "#FFA900"
     },
@@ -18783,7 +18783,7 @@
       "color": "#0052D9"
     },
     "tencentcloud": {
-      "name": "TencentCloud (\u817e\u8baf\u4e91)",
+      "name": "TencentCloud (腾讯云)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tencentcloud/color.svg",
       "color": "#2151d1"
     },
@@ -19038,7 +19038,7 @@
       "color": "#005F0F"
     },
     "tiangong": {
-      "name": "Tiangong (\u5929\u5de5)",
+      "name": "Tiangong (天工)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tiangong/color.svg",
       "color": "#0057ff"
     },
@@ -20338,7 +20338,7 @@
       "color": "#E1382D"
     },
     "volcengine": {
-      "name": "Volcengine (\u706b\u5c71\u5f15\u64ce)",
+      "name": "Volcengine (火山引擎)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/volcengine/color.svg",
       "color": "#fff"
     },
@@ -20703,7 +20703,7 @@
       "color": "#72D44C"
     },
     "wenxin": {
-      "name": "Wenxin (\u6587\u5fc3)",
+      "name": "Wenxin (文心)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/wenxin/color.svg",
       "color": "#167ADF"
     },
@@ -21098,7 +21098,7 @@
       "color": "#2C3E50"
     },
     "xuanyuan": {
-      "name": "Xuanyuan (\u5ea6\u5c0f\u6ee1\u8f69\u8f95)",
+      "name": "Xuanyuan (度小满轩辕)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xuanyuan/color.svg",
       "color": "#fff"
     },
@@ -21188,7 +21188,7 @@
       "color": "#000000"
     },
     "yi": {
-      "name": "Yi (\u96f6\u4e00\u4e07\u7269)",
+      "name": "Yi (零一万物)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/yi/color.svg",
       "color": "#003425"
     },
@@ -21258,7 +21258,7 @@
       "color": "#00B9F1"
     },
     "yuanbao": {
-      "name": "Yuanbao (\u817e\u8baf\u5143\u5b9d)",
+      "name": "Yuanbao (腾讯元宝)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/yuanbao/color.svg",
       "color": "#fff"
     },
@@ -21418,7 +21418,7 @@
       "color": "#0084FF"
     },
     "zhipu": {
-      "name": "Zhipu (\u667a\u8c31)",
+      "name": "Zhipu (智谱)",
       "svg": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/zhipu/color.svg",
       "color": "#3859FF"
     },
