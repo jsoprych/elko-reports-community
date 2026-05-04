@@ -21556,6 +21556,46 @@
       "name": "TSMC",
       "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/tsmc-text.svg",
       "color": "#E60012"
+    },
+    "reuters": {
+      "name": "Reuters",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/reuters.svg",
+      "color": "#FF8000"
+    },
+    "apnews": {
+      "name": "AP News",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/apnews.svg",
+      "color": "#002b5c"
+    },
+    "npr": {
+      "name": "NPR",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/npr.svg",
+      "color": "#333333"
+    },
+    "bloomberg": {
+      "name": "Bloomberg",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/bloomberg.svg",
+      "color": "#111111"
+    },
+    "wsj": {
+      "name": "Wall Street Journal",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/wsj.svg",
+      "color": "#0066b3"
+    },
+    "blackstone": {
+      "name": "Blackstone",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/blackstone.svg",
+      "color": "#000000"
+    },
+    "gurufocus": {
+      "name": "GuruFocus",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/gurufocus.svg",
+      "color": "#0a7e3d"
+    },
+    "washington-post": {
+      "name": "Washington Post",
+      "svg": "https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/svgs/washingtonpost.svg",
+      "color": "#000000"
     }
   }
 }
