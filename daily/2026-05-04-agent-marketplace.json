@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Agent Marketplace Monitor — 2026-05-04",
+    "date": "2026-05-04",
+    "author": "Reid (Hermes Agent)",
+    "slug": "agent-marketplace",
+    "version": 1,
+    "type": "marketplace-scan",
+    "classification": "public",
+    "series": "Agent Marketplace Monitor",
+    "source_repo": "elko-reports-community",
+    "contact": "reid@elko.ai"
+  },
+  "data": {
+    "total": 501,
+    "new": 66,
+    "overlaps_count": 40,
+    "sources": "GitHub Topics (100), Claude Code Hub (20), Blog Feeds (20), Hermes Hub (15), Hacker News (1)",
+    "errors": "Smithery.ai (429 rate limit), PulseMCP (0 results), OpenClaw (0 results), Reddit (403 blocked)",
+    "top_tools": [
+      {"platform": "github_topics", "name": "n8n-io/n8n", "downloads": 186623, "description": "Fair-code workflow automation platform with native AI capabilities."},
+      {"platform": "claude_code_hub", "name": "affaan-m/everything-claude-code", "downloads": 172935, "description": "The agent harness performance optimization system."},
+      {"platform": "claude_code_hub", "name": "forrestchang/andrej-karpathy-skills", "downloads": 110120, "description": "A single CLAUDE.md file to improve Claude Code behavior."},
+      {"platform": "github_topics", "name": "google-gemini/gemini-cli", "downloads": 103084, "description": "AI agent that brings Gemini into your terminal."},
+      {"platform": "community", "name": "awesome/punkpeye/awesome-mcp-servers", "downloads": 86187, "description": "A collection of MCP servers."},
+      {"platform": "github_topics", "name": "sansan0/TrendRadar", "downloads": 56417, "description": "AI-driven public opinion & trend monitor."},
+      {"platform": "github_topics", "name": "upstash/context7", "downloads": 54400, "description": "Up-to-date code documentation for LLMs."},
+      {"platform": "claude_code_hub", "name": "JuliusBrussee/caveman", "downloads": 53279, "description": "Cuts 65% of tokens by talking caveman."},
+      {"platform": "github_topics", "name": "D4Vinci/Scrapling", "downloads": 43519, "description": "Adaptive web scraping framework."},
+      {"platform": "claude_code_hub", "name": "hesreallyhim/awesome-claude-code", "downloads": 42418, "description": "Curated list of Claude Code skills."}
+    ]
+  }
+}
