@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>AI World Daily — 2026-05-04 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* HEADER */
+  .report-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 12px;
+  }
+  .report-logo svg { display: block; }
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* TOP STORY / HERO */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-value {
+    font-size: 24px; font-weight: 800; color: var(--accent);
+  }
+  .entity-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+    .td-green { color: #22c55e; font-weight: 700; }
+    .td-red { color: #ef4444; font-weight: 700; }
+    .td-price { font-size: 14px; }
+    .td-svg { width: 36px; text-align: center; }
+    .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+    .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+    .entity-card img[src*="svg"] { display: inline-block; width: 28px; height: 28px; background: var(--bar-bg); border-radius: 4px; padding: 2px; margin-bottom: 4px; object-fit: contain; }
+    .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+    .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+    .news-sublinks a { color: var(--accent); text-decoration: none; }
+    .news-sublinks a:hover { text-decoration: underline; }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <svg width="140" height="26" viewBox="0 0 180 32">
+      <rect width="180" height="32" rx="6" fill="#1a1a2e"/>
+      <text x="12" y="21" font-family="monospace" font-size="14" font-weight="700" fill="#4a6cf7">ELKO</text>
+      <text x="56" y="21" font-family="monospace" font-size="10" fill="#8892b0">REPORTS</text>
+      <circle cx="134" cy="16" r="3" fill="#4a6cf7"/>
+      <circle cx="144" cy="16" r="3" fill="#6c63ff"/>
+      <circle cx="154" cy="16" r="3" fill="#8892b0"/>
+    </svg>
+  </div>
+  <span class="series-badge">AI World Daily</span>
+  <h1 class="report-title">AI World Daily — 2026-05-04</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-04</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Newsletter</span>
+  </div>
+  <hr class="divider">
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://www.reuters.com/legal/transactional/anthropic-nears-15-billion-ai-joint-venture-with-wall-street-firms-wsj-reports-2026-05-04/" target="_blank" style="color:var(--accent);text-decoration:none;">🤝 Anthropic Partners with Wall Street for $1.5B AI Venture; Pentagon Excludes Anthropic from Classified Deals</a></h2>
+    <p>This week's top stories: Anthropic nears a $1.5B joint venture with Blackstone and Goldman Sachs to sell AI tools to private equity firms. Meanwhile, the Pentagon signed AI deals with 7 tech companies (AWS, Google, Microsoft, OpenAI, SpaceX, NVIDIA, Oracle) — but excluded Anthropic amid its legal dispute. A critical MCP security flaw exposed 200K servers to RCE. AI outperformed doctors in a Harvard emergency triage trial, and Big Tech AI spending is set to hit $600B.</p>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-card"><div class="metric-value">$1.5B</div><div class="metric-label">Anthropic-Wall St JV</div></div>
+    <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Pentagon AI Deals</div></div>
+    <div class="metric-card"><div class="metric-value">200K</div><div class="metric-label">MCP Servers at Risk</div></div>
+    <div class="metric-card"><div class="metric-value">$600B</div><div class="metric-label">Big Tech AI Spend</div></div>
+    <div class="metric-card"><div class="metric-value">70%</div><div class="metric-label">Americans Fear Job Loss</div></div>
+</div>
+
+  
+  <!-- ENTITY CARDS -->
+    <div class="entity-row">
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="Anthropic"><div class="entity-label">Anthropic</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="OpenAI"><div class="entity-label">OpenAI</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="NVIDIA"><div class="entity-label">NVIDIA</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="Google"><div class="entity-label">Google</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/color.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="Microsoft"><div class="entity-label">Microsoft</div></div>
+    <div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/spacex/default.svg" style="width:28px;height:28px;object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;" alt="SpaceX"><div class="entity-label">SpaceX</div></div>
+  </div>
+
+
+  <!-- NEWS -->
+  <div class="section-header">
+    <span class="icon">📰</span>
+    <h2>This Week in AI</h2>
+    <span class="accent-line"></span>
+  </div>
+  <ul class="news-list">
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://www.reuters.com/legal/transactional/anthropic-nears-15-billion-ai-joint-venture-with-wall-street-firms-wsj-reports-2026-05-04/" target="_blank" style="color:var(--text-primary);text-decoration:none;">1. Anthropic nears $1.5B joint venture with Blackstone, Goldman Sachs for AI tools</a></strong><br>
+      Anthropic, Blackstone and Hellman & Friedman are anchoring the deal (~$300M each). Goldman Sachs is investing ~$150M. The JV will develop and sell AI tools to private equity-backed companies using a Palantir-style consulting model.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.reuters.com/legal/transactional/anthropic-nears-15-billion-ai-joint-venture-with-wall-street-firms-wsj-reports-2026-05-04/" target="_blank">Reuters</a> • <a href="https://www.gurufocus.com/news/8839119/anthropic-partners-with-blackstone-and-goldman-sachs-for-15b-ai-venture" target="_blank">GuruFocus</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://apnews.com/article/pentagon-artificial-intelligence-military-classified-systems-war-060cecf836c4cebcf012a3ceb5333f2c" target="_blank" style="color:var(--text-primary);text-decoration:none;">2. Pentagon inks AI deals with 7 tech companies — Anthropic excluded</a></strong><br>
+      The Pentagon reached agreements with Amazon Web Services, Google, Microsoft, OpenAI, SpaceX, NVIDIA, Reflection, and Oracle to deploy their AI on classified military networks. Anthropic was notably absent due to its legal dispute over safety guardrails and mass surveillance concerns.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://apnews.com/article/pentagon-artificial-intelligence-military-classified-systems-war-060cecf836c4cebcf012a3ceb5333f2c" target="_blank">AP News</a> • <a href="https://www.reuters.com/business/retail-consumer/pentagon-reaches-agreements-with-leading-ai-companies-2026-05-01/" target="_blank">Reuters</a> • <a href="https://www.theguardian.com/us-news/2026/may/01/pentagon-us-military-pairs-with-spacex-google-openai" target="_blank">The Guardian</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank" style="color:var(--text-primary);text-decoration:none;">3. Critical MCP security flaw exposes 200,000 AI servers to RCE</a></strong><br>
+      OX Security researchers uncovered an architectural RCE vulnerability in Anthropic's Model Context Protocol, affecting 150M+ downloads and up to 200K server instances. Anthropic declined to patch, calling the behavior 'expected'. Multiple CVEs issued; LiteLLM, Flowise, Bisheng patched. Windsurf and LangChain-Chatchat still exposed.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank">VentureBeat</a> • <a href="https://www.theregister.com/2026/04/16/anthropic_mcp_design_flaw/" target="_blank">The Register</a> • <a href="https://thehackernews.com/2026/04/anthropic-mcp-design-vulnerability.html" target="_blank">The Hacker News</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis" target="_blank" style="color:var(--text-primary);text-decoration:none;">4. AI outperforms doctors in Harvard emergency triage trial</a></strong><br>
+      Researchers tested an AI model against physicians in diagnosing hospital patients, and the model outperformed the humans. The study suggests a future 'triadic care model' of doctor, patient, and AI working together.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis" target="_blank">NPR</a> • <a href="https://theguardian.com/technology/2026/apr/30/ai-outperforms-doctors-in-harvard-trial-of-emergency-triage-diagnoses" target="_blank">The Guardian</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28" target="_blank" style="color:var(--text-primary);text-decoration:none;">5. Big Tech AI spending set to hit $600B — investors question payoff</a></strong><br>
+      Big Tech has spent hundreds of billions over three years powering the AI boom. Meta alone could spend $145B this year on AI. Goldman Sachs says the AI software sell-off was overdone, calling it a buying opportunity.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28" target="_blank">Reuters</a> • <a href="https://gizmodo.com/meta-could-spend-145-billion-this-year-due-to-ai-2000752323" target="_blank">Gizmodo</a> • <a href="https://www.fool.com/investing/2026/05/03/goldman-sachs-says-the-artificial-intelligence-ai/" target="_blank">Motley Fool</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://www.nytimes.com/2026/05/03/us/politics/democrats-republicans-ai.html" target="_blank" style="color:var(--text-primary);text-decoration:none;">6. Bi-partisan AI worry unites Democrats and Republicans</a></strong><br>
+      Growing unease over AI is one of the few things uniting Americans across the political spectrum. 70% believe AI will lead to fewer job opportunities, up from 56% a year ago. China, meanwhile, embraces AI while Americans distrust it.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.nytimes.com/2026/05/03/us/politics/democrats-republicans-ai.html" target="_blank">NYT</a> • <a href="https://www.washingtonpost.com/opinions/2026/04/28/americans-distrust-artificial-intelligence-while-china-embraces-it/" target="_blank">Washington Post</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background: var(--accent);"></span>
+    <span class="news-text">
+      <strong><a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chinese-court-rules-companies-cant-fire-workers-just-because-ai-is-cheaper-ruling-says-automation-alone-doesnt-justify-layoffs" target="_blank" style="color:var(--text-primary);text-decoration:none;">7. Chinese court rules companies can't fire workers just because AI is cheaper</a></strong><br>
+      A Chinese court ruled that automation alone doesn't justify layoffs — a landmark decision as China both leads in AI adoption and grapples with its workforce implications.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chinese-court-rules-companies-cant-fire-workers-just-because-ai-is-cheaper-ruling-says-automation-alone-doesnt-justify-layoffs" target="_blank">Tom's Hardware</a></span>
+    </span>
+  </li>
+</ul>
+
+  <!-- MARKET -->
+  
+  <div class="section-header">
+    <span class="icon">📈</span>
+    <h2>Market Snapshot</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="section-body">AI and tech stocks performance. Prices as of market close May 1, 2026.</div>
+  <div class="chart-container" style="overflow-x:auto;padding:12px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border);">
+          <th class="td-svg"> </th>
+          <th style="text-align:left;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">Ticker</th>
+          <th style="text-align:right;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">Price</th>
+          <th style="text-align:right;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">Change</th>
+          <th style="text-align:right;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">%</th>
+          <th style="text-align:center;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">Day Range</th>
+          <th style="text-align:center;padding:6px 8px;color:var(--text-muted);font-size:10px;text-transform:uppercase;">52W Range</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" class="ticker-svg" alt="NVIDIA"></td>
+      <td><strong>NVDA</strong><br><span style="font-size:10px;color:var(--text-muted)">NVIDIA</span></td>
+      <td class="td-price td-red">$198.45</td>
+    <td class="td-red">$-1.12</td>
+    <td class="td-red">-0.56%</td>
+      <td>$197–$203</td>
+      <td>$111–$217</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" class="ticker-svg" alt="AMD"></td>
+      <td><strong>AMD</strong><br><span style="font-size:10px;color:var(--text-muted)">AMD</span></td>
+      <td class="td-price td-green">$360.54</td>
+    <td class="td-green">+$6.05</td>
+    <td class="td-green">+1.71%</td>
+      <td>$349–$363</td>
+      <td>$97–$363</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/tsmc-text.svg" class="ticker-svg" alt="TSMC"></td>
+      <td><strong>TSM</strong><br><span style="font-size:10px;color:var(--text-muted)">TSMC</span></td>
+      <td class="td-price td-green">$397.67</td>
+    <td class="td-green">+$1.61</td>
+    <td class="td-green">+0.41%</td>
+      <td>$392–$404</td>
+      <td>$171–$415</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" class="ticker-svg" alt="Broadcom"></td>
+      <td><strong>AVGO</strong><br><span style="font-size:10px;color:var(--text-muted)">Broadcom</span></td>
+      <td class="td-price td-green">$421.28</td>
+    <td class="td-green">+$3.85</td>
+    <td class="td-green">+0.92%</td>
+      <td>$413–$423</td>
+      <td>$196–$429</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/color.svg" class="ticker-svg" alt="Microsoft"></td>
+      <td><strong>MSFT</strong><br><span style="font-size:10px;color:var(--text-muted)">Microsoft</span></td>
+      <td class="td-price td-green">$414.44</td>
+    <td class="td-green">+$6.66</td>
+    <td class="td-green">+1.63%</td>
+      <td>$410–$417</td>
+      <td>$356–$555</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" class="ticker-svg" alt="Alphabet"></td>
+      <td><strong>GOOGL</strong><br><span style="font-size:10px;color:var(--text-muted)">Alphabet</span></td>
+      <td class="td-price td-green">$385.69</td>
+    <td class="td-green">+$0.89</td>
+    <td class="td-green">+0.23%</td>
+      <td>$379–$387</td>
+      <td>$148–$387</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" class="ticker-svg" alt="Amazon"></td>
+      <td><strong>AMZN</strong><br><span style="font-size:10px;color:var(--text-muted)">Amazon</span></td>
+      <td class="td-price td-green">$268.42</td>
+    <td class="td-green">+$3.36</td>
+    <td class="td-green">+1.27%</td>
+      <td>$263–$273</td>
+      <td>$184–$274</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="td-svg"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/color.svg" class="ticker-svg" alt="Meta"></td>
+      <td><strong>META</strong><br><span style="font-size:10px;color:var(--text-muted)">Meta</span></td>
+      <td class="td-price td-red">$608.75</td>
+    <td class="td-red">$-3.16</td>
+    <td class="td-red">-0.52%</td>
+      <td>$606–$619</td>
+      <td>$520–$796</td>
+      <td></td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- TRENDING TAGS -->
+  <div class="section-header">
+    <span class="icon">🏷️</span>
+    <h2>Trending Topics</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="section-body">Topics being tracked across AI news sources.</div>
+  <div style="margin:12px 0 20px;display:flex;flex-wrap:wrap;gap:6px;">
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#4a6cf7;">Microsoft-OpenAI AGI Agreement</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#f59e0b;">Claude Database Wipe</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#f59e0b;">Agent Safety</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#22c55e;">AI Content Moderation</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#ef4444;">3D X-DRAM</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#ef4444;">HBM Alternatives</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#a78bfa;">AI Deanonymization</span>
+    <span style="display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:#4a6cf7;">MCP Security Flaw</span>
+</div>
+
+  <!-- DATABASE STATS -->
+  <div class="section-header">
+    <span class="icon">🗄️</span>
+    <h2>Knowledge Graph Stats</h2>
+    <span class="accent-line"></span>
+  </div>
+  <div class="metric-row">
+    <div class="metric-card"><div class="metric-value">316</div><div class="metric-label">Entities</div></div>
+    <div class="metric-card"><div class="metric-value">305</div><div class="metric-label">Relationships</div></div>
+    <div class="metric-card"><div class="metric-value">52</div><div class="metric-label">Models Tracked</div></div>
+    <div class="metric-card"><div class="metric-value">84</div><div class="metric-label">Timeline Events</div></div>
+    <div class="metric-card"><div class="metric-value">33</div><div class="metric-label">Pricing Entries</div></div>
+  </div>
+
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h3>Sources</h3>
+    <a href="https://www.reuters.com/legal/transactional/anthropic-nears-15-billion-ai-joint-venture-with-wall-street-firms-wsj-reports-2026-05-04/" target="_blank">Reuters</a>
+    <a href="https://apnews.com/article/pentagon-artificial-intelligence-military-classified-systems-war-060cecf836c4cebcf012a3ceb5333f2c" target="_blank">AP News</a>
+    <a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank">VentureBeat</a>
+    <a href="https://npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis" target="_blank">NPR</a>
+    <a href="https://reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28" target="_blank">Reuters</a>
+    <a href="https://www.nytimes.com/2026/05/03/us/politics/democrats-republicans-ai.html" target="_blank">NYT</a>
+    <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/chinese-court-rules-companies-cant-fire-workers-just-because-ai-is-cheaper-ruling-says-automation-alone-doesnt-justify-layoffs" target="_blank">Tom's Hardware</a>
+    <a href="https://www.theguardian.com/us-news/2026/may/01/pentagon-us-military-pairs-with-spacex-google-openai" target="_blank">The Guardian</a>
+    <a href="https://www.fool.com/investing/2026/05/03/goldman-sachs-says-the-artificial-intelligence-ai/" target="_blank">Motley Fool</a>
+    <a href="https://gizmodo.com/meta-could-spend-145-billion-this-year-due-to-ai-2000752323" target="_blank">Gizmodo</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="<a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-04-ai-world-daily.html">GitHub Pages</a> | <a href="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/daily/2026-05-04-ai-world-daily.json">📋 JSON Data</a> | <a href="https://github.com/jsoprych/elko-reports-community/blob/main/daily/2026-05-04-ai-world-daily.html">Source HTML</a>"><a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-04-ai-world-daily.html">GitHub Pages</a> | <a href="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/daily/2026-05-04-ai-world-daily.json">📋 JSON Data</a> | <a href="https://github.com/jsoprych/elko-reports-community/blob/main/daily/2026-05-04-ai-world-daily.html">Source HTML</a></a>
+  </div>
+
+</div>
+</body>
+</html>
