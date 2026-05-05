@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Agent Marketplace Monitor — 2026-05-05 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.data-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+.data-table th { text-align:left; padding:8px 12px; font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; border-bottom:1px solid var(--border); }
+.data-table td { padding:8px 12px; border-bottom:1px solid var(--border); color:var(--text-secondary); }
+.data-table tbody tr:hover { background:var(--bar-bg); }
+.status-ok { color:#22c55e; font-weight:600; }
+.status-warn { color:#f59e0b; font-weight:600; }
+.status-err { color:#ef4444; font-weight:600; }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Agent Marketplace Monitor</span>
+  <h1 class="report-title">Agent Marketplace Monitor — 2026-05-05</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-05</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Daily Scan</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>🏆 n8n-io/n8n — 186,715 downloads</h2>
+    <p>#1 tool of the day: n8n-io/n8n leads with 186,715 downloads. Fair-code workflow automation platform with native AI capabilities. Combine visual building with cus... 5 new entries added today. Claude Code ecosystem continues to dominate with 3 new skills.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row">
+  <div class="metric-card">
+    <div class="metric-value">506</div>
+    <div class="metric-label">Total Entries Tracked</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">+5</div>
+    <div class="metric-label">New Today</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">42</div>
+    <div class="metric-label">Overlaps with elko Domain</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">8</div>
+    <div class="metric-label">Sources Scanned</div>
+  </div>
+</div>
+
+  <!-- CONTENT (panel stack) -->
+  <div class="entity-row">
+  <a href="https://github.com" target="_blank" class="entity-card" style="text-decoration:none">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/github/default.svg" width="32" height="32" alt="GitHub">
+    <div class="entity-label">GitHub</div>
+  </a><a href="https://smithery.ai" target="_blank" class="entity-card" style="text-decoration:none">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/smithery/color.svg" width="32" height="32" alt="Smithery.ai">
+    <div class="entity-label">Smithery.ai</div>
+  </a><a href="https://reddit.com" target="_blank" class="entity-card" style="text-decoration:none">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/reddit/default.svg" width="32" height="32" alt="Reddit">
+    <div class="entity-label">Reddit</div>
+  </a><a href="https://news.ycombinator.com" target="_blank" class="entity-card" style="text-decoration:none">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/y-combinator/default.svg" width="32" height="32" alt="Hacker News">
+    <div class="entity-label">Hacker News</div>
+  </a>
+</div><div class="chart-container">
+  <div class="section-header"><span class="icon">📊</span><h2>Top 8 Tools by Downloads</h2><span class="accent-line"></span></div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">Across all monitored marketplaces</div>
+  <div class="bar-row">
+    <div class="bar-label">n8n-io/n8n</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:100.0%;background:#4a6cf7" data-pct="100.0%"></div>
+    </div>
+    <div class="bar-count">186,715</div>
+  </div><div class="bar-row">
+    <div class="bar-label">affaan-m/everything-…</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:92.9%;background:#6c63ff" data-pct="92.9%"></div>
+    </div>
+    <div class="bar-count">173,425</div>
+  </div><div class="bar-row">
+    <div class="bar-label">forrestchang/andrej-…</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:60.0%;background:#818cf8" data-pct="60.0%"></div>
+    </div>
+    <div class="bar-count">112,114</div>
+  </div><div class="bar-row">
+    <div class="bar-label">google-gemini/gemini…</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:55.2%;background:#a78bfa" data-pct="55.2%"></div>
+    </div>
+    <div class="bar-count">103,141</div>
+  </div><div class="bar-row">
+    <div class="bar-label">awesome/punkpeye/awe…</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:46.2%;background:#c4b5fd" data-pct="46.2%"></div>
+    </div>
+    <div class="bar-count">86,229</div>
+  </div><div class="bar-row">
+    <div class="bar-label">sansan0/TrendRadar</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:30.3%;background:#f472b6" data-pct="30.3%"></div>
+    </div>
+    <div class="bar-count">56,563</div>
+  </div><div class="bar-row">
+    <div class="bar-label">upstash/context7</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:29.2%;background:#fb7185" data-pct="29.2%"></div>
+    </div>
+    <div class="bar-count">54,462</div>
+  </div><div class="bar-row">
+    <div class="bar-label">JuliusBrussee/caveman</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:28.9%;background:#f87171" data-pct="28.9%"></div>
+    </div>
+    <div class="bar-count">53,914</div>
+  </div>
+</div><div class="section-header"><span class="icon">🔄</span><h2>Overlaps with elko Domain</h2><span class="accent-line"></span></div>
+<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">42 tools across all platforms share domain keywords with elko.ai's focus areas</div>
+<div class="news-list">
+  <div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/ruvnet/ruflo" target="_blank" style="color:var(--text-primary);text-decoration:none">ruvnet/ruflo</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: conversation
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/gooseworks-ai/goose-aeo" target="_blank" style="color:var(--text-primary);text-decoration:none">gooseworks-ai/goose-aeo</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: track
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/Sasa993/Agent-Tool" target="_blank" style="color:var(--text-primary);text-decoration:none">Sasa993/Agent-Tool</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: track
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/caikiji/pathnote" target="_blank" style="color:var(--text-primary);text-decoration:none">caikiji/pathnote</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: track
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/longbiao515/rcs-message-skill" target="_blank" style="color:var(--text-primary);text-decoration:none">longbiao515/rcs-message-skill</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: message
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/AgriciDaniel/claude-ads" target="_blank" style="color:var(--text-primary);text-decoration:none">AgriciDaniel/claude-ads</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: audit
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/AgriciDaniel/claude-blog" target="_blank" style="color:var(--text-primary);text-decoration:none">AgriciDaniel/claude-blog</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: log
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/aaronjmars/soul.md" target="_blank" style="color:var(--text-primary);text-decoration:none">aaronjmars/soul.md</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: person
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/prompt-security/clawsec" target="_blank" style="color:var(--text-primary);text-decoration:none">prompt-security/clawsec</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: audit
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/kriuchkov/tock" target="_blank" style="color:var(--text-primary);text-decoration:none">kriuchkov/tock</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: track
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/iPythoning/b2b-sdr-hermes-skill" target="_blank" style="color:var(--text-primary);text-decoration:none">iPythoning/b2b-sdr-hermes-skill</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: email
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/Andrew-Girgis/microsoft-workspace-skill" target="_blank" style="color:var(--text-primary);text-decoration:none">Andrew-Girgis/microsoft-workspace-skill</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: contact
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/Ashutosh2M/ExpertLens" target="_blank" style="color:var(--text-primary);text-decoration:none">Ashutosh2M/ExpertLens</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: audit
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/ShiyangZheng/storyweave" target="_blank" style="color:var(--text-primary);text-decoration:none">ShiyangZheng/storyweave</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: conversation
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/CambrianTech/airc" target="_blank" style="color:var(--text-primary);text-decoration:none">CambrianTech/airc</a></strong> <span style="font-size:10px;color:var(--text-muted)">(github_topics)</span><br>
+      Matches: message, encrypt
+    </span>
+  </div>
+</div><div class="section-header"><span class="icon">🔥</span><h2>Community Hot Topics</h2><span class="accent-line"></span></div>
+<div class="news-list">
+  <div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">awesome/punkpeye/awesome-mcp-servers</a></strong><br>
+      A collection of MCP servers.
+      <span style="font-size:10px;color:var(--text-muted)"> — 86229 pts</span>
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/yzfly/Awesome-MCP-ZH" target="_blank" style="color:var(--text-primary);text-decoration:none">awesome/yzfly/Awesome-MCP-ZH</a></strong><br>
+      MCP 资源精选， MCP指南，Claude MCP，MCP Servers, MCP Clients
+      <span style="font-size:10px;color:var(--text-muted)"> — 6991 pts</span>
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/appcypher/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">awesome/appcypher/awesome-mcp-servers</a></strong><br>
+      Awesome MCP Servers - A curated list of Model Context Protocol servers
+      <span style="font-size:10px;color:var(--text-muted)"> — 5515 pts</span>
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/libukai/awesome-agent-skills" target="_blank" style="color:var(--text-primary);text-decoration:none">awesome/libukai/awesome-agent-skills</a></strong><br>
+      Agent Skills 终极指南：快速入门、资源推荐、精选技能与实用工具 ｜The Ultimate Guide to Agent Skills: QuickStart, Resources, Features&Toolkit
+      <span style="font-size:10px;color:var(--text-muted)"> — 4285 pts</span>
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://github.com/wong2/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">awesome/wong2/awesome-mcp-servers</a></strong><br>
+      A curated list of Model Context Protocol (MCP) servers
+      <span style="font-size:10px;color:var(--text-muted)"> — 4040 pts</span>
+    </span>
+  </div><div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <span class="news-text">
+      <strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1sz67w4/thanks_for_the_advice_claude/" target="_blank" style="color:var(--text-primary);text-decoration:none">reddit/ClaudeAI/1sz67w4</a></strong><br>
+      Thanks for the advice Claude
+      <span style="font-size:10px;color:var(--text-muted)"> — 3390 pts</span>
+    </span>
+  </div>
+</div><div class="chart-container">
+  <div class="section-header"><span class="icon">🗂️</span><h2>Sources &amp; Errors</h2><span class="accent-line"></span></div>
+  <table class="data-table">
+    <thead><tr><th>Source</th><th>Entries</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>GitHub Topics</td><td>100</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>Claude Code Hub</td><td>20</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>Hermes Skills Hub</td><td>15</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>Blog Feeds &amp; Collections</td><td>20</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>PulseMCP</td><td>0</td><td><span class="status-warn">⚠ Empty</span></td></tr>
+      <tr><td>OpenClaw Extensions</td><td>0</td><td><span class="status-warn">⚠ Empty</span></td></tr>
+      <tr><td>Smithery.ai</td><td>0</td><td><span class="status-err">✗ 429 Rate Limited</span></td></tr>
+      <tr><td>Reddit Communities</td><td>0</td><td><span class="status-err">✗ 403 Forbidden</span></td></tr>
+      <tr><td>Hacker News</td><td>1</td><td><span class="status-ok">✓ OK</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+  <h3>Sources</h3>
+  <a href="https://github.com/topics/ai-agent">GitHub Topics</a>
+  <a href="https://smithery.ai">Smithery.ai</a>
+  <a href="https://reddit.com/r/ClaudeAI">Reddit</a>
+  <a href="https://news.ycombinator.com">Hacker News</a>
+  <a href="https://claude-code-hub.com">Claude Code Hub</a>
+  <a href="https://raw.githubusercontent.com/NousResearch/hermes-agent/main/skills/registry.json">Hermes Skills Hub</a>
+</div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-05-0602-agent-marketplace.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-05-0602-agent-marketplace.html</a>
+  </div>
+
+</div>
+</body>
+</html>
