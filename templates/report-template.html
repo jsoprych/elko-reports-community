@@ -48,12 +48,22 @@
   }
   .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
 
-  /* HEADER */
-  .report-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 8px; flex-wrap: wrap; gap: 12px;
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
   }
-  .report-logo svg { display: block; }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
   .series-badge {
     display: inline-block; background: var(--accent-gradient);
     color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
@@ -68,7 +78,7 @@
   .report-meta span { display: flex; align-items: center; gap: 4px; }
   .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
 
-  /* TOP STORY / HERO */
+  /* HERO / TOP STORY */
   .hero-card {
     background: var(--surface); border-radius: var(--card-radius);
     box-shadow: var(--card-shadow); padding: 24px;
@@ -77,6 +87,8 @@
   .hero-card h2 {
     font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
   }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
   .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
 
   /* METRIC ROW */
@@ -118,10 +130,17 @@
     transition: transform 0.2s;
   }
   .entity-card:hover { transform: translateY(-2px); }
-  .entity-value {
-    font-size: 24px; font-weight: 800; color: var(--accent);
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
   }
-  .entity-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
 
   /* BAR CHARTS */
   .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
@@ -170,6 +189,18 @@
   .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
   .news-text { font-size: 13px; color: var(--text-secondary); }
   .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
 
   /* SOURCES */
   .sources { margin-top: 32px; }
@@ -181,6 +212,15 @@
   }
   .sources a:hover { background: var(--accent); color: #fff; }
 
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
   /* FOOTER */
   .report-footer {
     margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
@@ -191,6 +231,7 @@
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
 
   /* RESPONSIVE */
   @media (max-width: 600px) {
@@ -205,22 +246,32 @@
     .container { padding: 0; }
     .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
   }
+
+  /* EXTRA CSS — injected by report generator */
+  {{EXTRA_CSS}}
 </style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
 </head>
 <body>
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="report-header">
-    <svg width="140" height="26" viewBox="0 0 180 32">
-      <rect width="180" height="32" rx="6" fill="#1a1a2e"/>
-      <text x="12" y="21" font-family="monospace" font-size="14" font-weight="700" fill="#4a6cf7">ELKO</text>
-      <text x="56" y="21" font-family="monospace" font-size="10" fill="#8892b0">REPORTS</text>
-      <circle cx="134" cy="16" r="3" fill="#4a6cf7"/>
-      <circle cx="144" cy="16" r="3" fill="#6c63ff"/>
-      <circle cx="154" cy="16" r="3" fill="#8892b0"/>
-    </svg>
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
   </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
   <span class="series-badge">{{SERIES}}</span>
   <h1 class="report-title">{{TITLE}}</h1>
   <div class="report-meta">
@@ -231,26 +282,30 @@
   </div>
   <hr class="divider">
 
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
   <!-- TOP STORY -->
   <div class="hero-card">
     <h2>{{TOP_HEADING}}</h2>
     <p>{{TOP_BODY}}</p>
   </div>
 
+  <!-- METRICS -->
   {{METRICS}}
 
+  <!-- CONTENT (panel stack) -->
   {{CONTENT}}
 
   <!-- SOURCES -->
-  <div class="sources">
-    <h3>Sources</h3>
-    {{SOURCES}}
-  </div>
+  {{SOURCES}}
 
   <!-- FOOTER -->
   <div class="report-footer">
     Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
-    <a href="{{REPO_URL}}">{{REPO_URL}}</a>
+    <a href="{{PAGES_URL}}">{{PAGES_URL}}</a>
   </div>
 
 </div>
