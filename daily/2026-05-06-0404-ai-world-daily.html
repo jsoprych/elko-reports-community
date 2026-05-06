@@ -584,12 +584,13 @@
 
 </div>
 
+
 <style>
   .grok-popup {
     position: fixed; z-index: 9999;
     background: var(--surface); color: var(--text-primary);
     border: 1px solid var(--border);
-    border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     width: 320px; padding: 0;
     opacity: 0; visibility: hidden;
     transition: opacity 0.15s ease, visibility 0.15s ease;
@@ -598,67 +599,52 @@
     overflow: hidden;
   }
   .grok-popup.visible { opacity: 1; visibility: visible; }
-  .grok-popup img {
+  .grok-popup .popup-thumb {
     width: 100%; height: 120px;
     object-fit: cover; border-radius: 10px 10px 0 0;
-    background: var(--bar-bg);
+    background: var(--bar-bg); display: block;
   }
   .grok-popup .popup-body { padding: 12px 16px 14px; }
   .grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
   .grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
-  .grok-popup a {
+  .grok-popup .popup-link {
     font-size: 11px; font-weight: 600; color: var(--accent);
     text-decoration: none;
   }
-  .grok-popup a:hover { text-decoration: underline; }
+  .grok-popup .popup-link:hover { text-decoration: underline; }
   .grok-popup .popup-footer {
     padding: 8px 16px; border-top: 1px solid var(--border);
     font-size: 10px; color: var(--text-muted);
   }
 </style>
-
-
 <script>
 (function(){
-  // Wikipedia slug map
-  const WP = {"OpenAI": "OpenAI", "Anthropic": "Anthropic", "Google DeepMind": "Google_DeepMind", "xAI": "xAI_(company)", "Meta AI": "Meta_AI", "Microsoft": "Microsoft", "Amazon": "Amazon_(company)", "NVIDIA": "Nvidia", "AMD": "Advanced_Micro_Devices", "Intel": "Intel", "TSMC": "TSMC", "ASML": "ASML_Holding", "Broadcom": "Broadcom_Inc.", "Apple": "Apple_Inc.", "DeepSeek": "DeepSeek", "Alibaba": "Alibaba_Group", "Baidu": "Baidu", "IBM": "IBM", "Oracle": "Oracle_Corporation", "Hugging Face": "Hugging_Face", "Palantir": "Palantir_Technologies", "Salesforce": "Salesforce"};
+  // PRE-FETCHED Wikipedia summaries — embedded at build time, zero network calls
+  const SUMMARIES = {"AMD": {"extract": "Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company headquartered in Santa Clara, California. It develops central processing units (CPUs), graphics processing units (GPUs), field-programmable gate arrays (FPGAs), system-on-chips (SoCs), and high-", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg/330px-2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg", "url": "https://en.wikipedia.org/wiki/Advanced_Micro_Devices"}, "ASML": {"extract": "ASML Holding N.V. is a Dutch multinational corporation that develops and manufactures photolithography machines which are used to produce integrated circuits. It is the largest supplier for the semiconductor industry, as well as the most advanced producer of extreme ultraviolet l", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/ASML_headquarters_Veldhoven.jpg/330px-ASML_headquarters_Veldhoven.jpg", "url": "https://en.wikipedia.org/wiki/ASML_Holding"}, "Alibaba": {"extract": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TaobaoCity_Alibaba_Xixi_Park.jpg/330px-TaobaoCity_Alibaba_Xixi_Park.jpg", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Amazon": {"extract": "Amazon.com, Inc. is an American multinational technology company engaged in e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Founded in 1994 by Jeff Bezos in Bellevue, Washington, the company originally started as an online marketpl", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon_Tower_I_topped_out%2C_June_2015.jpg/330px-Amazon_Tower_I_topped_out%2C_June_2015.jpg", "url": "https://en.wikipedia.org/wiki/Amazon_(company)"}, "Anthropic": {"extract": "Anthropic is an American artificial intelligence (AI) company headquartered in San Francisco. It has developed a range of large language models (LLMs) named Claude and focuses on AI safety.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Apple": {"extract": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, in Silicon Valley, and known for consumer electronics, software and online services. Founded in 1976 as Apple Computer Company by Steve Jobs, Steve Wozniak and Ronald Wayne, the com", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/330px-Apple_logo_black.svg.png", "url": "https://en.wikipedia.org/wiki/Apple_Inc."}, "Baidu": {"extract": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet services and artificial intelligence. It holds a dominant position in China's search engine market, and provides a wide variety of other internet services such as Baidu App, Baidu Baike, iQIYI, Bai", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg/330px-Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg", "url": "https://en.wikipedia.org/wiki/Baidu"}, "Broadcom": {"extract": "Broadcom Inc. is an American multinational designer, developer, manufacturer, and global supplier of a wide range of semiconductor and infrastructure software products. Broadcom's product offerings serve the data center, networking, software, broadband, wireless, storage, and ind", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Broadcom_Headquarters_San_Jose.jpg/330px-Broadcom_Headquarters_San_Jose.jpg", "url": "https://en.wikipedia.org/wiki/Broadcom_Inc."}, "DeepSeek": {"extract": "Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd., doing business as DeepSeek, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chin", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Google DeepMind": {"extract": "DeepMind Technologies Limited, trading as Google DeepMind or simply DeepMind, is a British-American artificial intelligence (AI) research laboratory which serves as a subsidiary of Alphabet Inc. Founded in the UK in 2010, it was acquired by Google in 2014 and merged with Google A", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Google_DeepMind"}, "Hugging Face": {"extract": "Hugging Face, Inc., is an American company based in New York City that develops computation tools for building applications using machine learning. Its transformers library built for natural language processing applications and its platform allow users to share machine learning m", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Hugging_Face"}, "IBM": {"extract": "International Business Machines Corporation, doing business as IBM, is an American multinational technology company headquartered in Armonk, New York, and present in over 175 countries. It is a publicly traded company and one of the 30 companies in the Dow Jones Industrial Averag", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/IBM_CHQ_-_Oct_2014.jpg/330px-IBM_CHQ_-_Oct_2014.jpg", "url": "https://en.wikipedia.org/wiki/IBM"}, "Intel": {"extract": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units (CPUs) and related products for business and consumer markets. Intel was the world'", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Intel_Headquarters_in_2023.jpg/330px-Intel_Headquarters_in_2023.jpg", "url": "https://en.wikipedia.org/wiki/Intel"}, "Meta AI": {"extract": "Meta AI is a research division of Meta that develops artificial intelligence and augmented reality technologies.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Meta_AI_Logo_%282026%29.svg/330px-Meta_AI_Logo_%282026%29.svg.png", "url": "https://en.wikipedia.org/wiki/Meta_AI"}, "Microsoft": {"extract": "Microsoft Corporation is an American multinational technology company headquartered in Redmond, Washington. The company became influential in the rise of personal computers through software like Windows and has since expanded into areas such as Internet services, cloud computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Aerial_Microsoft_West_Campus_August_2009.jpg/330px-Aerial_Microsoft_West_Campus_August_2009.jpg", "url": "https://en.wikipedia.org/wiki/Microsoft"}, "NVIDIA": {"extract": "Nvidia Corporation is an American technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for data science, high-performance computing, video games, ", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/330px-2788-2888_San_Tomas_Expwy.jpg", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "OpenAI": {"extract": "OpenAI Global, LLC is an American artificial intelligence (AI) research organization consisting of a for-profit public benefit corporation (PBC) and a nonprofit foundation, headquartered in San Francisco. OpenAI developed the generative pre-trained transformer (GPT) family of lar", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "Oracle": {"extract": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California in 1977 by Bob Miner, Ed Oates, and current chairman of the board and chief technology officer Larry Ellison, Oracle is among the 20 largest co", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}, "Palantir": {"extract": "Palantir Technologies Inc. is an American publicly traded company that develops data integration and analytics platforms. Headquartered in Miami, Florida, it was founded in 2003 by Peter Thiel, Stephen Cohen, Joe Lonsdale, Alex Karp, and Nathan Gettings.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Palantir_Technologies"}, "Salesforce": {"extract": "Salesforce, Inc., is an American cloud-based software company headquartered in San Francisco, California. It provides software for sales, customer service, marketing automation, e-commerce, analytics, artificial intelligence, agentic AI, and application development.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/330px-Salesforce.com_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Salesforce"}, "TSMC": {"extract": "Taiwan Semiconductor Manufacturing Company Limited is a Taiwanese multinational semiconductor contract manufacturing and design company. Headquartered in Hsinchu Science Park, it is one of the world's largest non-U.S. companies by market capitalization. It holds a commanding majo", "thumbnail": "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Tsmc.svg/330px-Tsmc.svg.png", "url": "https://en.wikipedia.org/wiki/TSMC"}, "xAI": {"extract": "X.AI Corp., doing business as xAI, is an American company working in the area of artificial intelligence (AI), social media and technology that is a wholly owned subsidiary of American aerospace company SpaceX.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/XAI-Logo.svg/330px-XAI-Logo.svg.png", "url": "https://en.wikipedia.org/wiki/xAI_(company)"}};
 
-  // Cache: name -> {extract, thumbnail}
-  const cache = {};
-
-  // Create popup element
   const popup = document.createElement('div');
   popup.className = 'grok-popup';
   document.body.appendChild(popup);
 
   let activeCard = null;
   let hideTimer = null;
-  let fetchTimer = null;
-
-  // Fetch Wikipedia summary
-  async function fetchSummary(name) {
-    if (cache[name]) return cache[name];
-    const wp = WP[name];
-    if (!wp) return null;
-    try {
-      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${wp}`, {headers:{'User-Agent':'elko-reports/1.0 (reid@elko.ai)'}});
-      if (!r.ok) return null;
-      const d = await r.json();
-      const result = {extract: d.extract || '', thumbnail: d.thumbnail?.source || '', url: d.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${wp}`};
-      cache[name] = result;
-      return result;
-    } catch(e) { return null; }
-  }
 
   function showPopup(card, data) {
-    const thumb = data.thumbnail ? `<img src="${data.thumbnail}" alt="" loading="lazy">` : '';
+    const name = card.getAttribute('data-name') || card.querySelector('span')?.textContent?.trim() || '';
+    const thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    const extract = data.extract
+      ? data.extract.substring(0, 300) + '…'
+      : 'No description available.';
+
     popup.innerHTML = thumb +
       '<div class="popup-body">' +
-      '<h3>' + card.querySelector('span')?.textContent || card.getAttribute('data-name') + '</h3>' +
-      '<p>' + (data.extract ? data.extract.substring(0, 300) + '…' : '') + '</p>' +
-      '<a href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
       '</div>' +
-      '<div class="popup-footer">Powered by Wikipedia</div>';
+      '<div class="popup-footer">Wikipedia</div>';
     popup.classList.add('visible');
     positionPopup(card);
   }
@@ -667,18 +653,16 @@
     const rect = card.getBoundingClientRect();
     const pw = popup.offsetWidth;
     const ph = popup.offsetHeight;
-    let left = rect.left + rect.width + 12;
-    let top = rect.top - 10;
+    let left = rect.left + rect.width + 10;
+    let top = rect.top;
 
-    // Stay in viewport
     if (left + pw > window.innerWidth - 10) {
-      left = rect.left - pw - 12;
+      left = rect.left - pw - 10;
     }
     if (top + ph > window.innerHeight - 10) {
       top = window.innerHeight - ph - 10;
     }
     if (top < 10) top = 10;
-
     popup.style.left = left + 'px';
     popup.style.top = top + 'px';
   }
@@ -687,49 +671,33 @@
     popup.classList.remove('visible');
   }
 
-  // Attach to entity cards
   document.querySelectorAll('.entity-card').forEach(card => {
     const name = card.querySelector('span')?.textContent?.trim();
-    if (!name || !WP[name]) return;
+    if (!name || !SUMMARIES[name]) return;
     card.style.cursor = 'pointer';
+    card.setAttribute('data-name', name);
 
-    card.addEventListener('mouseenter', function(e) {
+    card.addEventListener('mouseenter', function() {
       clearTimeout(hideTimer);
       activeCard = this;
-
-      if (cache[name]) {
-        showPopup(this, cache[name]);
-        return;
-      }
-
-      // Show loading state
-      popup.innerHTML = '<div class="popup-body" style="text-align:center;padding:20px"><p style="color:var(--text-muted)">Loading…</p></div>';
-      popup.classList.add('visible');
-      positionPopup(this);
-
-      fetchSummary(name).then(data => {
-        if (data && activeCard === card) {
-          showPopup(card, data);
-        }
-      });
+      showPopup(this, SUMMARIES[name]);
     });
 
     card.addEventListener('mouseleave', function() {
-      hideTimer = setTimeout(() => { hidePopup(); }, 200);
+      hideTimer = setTimeout(hidePopup, 200);
     });
 
     card.addEventListener('mousemove', function() {
-      if (popup.classList.contains('visible')) {
-        positionPopup(this);
-      }
+      if (popup.classList.contains('visible')) positionPopup(this);
     });
   });
 
-  // Keep popup visible when hovering over it
   popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
-  popup.addEventListener('mouseleave', function() { hidePopup(); });
+  popup.addEventListener('mouseleave', hidePopup);
 })();
 </script>
+
+
 
 </body>
 </html>
