@@ -583,5 +583,153 @@
   </div>
 
 </div>
+
+<style>
+  .grok-popup {
+    position: fixed; z-index: 9999;
+    background: var(--surface); color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    width: 320px; padding: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    font-size: 13px; line-height: 1.6;
+    overflow: hidden;
+  }
+  .grok-popup.visible { opacity: 1; visibility: visible; }
+  .grok-popup img {
+    width: 100%; height: 120px;
+    object-fit: cover; border-radius: 10px 10px 0 0;
+    background: var(--bar-bg);
+  }
+  .grok-popup .popup-body { padding: 12px 16px 14px; }
+  .grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+  .grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+  .grok-popup a {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-decoration: none;
+  }
+  .grok-popup a:hover { text-decoration: underline; }
+  .grok-popup .popup-footer {
+    padding: 8px 16px; border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text-muted);
+  }
+</style>
+
+
+<script>
+(function(){
+  // Wikipedia slug map
+  const WP = {"OpenAI": "OpenAI", "Anthropic": "Anthropic", "Google DeepMind": "Google_DeepMind", "xAI": "xAI_(company)", "Meta AI": "Meta_AI", "Microsoft": "Microsoft", "Amazon": "Amazon_(company)", "NVIDIA": "Nvidia", "AMD": "Advanced_Micro_Devices", "Intel": "Intel", "TSMC": "TSMC", "ASML": "ASML_Holding", "Broadcom": "Broadcom_Inc.", "Apple": "Apple_Inc.", "DeepSeek": "DeepSeek", "Alibaba": "Alibaba_Group", "Baidu": "Baidu", "IBM": "IBM", "Oracle": "Oracle_Corporation", "Hugging Face": "Hugging_Face", "Palantir": "Palantir_Technologies", "Salesforce": "Salesforce"};
+
+  // Cache: name -> {extract, thumbnail}
+  const cache = {};
+
+  // Create popup element
+  const popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+
+  let activeCard = null;
+  let hideTimer = null;
+  let fetchTimer = null;
+
+  // Fetch Wikipedia summary
+  async function fetchSummary(name) {
+    if (cache[name]) return cache[name];
+    const wp = WP[name];
+    if (!wp) return null;
+    try {
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${wp}`, {headers:{'User-Agent':'elko-reports/1.0 (reid@elko.ai)'}});
+      if (!r.ok) return null;
+      const d = await r.json();
+      const result = {extract: d.extract || '', thumbnail: d.thumbnail?.source || '', url: d.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${wp}`};
+      cache[name] = result;
+      return result;
+    } catch(e) { return null; }
+  }
+
+  function showPopup(card, data) {
+    const thumb = data.thumbnail ? `<img src="${data.thumbnail}" alt="" loading="lazy">` : '';
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + card.querySelector('span')?.textContent || card.getAttribute('data-name') + '</h3>' +
+      '<p>' + (data.extract ? data.extract.substring(0, 300) + '…' : '') + '</p>' +
+      '<a href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '</div>' +
+      '<div class="popup-footer">Powered by Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+    let left = rect.left + rect.width + 12;
+    let top = rect.top - 10;
+
+    // Stay in viewport
+    if (left + pw > window.innerWidth - 10) {
+      left = rect.left - pw - 12;
+    }
+    if (top + ph > window.innerHeight - 10) {
+      top = window.innerHeight - ph - 10;
+    }
+    if (top < 10) top = 10;
+
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  function hidePopup() {
+    popup.classList.remove('visible');
+  }
+
+  // Attach to entity cards
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const name = card.querySelector('span')?.textContent?.trim();
+    if (!name || !WP[name]) return;
+    card.style.cursor = 'pointer';
+
+    card.addEventListener('mouseenter', function(e) {
+      clearTimeout(hideTimer);
+      activeCard = this;
+
+      if (cache[name]) {
+        showPopup(this, cache[name]);
+        return;
+      }
+
+      // Show loading state
+      popup.innerHTML = '<div class="popup-body" style="text-align:center;padding:20px"><p style="color:var(--text-muted)">Loading…</p></div>';
+      popup.classList.add('visible');
+      positionPopup(this);
+
+      fetchSummary(name).then(data => {
+        if (data && activeCard === card) {
+          showPopup(card, data);
+        }
+      });
+    });
+
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(() => { hidePopup(); }, 200);
+    });
+
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) {
+        positionPopup(this);
+      }
+    });
+  });
+
+  // Keep popup visible when hovering over it
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', function() { hidePopup(); });
+})();
+</script>
+
 </body>
 </html>
