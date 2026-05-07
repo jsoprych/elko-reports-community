@@ -41,6 +41,7 @@
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
     background: var(--bg); color: var(--text-primary);
@@ -242,7 +243,7 @@
   }
   .panel-nav-btn .nav-label {
     cursor: pointer; color: var(--text-primary);
-    white-space: nowrap;
+    white-space: nowrap; text-decoration: none;
   }
   .panel-nav-btn .nav-color-dot {
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
@@ -358,7 +359,6 @@
   var nav = document.getElementById('panel-nav-bar');
   if (!nav) return;
   var sections = document.querySelectorAll('[data-panel]');
-  var checkboxes = {};
   var html = '';
   sections.forEach(function(s, i){
     var id = s.getAttribute('data-panel');
@@ -366,46 +366,58 @@
     var color = s.getAttribute('data-panel-color') || '#4a6cf7';
     var def = s.getAttribute('data-panel-default');
     var checked = def !== '0'; // default 1 = visible
+    s.id = 'panel-' + id;
     s.classList.add('panel-section');
     if (!checked) s.classList.add('panel-hidden');
-    html += '<label class="panel-nav-btn" style="--btn-color:' + color + '">' +
+    html += '<span class="panel-nav-btn" style="--btn-color:' + color + '">' +
       '<input type="checkbox" class="nav-cb" data-panel="' + id + '"' + (checked ? ' checked' : '') + '>' +
       '<span class="nav-color-dot" style="background:' + color + '"></span>' +
-      '<span class="nav-label">' + title + '</span></label>';
+      '<a href="#panel-' + id + '" class="nav-label">' + title + '</a></span>';
   });
   nav.innerHTML = html;
   // checkbox toggle -> hide/show section
   nav.addEventListener('change', function(e){
     if (e.target.classList.contains('nav-cb')) {
       var pid = e.target.getAttribute('data-panel');
-      var sec = document.querySelector('[data-panel="' + pid + '"]');
+      var sec = document.getElementById('panel-' + pid);
       if (sec) {
         if (e.target.checked) sec.classList.remove('panel-hidden');
         else sec.classList.add('panel-hidden');
       }
     }
   });
-  // click on button body -> STOP checkbox native toggle, do our own logic
+  // clicking anywhere on the button body (not checkbox, not link) -> check + scroll
   nav.addEventListener('click', function(e){
-    var label = e.target.closest('.panel-nav-btn');
-    if (!label) return;
-    // If the click was directly on the checkbox, let it behave normally (toggle only — no scroll)
+    // If the click was on the checkbox itself, just let it toggle (already handled above)
     if (e.target.classList.contains('nav-cb')) return;
-    // Otherwise: prevent label->checkbox native toggle, run panel logic
-    e.preventDefault();
-    var cb = label.querySelector('.nav-cb');
-    if (!cb) return;
-    var pid = cb.getAttribute('data-panel');
-    var sec = document.querySelector('[data-panel="' + pid + '"]');
-    if (sec) {
-      // If section is hidden, check it and show it (auto-reveal)
-      if (sec.classList.contains('panel-hidden')) {
+    // If the click was on the anchor link, let native browser scroll handle it.
+    // But: if the section is hidden, we need to reveal it first.
+    if (e.target.closest('a')) {
+      var btn = e.target.closest('.panel-nav-btn');
+      if (!btn) return;
+      var cb = btn.querySelector('.nav-cb');
+      if (!cb) return;
+      var pid = cb.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec && sec.classList.contains('panel-hidden')) {
         cb.checked = true;
         sec.classList.remove('panel-hidden');
+        // Browser will handle the scroll via the href anchor
       }
-      // Always scroll to the panel
-      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
     }
+    // Click on the button padding area -> toggle reveal + scroll
+    var btn = e.target.closest('.panel-nav-btn');
+    if (!btn) return;
+    var cb = btn.querySelector('.nav-cb');
+    if (!cb) return;
+    var pid = cb.getAttribute('data-panel');
+    var sec = document.getElementById('panel-' + pid);
+    if (sec && sec.classList.contains('panel-hidden')) {
+      cb.checked = true;
+      sec.classList.remove('panel-hidden');
+    }
+    window.location.hash = '#panel-' + pid;
   });
 })();
 </script>

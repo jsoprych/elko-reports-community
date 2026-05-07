@@ -41,6 +41,7 @@
     }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
     background: var(--bg); color: var(--text-primary);
@@ -242,7 +243,7 @@
   }
   .panel-nav-btn .nav-label {
     cursor: pointer; color: var(--text-primary);
-    white-space: nowrap;
+    white-space: nowrap; text-decoration: none;
   }
   .panel-nav-btn .nav-color-dot {
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
@@ -315,7 +316,7 @@
   <span class="series-badge">📊 60632 Research</span>
   <h1 class="report-title">60632 Archer Heights — Daily Sweep</h1>
   <div class="report-meta">
-    <span>📅 2026-05-07 0220 UTC</span>
+    <span>📅 2026-05-07 0234 UTC</span>
     <span>✍️ Reid (Hermes Agent)</span>
     <span>🔓 🔓 Public</span>
     <span>📄 Community Research</span>
@@ -333,7 +334,7 @@
   <!-- TOP STORY -->
   <div class="hero-card">
     <h2>60632 Archer Heights — Community Intelligence</h2>
-    <p>📊 1,218 businesses cataloged. $1.29B total investment ($935M private). Industrial vacancy 5.9%, 15M SF under construction. 9 zoning changes tracked. 1,800+ warehouse jobs. 8 temp agencies. 10 job strategies. 6 elected officials. 9 funding resources. Toggle sections on/off below.</p>
+    <p>📊 1,218 businesses · $1.29B total investment · 9 zoning changes · 1,800+ warehouse jobs · 8 agencies · 10 strategies · 6 officials · 9 funding resources. Toggle sections below.</p>
   </div>
 
   <!-- METRICS -->
@@ -347,7 +348,6 @@
   <span class="accent-line"></span>
 </div>
 
-<h3 style="font-size:14px;font-weight:600;margin:0 0 8px;color:var(--accent)">Investment Snapshot</h3>
 <div class="metric-row">
   <div class="metric-card"><div class="metric-value">$1.29B</div><div class="metric-label">Total Investment</div></div>
   <div class="metric-card"><div class="metric-value">$935M</div><div class="metric-label">Private Capital</div></div>
@@ -357,9 +357,7 @@
 <p><strong>60632:</strong> $717M total ($710M private, $7.3M public) — 99% private money</p>
 <p><strong>60459 Burbank:</strong> $151M (retail corridor)</p>
 <p><strong>60652 Ford City:</strong> $75M (distressed, conversion proposed)</p>
-<p>See <a href="https://github.com/jsoprych/60632-archer-heights" style="color:var(--accent)">GitHub repo</a> for full mind-map relationship tracing.</p>
 </div>
-
 </div>
 <div data-panel="real-estate" data-panel-title="🏢 Real Estate" data-panel-color="#3b82f6" data-panel-default="1">
 <div class="section-header">
@@ -368,16 +366,15 @@
   <span class="accent-line"></span>
 </div>
 
-<div class="hero-card" style="border-left-color:#3b82f6">
 <div class="metric-row">
   <div class="metric-card"><div class="metric-value">$360K</div><div class="metric-label">Median Home</div></div>
   <div class="metric-card"><div class="metric-value">+20%</div><div class="metric-label">YoY Appreciation</div></div>
   <div class="metric-card"><div class="metric-value">42d</div><div class="metric-label">Days on Market</div></div>
   <div class="metric-card"><div class="metric-value">5.9%</div><div class="metric-label">Industrial Vacancy</div></div>
 </div>
-<strong>Industrial:</strong> 14,900,000 SF under construction. Rent $5.75/SF/YR. Vacancy 5.9%.
+<div class="hero-card" style="border-left-color:#3b82f6">
+<p><strong>Industrial:</strong> 14,900,000 SF under construction. Rent $5.75/SF/YR.</p>
 </div>
-
 </div>
 <div data-panel="zoning" data-panel-title="🏗️ Zoning" data-panel-color="#f97316" data-panel-default="1">
 <div class="section-header">
@@ -386,22 +383,19 @@
   <span class="accent-line"></span>
 </div>
 
-<div class="data-table" style="margin-bottom:16px;">
-<table class="data-table" style="width:100%">
+<table class="data-table" style="width:100%;margin-bottom:16px">
 <thead><tr><th>Project</th><th>Status</th><th>Impact</th></tr></thead>
 <tbody>
 <tr><td><strong>IL BUILD Act (SB4060)</strong></td><td><span class="td-green">proposed</span></td><td>Multi-plex housing allowed</td></tr>
-<tr><td><strong>Chicago ADU Ordinance</strong></td><td><span class="td-green">active</span></td><td>Accessory dwelling units citywide</td></tr>
-<tr><td><strong>Zoning Ordinance Rewrite</strong></td><td><span class="td-green">planning</span></td><td>First major overhaul in decades</td></tr>
-<tr><td><strong>Industrial Corridor Modernization</strong></td><td><span class="td-green">active</span></td><td>26 Industrial Corridors refined</td></tr>
-<tr><td><strong>Ford City Mall Conversion</strong></td><td><span class="td-red">proposed</span></td><td>913K SF industrial rezoning</td></tr>
+<tr><td><strong>Chicago ADU Ordinance</strong></td><td><span class="td-green">active</span></td><td>Accessory dwelling units</td></tr>
+<tr><td><strong>Zoning Ordinance Rewrite</strong></td><td><span class="td-green">planning</span></td><td>First major overhaul</td></tr>
+<tr><td><strong>Industrial Corridor Modernization</strong></td><td><span class="td-green">active</span></td><td>26 corridors refined</td></tr>
+<tr><td><strong>Ford City Mall Conversion</strong></td><td><span class="td-red">proposed</span></td><td>913K SF rezoning</td></tr>
 <tr><td><strong>Cook County Reassessment 2026</strong></td><td><span class="td-green">active</span></td><td>Property tax impact</td></tr>
 <tr><td><strong>Archer Ave Complete Streets</strong></td><td><span style="color:#7c3aed;font-weight:700">underway</span></td><td>4-to-3 lane conversion</td></tr>
-<tr><td><strong>Kinzie PMD Boundary Modernization</strong></td><td><span class="td-green">completed</span></td><td>PMD boundary updates</td></tr>
+<tr><td><strong>Kinzie PMD Boundary Modernization</strong></td><td><span class="td-green">completed</span></td><td>Boundary updates</td></tr>
 <tr><td><strong>Clybourn Corridor PMD Dissolved</strong></td><td><span class="td-green">completed</span></td><td>PMD rezoning precedent</td></tr>
 </tbody></table>
-</div>
-
 </div>
 <div data-panel="jobs" data-panel-title="💼 Jobs" data-panel-color="#a855f7" data-panel-default="1">
 <div class="section-header">
@@ -410,17 +404,16 @@
   <span class="accent-line"></span>
 </div>
 
-<div class="hero-card" style="border-left-color:#a855f7">
 <div class="metric-row">
   <div class="metric-card"><div class="metric-value">1,800+</div><div class="metric-label">Warehouse Openings</div></div>
   <div class="metric-card"><div class="metric-value">330K+</div><div class="metric-label">Worker Pool (5mi)</div></div>
-  <div class="metric-card"><div class="metric-value">$17.83</div><div class="metric-label">Wage Floor (W/house)</div></div>
+  <div class="metric-card"><div class="metric-value">$17.83</div><div class="metric-label">Wage Floor</div></div>
 </div>
-<div class="info-row"><strong>Top Employers:</strong> Midway Airport (3,000+), Bagcraft Packaging (200-500), GEODIS Cold Chain (100-200), Greater Chicago Food Depository (100-200)</div>
-<div class="info-row"><strong>Wage Data:</strong> Warehouse/Distribution $17.83-$19.60/hr | Manufacturing $18-$25/hr | Midway Airport $18-$125/hr</div>
-<div class="info-row"><strong>Trends:</strong> Restaurant jobs -2,100 (mandated wage hikes) | IBM Quantum Campus: 750 technical jobs South Side</div>
+<div class="hero-card" style="border-left-color:#a855f7">
+<p><strong>Top Employers:</strong> Midway Airport (3,000+), Bagcraft Packaging (200-500), GEODIS Cold Chain (100-200)</p>
+<p><strong>Wages:</strong> Warehouse $17.83-$19.60/hr | Manufacturing $18-$25/hr | Midway $18-$125/hr</p>
+<p><strong>Trends:</strong> Restaurant jobs -2,100 (wage hikes) | IBM Quantum Campus: 750 jobs South Side</p>
 </div>
-
 </div>
 <div data-panel="agencies" data-panel-title="🏢 Agencies" data-panel-color="#a855f7" data-panel-default="1">
 <div class="section-header">
@@ -430,14 +423,13 @@
 </div>
 
 <div class="hero-card" style="border-left-color:#a855f7">
-<div class="info-card" style="margin-bottom:6px"><strong>Aerotek</strong> — Chicago (national). Strong near Midway for aviation jobs.</div>
-<div class="info-card" style="margin-bottom:6px"><strong>Davis Staffing</strong> — Chicagoland & NW Indiana. Since 1960. Industrial focus.</div>
-<div class="info-card" style="margin-bottom:6px"><strong>Elite Staffing</strong> — Chicago area. Specializes in warehouse/manufacturing.</div>
-<div class="info-card" style="margin-bottom:6px"><strong>PeopleReady</strong> — 3924 S Archer Ave Suite B, Chicago, IL 60632 | 312-982-8406. Local Archer Ave branch. JobStack app. Walk-ins for same-day work.</div>
-<div class="info-card" style="margin-bottom:6px"><strong>Robert Half</strong> — Chicago. Office/admin roles.</div>
-<div class="info-card"><strong>Staff Right</strong> — Chicago area. Top-rated near Archer Heights on Yelp.</div>
+<div style="margin-bottom:6px"><strong>Aerotek</strong> — Chicago. Aviation jobs near Midway.</div>
+<div style="margin-bottom:6px"><strong>Davis Staffing</strong> — Chicagoland. Since 1960. Industrial.</div>
+<div style="margin-bottom:6px"><strong>Elite Staffing</strong> — Chicago area. Warehouse/manufacturing.</div>
+<div style="margin-bottom:6px"><strong>PeopleReady</strong> — 3924 S Archer Ave, 60632 | 312-982-8406. Same-day work, JobStack app.</div>
+<div style="margin-bottom:6px"><strong>Robert Half</strong> — Chicago. Office/admin.</div>
+<div><strong>Staff Right</strong> — Chicago. Top-rated near Archer Heights.</div>
 </div>
-
 </div>
 <div data-panel="strategies" data-panel-title="🎯 Strategies" data-panel-color="#ec4899" data-panel-default="1">
 <div class="section-header">
@@ -447,18 +439,17 @@
 </div>
 
 <div class="hero-card" style="border-left-color:#ec4899">
-<div class="info-row">⭐ <strong>Walk 45th & Tripp industrial core — hire at gate</strong> — Bagcraft, Vitner's and others often post 'Help Wanted' signs.</div>
-<div class="info-row">⭐ <strong>PeopleReady Archer Ave — same-day work</strong> — 3924 S Archer Ave. Walk in, get industrial work same day.</div>
-<div class="info-row">⭐ <strong>Midway Airport — apply to vendors, not airport</strong> — Southwest, Delta, HMSHost, SSP America, rental car companies.</div>
-<div class="info-row">⭐ <strong>Get forklift certified — $18-25/hr</strong> — Certification costs $100-200, takes 1 day.</div>
-<div class="info-row">⭐ <strong>Temp-to-hire = primary conversion path</strong> — Most mfg/warehouse hiring starts temp.</div>
-<div class="info-row">⭐ <strong>Industrial construction pipeline = jobs</strong> — Sterling Bay, Brookfield/Western Works, Bridge Industrial.</div>
-<div class="info-row">⭐ <strong>CDL + warehouse = career path</strong> — GEODIS, Vitner's, Bagcraft need drivers + warehouse.</div>
-<div class="info-row">⭐ <strong>Search 'Midway' and '60632' on job boards</strong> — Set alerts on LinkedIn/Indeed/Glassdoor.</div>
-<div class="info-row">▫ <strong>14th Ward office — call for leads</strong> — Alderwoman Gutierrez (773-236-0117).</div>
-<div class="info-row">▫ <strong>GSDC — NOF grant recipients hire</strong> — Call GSDC 773-436-1000.</div>
+<div style="padding:4px 0">⭐ <strong>Walk 45th & Tripp industrial core</strong> — Bagcraft, Vitner's post 'Help Wanted' signs</div>
+<div style="padding:4px 0">⭐ <strong>PeopleReady Archer Ave</strong> — 3924 S Archer. Same-day work. Walk-in.</div>
+<div style="padding:4px 0">⭐ <strong>Midway — apply to vendors</strong> — Southwest, Delta, HMSHost, SSP America</div>
+<div style="padding:4px 0">⭐ <strong>Get forklift certified</strong> — $100-200, 1 day, $18-25/hr</div>
+<div style="padding:4px 0">⭐ <strong>Temp-to-hire = conversion path</strong> — 90-day conversion</div>
+<div style="padding:4px 0">⭐ <strong>Industrial construction pipeline</strong> — Sterling Bay, Brookfield, Bridge Industrial</div>
+<div style="padding:4px 0">⭐ <strong>CDL + warehouse = career path</strong> — GEODIS, Bagcraft need drivers</div>
+<div style="padding:4px 0">⭐ <strong>Set job alerts</strong> — 'Midway' and '60632' on Indeed/LinkedIn</div>
+<div style="padding:4px 0">▫ <strong>14th Ward office</strong> — call 773-236-0117 for new permit leads</div>
+<div style="padding:4px 0">▫ <strong>GSDC</strong> — 773-436-1000 for NOF grant recipients hiring</div>
 </div>
-
 </div>
 <div data-panel="officials" data-panel-title="🏛️ Officials" data-panel-color="#22c55e" data-panel-default="1">
 <div class="section-header">
@@ -467,13 +458,18 @@
   <span class="accent-line"></span>
 </div>
 
-<div class="info-card" style="margin-bottom:6px"><strong>Jeylú B. Gutiérrez</strong> — Alderwoman, 14th Ward. 📞 773-236-0117 | 📧 ward@chicago14.com | 🔗 <a href="https://chicago14.com" style="color:var(--accent)">chicago14.com</a></div>
-<div class="info-card" style="margin-bottom:6px"><strong>Brandon Johnson</strong> — Mayor of Chicago. 📞 312-744-3300 | 📧 mayor@chicago.gov | 🔗 <a href="https://www.chicago.gov/mayor" style="color:var(--accent)">chicago.gov</a></div>
-<div class="info-card" style="margin-bottom:6px"><strong>JB Pritzker</strong> — Governor, Illinois. 📞 217-782-0244 | 🔗 <a href="https://www2.illinois.gov/gov" style="color:var(--accent)">illinois.gov</a></div>
-<div class="info-card" style="margin-bottom:6px"><strong>Delia Ramirez</strong> — U.S. Representative, IL-3. 📞 773-799-8219 | 🔗 <a href="https://ramirez.house.gov" style="color:var(--accent)">ramirez.house.gov</a></div>
-<div class="info-card" style="margin-bottom:6px"><strong>Mike Porfirio</strong> — State Senator, IL-11. 📞 217-782-8220</div>
-<div class="info-card"><strong>Angie Guerrero-Cuellar</strong> — State Representative, IL-22. 📞 217-782-5982</div>
-
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Jeylú B. Gutiérrez</strong> — 14th Ward Ald. 📞 773-236-0117 | 🔗 <a href="https://chicago14.com" style="color:var(--accent)">chicago14.com</a></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Brandon Johnson</strong> — Mayor. 📞 312-744-3300 | 🔗 <a href="https://www.chicago.gov/mayor" style="color:var(--accent)">chicago.gov</a></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>JB Pritzker</strong> — Governor. 📞 217-782-0244</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Delia Ramirez</strong> — US Rep IL-3. 📞 773-799-8219</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Mike Porfirio</strong> — State Sen IL-11. 📞 217-782-8220</div>
+<div style="padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Angie Guerrero-Cuellar</strong> — State Rep IL-22. 📞 217-782-5982</div>
 </div>
 <div data-panel="funding" data-panel-title="🔗 Funding" data-panel-color="#f97316" data-panel-default="1">
 <div class="section-header">
@@ -483,32 +479,31 @@
 </div>
 
 <div class="hero-card" style="border-left-color:#f97316">
-<div class="info-detail">• <strong>Class 6b Tax Incentive</strong> — <a href="https://www.cookcountyassessor.com/forms" style="color:var(--accent)">Apply</a> | 📞 312-603-1000</div>
-<div class="info-detail">• <strong>Neighborhood Opportunity Fund</strong> (up to $250K) — <a href="https://www.chicago.gov/neighborhood-opportunity-fund" style="color:var(--accent)">Apply</a> | 📞 312-744-0003</div>
-<div class="info-detail">• <strong>Small Business Improvement Fund</strong> (up to $150K) — <a href="https://www.chicago.gov/sbif" style="color:var(--accent)">Apply</a></div>
-<div class="info-detail">• <strong>SBA 7(a) Loans</strong> (up to $5M) — <a href="https://www.sba.gov/7a" style="color:var(--accent)">Apply</a> | 📞 312-353-4528</div>
-<div class="info-detail">• <strong>Greater Southwest Dev Corp</strong> — <a href="https://greatersouthwest.org" style="color:var(--accent)">GSDC</a> | 📞 773-436-1000</div>
-<div class="info-detail">• <strong>14th Ward Service Office</strong> — <a href="https://chicago14.com/services" style="color:var(--accent)">Info</a> | 📞 773-236-0117</div>
-<div class="info-detail">• <strong>IL EDGE Tax Credit</strong> — <a href="https://www2.illinois.gov/dceo/Pages/edge.aspx" style="color:var(--accent)">Apply</a></div>
-<div class="info-detail">• <strong>IL Industrial Training Program</strong> — <a href="https://www2.illinois.gov/dceo" style="color:var(--accent)">Info</a></div>
-<div class="info-detail">• <strong>Cook County Small Business Source</strong> — <a href="https://www.cookcountysmallbiz.org" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Class 6b Tax Incentive</strong> — <a href="https://www.cookcountyassessor.com/forms" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Neighborhood Opportunity Fund</strong> (up to $250K) — <a href="https://www.chicago.gov/neighborhood-opportunity-fund" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Small Business Improvement Fund</strong> (up to $150K) — <a href="https://www.chicago.gov/sbif" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>SBA 7(a) Loans</strong> (up to $5M) — <a href="https://www.sba.gov/7a" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Greater Southwest Dev Corp</strong> — <a href="https://greatersouthwest.org" style="color:var(--accent)">GSDC</a> | 773-436-1000</div>
+<div style="padding:3px 0">• <strong>14th Ward Service Office</strong> — <a href="https://chicago14.com/services" style="color:var(--accent)">Info</a> | 773-236-0117</div>
+<div style="padding:3px 0">• <strong>IL EDGE Tax Credit</strong> — <a href="https://www2.illinois.gov/dceo/Pages/edge.aspx" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>IL Industrial Training Program</strong> — <a href="https://www2.illinois.gov/dceo" style="color:var(--accent)">Info</a></div>
+<div style="padding:3px 0">• <strong>Cook County Small Business Source</strong> — <a href="https://www.cookcountysmallbiz.org" style="color:var(--accent)">Apply</a></div>
 </div>
-
 </div>
-
 <div data-panel="sources" data-panel-title="📚 Sources" data-panel-color="#6b7280" data-panel-default="1">
 <div class="section-header">
-  <span class="icon">📚</span><h2>Sources</h2><span class="accent-line"></span>
+  <span class="icon">📚</span>
+  <h2>Sources</h2>
+  <span class="accent-line"></span>
 </div>
+
 <div class="sources">
-  <h3>Data Sources</h3>
-  <a href="https://github.com/jsoprych/60632-archer-heights">60632 Archer Heights Repo</a>
-  <a href="https://github.com/jsoprych/ai-world-knowledge-graph">AI World Knowledge Graph</a>
+  <a href="https://github.com/jsoprych/60632-archer-heights">60632 Repo</a>
+  <a href="https://github.com/jsoprych/ai-world-knowledge-graph">AI World KG</a>
   <a href="https://www.cookcountyassessor.com">Cook County Assessor</a>
   <a href="https://www.chicago.gov">City of Chicago</a>
   <a href="https://www2.illinois.gov">State of Illinois</a>
-  <a href="https://grok.com">Grok (xAI)</a>
-  <a href="https://openstreetmap.org">OpenStreetMap</a>
+  <a href="https://www.openstreetmap.org">OpenStreetMap</a>
 </div>
 </div>
 
@@ -519,7 +514,7 @@
   <!-- FOOTER -->
   <div class="report-footer">
     Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
-    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-07-0220-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-05-07-0220-60632-daily-sweep.html</a>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-07-0234-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-05-07-0234-60632-daily-sweep.html</a>
   </div>
 
 </div>
@@ -529,7 +524,6 @@
   var nav = document.getElementById('panel-nav-bar');
   if (!nav) return;
   var sections = document.querySelectorAll('[data-panel]');
-  var checkboxes = {};
   var html = '';
   sections.forEach(function(s, i){
     var id = s.getAttribute('data-panel');
@@ -537,41 +531,58 @@
     var color = s.getAttribute('data-panel-color') || '#4a6cf7';
     var def = s.getAttribute('data-panel-default');
     var checked = def !== '0'; // default 1 = visible
+    s.id = 'panel-' + id;
     s.classList.add('panel-section');
     if (!checked) s.classList.add('panel-hidden');
-    html += '<label class="panel-nav-btn" style="--btn-color:' + color + '">' +
+    html += '<span class="panel-nav-btn" style="--btn-color:' + color + '">' +
       '<input type="checkbox" class="nav-cb" data-panel="' + id + '"' + (checked ? ' checked' : '') + '>' +
       '<span class="nav-color-dot" style="background:' + color + '"></span>' +
-      '<span class="nav-label">' + title + '</span></label>';
+      '<a href="#panel-' + id + '" class="nav-label">' + title + '</a></span>';
   });
   nav.innerHTML = html;
   // checkbox toggle -> hide/show section
   nav.addEventListener('change', function(e){
     if (e.target.classList.contains('nav-cb')) {
       var pid = e.target.getAttribute('data-panel');
-      var sec = document.querySelector('[data-panel="' + pid + '"]');
+      var sec = document.getElementById('panel-' + pid);
       if (sec) {
         if (e.target.checked) sec.classList.remove('panel-hidden');
         else sec.classList.add('panel-hidden');
       }
     }
   });
-  // click anywhere on button -> if hidden, check + scroll; if visible, just scroll
+  // clicking anywhere on the button body (not checkbox, not link) -> check + scroll
   nav.addEventListener('click', function(e){
-    var label = e.target.closest('.panel-nav-btn');
-    if (!label) return;
-    var cb = label.querySelector('.nav-cb');
-    if (!cb) return;
-    var pid = cb.getAttribute('data-panel');
-    var sec = document.querySelector('[data-panel="' + pid + '"]');
-    if (sec) {
-      // If section is hidden, check it and show it
-      if (sec.classList.contains('panel-hidden')) {
+    // If the click was on the checkbox itself, just let it toggle (already handled above)
+    if (e.target.classList.contains('nav-cb')) return;
+    // If the click was on the anchor link, let native browser scroll handle it.
+    // But: if the section is hidden, we need to reveal it first.
+    if (e.target.closest('a')) {
+      var btn = e.target.closest('.panel-nav-btn');
+      if (!btn) return;
+      var cb = btn.querySelector('.nav-cb');
+      if (!cb) return;
+      var pid = cb.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec && sec.classList.contains('panel-hidden')) {
         cb.checked = true;
         sec.classList.remove('panel-hidden');
+        // Browser will handle the scroll via the href anchor
       }
-      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
     }
+    // Click on the button padding area -> toggle reveal + scroll
+    var btn = e.target.closest('.panel-nav-btn');
+    if (!btn) return;
+    var cb = btn.querySelector('.nav-cb');
+    if (!cb) return;
+    var pid = cb.getAttribute('data-panel');
+    var sec = document.getElementById('panel-' + pid);
+    if (sec && sec.classList.contains('panel-hidden')) {
+      cb.checked = true;
+      sec.classList.remove('panel-hidden');
+    }
+    window.location.hash = '#panel-' + pid;
   });
 })();
 </script>
