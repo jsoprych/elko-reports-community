@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Real Estate Market Snapshot — 2026-05-07 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* REPORT PULSE — tiny smiley indicator */
+  .report-pulse {
+    display: inline-block; font-size: 14px; line-height: 1;
+    margin-left: 6px; vertical-align: middle;
+    cursor: help; transition: transform 0.2s;
+  }
+  .report-pulse:hover { transform: scale(1.2); }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap; text-decoration: none;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  {{EXTRA_CSS}}
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Glider Report</span>
+  <h1 class="report-title">Real Estate Market Snapshot — 2026-05-07<span class="report-pulse" title="Report data quality">😊</span></h1>
+  <div class="report-meta">
+    <span>📅 2026-05-07 @ 0725 UTC</span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Real Estate · Redfin Dataset</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- PANEL NAV — auto-discovered from data-panel attributes -->
+  
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>🏘️ 24,311 US ZIP Codes Tracked</h2>
+    <p>Comprehensive real estate market snapshot from the Redfin Public Dataset covering 24,311 ZIP codes across all 50 states. Single Family Residential pricing, supply, and velocity metrics through 2026-03-31.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+
+  <!-- CONTENT (panel stack) -->
+  
+<div data-panel="overview" data-panel-title="🏠 Overview" data-panel-color="#3b82f6" data-panel-default="1">
+  <div class="section-header"><span class="icon">🏠</span><h2>National Market Overview</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#3b82f6"><p>Single Family Residential data from <strong>2026-03-31</strong> across <strong>24,311</strong> US ZIP codes. Source: Redfin Public Dataset.</p></div>
+  <div class="metric-row">
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);-webkit-background-clip:text;background-clip:text">$460,398</div><div class="metric-label">National Avg Price</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+15.3%</div><div class="metric-label">Avg YoY Change</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;background-clip:text">5.0mo</div><div class="metric-label">Avg Months Supply</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#a855f7,#c084fc);-webkit-background-clip:text;background-clip:text">82d</div><div class="metric-label">Avg Days on Market</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;background-clip:text">97.2%</div><div class="metric-label">Sale-to-List Ratio</div></div>
+  </div>
+</div>
+
+<div data-panel="revenue" data-panel-title="💰 Revenue" data-panel-color="#22c55e" data-panel-default="1">
+  <div class="section-header"><span class="icon">💰</span><h2>Quickest Path to Revenue</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#22c55e"><p>24,311 ZIP codes tracked. <strong>6,188</strong> seller's markets (&lt;3mo supply), <strong>3,918</strong> buyer's markets (&gt;6mo). Best bets for agents and investors below.</p></div>
+  <div class="metric-row">
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);-webkit-background-clip:text;background-clip:text">24,311</div><div class="metric-label">ZIPs Tracked</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">6,188</div><div class="metric-label">Seller's Markets</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#ef4444,#f87171);-webkit-background-clip:text;background-clip:text">3,918</div><div class="metric-label">Buyer's Markets</div></div>
+    <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;background-clip:text">10</div><div class="metric-label">Under $200K</div></div>
+  </div>
+</div>
+<div data-panel="volume" data-panel-title="📊 Top Sales" data-panel-color="#3b82f6" data-panel-default="1">
+  <div class="section-header"><span class="icon">📊</span><h2>Top 25 ZIPs by Sales Volume</h2><span class="accent-line"></span></div>
+  
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#1</strong> — ZIP <strong>77493</strong> · ? · <span style="color:var(--accent);font-weight:700">$328,915</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-1.8%</span> · 70d DOM · 4.3mo supply · 638 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#2</strong> — ZIP <strong>75071</strong> · ? · <span style="color:var(--accent);font-weight:700">$445,500</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-1.0%</span> · 90d DOM · 3.7mo supply · 524 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#3</strong> — ZIP <strong>77433</strong> · ? · <span style="color:var(--accent);font-weight:700">$441,028</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-0.9%</span> · 82d DOM · 3.9mo supply · 510 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#4</strong> — ZIP <strong>29486</strong> · ? · <span style="color:var(--accent);font-weight:700">$434,502</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+3.5%</span> · 87d DOM · 3.6mo supply · 472 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#5</strong> — ZIP <strong>73099</strong> · ? · <span style="color:var(--accent);font-weight:700">$280,000</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-0.5%</span> · 74d DOM · 4.2mo supply · 455 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#6</strong> — ZIP <strong>34219</strong> · ? · <span style="color:var(--accent);font-weight:700">$405,000</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+2.0%</span> · 95d DOM · 4.9mo supply · 452 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#7</strong> — ZIP <strong>79928</strong> · ? · <span style="color:var(--accent);font-weight:700">$286,110</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+2.2%</span> · 105d DOM · 5.2mo supply · 438 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#8</strong> — ZIP <strong>34293</strong> · ? · <span style="color:var(--accent);font-weight:700">$424,900</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-5.6%</span> · 51d DOM · 3.4mo supply · 431 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#9</strong> — ZIP <strong>85387</strong> · ? · <span style="color:var(--accent);font-weight:700">$444,995</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+1.1%</span> · 95d DOM · 4.8mo supply · 424 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#10</strong> — ZIP <strong>78253</strong> · ? · <span style="color:var(--accent);font-weight:700">$323,048</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+6.6%</span> · 98d DOM · 5.5mo supply · 418 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#11</strong> — ZIP <strong>78130</strong> · ? · <span style="color:var(--accent);font-weight:700">$304,075</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-3.5%</span> · 110d DOM · 6.0mo supply · 402 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#12</strong> — ZIP <strong>79938</strong> · ? · <span style="color:var(--accent);font-weight:700">$274,950</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+3.8%</span> · 101d DOM · 3.7mo supply · 400 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#13</strong> — ZIP <strong>78245</strong> · ? · <span style="color:var(--accent);font-weight:700">$289,990</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-3.2%</span> · 111d DOM · 5.4mo supply · 399 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#14</strong> — ZIP <strong>85326</strong> · ? · <span style="color:var(--accent);font-weight:700">$388,640</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-1.2%</span> · 79d DOM · 4.2mo supply · 399 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#15</strong> — ZIP <strong>83642</strong> · ? · <span style="color:var(--accent);font-weight:700">$492,995</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-6.4%</span> · 76d DOM · 1.5mo supply · 394 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#16</strong> — ZIP <strong>76227</strong> · ? · <span style="color:var(--accent);font-weight:700">$325,500</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-12.0%</span> · 82d DOM · 5.7mo supply · 379 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#17</strong> — ZIP <strong>34211</strong> · ? · <span style="color:var(--accent);font-weight:700">$610,208</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-1.5%</span> · 82d DOM · 3.0mo supply · 370 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#18</strong> — ZIP <strong>29526</strong> · ? · <span style="color:var(--accent);font-weight:700">$321,990</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-3.0%</span> · 134d DOM · 6.3mo supply · 365 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#19</strong> — ZIP <strong>33993</strong> · ? · <span style="color:var(--accent);font-weight:700">$348,000</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-3.1%</span> · 80d DOM · 5.9mo supply · 361 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#20</strong> — ZIP <strong>75126</strong> · ? · <span style="color:var(--accent);font-weight:700">$324,500</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-6.5%</span> · 114d DOM · 6.8mo supply · 358 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#21</strong> — ZIP <strong>85383</strong> · ? · <span style="color:var(--accent);font-weight:700">$656,745</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-3.3%</span> · 76d DOM · 4.6mo supply · 358 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#22</strong> — ZIP <strong>75009</strong> · ? · <span style="color:var(--accent);font-weight:700">$490,000</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-13.3%</span> · 146d DOM · 5.5mo supply · 352 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#23</strong> — ZIP <strong>78640</strong> · ? · <span style="color:var(--accent);font-weight:700">$313,818</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#ef4444">-4.6%</span> · 107d DOM · 4.6mo supply · 351 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#24</strong> — ZIP <strong>89087</strong> · ? · <span style="color:var(--accent);font-weight:700">$450,000</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+0.7%</span> · 56d DOM · 3.0mo supply · 349 sold</div>
+      </div>
+    </div>
+    <div class="hero-card" style="border-left-color:#3b82f6;margin-bottom:5px;font-size:13px;padding:8px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+        <div><strong>#25</strong> — ZIP <strong>37042</strong> · ? · <span style="color:var(--accent);font-weight:700">$303,745</span></div>
+        <div style="font-size:12px;color:var(--text-muted)"><span style="color:#22c55e">+3.0%</span> · 92d DOM · 5.2mo supply · 348 sold</div>
+      </div>
+    </div>
+</div>
+<div data-panel="appreciation" data-panel-title="📈 Appreciation" data-panel-color="#22c55e" data-panel-default="0">
+  <div class="section-header"><span class="icon">📈</span><h2>YoY Appreciation Leaders</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#22c55e"><p>ZIP codes with highest year-over-year single-family price growth (excluding outliers &gt;500%).</p></div>
+  <div class="metric-row"><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+490.2%</div><div class="metric-label">ZIP 17028 · $389,500</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+488.1%</div><div class="metric-label">ZIP 14775 · $123,500</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+474.1%</div><div class="metric-label">ZIP 53059 · $775,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+467.6%</div><div class="metric-label">ZIP 25315 · $110,400</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+463.3%</div><div class="metric-label">ZIP 13334 · $445,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+461.1%</div><div class="metric-label">ZIP 13137 · $202,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+459.6%</div><div class="metric-label">ZIP 83821 · $6,995,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+456.8%</div><div class="metric-label">ZIP 61047 · $515,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+454.8%</div><div class="metric-label">ZIP 14202 · $749,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+452.2%</div><div class="metric-label">ZIP 73444 · $635,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+449.4%</div><div class="metric-label">ZIP 12503 · $10,850,000</div></div><div class="metric-card" style="flex:1;min-width:120px"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+447.6%</div><div class="metric-label">ZIP 45317 · $345,000</div></div></div>
+</div>
+<div data-panel="seller" data-panel-title="🔥 Seller's Mkts" data-panel-color="#f97316" data-panel-default="0">
+  <div class="section-header"><span class="icon">🔥</span><h2>Seller's Markets (6,188 ZIPs)</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#f97316"><p>Under 3 months of supply &lt;3mo — strong seller leverage, fast sales, multiple offers.</p></div>
+  <div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01001</strong> — ? · <span style="color:var(--accent);font-weight:700">$360,000</span> · 1.4mo supply · 35d DOM · <span style="color:#22c55e">+8.3%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01002</strong> — ? · <span style="color:var(--accent);font-weight:700">$600,000</span> · 2.8mo supply · 34d DOM · <span style="color:#ef4444">-3.0%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01011</strong> — ? · <span style="color:var(--accent);font-weight:700">$340,000</span> · 2.6mo supply · 28d DOM · <span style="color:#22c55e">+41.1%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01013</strong> — ? · <span style="color:var(--accent);font-weight:700">$299,999</span> · 1.9mo supply · 51d DOM · <span style="color:#22c55e">+1.7%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01020</strong> — ? · <span style="color:var(--accent);font-weight:700">$326,500</span> · 1.0mo supply · 25d DOM · <span style="color:#22c55e">+7.0%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01028</strong> — ? · <span style="color:var(--accent);font-weight:700">$470,000</span> · 1.8mo supply · 24d DOM · <span style="color:#22c55e">+33.1%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01030</strong> — ? · <span style="color:var(--accent);font-weight:700">$397,000</span> · 2.5mo supply · 20d DOM · <span style="color:#22c55e">+7.9%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01031</strong> — ? · <span style="color:var(--accent);font-weight:700">$315,000</span> · 1.0mo supply · 214d DOM · <span style="color:#ef4444">-12.5%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01033</strong> — ? · <span style="color:var(--accent);font-weight:700">$432,500</span> · 1.5mo supply · 82d DOM · <span style="color:#ef4444">-28.0%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01036</strong> — ? · <span style="color:var(--accent);font-weight:700">$520,000</span> · 1.5mo supply · 61d DOM · <span style="color:#ef4444">-20.0%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01038</strong> — ? · <span style="color:var(--accent);font-weight:700">$437,500</span> · 2.3mo supply · 49d DOM · <span style="color:#22c55e">+35.4%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01039</strong> — ? · <span style="color:var(--accent);font-weight:700">$740,750</span> · 1.5mo supply · 34d DOM · <span style="color:#22c55e">+9.9%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01040</strong> — ? · <span style="color:var(--accent);font-weight:700">$342,500</span> · 2.3mo supply · 41d DOM · <span style="color:#22c55e">+13.2%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01050</strong> — ? · <span style="color:var(--accent);font-weight:700">$225,000</span> · 1.2mo supply · 56d DOM · <span style="color:#ef4444">-47.7%</span></div><div class="hero-card" style="border-left-color:#22c55e;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01056</strong> — ? · <span style="color:var(--accent);font-weight:700">$425,500</span> · 1.3mo supply · 37d DOM · <span style="color:#22c55e">+23.3%</span></div>
+</div>
+<div data-panel="buyer" data-panel-title="❄️ Buyer's Mkts" data-panel-color="#6366f1" data-panel-default="0">
+  <div class="section-header"><span class="icon">❄️</span><h2>Buyer's Markets (3,918 ZIPs)</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#6366f1"><p>Over 6 months of supply — buyers negotiate, longer DOM, price drops likely.</p></div>
+  <div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01012</strong> — ? · <span style="color:var(--accent);font-weight:700">$300,000</span> · 9.0mo supply · 193d DOM · <span style="color:#22c55e">+347.8%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01068</strong> — ? · <span style="color:var(--accent);font-weight:700">$339,000</span> · 15.0mo supply · 101d DOM · <span style="color:#ef4444">-27.1%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01070</strong> — ? · <span style="color:var(--accent);font-weight:700">$517,000</span> · 9.0mo supply · 32d DOM · <span style="color:#22c55e">+122.4%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01081</strong> — ? · <span style="color:var(--accent);font-weight:700">$409,500</span> · 7.5mo supply · 64d DOM · <span style="color:#22c55e">+31.7%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01222</strong> — ? · <span style="color:var(--accent);font-weight:700">$350,000</span> · 9.0mo supply · 241d DOM · <span style="color:#22c55e">+5.3%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01237</strong> — ? · <span style="color:var(--accent);font-weight:700">$745,000</span> · 11.0mo supply · 104d DOM · <span style="color:#22c55e">+112.9%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01238</strong> — ? · <span style="color:var(--accent);font-weight:700">$295,000</span> · 27.0mo supply · 85d DOM · <span style="color:#ef4444">-21.3%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01253</strong> — ? · <span style="color:var(--accent);font-weight:700">$591,425</span> · 7.5mo supply · 215d DOM · <span style="color:#22c55e">+44.7%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01262</strong> — ? · <span style="color:var(--accent);font-weight:700">$538,000</span> · 21.0mo supply · 104d DOM · <span style="color:#ef4444">-57.8%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01266</strong> — ? · <span style="color:var(--accent);font-weight:700">$499,000</span> · 6.6mo supply · 39d DOM · <span style="color:#22c55e">+11.5%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01330</strong> — ? · <span style="color:var(--accent);font-weight:700">$625,000</span> · 9.0mo supply · 3d DOM · <span style="color:#22c55e">+33.7%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01366</strong> — ? · <span style="color:var(--accent);font-weight:700">$749,900</span> · 9.0mo supply · 146d DOM · <span style="color:#22c55e">+56.2%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01436</strong> — ? · <span style="color:var(--accent);font-weight:700">$416,000</span> · 24.0mo supply · 97d DOM · <span style="color:#22c55e">+9.5%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01452</strong> — ? · <span style="color:var(--accent);font-weight:700">$625,000</span> · 12.0mo supply · 22d DOM · <span style="color:#22c55e">+38.1%</span></div><div class="hero-card" style="border-left-color:#ef4444;margin-bottom:4px;font-size:13px;padding:8px 12px"><strong>ZIP 01522</strong> — ? · <span style="color:var(--accent);font-weight:700">$592,500</span> · 7.5mo supply · 101d DOM · <span style="color:#ef4444">-7.4%</span></div>
+</div>
+<div data-panel="chicago" data-panel-title="🏙️ Chicago" data-panel-color="#ec4899" data-panel-default="1">
+  <div class="section-header"><span class="icon">🏙️</span><h2>Chicago Metro (606xx)</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#ec4899"><p>54 Chicago ZIP codes with Single Family Residential data.</p></div>
+  <div class="metric-row"><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$700,000</div><div class="metric-label" style="font-size:11px">60601 · N/A<br>1d DOM · Nonemo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$190,000</div><div class="metric-label" style="font-size:11px">60602 · N/A<br>49d DOM · 3.0mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$150,000</div><div class="metric-label" style="font-size:11px">60604 · N/A<br>Noned DOM · Nonemo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$1,075,000</div><div class="metric-label" style="font-size:11px">60605 · <span style="color:#ef4444">-36.2%</span><br>86d DOM · 3.0mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$880,000</div><div class="metric-label" style="font-size:11px">60607 · N/A<br>29d DOM · 3.0mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$444,000</div><div class="metric-label" style="font-size:11px">60608 · <span style="color:#ef4444">-7.5%</span><br>114d DOM · 4.5mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$292,500</div><div class="metric-label" style="font-size:11px">60609 · <span style="color:#22c55e">+10.8%</span><br>78d DOM · 4.6mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$4,387,500</div><div class="metric-label" style="font-size:11px">60610 · <span style="color:#22c55e">+68.8%</span><br>110d DOM · 10.5mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$2,845,000</div><div class="metric-label" style="font-size:11px">60611 · <span style="color:#ef4444">-5.2%</span><br>124d DOM · 3.0mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$862,500</div><div class="metric-label" style="font-size:11px">60612 · <span style="color:#22c55e">+22.3%</span><br>89d DOM · 2.8mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$1,650,000</div><div class="metric-label" style="font-size:11px">60613 · <span style="color:#ef4444">-9.6%</span><br>137d DOM · 2.7mo</div></div><div class="metric-card" style="flex:1;min-width:130px"><div class="metric-value" style="background:linear-gradient(135deg,#6366f1,#818cf8);-webkit-background-clip:text;background-clip:text;font-size:16px">$3,075,000</div><div class="metric-label" style="font-size:11px">60614 · <span style="color:#22c55e">+101.6%</span><br>93d DOM · 4.8mo</div></div></div>
+  <div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60601</strong> · <span style="color:var(--accent)">$700,000</span> · N/A · 1d · Nonemo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60602</strong> · <span style="color:var(--accent)">$190,000</span> · N/A · 49d · 3.0mo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60604</strong> · <span style="color:var(--accent)">$150,000</span> · N/A · Noned · Nonemo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60605</strong> · <span style="color:var(--accent)">$1,075,000</span> · <span style="color:#ef4444">-36.2%</span> · 86d · 3.0mo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60607</strong> · <span style="color:var(--accent)">$880,000</span> · N/A · 29d · 3.0mo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60608</strong> · <span style="color:var(--accent)">$444,000</span> · <span style="color:#ef4444">-7.5%</span> · 114d · 4.5mo · 12 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60609</strong> · <span style="color:var(--accent)">$292,500</span> · <span style="color:#22c55e">+10.8%</span> · 78d · 4.6mo · 22 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60610</strong> · <span style="color:var(--accent)">$4,387,500</span> · <span style="color:#22c55e">+68.8%</span> · 110d · 10.5mo · 4 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60611</strong> · <span style="color:var(--accent)">$2,845,000</span> · <span style="color:#ef4444">-5.2%</span> · 124d · 3.0mo · 2 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60612</strong> · <span style="color:var(--accent)">$862,500</span> · <span style="color:#22c55e">+22.3%</span> · 89d · 2.8mo · 18 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60613</strong> · <span style="color:var(--accent)">$1,650,000</span> · <span style="color:#ef4444">-9.6%</span> · 137d · 2.7mo · 11 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60614</strong> · <span style="color:var(--accent)">$3,075,000</span> · <span style="color:#22c55e">+101.6%</span> · 93d · 4.8mo · 22 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60615</strong> · <span style="color:var(--accent)">$675,000</span> · <span style="color:#ef4444">-5.6%</span> · 45d · 23.0mo · 3 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60616</strong> · <span style="color:var(--accent)">$552,500</span> · <span style="color:#22c55e">+20.2%</span> · 68d · 19.5mo · 2 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60617</strong> · <span style="color:var(--accent)">$189,500</span> · <span style="color:#ef4444">-15.8%</span> · 80d · 4.9mo · 88 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60618</strong> · <span style="color:var(--accent)">$950,000</span> · <span style="color:#ef4444">-4.9%</span> · 49d · 2.8mo · 47 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60619</strong> · <span style="color:var(--accent)">$229,000</span> · <span style="color:#22c55e">+10.1%</span> · 77d · 5.6mo · 85 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60620</strong> · <span style="color:var(--accent)">$225,000</span> · <span style="color:#22c55e">+7.1%</span> · 73d · 5.3mo · 87 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60621</strong> · <span style="color:var(--accent)">$125,000</span> · <span style="color:#22c55e">+11.6%</span> · 88d · 7.8mo · 17 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60622</strong> · <span style="color:var(--accent)">$1,132,500</span> · <span style="color:#22c55e">+3.0%</span> · 34d · 2.5mo · 20 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60623</strong> · <span style="color:var(--accent)">$260,000</span> · <span style="color:#ef4444">-8.8%</span> · 44d · 6.3mo · 11 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60624</strong> · <span style="color:var(--accent)">$342,500</span> · <span style="color:#22c55e">+10.3%</span> · 246d · 6.8mo · 8 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60625</strong> · <span style="color:var(--accent)">$747,500</span> · <span style="color:#ef4444">-4.8%</span> · 68d · 2.3mo · 24 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60626</strong> · <span style="color:var(--accent)">$642,500</span> · <span style="color:#ef4444">-11.1%</span> · 37d · 12.0mo · 2 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60628</strong> · <span style="color:var(--accent)">$165,900</span> · <span style="color:#ef4444">-2.4%</span> · 69d · 5.4mo · 113 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60629</strong> · <span style="color:var(--accent)">$285,000</span> · <span style="color:#ef4444">-3.4%</span> · 88d · 3.6mo · 65 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60630</strong> · <span style="color:var(--accent)">$485,000</span> · <span style="color:#22c55e">+2.1%</span> · 41d · 2.8mo · 45 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60631</strong> · <span style="color:var(--accent)">$490,000</span> · <span style="color:#22c55e">+8.9%</span> · 44d · 2.4mo · 38 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60632</strong> · <span style="color:var(--accent)">$347,500</span> · <span style="color:#22c55e">+14.8%</span> · 58d · 4.8mo · 26 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60633</strong> · <span style="color:var(--accent)">$222,000</span> · <span style="color:#22c55e">+4.2%</span> · 126d · 4.6mo · 22 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60634</strong> · <span style="color:var(--accent)">$412,500</span> · <span style="color:#22c55e">+5.8%</span> · 58d · 4.3mo · 72 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60636</strong> · <span style="color:var(--accent)">$120,000</span> · <span style="color:#ef4444">-22.3%</span> · 77d · 5.7mo · 47 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60637</strong> · <span style="color:var(--accent)">$211,500</span> · <span style="color:#ef4444">-39.6%</span> · 113d · 8.3mo · 13 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60638</strong> · <span style="color:var(--accent)">$350,000</span> · <span style="color:#22c55e">+11.1%</span> · 59d · 3.4mo · 73 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60639</strong> · <span style="color:var(--accent)">$380,000</span> · <span style="color:#22c55e">+0.8%</span> · 68d · 3.2mo · 27 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60640</strong> · <span style="color:var(--accent)">$1,472,500</span> · <span style="color:#22c55e">+4.4%</span> · 90d · 4.5mo · 10 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60641</strong> · <span style="color:var(--accent)">$495,500</span> · <span style="color:#22c55e">+19.4%</span> · 63d · 2.9mo · 40 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60642</strong> · <span style="color:var(--accent)">$1,776,500</span> · <span style="color:#22c55e">+43.2%</span> · 273d · 1.5mo · 2 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60643</strong> · <span style="color:var(--accent)">$262,500</span> · <span style="color:#22c55e">+2.4%</span> · 63d · 4.0mo · 82 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60644</strong> · <span style="color:var(--accent)">$190,000</span> · <span style="color:#ef4444">-11.2%</span> · 72d · 5.2mo · 18 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60645</strong> · <span style="color:var(--accent)">$515,500</span> · <span style="color:#ef4444">-4.5%</span> · 51d · 4.2mo · 10 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60646</strong> · <span style="color:var(--accent)">$557,750</span> · <span style="color:#22c55e">+5.2%</span> · 53d · 3.3mo · 34 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60647</strong> · <span style="color:var(--accent)">$1,129,000</span> · <span style="color:#22c55e">+26.6%</span> · 78d · 2.8mo · 29 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60649</strong> · <span style="color:var(--accent)">$300,000</span> · <span style="color:#22c55e">+1.9%</span> · 88d · 4.8mo · 22 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60651</strong> · <span style="color:var(--accent)">$350,000</span> · <span style="color:#22c55e">+9.4%</span> · 71d · 2.2mo · 51 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60652</strong> · <span style="color:var(--accent)">$318,250</span> · <span style="color:#22c55e">+17.9%</span> · 71d · 3.4mo · 48 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60653</strong> · <span style="color:var(--accent)">$600,000</span> · <span style="color:#ef4444">-24.5%</span> · 98d · 8.1mo · 7 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60654</strong> · <span style="color:var(--accent)">$2,500,000</span> · N/A · 148d · 6.0mo · 1 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60655</strong> · <span style="color:var(--accent)">$355,000</span> · <span style="color:#22c55e">+12.7%</span> · 43d · 2.6mo · 45 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60656</strong> · <span style="color:var(--accent)">$473,000</span> · <span style="color:#22c55e">+10.0%</span> · 68d · 3.7mo · 21 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60657</strong> · <span style="color:var(--accent)">$1,779,000</span> · <span style="color:#ef4444">-11.7%</span> · 67d · 3.4mo · 15 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60659</strong> · <span style="color:var(--accent)">$610,000</span> · <span style="color:#22c55e">+45.2%</span> · 52d · 2.4mo · 15 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60660</strong> · <span style="color:var(--accent)">$1,005,000</span> · <span style="color:#ef4444">-20.4%</span> · 12d · 0.8mo · 8 sold</div><div class="hero-card" style="border-left-color:#6366f1;margin-bottom:3px;font-size:12px;padding:6px 10px"><strong>60661</strong> · <span style="color:var(--accent)">$2,035</span> · N/A · Noned · Nonemo · 1 sold</div>
+</div>
+<div data-panel="buckets" data-panel-title="💲 Price Buckets" data-panel-color="#14b8a6" data-panel-default="0">
+  <div class="section-header"><span class="icon">💲</span><h2>Market by Price Range</h2><span class="accent-line"></span></div>
+  <div class="hero-card" style="border-left-color:#14b8a6">
+    <p>Distribution of 24,311 tracked ZIPs by median single-family sale price.</p>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:12px;height:12px;border-radius:3px;background:#22c55e"></div><span>Under $150K: <strong>3,343</strong> (14%)</span></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:12px;height:12px;border-radius:3px;background:#3b82f6"></div><span>$150K-$300K: <strong>7,659</strong> (32%)</span></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:12px;height:12px;border-radius:3px;background:#f97316"></div><span>$300K-$500K: <strong>6,980</strong> (29%)</span></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:12px;height:12px;border-radius:3px;background:#a855f7"></div><span>$500K-$750K: <strong>3,376</strong> (14%)</span></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:12px;height:12px;border-radius:3px;background:#ef4444"></div><span>Over $750K: <strong>2,953</strong> (12%)</span></div>
+  </div>
+</div>
+
+  <!-- SOURCES -->
+  
+<div class="section-header"><span class="icon">🔗</span><h2>Sources</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#6366f1">
+  <p><strong>Data:</strong> Redfin Public Dataset — <a href="https://redfin-public-data.s3.us-west-2.amazonaws.com/redfin_market_tracker/zip_code_market_tracker.tsv000.gz" target="_blank">zip_code_market_tracker.tsv000.gz</a></p>
+  <p><strong>Generated:</strong> 2026-05-07 0725 UTC by Hermes Agent · elko.ai</p>
+  <p><strong>ZIPs covered:</strong> 24,311 · <strong>Latest period:</strong> 2026-03-31 · <strong>Property type:</strong> Single Family Residential</p>
+</div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-07-0725-glider-real-estate.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-07-0725-glider-real-estate.html</a>
+  </div>
+
+</div>
+<!-- PANEL NAV JS — auto-discovers data-panel sections -->
+<script>
+(function(){
+  var nav = document.getElementById('panel-nav-bar');
+  if (!nav) return;
+  var sections = document.querySelectorAll('[data-panel]');
+  var html = '';
+  sections.forEach(function(s, i){
+    var id = s.getAttribute('data-panel');
+    var title = s.getAttribute('data-panel-title') || id;
+    var color = s.getAttribute('data-panel-color') || '#4a6cf7';
+    var def = s.getAttribute('data-panel-default');
+    var checked = def !== '0'; // default 1 = visible
+    s.id = 'panel-' + id;
+    s.classList.add('panel-section');
+    if (!checked) s.classList.add('panel-hidden');
+    html += '<span class="panel-nav-btn" style="--btn-color:' + color + '">' +
+      '<input type="checkbox" class="nav-cb" data-panel="' + id + '"' + (checked ? ' checked' : '') + '>' +
+      '<span class="nav-color-dot" style="background:' + color + '"></span>' +
+      '<a href="#panel-' + id + '" class="nav-label">' + title + '</a></span>';
+  });
+  nav.innerHTML = html;
+  // checkbox toggle -> hide/show section
+  nav.addEventListener('change', function(e){
+    if (e.target.classList.contains('nav-cb')) {
+      var pid = e.target.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec) {
+        if (e.target.checked) sec.classList.remove('panel-hidden');
+        else sec.classList.add('panel-hidden');
+      }
+    }
+  });
+  // clicking anywhere on the button body (not checkbox, not link) -> check + scroll
+  nav.addEventListener('click', function(e){
+    // If the click was on the checkbox itself, just let it toggle (already handled above)
+    if (e.target.classList.contains('nav-cb')) return;
+    // If the click was on the anchor link, let native browser scroll handle it.
+    // But: if the section is hidden, we need to reveal it first.
+    if (e.target.closest('a')) {
+      var btn = e.target.closest('.panel-nav-btn');
+      if (!btn) return;
+      var cb = btn.querySelector('.nav-cb');
+      if (!cb) return;
+      var pid = cb.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec && sec.classList.contains('panel-hidden')) {
+        cb.checked = true;
+        sec.classList.remove('panel-hidden');
+        // Browser will handle the scroll via the href anchor
+      }
+      return;
+    }
+    // Click on the button padding area -> toggle reveal + scroll
+    var btn = e.target.closest('.panel-nav-btn');
+    if (!btn) return;
+    var cb = btn.querySelector('.nav-cb');
+    if (!cb) return;
+    var pid = cb.getAttribute('data-panel');
+    var sec = document.getElementById('panel-' + pid);
+    if (sec && sec.classList.contains('panel-hidden')) {
+      cb.checked = true;
+      sec.classList.remove('panel-hidden');
+    }
+    window.location.hash = '#panel-' + pid;
+  });
+})();
+</script>
+</body>
+</html>
