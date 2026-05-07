@@ -292,6 +292,38 @@
   .panel-section { transition: opacity 0.2s ease; }
   .panel-section.panel-hidden { display: none; }
 
+  /* GROK POPUP — Wikipedia hover summary cards */
+  .grok-popup {
+    position: fixed; z-index: 9999;
+    background: var(--surface); color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    width: 320px; padding: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    font-size: 13px; line-height: 1.6;
+    overflow: hidden;
+  }
+  .grok-popup.visible { opacity: 1; visibility: visible; }
+  .grok-popup .popup-thumb {
+    width: 100%; height: 120px;
+    object-fit: cover; border-radius: 10px 10px 0 0;
+    background: var(--bar-bg); display: block;
+  }
+  .grok-popup .popup-body { padding: 12px 16px 14px; }
+  .grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+  .grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+  .grok-popup .popup-link {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-decoration: none;
+  }
+  .grok-popup .popup-link:hover { text-decoration: underline; }
+  .grok-popup .popup-footer {
+    padding: 8px 16px; border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text-muted);
+  }
+
 </style>
 <script>
 (function(){
@@ -778,7 +810,123 @@
 })();
 </script>
 
+<style>
+  .grok-popup {
+    position: fixed; z-index: 9999;
+    background: var(--surface); color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    width: 320px; padding: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    font-size: 13px; line-height: 1.6;
+    overflow: hidden;
+  }
+  .grok-popup.visible { opacity: 1; visibility: visible; }
+  .grok-popup .popup-thumb {
+    width: 100%; height: 120px;
+    object-fit: cover; border-radius: 10px 10px 0 0;
+    background: var(--bar-bg); display: block;
+  }
+  .grok-popup .popup-body { padding: 12px 16px 14px; }
+  .grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+  .grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+  .grok-popup .popup-link {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-decoration: none;
+  }
+  .grok-popup .popup-link:hover { text-decoration: underline; }
+  .grok-popup .popup-footer {
+    padding: 8px 16px; border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text-muted);
+  }
+</style>
+<script>
+(function(){
+  // PRE-FETCHED Wikipedia summaries — embedded at build time, zero network calls
+  const SUMMARIES = {"OpenAI": {"extract": "OpenAI is an American artificial intelligence (AI) research organization that develops large language models (LLMs) including GPT-4, GPT-4o, o3-mini, and ChatGPT. Founded in 2015 as a nonprofit by Elon Musk, Sam Altman, and others, it restructured to a capped-profit model in 2019. As of 2025, it is valued at approximately $500 billion.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/240px-OpenAI_Logo.svg.png", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "Anthropic": {"extract": "Anthropic is an American artificial intelligence (AI) company headquartered in San Francisco. It has developed a range of large language models (LLMs) named Claude and focuses on AI safety. Anthropic was founded in 2021 by former members of OpenAI, including siblings Daniela Amodei and Dario Amodei.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Anthropic_logo.svg/240px-Anthropic_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Google DeepMind": {"extract": "DeepMind Technologies Limited, trading as Google DeepMind or simply DeepMind, is a British-American artificial intelligence (AI) research laboratory which serves as a subsidiary of Alphabet Inc. Founded in the UK in 2010, it was acquired by Google in 2014 and merged with Google AI's Google Brain division to become Google DeepMind in April 2023.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Google_DeepMind_logo.svg/240px-Google_DeepMind_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Google_DeepMind"}, "xAI": {"extract": "X.AI Corp., doing business as xAI, is an American company working in artificial intelligence (AI), social media and technology that is a wholly owned subsidiary of American aerospace company SpaceX. Founded by Elon Musk with a team of 11 researchers in 2023, its flagship products are the generative AI chatbot Grok and the social network X.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/XAI_Logo.svg/240px-XAI_Logo.svg.png", "url": "https://en.wikipedia.org/wiki/XAI_(company)"}, "Meta AI": {"extract": "Meta AI is a research division of Meta (formerly Facebook) that develops artificial intelligence and augmented reality technologies. Meta AI was founded in 2013 as Facebook Artificial Intelligence Research (FAIR). It has workspaces in Menlo Park, London, New York City, Paris, Seattle, and Pittsburgh.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Meta_Platforms_Inc._logo.svg/240px-Meta_Platforms_Inc._logo.svg.png", "url": "https://en.wikipedia.org/wiki/Meta_AI"}, "Microsoft": {"extract": "Microsoft AI (MAI) is an American artificial intelligence (AI) research laboratory which serves as a division of Microsoft. It oversees consumer artificial intelligence products. The company is based at Microsoft's headquarters in Redmond, Washington, with offices in New York City, London, and Mountain View.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/240px-Microsoft_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Microsoft_AI"}, "Amazon": {"extract": "Amazon.com, Inc. is an American multinational technology company engaged in e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Founded in 1994 by Jeff Bezos in Bellevue, Washington, the company originally started as an online marketplace for books.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/240px-Amazon_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Amazon_(company)"}, "NVIDIA": {"extract": "Nvidia Corporation is an American multinational technology company headquartered in Santa Clara, California. Originally focused on GPUs for video games, Nvidia broadened their use into other markets, including artificial intelligence (AI), professional visualization, and supercomputing.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Nvidia_logo.svg/240px-Nvidia_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "Apple": {"extract": "Apple Intelligence is a generative artificial intelligence system developed by Apple Inc. Relying on a combination of on-device and server processing, it was announced on June 10, 2024, at the 2024 Worldwide Developers Conference as a built-in feature of iOS 18, iPadOS 18, and macOS Sequoia.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/240px-Apple_logo_black.svg.png", "url": "https://en.wikipedia.org/wiki/Apple_Intelligence"}, "DeepSeek": {"extract": "Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd., doing business as DeepSeek, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chinese hedge fund.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/DeepSeek_logo.svg/240px-DeepSeek_logo.svg.png", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Hugging Face": {"extract": "Hugging Face, Inc., is an American company based in New York City that develops computation tools for building applications using machine learning. Its Transformers library built for natural language processing applications and its platform allow users to share machine learning models and datasets.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Hugging_Face_logo.svg/240px-Hugging_Face_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Hugging_Face"}, "Perplexity": {"extract": "Perplexity AI, Inc., or simply Perplexity, is an American privately held software company offering a web search engine that processes user queries and synthesizes responses. Perplexity products use large language models and incorporate real-time web search capabilities, citing sources used.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Perplexity_AI_logo.svg/240px-Perplexity_AI_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Perplexity_AI"}, "Mistral AI": {"extract": "Mistral AI SAS is a French artificial intelligence (AI) company, headquartered in Paris. Founded in 2023, it has open-weight large language models (LLMs), with both open-source and proprietary AI models. Based on valuation, as of June 2024, the company was ranked fourth globally in the AI industry.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Mistral_AI_logo.svg/240px-Mistral_AI_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Mistral_AI"}, "Alibaba": {"extract": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on June 28, 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C) services.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Alibaba_Group_logo.svg/240px-Alibaba_Group_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Baidu": {"extract": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet services and artificial intelligence. It was incorporated in January 2000 by Robin Li and Eric Xu. The company is headquartered in Beijing's Haidian District and is one of the largest AI and Internet companies in the world.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Baidu_logo.svg/240px-Baidu_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Baidu"}, "IBM": {"extract": "International Business Machines Corporation, doing business as IBM (nicknamed Big Blue), is an American multinational technology company headquartered in Armonk, New York, and present in over 175 countries. It is one of the 30 companies in the Dow Jones Industrial Average.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/240px-IBM_logo.svg.png", "url": "https://en.wikipedia.org/wiki/IBM"}, "Oracle": {"extract": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California in 1977 by Bob Miner, Ed Oates, and current chairman and chief technology officer Larry Ellison, Oracle develops database software and cloud engineering systems.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/240px-Oracle_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}, "Palantir": {"extract": "Palantir Technologies Inc. is an American publicly traded company that specializes in big data analytics. Headquartered in Denver, Colorado, Palantir builds software platforms for government agencies and private companies to integrate, visualize, and analyze large data sets.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Palantir_Technologies_logo.svg/240px-Palantir_Technologies_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Palantir_Technologies"}, "Salesforce": {"extract": "Salesforce, Inc. is an American cloud-based software company headquartered in San Francisco, California. It provides customer relationship management (CRM) software and applications. Founded on March 8, 1999 by former Oracle executive Marc Benioff, Salesforce has a market capitalization of approximately US$186 billion.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/240px-Salesforce.com_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Salesforce"}, "Databricks": {"extract": "Databricks, Inc. is an American software company based in San Francisco. It was founded in 2013 by the original creators of Apache Spark. It offers a cloud-based platform for data analytics and artificial intelligence. Databricks developed the 'data lakehouse' architecture.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Databricks_logo.svg/240px-Databricks_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Databricks"}, "Cerebras": {"extract": "Cerebras Systems Inc. is an American artificial intelligence (AI) company with offices in Sunnyvale, San Diego, Toronto, and Bangalore, India. Cerebras builds computer systems for complex AI deep learning applications. It is known for developing wafer-scale AI chips using an entire silicon wafer.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Cerebras_logo.svg/240px-Cerebras_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Cerebras"}, "Groq": {"extract": "Groq, Inc. is an American artificial intelligence (AI) company that builds an AI accelerator application-specific integrated circuit (ASIC). The architecture was originally introduced as a Tensor Streaming Processor (TSP) but later rebranded as a Language Processing Unit (LPU).", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Groq_logo.svg/240px-Groq_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Groq"}, "LangChain": {"extract": "LangChain is a software framework that helps facilitate the integration of large language models (LLMs) into applications. As a language model integration framework, LangChain's use-cases largely overlap with those of language models in general, including document analysis, chatbots, and code analysis.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/LangChain_logo.svg/240px-LangChain_logo.svg.png", "url": "https://en.wikipedia.org/wiki/LangChain"}, "AMD": {"extract": "Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company headquartered in Santa Clara, California. It develops central processing units (CPUs), graphics processing units (GPUs), field-programmable gate arrays (FPGAs), system-on-chips (SoCs), and high-performance computer components.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/AMD_logo.svg/240px-AMD_logo.svg.png", "url": "https://en.wikipedia.org/wiki/AMD"}, "Intel": {"extract": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units (CPUs) and related products for business and consumer markets.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Intel_logo_2022.svg/240px-Intel_logo_2022.svg.png", "url": "https://en.wikipedia.org/wiki/Intel"}, "Broadcom": {"extract": "Broadcom Inc. is an American multinational designer, developer, manufacturer, and global supplier of a wide range of semiconductor and infrastructure software products. Its product offerings serve the data center, networking, software, broadband, wireless, and storage markets.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Broadcom_logo.svg/240px-Broadcom_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Broadcom"}, "TSMC": {"extract": "Taiwan Semiconductor Manufacturing Company Limited (TSMC) is a Taiwanese multinational semiconductor contract manufacturing and design company. Headquartered in Hsinchu Science Park, it is one of the world's largest semiconductor manufacturers and the most valuable company in Taiwan.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/TSMC_logo.svg/240px-TSMC_logo.svg.png", "url": "https://en.wikipedia.org/wiki/TSMC"}, "ASML": {"extract": "ASML Holding N.V. is a Dutch multinational corporation that develops and manufactures photolithography machines which are used to produce integrated circuits. It is the largest supplier for the semiconductor industry and holds a near-monopoly in the extreme ultraviolet lithography (EUV) market.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/ASML_Holding_N.V._logo.svg/240px-ASML_Holding_N.V._logo.svg.png", "url": "https://en.wikipedia.org/wiki/ASML_Holding"},
+    "ElevenLabs": {"extract": "ElevenLabs is a software company that specializes in developing natural-sounding speech synthesis software using deep learning. It was co-founded in 2022 by Piotr Dąbkowski and Mati Staniszewski. Its AI-assisted text-to-speech software can produce lifelike speech by synthesizing vocal emotion.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/ElevenLabs"}
+  };
+
+  const popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+
+  let activeCard = null;
+  let hideTimer = null;
+
+  function showPopup(card, data) {
+    const name = card.getAttribute('data-name') || card.querySelector('span')?.textContent?.trim() || '';
+    const thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    const extract = data.extract
+      ? data.extract.substring(0, 300) + '…'
+      : 'No description available.';
+
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '</div>' +
+      '<div class="popup-footer">Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+    let left = rect.left + rect.width + 10;
+    let top = rect.top;
+
+    if (left + pw > window.innerWidth - 10) {
+      left = rect.left - pw - 10;
+    }
+    if (top + ph > window.innerHeight - 10) {
+      top = window.innerHeight - ph - 10;
+    }
+    if (top < 10) top = 10;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  function hidePopup() {
+    popup.classList.remove('visible');
+  }
+
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const name = card.querySelector('span')?.textContent?.trim();
+    if (!name || !SUMMARIES[name]) return;
+    card.style.cursor = 'pointer';
+    card.setAttribute('data-name', name);
+
+    card.addEventListener('mouseenter', function() {
+      clearTimeout(hideTimer);
+      activeCard = this;
+      showPopup(this, SUMMARIES[name]);
+    });
+
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(hidePopup, 200);
+    });
+
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) positionPopup(this);
+    });
+  });
+
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', hidePopup);
+})();
+</script>
+
   <!-- SOURCES -->
+  <div class="sources">
+    <h3>Sources</h3>
     <a href="https://lmarena.ai" target="_blank">LMSYS Chatbot Arena</a>
   <a href="https://theguardian.com" target="_blank">The Guardian</a>
   <a href="https://nytimes.com" target="_blank">NYT</a>
@@ -796,6 +944,7 @@
   <a href="https://seekingalpha.com" target="_blank">Seeking Alpha</a>
   <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a>
   <a href="https://github.com/jsoprych/elko-reports-community" target="_blank">AI World Knowledge Graph</a>
+  </div>
 
   <!-- FOOTER -->
   <div class="report-footer">
