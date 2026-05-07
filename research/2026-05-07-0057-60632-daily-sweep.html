@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Daily Sweep | elko.ai</title>
+<style>
+:root{--bg:#f8f9fc;--surface:#fff;--text-primary:#1a1a2e;--text-secondary:#5a5a7a;--text-muted:#8892b0;--accent:#4a6cf7;--accent-gradient:linear-gradient(135deg,#4a6cf7,#6c63ff);--border:#e2e6f0;--card-shadow:0 2px 12px rgba(74,108,247,0.08);--card-radius:12px;--bar-bg:#eef0f8;--tag-bg:#eef0f8;--tag-text:#4a6cf7;--chart-color-1:#4a6cf7;--chart-color-2:#6c63ff;--chart-color-3:#818cf8;--chart-color-4:#a78bfa;--chart-color-5:#c4b5fd;--chart-color-6:#f472b6;--chart-color-7:#fb7185;--chart-color-8:#f87171;--chart-color-9:#fbbf24;--chart-color-10:#34d399}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1118;--surface:#1a1d2e;--text-primary:#e2e4f0;--text-secondary:#9ea0b8;--text-muted:#6b6d8a;--border:#2a2d40;--card-shadow:0 2px 12px rgba(0,0,0,0.3);--bar-bg:#252840;--tag-bg:#252840;--tag-text:#818cf8}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:920px;margin:0 auto;padding:40px 24px 80px}
+.report-brand{margin-bottom:8px}
+.brand-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.brand-elko{font-size:22px;font-weight:900;color:#4a6cf7}
+.brand-reports{font-size:22px;font-weight:600;color:#8892b0}
+.series-badge{display:inline-block;background:var(--accent-gradient);color:#fff;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.report-title{font-size:26px;font-weight:800;line-height:1.3;margin-bottom:4px}
+.report-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--text-muted);margin-bottom:20px}
+.divider{border:none;height:1px;background:var(--border);margin:20px 0}
+.hero-card{background:var(--surface);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:24px;border-left:4px solid var(--accent);margin-bottom:24px}
+.hero-card h2{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.hero-card p{font-size:14px;color:var(--text-secondary);line-height:1.8}
+.metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.metric-card{background:var(--surface);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:16px 12px;text-align:center;border:1px solid var(--border)}
+.metric-value{font-size:28px;font-weight:800;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.section-header{display:flex;align-items:center;gap:10px;margin:28px 0 12px}
+.section-header .icon{font-size:20px}
+.section-header h2{font-size:18px;font-weight:700;color:var(--text-primary)}
+.section-header .accent-line{flex:1;height:2px;background:var(--accent-gradient);border-radius:2px}
+.chart-container{margin:16px 0 24px;background:var(--surface);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:20px;border:1px solid var(--border)}
+.bar-row{display:flex;align-items:center;margin-bottom:3px}
+.bar-label{width:140px;font-size:11px;color:var(--text-secondary);text-align:right;padding-right:12px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;height:18px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.bar-count{width:36px;font-size:12px;font-weight:600;color:var(--text-muted);padding-left:8px;flex-shrink:0}
+.entity-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;margin-bottom:20px}
+.entity-card{background:var(--surface);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:10px 6px;border:1px solid var(--border);text-align:center;min-height:85px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default}
+.entity-icon{font-size:22px;margin-bottom:2px}
+.entity-label{font-size:10px;font-weight:600;color:var(--text-primary);line-height:1.2}
+.entity-role{font-size:8px;color:var(--text-muted);margin-top:2px;line-height:1.2;max-height:20px;overflow:hidden}
+.money-zip-card{background:var(--surface);border-radius:var(--card-radius);padding:14px;margin-bottom:10px;border:1px solid var(--border);border-left:4px solid #22c55e}
+.money-zip-header{font-size:16px;font-weight:800;color:var(--accent)}
+.money-total{font-size:14px;font-weight:700;color:var(--text-primary);margin:4px 0 8px}
+.money-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;font-size:11px}
+.money-label{width:50px;flex-shrink:0;font-weight:600;color:var(--text-secondary)}
+.money-track{flex:1;height:14px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.money-fill{height:100%;border-radius:4px}
+.money-fill.public{background:#4a6cf7}
+.money-fill.private{background:#22c55e}
+.money-fill.deals{background:#f59e0b}
+.money-val{width:80px;text-align:right;font-weight:600;color:var(--text-primary)}
+.resource-card{background:var(--surface);border-radius:var(--card-radius);padding:12px;margin-bottom:8px;border:1px solid var(--border);border-left:3px solid #22c55e}
+.resource-header{margin-bottom:2px}
+.resource-header strong{font-size:13px;color:var(--accent)}
+.resource-type{font-size:10px;background:var(--tag-bg);color:var(--tag-text);padding:1px 8px;border-radius:10px;margin-left:4px;text-transform:lowercase}
+.resource-detail{font-size:11px;color:var(--text-secondary);margin-top:1px}
+.apply-btn{display:inline-block;background:var(--accent-gradient);color:#fff;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;text-decoration:none}
+.apply-btn:hover{opacity:0.9}
+.mind-zip{font-size:13px;font-weight:700;color:var(--accent);margin:8px 0 4px}
+.mind-map{font-size:11px;color:var(--text-secondary);margin-bottom:12px;background:var(--surface);border-radius:var(--card-radius);padding:14px;border:1px solid var(--border)}
+.mind-edge{padding:3px 0;font-family:monospace;border-bottom:1px solid var(--border)}
+.mind-edge:last-child{border-bottom:none}
+.mind-source{color:var(--accent);font-weight:600}
+.mind-arrow{color:var(--text-muted);font-size:10px}
+.mind-target{color:var(--text-primary);font-weight:500}
+.politician-card{background:var(--surface);border-radius:var(--card-radius);padding:14px;margin-bottom:10px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.pol-header strong{font-size:14px;color:var(--accent)}
+.pol-title{display:block;font-size:12px;color:var(--text-primary);font-weight:600}
+.pol-party{display:block;font-size:11px;color:var(--text-muted)}
+.pol-body{font-size:12px;color:var(--text-secondary);margin-top:4px}
+.pol-body a{color:var(--accent);text-decoration:none}
+.source-pills{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.source-pills a{display:inline-block;background:var(--tag-bg);color:var(--tag-text);font-size:11px;padding:4px 12px;border-radius:20px;text-decoration:none}
+.report-footer{text-align:center;padding:24px 0;font-size:11px;color:var(--text-muted);line-height:2}
+.report-footer a{color:var(--accent);text-decoration:none}
+</style></head><body>
+<div class="container">
+<div class="report-brand"><a href="https://elko.ai" target="_blank" class="brand-link"><span class="brand-elko">ELKO</span><span class="brand-reports">REPORTS</span></a></div>
+<span class="series-badge">📋 RESEARCH INTELLIGENCE</span>
+<h1 class="report-title">60632 Archer Heights — Daily Sweep</h1>
+<div class="report-meta"><span>📅 2026-05-07 00:57 UTC</span><span>✍️ Reid (Hermes Agent)</span><span>🔓 Public</span><span>📄 Research Brief</span></div>
+<hr class="divider">
+<div class="feedback-bar"><strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai">reid@elko.ai</a></div>
+
+<div class="hero-card"><h2>🏭 On-Demand Sweep — May 7, 2026</h2>
+<p><strong>1218 businesses</strong> cataloged across 60632 + adjacent 60459 (Burbank). <strong>$1.29B total investment</strong> tracked ($935M private, $11.3M public, $344M development deals). Industrial corridor dense with Sterling Bay 147K SF, Brookfield $100M Western Works, Bridge Industrial Ford City proposal. Money flowing into 60632 is overwhelmingly PRIVATE — developers betting big on industrial. BUILD Act, ADU Ordinance, CHIPS Act creating policy tailwinds. <strong>Follow the momentum.</strong></p></div>
+
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">1218</div><div class="metric-label">Total Businesses</div></div>
+  <div class="metric-card"><div class="metric-value">$1.29B</div><div class="metric-label">Total Invested</div></div>
+  <div class="metric-card"><div class="metric-value">$935M</div><div class="metric-label">Private Capital</div></div>
+  <div class="metric-card"><div class="metric-value">5.9%</div><div class="metric-label">Ind. Vacancy</div></div>
+  <div class="metric-card"><div class="metric-value">15M SF</div><div class="metric-label">Under Const.</div></div>
+  <div class="metric-card"><div class="metric-value">+20%</div><div class="metric-label">Home Prices</div></div>
+</div>
+
+<div class="section-header"><span class="icon">💰</span><h2>Money Momentum by ZIP</h2><span class="accent-line"></span></div>
+<div class="money-zip-card">
+  <div class="money-zip-header">💰 ZIP 60632</div>
+  <div class="money-total">$1,010,900,000 total</div>
+  <div class="money-row"><span class="money-label">🏛️ Public</span><div class="money-track"><div class="money-fill public" style="width:0.7%"></div></div><span class="money-val">$7,300,000</span></div>
+  <div class="money-row"><span class="money-label">🏢 Private</span><div class="money-track"><div class="money-fill private" style="width:70.2%"></div></div><span class="money-val">$710,000,000</span></div>
+  <div class="money-row"><span class="money-label">🏗️ Deals</span><div class="money-track"><div class="money-fill deals" style="width:29.0%"></div></div><span class="money-val">$293,600,000</span></div>
+</div>
+<div class="money-zip-card">
+  <div class="money-zip-header">💰 ZIP 60459</div>
+  <div class="money-total">$201,000,000 total</div>
+  <div class="money-row"><span class="money-label">🏛️ Public</span><div class="money-track"><div class="money-fill public" style="width:0.5%"></div></div><span class="money-val">$1,000,000</span></div>
+  <div class="money-row"><span class="money-label">🏢 Private</span><div class="money-track"><div class="money-fill private" style="width:74.6%"></div></div><span class="money-val">$150,000,000</span></div>
+  <div class="money-row"><span class="money-label">🏗️ Deals</span><div class="money-track"><div class="money-fill deals" style="width:24.9%"></div></div><span class="money-val">$50,000,000</span></div>
+</div>
+<div class="money-zip-card">
+  <div class="money-zip-header">💰 ZIP 60652</div>
+  <div class="money-total">$75,000,000 total</div>
+  <div class="money-row"><span class="money-label">🏛️ Public</span><div class="money-track"><div class="money-fill public" style="width:0.0%"></div></div><span class="money-val">$0</span></div>
+  <div class="money-row"><span class="money-label">🏢 Private</span><div class="money-track"><div class="money-fill private" style="width:100.0%"></div></div><span class="money-val">$75,000,000</span></div>
+  <div class="money-row"><span class="money-label">🏗️ Deals</span><div class="money-track"><div class="money-fill deals" style="width:0.0%"></div></div><span class="money-val">$0</span></div>
+</div>
+<div class="money-zip-card">
+  <div class="money-zip-header">💰 ZIP 60629</div>
+  <div class="money-total">$3,000,000 total</div>
+  <div class="money-row"><span class="money-label">🏛️ Public</span><div class="money-track"><div class="money-fill public" style="width:100.0%"></div></div><span class="money-val">$3,000,000</span></div>
+  <div class="money-row"><span class="money-label">🏢 Private</span><div class="money-track"><div class="money-fill private" style="width:0.0%"></div></div><span class="money-val">$0</span></div>
+  <div class="money-row"><span class="money-label">🏗️ Deals</span><div class="money-track"><div class="money-fill deals" style="width:0.0%"></div></div><span class="money-val">$0</span></div>
+</div>
+
+<div class="section-header"><span class="icon">📊</span><h2>Business Mix</h2><span class="accent-line"></span></div>
+<div class="chart-container"><div class="bar-row"><div class="bar-label">Retail</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--chart-color-1)"></div></div><div class="bar-count">128</div></div>
+<div class="bar-row"><div class="bar-label">School</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:var(--chart-color-2)"></div></div><div class="bar-count">60</div></div>
+<div class="bar-row"><div class="bar-label">Fast Food</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:var(--chart-color-3)"></div></div><div class="bar-count">60</div></div>
+<div class="bar-row"><div class="bar-label">Restaurant</div><div class="bar-track"><div class="bar-fill" style="width:27%;background:var(--chart-color-4)"></div></div><div class="bar-count">35</div></div>
+<div class="bar-row"><div class="bar-label">Church</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--chart-color-5)"></div></div><div class="bar-count">24</div></div>
+<div class="bar-row"><div class="bar-label">Place Of Worship</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--chart-color-6)"></div></div><div class="bar-count">23</div></div>
+<div class="bar-row"><div class="bar-label">Bicycle Rental</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--chart-color-7)"></div></div><div class="bar-count">23</div></div>
+<div class="bar-row"><div class="bar-label">Commercial</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--chart-color-8)"></div></div><div class="bar-count">18</div></div>
+<div class="bar-row"><div class="bar-label">Mobile Phone</div><div class="bar-track"><div class="bar-fill" style="width:13%;background:var(--chart-color-9)"></div></div><div class="bar-count">17</div></div>
+<div class="bar-row"><div class="bar-label">Convenience</div><div class="bar-track"><div class="bar-fill" style="width:13%;background:var(--chart-color-10)"></div></div><div class="bar-count">17</div></div>
+<div class="bar-row"><div class="bar-label">Bakery</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--chart-color-1)"></div></div><div class="bar-count">14</div></div>
+<div class="bar-row"><div class="bar-label">Bank</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--chart-color-2)"></div></div><div class="bar-count">13</div></div></div>
+
+<div class="section-header"><span class="icon">🏪</span><h2>Archer Heights Local Ecosystem</h2><span class="accent-line"></span></div>
+<div class="entity-row"><div class="entity-card"><div class="entity-icon">🏗️</div><div class="entity-label">Sterling Bay</div><div class="entity-role">147,500 SF spec industrial at 4510 W Ann Lurie Pl. Class 6b incentive.</div></div>
+<div class="entity-card"><div class="entity-icon">🏗️</div><div class="entity-label">Brookfield Properties</div><div class="entity-role">Western Works $100M, 4-building campus at 47th & Western. Broke ground Apr 2026.</div></div>
+<div class="entity-card"><div class="entity-icon">🏗️</div><div class="entity-label">Bridge Industrial</div><div class="entity-role">Proposed 913K SF warehouse at Ford City Mall. Awaiting approvals.</div></div>
+<div class="entity-card"><div class="entity-icon">🏭</div><div class="entity-label">Bagcraft Packaging</div><div class="entity-role">Largest N.A. foodservice packaging converter. 3900 W 43rd St.</div></div>
+<div class="entity-card"><div class="entity-icon">🏭</div><div class="entity-label">Vitner's Distribution</div><div class="entity-role">Snack food distribution at 4202 W 45th St. Key industrial tenant.</div></div>
+<div class="entity-card"><div class="entity-icon">📦</div><div class="entity-label">GEODIS</div><div class="entity-role">First cold-chain cross-dock in the Americas. 78K SF bonded. Apr 2026.</div></div>
+<div class="entity-card"><div class="entity-icon">🏛️</div><div class="entity-label">Greater Chicago Food Depository</div><div class="entity-role">Hydroponic herb garden producing fresh herbs for residents.</div></div>
+<div class="entity-card"><div class="entity-icon">✈️</div><div class="entity-label">Midway International Airport</div><div class="entity-role">Major economic driver. Jobs, transit access, business attraction.</div></div>
+<div class="entity-card"><div class="entity-icon">🚂</div><div class="entity-label">BNSF Corwith Intermodal</div><div class="entity-role">1 sq mi rail yard. 6 Class I railroads. Belt Railway hub.</div></div>
+<div class="entity-card"><div class="entity-icon">💻</div><div class="entity-label">IBM Quantum Campus</div><div class="entity-role">750 tech jobs at IL Quantum Park. South Side proximity benefit.</div></div>
+<div class="entity-card"><div class="entity-icon">🏢</div><div class="entity-label">Angelica Garcilazo Agency</div><div class="entity-role">State Farm Insurance. New license Apr 2026 at 5030 S Archer Ave.</div></div>
+<div class="entity-card"><div class="entity-icon">🛍️</div><div class="entity-label">Zemsky's</div><div class="entity-role">Iconic clothing store since 1958. Inventory liquidation. Landmark closing.</div></div>
+<div class="entity-card"><div class="entity-icon">🏥</div><div class="entity-label">Archer Medical Arts</div><div class="entity-role">4900 S Archer. 10,701 SF mixed-use. 3 med suites. $3.6M.</div></div>
+<div class="entity-card"><div class="entity-icon">🏭</div><div class="entity-label">55 Chicago Business Center</div><div class="entity-role">683K SF industrial at 2600 W 35th. Space available.</div></div>
+<div class="entity-card"><div class="entity-icon">🛍️</div><div class="entity-label">Ford City Mall</div><div class="entity-role">7601 S Cicero. Emergency closure. Vacate hearing May 15.</div></div>
+<div class="entity-card"><div class="entity-icon">🛍️</div><div class="entity-label">Burbank Station</div><div class="entity-role">303K SF power center. Food 4 Less, HomeGoods, Bob's Discount.</div></div>
+<div class="entity-card"><div class="entity-icon">🏭</div><div class="entity-label">Cementmex</div><div class="entity-role">Construction materials/supply. New license Apr 2026.</div></div>
+<div class="entity-card"><div class="entity-icon">🔧</div><div class="entity-label">My Green House HVAC</div><div class="entity-role">HVAC contractor at 5145 S Archer Ave. Licensed through 2028.</div></div>
+<div class="entity-card"><div class="entity-icon">💈</div><div class="entity-label">Ace of Blades Barbershop</div><div class="entity-role">Local barbershop Burbank 60459. Community small business.</div></div></div>
+
+<div class="section-header"><span class="icon">🧠</span><h2>Money Map — Who Connects to What</h2><span class="accent-line"></span></div>
+<div class="mind-zip"><strong>📍 ZIP 60632</strong></div><div class="mind-map">
+  <div class="mind-edge"><span class="mind-source">Delia Ramirez (IL-03)</span> <span class="mind-arrow">──supports──▶</span> <span class="mind-target">CHIPS & Science Act Fundi</span> ($52,000,000,000)</div>
+  <div class="mind-edge"><span class="mind-source">CHIPS & Science Act</span> <span class="mind-arrow">──supported by──▶</span> <span class="mind-target">Delia Ramirez</span> ($52,000,000,000)</div>
+  <div class="mind-edge"><span class="mind-source">Brookfield Properties</span> <span class="mind-arrow">──develops──▶</span> <span class="mind-target">Western Works (47th & Wes</span> ($100,000,000)</div>
+  <div class="mind-edge"><span class="mind-source">Sterling Bay</span> <span class="mind-arrow">──develops──▶</span> <span class="mind-target">4510 W Ann Lurie Place</span> ($25,000,000)</div>
+  <div class="mind-edge"><span class="mind-source">GEODIS</span> <span class="mind-arrow">──develops──▶</span> <span class="mind-target">Chicago Cold-Chain Facili</span> ($20,000,000)</div>
+  <div class="mind-edge"><span class="mind-source">CDOT Complete Streets</span> <span class="mind-arrow">──improves──▶</span> <span class="mind-target">Archer Avenue Corridor</span> ($4,500,000)</div>
+  <div class="mind-edge"><span class="mind-source">Class 6b Tax Incentive</span> <span class="mind-arrow">──incentivizes──▶</span> <span class="mind-target">Sterling Bay</span> ($2,500,000)</div>
+  <div class="mind-edge"><span class="mind-source">Neighborhood Opportunity </span> <span class="mind-arrow">──funds──▶</span> <span class="mind-target">Small Businesses (60632)</span> ($250,000)</div>
+  <div class="mind-edge"><span class="mind-source">Chicago Neighborhood Oppo</span> <span class="mind-arrow">──funds──▶</span> <span class="mind-target">60632 Commercial Corridor</span> ($250,000)</div>
+  <div class="mind-edge"><span class="mind-source">Industrial Corridor Moder</span> <span class="mind-arrow">──governs──▶</span> <span class="mind-target">60632 Industrial Corridor</span></div>
+  <div class="mind-edge"><span class="mind-source">Jeylu Gutierrez (14th War</span> <span class="mind-arrow">──governs──▶</span> <span class="mind-target">Zoning & Permitting (14th</span></div>
+  <div class="mind-edge"><span class="mind-source">Brandon Johnson (Mayor)</span> <span class="mind-arrow">──oversees──▶</span> <span class="mind-target">Industrial Corridor Moder</span></div>
+  <div class="mind-edge"><span class="mind-source">JB Pritzker (Governor)</span> <span class="mind-arrow">──proposed──▶</span> <span class="mind-target">IL BUILD Act (SB4060)</span></div>
+  <div class="mind-edge"><span class="mind-source">Greater Southwest Develop</span> <span class="mind-arrow">──serves──▶</span> <span class="mind-target">60632 Small Businesses</span></div>
+  <div class="mind-edge"><span class="mind-source">14th Ward Service Office</span> <span class="mind-arrow">──serves──▶</span> <span class="mind-target">14th Ward Businesses</span></div>
+  <div class="mind-edge"><span class="mind-source">Cook County Bureau of Eco</span> <span class="mind-arrow">──funds──▶</span> <span class="mind-target">60632 Industrial Tenants</span></div>
+  <div class="mind-edge"><span class="mind-source">Bagcraft Packaging (Novol</span> <span class="mind-arrow">──occupies──▶</span> <span class="mind-target">3900 W 43rd St</span></div>
+  <div class="mind-edge"><span class="mind-source">Vitner's Distribution</span> <span class="mind-arrow">──occupies──▶</span> <span class="mind-target">4202 W 45th St</span></div>
+  <div class="mind-edge"><span class="mind-source">Marshalls</span> <span class="mind-arrow">──occupies──▶</span> <span class="mind-target">4130 S Pulaski Rd</span></div>
+  <div class="mind-edge"><span class="mind-source">Greater Chicago Food Depo</span> <span class="mind-arrow">──occupies──▶</span> <span class="mind-target">4100 W Ann Lurie Pl</span></div>
+  <div class="mind-edge"><span class="mind-source">IL BUILD Act (SB4060)</span> <span class="mind-arrow">──sponsored by──▶</span> <span class="mind-target">JB Pritzker</span></div>
+  <div class="mind-edge"><span class="mind-source">Chicago ADU Ordinance (20</span> <span class="mind-arrow">──passed──▶</span> <span class="mind-target">Chicago City Council</span></div>
+</div>
+<div class="mind-zip"><strong>📍 ZIP 60652</strong></div><div class="mind-map">
+  <div class="mind-edge"><span class="mind-source">Bridge Industrial</span> <span class="mind-arrow">──proposed development──▶</span> <span class="mind-target">Ford City Mall</span> ($150,000,000)</div>
+</div>
+
+<div class="section-header"><span class="icon">💰</span><h2>Funding & Support Resources</h2><span class="accent-line"></span></div>
+<p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Every resource has a direct application link. No dead ends. Click <strong>Apply →</strong> to go straight to the form.</p>
+<div class="resource-card">
+  <div class="resource-header"><strong>Chicago Neighborhood Opportunity Fund</strong> <span class="resource-type">grant</span></div>
+  <div class="resource-detail">$250,000 · City of Chicago DPD · Q2 2026 deadline</div>
+  <div class="resource-detail">Capital development grants for small business/cultural projects along West, Southwest, and South Side commercial corrido</div>
+  <div class="resource-detail"><a href="https://www.chicago.gov/neighborhood-opportunity-fund" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/BusinessAssistance.html" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-744-0003 📧 <a href="mailto:nof@chicago.gov">nof@chicago.gov</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>IL Industrial Training Program</strong> <span class="resource-type">grant</span></div>
+  <div class="resource-detail">Varies · Illinois Dept of Commerce (DCEO) · Ongoing</div>
+  <div class="resource-detail">Grants to offset training costs for new or existing employees at Illinois businesses. Up to 50% of trainer wages, materi</div>
+  <div class="resource-detail"><a href="https://www2.illinois.gov/dceo/Pages/default.aspx" target="_blank" class="apply-btn">Apply →</a> · 📞 217-785-6162</div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Small Business Improvement Fund (SBIF)</strong> <span class="resource-type">grant</span></div>
+  <div class="resource-detail">$150,000 · City of Chicago DPD · Ongoing</div>
+  <div class="resource-detail">Grants for tenant improvements in designated TIF districts. Covers remodeling, expansion, and façade work.</div>
+  <div class="resource-detail"><a href="https://www.chicago.gov/sbif" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/BusinessAssistance.html" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-744-0003</div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>US SBA 7(a) Loan Program</strong> <span class="resource-type">loan</span></div>
+  <div class="resource-detail">$5,000,000 · US Small Business Administration · Ongoing</div>
+  <div class="resource-detail">Government-guaranteed loans for small businesses: working capital, equipment, real estate. Up to $5M.</div>
+  <div class="resource-detail"><a href="https://www.sba.gov/7a" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.sba.gov/local-assistance/chicago" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-353-4528 📧 <a href="mailto:il_chicago@sba.gov">il_chicago@sba.gov</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Burbank Chamber of Commerce</strong> <span class="resource-type">networking</span></div>
+  <div class="resource-detail">Varies · Burbank Chamber of Commerce · Ongoing</div>
+  <div class="resource-detail">Business directory, networking events, advocacy, small business support for Burbank area.</div>
+  <div class="resource-detail"><a href="https://burbankchamber.com" target="_blank" class="apply-btn">Apply →</a> · 📞 708-423-6400</div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>14th Ward Small Business Services</strong> <span class="resource-type">permitting</span></div>
+  <div class="resource-detail">Varies · 14th Ward Alderman Office · Ongoing</div>
+  <div class="resource-detail">Zoning information, business permits, street signage, parking variances, city service requests. Direct liaison to City H</div>
+  <div class="resource-detail"><a href="https://chicago14.com/services" target="_blank" class="apply-btn">Apply →</a> <a href="https://chicago14.com/contact" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 773-236-0117 📧 <a href="mailto:ward@chicago14.com">ward@chicago14.com</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Class 6b Property Tax Incentive</strong> <span class="resource-type">tax incentitive</span></div>
+  <div class="resource-detail">Varies · Cook County Assessor · Ongoing</div>
+  <div class="resource-detail">Reduced property tax assessment for industrial/commercial properties in qualifying areas. 10-year declining schedule.</div>
+  <div class="resource-detail"><a href="https://www.cookcountyassessor.com/forms" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.cookcountyil.gov/economic-development" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-603-1000 📧 <a href="mailto:assessor@cookcountyil.gov">assessor@cookcountyil.gov</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Cook County Economic Development</strong> <span class="resource-type">tax incentitive</span></div>
+  <div class="resource-detail">Varies · Cook County Bureau of Economic Dev · Ongoing</div>
+  <div class="resource-detail">Property tax incentives (Class 6b, 7a, 8), bond financing, workforce development coordination.</div>
+  <div class="resource-detail"><a href="https://www.cookcountyil.gov/economic-development" target="_blank" class="apply-btn">Apply →</a> · 📞 312-603-1000</div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>IL EDGE Tax Credit</strong> <span class="resource-type">tax incentitive</span></div>
+  <div class="resource-detail">Varies · Illinois DCEO · Ongoing</div>
+  <div class="resource-detail">Economic Development for a Growing Economy tax credit. Up to 100% of state income tax withheld from new employees for 5-</div>
+  <div class="resource-detail"><a href="https://www2.illinois.gov/dceo/Pages/edge.aspx" target="_blank" class="apply-btn">Apply →</a> · 📞 217-785-6162</div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Chicago Small Business Center</strong> <span class="resource-type">technical assistance</span></div>
+  <div class="resource-detail">Varies · City of Chicago DPD · Ongoing</div>
+  <div class="resource-detail">Free workshops, one-on-one consulting, procurement assistance, certification guidance (MBE/WBE/SBE).</div>
+  <div class="resource-detail"><a href="https://www.chicago.gov/smallbusiness" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.chicago.gov/city/en/depts/dcd/provdrs/BusinessAssistance.html" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-744-0003 📧 <a href="mailto:bizhelp@chicago.gov">bizhelp@chicago.gov</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Cook County Small Business Source</strong> <span class="resource-type">technical assistance</span></div>
+  <div class="resource-detail">Varies · Cook County Bureau of Economic Dev · Ongoing</div>
+  <div class="resource-detail">Free one-on-one business counseling, financial strategy, certification help, and capital access navigation.</div>
+  <div class="resource-detail"><a href="https://www.cookcountysmallbiz.org/" target="_blank" class="apply-btn">Apply →</a> <a href="https://www.cookcountyil.gov/economic-development" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 312-603-1000 📧 <a href="mailto:smallbiz@cookcountyil.gov">smallbiz@cookcountyil.gov</a></div>
+</div>
+<div class="resource-card">
+  <div class="resource-header"><strong>Greater Southwest Development Corporation</strong> <span class="resource-type">technical assistance</span></div>
+  <div class="resource-detail">Varies · GSDC · Ongoing</div>
+  <div class="resource-detail">Guidance and support for business owners: startup assistance, business plans, marketing, procurement, certifications, li</div>
+  <div class="resource-detail"><a href="https://greatersouthwest.org/" target="_blank" class="apply-btn">Apply →</a> <a href="https://greatersouthwest.org/contact" target="_blank" class="apply-btn" style="background:var(--text-muted)">Info</a> · 📞 773-436-1000 📧 <a href="mailto:info@greatersouthwest.org">info@greatersouthwest.org</a></div>
+</div>
+
+<div class="section-header"><span class="icon">📰</span><h2>Latest Research</h2><span class="accent-line"></span></div>
+<ul class="news-list"><li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Angelica Garcilazo Agency 5030 Archer May2026</strong><br>Angelica Garcilazo Agency Inc. issued new business license at 5030 S Archer Ave Floor 1, Chicago 60632. License issued Apr 2026. Insurance agency serving Archer Heights corridor.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://data.cityofchicago.org/Business-Transactions/Business-Licenses/uc4x-hmav" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>My Green House Hvac 5145 Archer May2026</strong><br>MY GREEN HOUSE HVAC LLC licensed contractor at 5145 S Archer Ave, Chicago 60632. HVAC services, licensed through 2026-2027. New business addition to Archer Avenue service corridor.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.villageofparkforest.com/DocumentCenter/View/8019/Contractor-list-as-of-5-1-24" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Western Works 100M Groundbreaking Apr2026</strong><br>Western Works: Brookfield Properties broke ground April 2026 on $100M, 4-building industrial campus at 47th Street and Western Boulevard (28 acres, 560K+ SF). Former Wheatland Tubing site. Cook County Class 6(b) tax incentive saves estimated $7.2M ov<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.chicago.gov/city/en/depts/mayor/press_room/press_releases/2026/april/western-works-groundbreaking.html" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Archer Medical Arts Available 4900 Archer May2026</strong><br>Archer Medical Arts Building at 4900 S Archer Ave, Chicago 60632 has 1,950 SF office/retail available (expandable to 5,450 SF). Zoned C2-3. Private parking for 30+ vehicles. 10,701 SF building total with 3 medical suites + 1 retail unit + residential<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.loopnet.com/Listing/4900-S-Archer-Ave-Chicago-IL/25579097/" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Chicago Industrial Vacancy 72Pct Q1 2026</strong><br>Chicago industrial market Q1 2026 (Savills): vacancy declined 20 bps YoY to 7.2% — lowest since late 2024. Occupiers moving forward on previously delayed decisions. Chicago industrial remains steady post-pandemic with healthy supply-demand balance.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.savills.us/research_articles/256536/389549-0" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Chicago Restaurant Job Losses 2100 May2026</strong><br>Chicago lost 2,100 restaurant jobs as industry fights mandated wage hikes (May 4, 2026, The Center Square). Sub-minimum wage phase-out impacts Southwest Side restaurant economy.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.thecentersquare.com/illinois/article_f81e1a86-3db7-4a0c-a7e7-0eb590705085.html" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Angelica Garcilazo Agency Apr2026</strong><br>Angelica Garcilazo Agency Inc. — new business license issued Apr 2026 at 5030 S Archer Ave Floor 1, Chicago 60632. Insurance agency operating in Archer Heights corridor.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://data.cityofchicago.org/Business-Economic-Development/Business-Licenses/r5kz-chrr" target="_blank">Read More</a></span></span></li>
+<li class="news-item"><span class="news-bullet"></span><span class="news-text"><strong>Archer Ave Complete Streets Compromise May2026</strong><br>Archer Avenue Complete Streets compromise: CDOT re-adding 17 parking spots across three sections of Archer Ave in Brighton Park/Archer Heights area after protests. CDOT removing portions of concrete bike barriers near Albany Ave, adding spaces near T<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://blockclubchicago.org/2026/04/30/city-removes-brand-new-concrete-bike-lanes-pedestrian-islands-in-brighton-park-amid-protests/" target="_blank">Read More</a></span></span></li>
+</ul>
+
+<div class="section-header"><span class="icon">🏛️</span><h2>Elected Officials — 60632</h2><span class="accent-line"></span></div>
+<div class="politician-card">
+  <div class="pol-header"><strong>Jeylú B. Gutiérrez</strong> <span class="pol-title">Alderwoman, Chicago City Council</span> <span class="pol-party">Democratic · 14th Ward · Next: 2027</span></div>
+  <div class="pol-body">📞 773-236-0117 · 📧 ward@chicago14.com · 🔗 <a href="https://chicago14.com">https://chicago14.com</a></div>
+</div>
+<div class="politician-card">
+  <div class="pol-header"><strong>JB Pritzker</strong> <span class="pol-title">Governor, State of Illinois</span> <span class="pol-party">Democratic · Statewide · Next: 2026</span></div>
+  <div class="pol-body">📞 217-782-0244 · 📧 gov.website@illinois.gov · 🔗 <a href="https://www2.illinois.gov/gov">https://www2.illinois.gov/gov</a></div>
+</div>
+<div class="politician-card">
+  <div class="pol-header"><strong>Brandon Johnson</strong> <span class="pol-title">Mayor of Chicago, City of Chicago</span> <span class="pol-party">Democratic · Citywide · Next: 2027</span></div>
+  <div class="pol-body">📞 312-744-3300 · 📧 mayor@chicago.gov · 🔗 <a href="https://www.chicago.gov/mayor">https://www.chicago.gov/mayor</a></div>
+</div>
+<div class="politician-card">
+  <div class="pol-header"><strong>Angie Guerrero-Cuellar</strong> <span class="pol-title">State Representative, Illinois House of Representatives</span> <span class="pol-party">Democratic · 22nd District · Next: 2026</span></div>
+  <div class="pol-body">📞 217-782-5982 · 📧 N/A · 🔗 <a href="">N/A</a></div>
+</div>
+<div class="politician-card">
+  <div class="pol-header"><strong>Mike Porfirio</strong> <span class="pol-title">State Senator, Illinois Senate</span> <span class="pol-party">Democratic · 11th District · Next: 2026</span></div>
+  <div class="pol-body">📞 217-782-8220 · 📧 N/A · 🔗 <a href="">N/A</a></div>
+</div>
+<div class="politician-card">
+  <div class="pol-header"><strong>Delia Ramirez</strong> <span class="pol-title">U.S. Representative, U.S. House of Representatives</span> <span class="pol-party">Democratic · IL-03 · Next: 2026</span></div>
+  <div class="pol-body">📞 773-799-8219 · 📧 N/A · 🔗 <a href="https://ramirez.house.gov">https://ramirez.house.gov</a></div>
+</div>
+
+<div class="section-header"><span class="icon">📋</span><h2>Active Legislation & Policy</h2><span class="accent-line"></span></div>
+<div class="chart-container"><ul style="list-style:none;padding:0;font-size:13px;color:var(--text-secondary);line-height:2">
+<li><strong style="color:var(--accent)">• IL SB4060 (BUILD Act)</strong> — Zoning reform. Multi-plexes up to 8 units, single-stair bldgs. Proposed Feb 2026.</li>
+<li><strong style="color:var(--accent)">• Chicago Industrial Corridor Modernization</strong> — 26 corridors, 15 PMDs. DPD policy refinement active 2026.</li>
+<li><strong style="color:var(--accent)">• Chicago ADU Ordinance</strong> — Took effect Apr 1, 2026. Unanimous 46-0 City Council vote.</li>
+<li><strong style="color:var(--accent)">• Cook County Reassessment 2026</strong> — Every south/west suburban property reassessed.</li>
+<li><strong style="color:var(--accent)">• Federal CHIPS & Science Act</strong> — $52B. IBM quantum hub 750 jobs South Side.</li>
+</ul></div>
+
+<div class="section-header"><span class="icon">📍</span><h2>Coverage by ZIP</h2><span class="accent-line"></span></div>
+<div class="chart-container"><div class="metric-row" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))"><div class="metric-card"><div class="metric-value" style="font-size:24px">838</div><div class="metric-label">ZIP 60632</div></div>
+<div class="metric-card"><div class="metric-value" style="font-size:24px">379</div><div class="metric-label">ZIP 60459</div></div>
+<div class="metric-card"><div class="metric-value" style="font-size:24px">1</div><div class="metric-label">ZIP 60652</div></div></div></div>
+
+<hr class="divider">
+<div class="source-pills">
+  <a href="https://github.com/jsoprych/60632-archer-heights">GitHub Repo</a>
+  <a href="https://openstreetmap.org">OpenStreetMap</a>
+  <a href="https://chicago.gov">City of Chicago</a>
+  <a href="https://greatersouthwest.org">GSDC</a>
+  <a href="https://chicago14.com">14th Ward</a>
+  <a href="https://www.cookcountyil.gov/economic-development">Cook County</a>
+</div>
+<div class="report-footer">Generated by <a href="https://elko.ai">elko.ai</a> — <a href="mailto:reid@elko.ai">reid@elko.ai</a><br><a href="https://github.com/jsoprych/60632-archer-heights">github.com/jsoprych/60632-archer-heights</a></div>
+</div></body></html>
