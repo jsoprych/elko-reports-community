@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Business Intelligence — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+  .report-header {
+    margin-bottom: 32px; padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 20px;
+    background: var(--accent-gradient); color: #fff;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .report-title { font-size: 26px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
+  .report-meta { font-size: 13px; color: var(--text-muted); }
+  .report-meta span { margin-right: 16px; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin: 28px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .accent-line {
+    flex: 1; height: 2px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+  .hero-card {
+    padding: 16px 20px; border-radius: var(--card-radius);
+    border-left: 4px solid var(--accent);
+    background: var(--surface); box-shadow: var(--card-shadow);
+    margin-bottom: 16px; font-size: 14px; line-height: 1.6;
+  }
+  .hero-card p { margin-bottom: 6px; }
+  .hero-card p:last-child { margin-bottom: 0; }
+  .metric-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .metric-card {
+    flex: 1; min-width: 120px;
+    padding: 14px 16px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 22px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 2px;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  .data-table th {
+    text-align: left; padding: 10px 12px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); border-bottom: 2px solid var(--border);
+  }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .sources {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;
+  }
+  .sources a {
+    display: inline-block; padding: 6px 14px; border-radius: 20px;
+    background: var(--tag-bg); color: var(--tag-text);
+    font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+  .sources a:hover { opacity: 0.8; }
+  .report-footer {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted); text-align: center;
+  }
+  .report-footer a { color: var(--accent); }
+  .brand { font-weight: 800; }
+  .btn {
+    display: inline-block; padding: 8px 20px; border-radius: 8px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; margin: 4px 4px 4px 0;
+  }
+  .btn:hover { opacity: 0.9; }
+  .panel-nav {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 12px 16px; background: var(--surface);
+    border-radius: var(--card-radius); margin-bottom: 20px;
+    border: 1px solid var(--border);
+    align-items: center;
+  }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 10px; border-radius: 6px;
+    background: var(--bar-bg); cursor: pointer; font-size: 12px;
+    border: 1px solid transparent; user-select: none;
+  }
+  .panel-nav-btn:hover { border-color: var(--accent); }
+  .nav-cb { margin: 0; cursor: pointer; }
+  .nav-color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .nav-label { color: var(--text-primary); text-decoration: none; }
+  .panel-section { transition: opacity 0.2s; }
+  .panel-hidden { display: none !important; }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 60px; }
+    .metric-card { min-width: calc(50% - 8px); }
+    .report-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="report-header">
+  <div class="report-badge">Business Intelligence Brief</div>
+  <h1 class="report-title">🏭 60632 Archer Heights — Weekly Business Intel</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-07 @ 0940 UTC</span>
+    <span>🔓 Public</span>
+    <span>📋 ZIP 60632 · Archer Heights, Chicago</span>
+  </div>
+</div>
+
+<!-- PANEL NAV -->
+<div id="panel-nav-bar" class="panel-nav"></div>
+
+<!-- TOP STORY -->
+<div class="hero-card">
+  <h2>60632 Archer Heights — Community Intelligence</h2>
+  <p>Weekly business brief. Residential real estate, industrial development, zoning, jobs, staffing, officials, and funding resources for Chicago's Archer Heights neighborhood (ZIP 60632).</p>
+</div>
+
+<!-- ===== PANEL 1: REAL ESTATE ===== -->
+<div data-panel="real-estate" data-panel-title="🏢 Real Estate" data-panel-color="#3b82f6" data-panel-default="1">
+<div class="section-header"><span class="icon">🏢</span><h2>Residential Real Estate</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">$347,500</div><div class="metric-label">Median Home</div></div>
+  <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+14.8%</div><div class="metric-label">YoY Change</div></div>
+  <div class="metric-card"><div class="metric-value">$231</div><div class="metric-label">Price/SF</div></div>
+  <div class="metric-card"><div class="metric-value">58d</div><div class="metric-label">Days on Market</div></div>
+</div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">4.8mo</div><div class="metric-label">Supply</div></div>
+  <div class="metric-card"><div class="metric-value">35%</div><div class="metric-label">Above List</div></div>
+  <div class="metric-card"><div class="metric-value">98.5%</div><div class="metric-label">Sale/List</div></div>
+  <div class="metric-card"><div class="metric-value">42</div><div class="metric-label">Active Listings</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#3b82f6">
+<p><strong>Q1 2026 Trend:</strong> Prices up 14.8% YoY to $347,500. Supply rising from 2.4mo (Aug 2025) to 4.8mo (Mar 2026) — shifting toward balanced market. Days on market steady at ~58-64d.</p>
+<p><strong>Last 8 quarters:</strong> $300K → $325K → $323K → $300K → $302K → $311K → $350K → $347K. Low end $300K, peak $350K.</p>
+</div>
+</div>
+
+<!-- ===== PANEL 2: MONEY ===== -->
+<div data-panel="money" data-panel-title="💰 Money" data-panel-color="#22c55e" data-panel-default="1">
+<div class="section-header"><span class="icon">💰</span><h2>Money Flow</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">$1.29B</div><div class="metric-label">Total Investment</div></div>
+  <div class="metric-card"><div class="metric-value">$935M</div><div class="metric-label">Private Capital</div></div>
+  <div class="metric-card"><div class="metric-value">1,218</div><div class="metric-label">Businesses</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#22c55e">
+<p><strong>60632:</strong> $717M total ($710M private, $7.3M public) — 99% private money</p>
+<p><strong>Key Projects:</strong> Sterling Bay Pulaski 55 Logistics ($25M), Bagcraft Papercon ($279M rev, facility), Vitner's/Shearer's, GEODIS Cold Chain</p>
+</div>
+</div>
+
+<!-- ===== PANEL 3: INDUSTRIAL ===== -->
+<div data-panel="industrial" data-panel-title="🏭 Industrial" data-panel-color="#f97316" data-panel-default="1">
+<div class="section-header"><span class="icon">🏭</span><h2>Industrial & Manufacturing</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#f97316">
+<p><strong>Top Employers:</strong></p>
+<div style="padding:4px 0">▸ <strong>Bagcraft Papercon / Novolex</strong> — 3900 W 43rd St. Food packaging. $279M rev. ~200-500 emp.</div>
+<div style="padding:4px 0">▸ <strong>Vitner's / Shearer's Snacks</strong> — 4425 S Tripp Ave. Snack foods. Regional employer.</div>
+<div style="padding:4px 0">▸ <strong>GEODIS Cold Chain</strong> — Logistics/warehousing. 100-200 emp.</div>
+<div style="padding:4px 0">▸ <strong>Sterling Bay Pulaski 55 Logistics Center</strong> — 4510 W Ann Lurie. 147,500 SF new industrial. 10 loading bays, 36' clear. Class 6b approved.</div>
+<div style="padding:4px 0">▸ <strong>Midway Airport</strong> — 3,000+ employees. Major economic engine.</div>
+<p style="margin-top:8px"><strong>Industrial Corridor:</strong> 45th & Tripp industrial core. I-55/Stevenson access. Crawford Industrial Park.</p>
+</div>
+</div>
+
+<!-- ===== PANEL 4: ZONING ===== -->
+<div data-panel="zoning" data-panel-title="🏗️ Zoning" data-panel-color="#a855f7" data-panel-default="0">
+<div class="section-header"><span class="icon">🏗️</span><h2>Zoning Changes</h2><span class="accent-line"></span></div>
+<table class="data-table">
+<thead><tr><th>Project</th><th>Status</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td><strong>IL BUILD Act (SB4060)</strong></td><td><span class="td-green">proposed</span></td><td>Multi-plex housing allowed</td></tr>
+<tr><td><strong>Chicago ADU Ordinance</strong></td><td><span class="td-green">active</span></td><td>Accessory dwelling units</td></tr>
+<tr><td><strong>Zoning Ordinance Rewrite</strong></td><td><span class="td-green">planning</span></td><td>First major overhaul</td></tr>
+<tr><td><strong>Industrial Corridor Modernization</strong></td><td><span class="td-green">active</span></td><td>26 corridors refined</td></tr>
+<tr><td><strong>Ford City Mall Conversion</strong></td><td><span class="td-red">proposed</span></td><td>913K SF rezoning</td></tr>
+<tr><td><strong>Cook County Reassessment 2026</strong></td><td><span class="td-green">active</span></td><td>Property tax impact</td></tr>
+<tr><td><strong>Archer Ave Complete Streets</strong></td><td><span style="color:#7c3aed;font-weight:700">underway</span></td><td>4-to-3 lane conversion</td></tr>
+</tbody></table>
+</div>
+
+<!-- ===== PANEL 5: JOBS ===== -->
+<div data-panel="jobs" data-panel-title="💼 Jobs" data-panel-color="#ec4899" data-panel-default="0">
+<div class="section-header"><span class="icon">💼</span><h2>Jobs & Employment</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">1,800+</div><div class="metric-label">Warehouse Openings</div></div>
+  <div class="metric-card"><div class="metric-value">$17.83</div><div class="metric-label">Wage Floor</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#ec4899">
+<p><strong>Wages:</strong> Warehouse $17.83-$19.60/hr | Manufacturing $18-$25/hr | Midway $18-$125/hr</p>
+<p><strong>Trends:</strong> Industrial construction pipeline (Sterling Bay, Brookfield) creating new warehouse jobs. Bagcraft and Vitner's are steady employers at 45th & Tripp.</p>
+</div>
+</div>
+
+<!-- ===== PANEL 6: OFFICIALS ===== -->
+<div data-panel="officials" data-panel-title="🏛️ Officials" data-panel-color="#22c55e" data-panel-default="0">
+<div class="section-header"><span class="icon">🏛️</span><h2>Elected Officials</h2><span class="accent-line"></span></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Jeylú B. Gutiérrez</strong> — 14th Ward Ald. 📞 773-236-0117 | 🔗 <a href="https://chicago14.com" style="color:var(--accent)">chicago14.com</a></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Brandon Johnson</strong> — Mayor. 📞 312-744-3300 | 🔗 <a href="https://www.chicago.gov/mayor" style="color:var(--accent)">chicago.gov</a></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>JB Pritzker</strong> — Governor. 📞 217-782-0244</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Delia Ramirez</strong> — US Rep IL-3. 📞 773-799-8219</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Mike Porfirio</strong> — State Sen IL-11. 📞 217-782-8220</div>
+<div style="padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Angie Guerrero-Cuellar</strong> — State Rep IL-22. 📞 217-782-5982</div>
+</div>
+
+<!-- ===== PANEL 7: FUNDING ===== -->
+<div data-panel="funding" data-panel-title="🔗 Funding" data-panel-color="#f97316" data-panel-default="0">
+<div class="section-header"><span class="icon">🔗</span><h2>Funding Resources</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#f97316">
+<div style="padding:3px 0">• <strong>Class 6b Tax Incentive</strong> — <a href="https://www.cookcountyassessor.com/forms" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Neighborhood Opportunity Fund</strong> (up to $250K) — <a href="https://www.chicago.gov/neighborhood-opportunity-fund" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Small Business Improvement Fund</strong> (up to $150K) — <a href="https://www.chicago.gov/sbif" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>SBA 7(a) Loans</strong> (up to $5M) — <a href="https://www.sba.gov/7a" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>Greater Southwest Dev Corp</strong> — <a href="https://greatersouthwest.org" style="color:var(--accent)">GSDC</a> | 773-436-1000</div>
+<div style="padding:3px 0">• <strong>14th Ward Service Office</strong> — <a href="https://chicago14.com/services" style="color:var(--accent)">Info</a> | 773-236-0117</div>
+<div style="padding:3px 0">• <strong>IL EDGE Tax Credit</strong> — <a href="https://www2.illinois.gov/dceo/Pages/edge.aspx" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>IL Industrial Training Program</strong> — <a href="https://www2.illinois.gov/dceo" style="color:var(--accent)">Info</a></div>
+<div style="padding:3px 0">• <strong>Cook County Small Business Source</strong> — <a href="https://www.cookcountysmallbiz.org" style="color:var(--accent)">Apply</a></div>
+</div>
+</div>
+
+<!-- ===== PANEL 8: SOURCES ===== -->
+<div data-panel="sources" data-panel-title="📚 Sources" data-panel-color="#6b7280" data-panel-default="1">
+<div class="section-header"><span class="icon">📚</span><h2>Sources</h2><span class="accent-line"></span></div>
+<div class="sources">
+  <a href="https://www.cookcountyassessor.com">Cook County Assessor</a>
+  <a href="https://www.chicago.gov">City of Chicago</a>
+  <a href="https://www2.illinois.gov">State of Illinois</a>
+  <a href="https://www.openstreetmap.org">OpenStreetMap</a>
+  <a href="https://www.colliers.com">Colliers</a>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+  <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-07-0940-60632-business-intel.html">Full Report</a>
+</div>
+
+</div>
+
+<!-- PANEL NAV JS -->
+<script>
+(function(){
+  var nav = document.getElementById('panel-nav-bar');
+  if (!nav) return;
+  var sections = document.querySelectorAll('[data-panel]');
+  var html = '';
+  sections.forEach(function(s, i){
+    var id = s.getAttribute('data-panel');
+    var title = s.getAttribute('data-panel-title') || id;
+    var color = s.getAttribute('data-panel-color') || '#4a6cf7';
+    var def = s.getAttribute('data-panel-default');
+    var checked = def !== '0';
+    s.id = 'panel-' + id;
+    s.classList.add('panel-section');
+    if (!checked) s.classList.add('panel-hidden');
+    html += '<span class="panel-nav-btn" style="--btn-color:' + color + '">' +
+      '<input type="checkbox" class="nav-cb" data-panel="' + id + '"' + (checked ? ' checked' : '') + '>' +
+      '<span class="nav-color-dot" style="background:' + color + '"></span>' +
+      '<a href="#panel-' + id + '" class="nav-label">' + title + '</a></span>';
+  });
+  nav.innerHTML = html;
+  nav.addEventListener('change', function(e){
+    if (e.target.classList.contains('nav-cb')) {
+      var pid = e.target.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec) {
+        if (e.target.checked) sec.classList.remove('panel-hidden');
+        else sec.classList.add('panel-hidden');
+      }
+    }
+  });
+  nav.addEventListener('click', function(e){
+    if (e.target.classList.contains('nav-cb')) return;
+    if (e.target.closest('a')) {
+      var btn = e.target.closest('.panel-nav-btn');
+      if (!btn) return;
+      var cb = btn.querySelector('.nav-cb');
+      if (!cb) return;
+      var pid = cb.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec && sec.classList.contains('panel-hidden')) {
+        cb.checked = true;
+        sec.classList.remove('panel-hidden');
+      }
+      return;
+    }
+    var btn = e.target.closest('.panel-nav-btn');
+    if (!btn) return;
+    var cb = btn.querySelector('.nav-cb');
+    if (!cb) return;
+    var pid = cb.getAttribute('data-panel');
+    var sec = document.getElementById('panel-' + pid);
+    if (sec && sec.classList.contains('panel-hidden')) {
+      cb.checked = true;
+      sec.classList.remove('panel-hidden');
+    }
+    window.location.hash = '#panel-' + pid;
+  });
+})();
+</script>
+</body>
+</html>
