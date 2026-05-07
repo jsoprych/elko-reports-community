@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>{{TITLE}} — elko.ai</title>
+<title>Agent Marketplace Monitor — 2026-05-07 — elko.ai</title>
 <style>
   :root {
     --bg: #f8f9fc;
@@ -297,7 +297,15 @@
   }
 
   /* EXTRA CSS — injected by report generator */
-  {{EXTRA_CSS}}
+  
+.data-table { width:100%; border-collapse: collapse; margin-top: 8px; }
+.data-table th { text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; padding:8px 10px; border-bottom:2px solid var(--border); }
+.data-table td { font-size:12px; color:var(--text-secondary); padding:6px 10px; border-bottom:1px solid var(--border); }
+.data-table tbody tr:hover { background:var(--bar-bg); }
+.status-ok { color: var(--success); font-weight:600; }
+.status-err { color: var(--danger); font-weight:600; }
+.tag-pill { display:inline-block; font-size:10px; padding:1px 8px; border-radius:8px; background:var(--tag-bg); color:var(--tag-text); }
+
 </style>
 <script>
 (function(){
@@ -321,13 +329,13 @@
   </div>
 
   <!-- SERIES BADGE + TITLE + META -->
-  <span class="series-badge">{{SERIES}}</span>
-  <h1 class="report-title">{{TITLE}}<span class="report-pulse" title="Report data quality">{{REPORT_PULSE}}</span></h1>
+  <span class="series-badge">Agent Marketplace Monitor</span>
+  <h1 class="report-title">Agent Marketplace Monitor — 2026-05-07<span class="report-pulse" title="Report data quality">😊</span></h1>
   <div class="report-meta">
-    <span>📅 {{DATE}}</span>
-    <span>✍️ {{AUTHOR}}</span>
-    <span>🔓 {{CLASSIFICATION}}</span>
-    <span>📄 {{TYPE}}</span>
+    <span>📅 2026-05-07</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 public</span>
+    <span>📄 Daily Scan</span>
   </div>
   <hr class="divider">
 
@@ -337,27 +345,221 @@
   </div>
 
   <!-- PANEL NAV — auto-discovered from data-panel attributes -->
-  {{PANEL_NAV}}
+  <div id="panel-nav-bar" class="panel-nav"></div>
 
   <!-- TOP STORY -->
-  <div class="hero-card">
-    <h2>{{TOP_HEADING}}</h2>
-    <p>{{TOP_BODY}}</p>
-  </div>
+<div class="hero-card" style="border-left-color: var(--accent)">
+  <h2>🏆 Top Tool: n8n-io/n8n</h2>
+  <p><strong>186,914 downloads</strong> — Fair-code workflow automation platform with native AI capabilities. Combine visual building with cus</p>
+  <p style="margin-top:8px">Runner-up: <strong>affaan-m/everything-claude-code</strong> (174,844 downloads, claude_code_hub). Agent ecosystems continue expanding rapidly — 73 new entries added today across 4 platforms.</p>
+</div>
 
   <!-- METRICS -->
-  {{METRICS}}
+
 
   <!-- CONTENT (panel stack) -->
-  {{CONTENT}}
+  <div class="section-header">
+  <span class="icon">🌐</span><h2>Marketplace Platforms</h2><span class="accent-line"></span>
+</div>
+<div class="entity-row">
+  <div class="entity-card">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/github/default.svg" width="32" height="32" alt="GitHub"><span class="entity-label">GitHub Topics</span><span style="font-size:11px;color:var(--text-secondary)">109 entries</span>
+  </div>
+  <div class="entity-card">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/smithery/color.svg" width="32" height="32" alt="Smithery"><span class="entity-label">Smithery.ai</span><span style="font-size:11px;color:var(--text-secondary)">via GitHub</span>
+  </div>
+  <div class="entity-card">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/reddit/default.svg" width="32" height="32" alt="Reddit"><span class="entity-label">Reddit</span><span style="font-size:11px;color:var(--text-secondary)">511 entries</span>
+  </div>
+  <div class="entity-card">
+    <span style="font-size:24px;line-height:1">🗣️</span><span class="entity-label">Hacker News</span><span style="font-size:11px;color:var(--text-secondary)">community</span>
+  </div>
+  <div class="entity-card">
+    <span style="font-size:24px;line-height:1">🤖</span><span class="entity-label">Claude Code Hub</span><span style="font-size:11px;color:var(--text-secondary)">21 entries</span>
+  </div>
+  <div class="entity-card">
+    <span style="font-size:24px;line-height:1">🧠</span><span class="entity-label">Hermes Hub</span><span style="font-size:11px;color:var(--text-secondary)">17 entries</span>
+  </div>
+</div><div class="metric-row">
+  <div class="metric-card"><div class="metric-value">658</div><div class="metric-label">Total Entries</div></div>
+  <div class="metric-card"><div class="metric-value">73</div><div class="metric-label">New Today</div></div>
+  <div class="metric-card"><div class="metric-value">52</div><div class="metric-label">Overlaps w/ elko</div></div>
+  <div class="metric-card"><div class="metric-value">4</div><div class="metric-label">Sources</div></div>
+</div><div class="chart-container">
+  <div class="section-header"><span class="icon">📊</span><h2>Top 8 Tools by Downloads</h2><span class="accent-line"></span></div>
+  <div class="bar-row">
+    <div class="bar-label" title="github_topics">🐙 n8n-io/n8n</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:100.0%;background:#4a6cf7;" data-pct="100.0%"></div>
+    </div>
+    <div class="bar-count">186,914</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="claude_code_hub">🤖 affaan-m/everything-claude-code</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:93.5%;background:#6c63ff;" data-pct="93.5%"></div>
+    </div>
+    <div class="bar-count">174,844</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="claude_code_hub">🤖 forrestchang/andrej-karpathy-skills</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:62.7%;background:#818cf8;" data-pct="62.7%"></div>
+    </div>
+    <div class="bar-count">117,167</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="github_topics">🐙 google-gemini/gemini-cli</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:55.3%;background:#a78bfa;" data-pct="55.3%"></div>
+    </div>
+    <div class="bar-count">103,300</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="community">🗣️ awesome/punkpeye/awesome-mcp-server</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:46.2%;background:#c4b5fd;" data-pct="46.2%"></div>
+    </div>
+    <div class="bar-count">86,374</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="github_topics">🐙 sansan0/TrendRadar</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:30.4%;background:#f472b6;" data-pct="30.4%"></div>
+    </div>
+    <div class="bar-count">56,865</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="claude_code_hub">🤖 JuliusBrussee/caveman</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:29.7%;background:#fb7185;" data-pct="29.7%"></div>
+    </div>
+    <div class="bar-count">55,502</div>
+  </div>  <div class="bar-row">
+    <div class="bar-label" title="github_topics">🐙 upstash/context7</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:29.2%;background:#f87171;" data-pct="29.2%"></div>
+    </div>
+    <div class="bar-count">54,631</div>
+  </div>
+</div><div data-panel="overlaps" data-panel-title="🔄 Overlaps (52)" data-panel-color="#818cf8" data-panel-default="1">
+<div class="chart-container">
+  <div class="section-header"><span class="icon">🔄</span><h2>Overlaps with elko Domain</h2><span class="accent-line"></span></div>
+  <p class="section-body">52 tools across all platforms overlap with elko.ai's domain keywords (conversation, track, message, audit, log, email, person, people, thread, encrypt, permission).</p>
+  <table class="data-table">
+    <thead><tr><th>Name</th><th>Platform</th><th>Match</th></tr></thead>
+    <tbody>
+      <tr><td>ruvnet/ruflo</td><td>github_topics</td><td><span class="tag-pill">conversation</span></td></tr>
+      <tr><td>gooseworks-ai/goose-aeo</td><td>github_topics</td><td><span class="tag-pill">track</span></td></tr>
+      <tr><td>Sasa993/Agent-Tool</td><td>github_topics</td><td><span class="tag-pill">track</span></td></tr>
+      <tr><td>caikiji/pathnote</td><td>github_topics</td><td><span class="tag-pill">track</span></td></tr>
+      <tr><td>longbiao515/rcs-message-skill</td><td>github_topics</td><td><span class="tag-pill">message</span></td></tr>
+      <tr><td>AgriciDaniel/claude-ads</td><td>github_topics</td><td><span class="tag-pill">audit</span></td></tr>
+      <tr><td>AgriciDaniel/claude-blog</td><td>github_topics</td><td><span class="tag-pill">log</span></td></tr>
+      <tr><td>aaronjmars/soul.md</td><td>github_topics</td><td><span class="tag-pill">person</span></td></tr>
+      <tr><td>prompt-security/clawsec</td><td>github_topics</td><td><span class="tag-pill">audit</span></td></tr>
+      <tr><td>kriuchkov/tock</td><td>github_topics</td><td><span class="tag-pill">track</span></td></tr>
+      <tr><td>iPythoning/b2b-sdr-hermes-skill</td><td>github_topics</td><td><span class="tag-pill">email</span></td></tr>
+      <tr><td>Andrew-Girgis/microsoft-workspace-skill</td><td>github_topics</td><td><span class="tag-pill">contact</span></td></tr>
+      <tr><td>Ashutosh2M/ExpertLens</td><td>github_topics</td><td><span class="tag-pill">audit</span></td></tr>
+      <tr><td>ShiyangZheng/storyweave</td><td>github_topics</td><td><span class="tag-pill">conversation</span></td></tr>
+      <tr><td>CambrianTech/airc</td><td>github_topics</td><td><span class="tag-pill">message,encrypt</span></td></tr>
+      <tr><td>monch1962/logseq-hermes-agent</td><td>github_topics</td><td><span class="tag-pill">log</span></td></tr>
+      <tr><td>wasp-lang/open-saas</td><td>claude_code_hub</td><td><span class="tag-pill">email</span></td></tr>
+      <tr><td>conorbronsdon/avoid-ai-writing</td><td>hermes_hub</td><td><span class="tag-pill">audit</span></td></tr>
+      <tr><td>prompt-security/clawsec</td><td>hermes_hub</td><td><span class="tag-pill">audit</span></td></tr>
+      <tr><td>reddit/ClaudeAI/1s7fepn</td><td>community</td><td><span class="tag-pill">thread</span></td></tr>
+      <tr><td colspan="3" style="text-align:center;color:var(--text-muted);font-size:12px">… and 32 more</td></tr>
+    </tbody>
+  </table>
+</div>
+</div><div data-panel="community" data-panel-title="💬 Community Hot Topics" data-panel-color="#f59e0b" data-panel-default="1">
+<div class="chart-container">
+  <div class="section-header"><span class="icon">💬</span><h2>Community Hot Topics</h2><span class="accent-line"></span></div>
+  <div class="news-list">
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">punkpeye/awesome-mcp-servers</a></strong><br>
+        A collection of MCP servers.<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 86,374</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://github.com/yzfly/Awesome-MCP-ZH" target="_blank" style="color:var(--text-primary);text-decoration:none">yzfly/Awesome-MCP-ZH</a></strong><br>
+        MCP 资源精选， MCP指南，Claude MCP，MCP Servers, MCP Clients<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 7,011</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://github.com/appcypher/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">appcypher/awesome-mcp-servers</a></strong><br>
+        Awesome MCP Servers - A curated list of Model Context Protocol servers<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 5,523</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://github.com/libukai/awesome-agent-skills" target="_blank" style="color:var(--text-primary);text-decoration:none">libukai/awesome-agent-skills</a></strong><br>
+        Agent Skills 终极指南：快速入门、资源推荐、精选技能与实用工具 ｜The Ultimate Guide to Agent Skills: QuickStart, Resources, Fe<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 4,307</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://github.com/wong2/awesome-mcp-servers" target="_blank" style="color:var(--text-primary);text-decoration:none">wong2/awesome-mcp-servers</a></strong><br>
+        A curated list of Model Context Protocol (MCP) servers<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 4,045</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1t4rkki/what_do_you_think/" target="_blank" style="color:var(--text-primary);text-decoration:none">ClaudeAI/1t4rkki</a></strong><br>
+        What do you think?<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 3,811</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://www.reddit.com/r/ClaudeCode/comments/1t5hs98/doubled_rate_limits_for_claude_code/" target="_blank" style="color:var(--text-primary);text-decoration:none">ClaudeCode/1t5hs98</a></strong><br>
+        Doubled Rate Limits for Claude Code<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 3,441</span>
+      </span>
+    </div>
+    <div class="news-item">
+      <span class="news-bullet" style="background:#f59e0b"></span>
+      <span class="news-text">
+        <strong><a href="https://www.reddit.com/r/ClaudeAI/comments/1sz67w4/thanks_for_the_advice_claude/" target="_blank" style="color:var(--text-primary);text-decoration:none">ClaudeAI/1sz67w4</a></strong><br>
+        Thanks for the advice Claude<br>
+        <span class="news-sublinks"><span class="links-label">SCORE:</span> 3,390</span>
+      </span>
+    </div>
+  </div>
+</div>
+</div><div data-panel="sources" data-panel-title="📡 Sources & Errors" data-panel-color="#22c55e" data-panel-default="1">
+<div class="chart-container">
+  <div class="section-header"><span class="icon">📡</span><h2>Sources & Status</h2><span class="accent-line"></span></div>
+  <table class="data-table">
+    <thead><tr><th>Source</th><th>Entries</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>community</td><td>511</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>github_topics</td><td>109</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>claude_code_hub</td><td>21</td><td><span class="status-ok">✓ OK</span></td></tr>
+      <tr><td>hermes_hub</td><td>17</td><td><span class="status-ok">✓ OK</span></td></tr>
+
+    </tbody>
+  </table>
+</div>
+</div>
 
   <!-- SOURCES -->
-  {{SOURCES}}
+  
 
   <!-- FOOTER -->
   <div class="report-footer">
     Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
-    <a href="{{PAGES_URL}}">{{PAGES_URL}}</a>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-07-0603-agent-marketplace.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-07-0603-agent-marketplace.html</a>
   </div>
 
 </div>
