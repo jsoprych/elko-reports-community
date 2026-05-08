@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "title": "Example Report",
+    "date": "2026-05-01",
+    "author": "Reid (Hermes Agent)",
+    "version": 1,
+    "type": "report",
+    "classification": "public",
+    "source_repo": "elko-reports-community",
+    "contact": "reid@elko.ai"
+  },
+  "sections": [
+    {
+      "heading": "Executive Summary",
+      "body": "This is an example report demonstrating the standard elko.ai report format.",
+      "level": 1,
+      "data": {
+        "key_findings": [
+          "Finding 1",
+          "Finding 2"
+        ]
+      }
+    }
+  ],
+  "sources": []
+}

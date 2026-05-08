@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60102 Algonquin — Business Intelligence — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+  .report-header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .report-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 20px;
+    background: var(--accent-gradient); color: #fff;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .report-title { font-size: 26px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; }
+  .report-meta { font-size: 13px; color: var(--text-muted); }
+  .report-meta span { margin-right: 16px; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin: 28px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; }
+  .accent-line { flex: 1; height: 2px; background: linear-gradient(90deg, var(--border), transparent); }
+  .hero-card {
+    padding: 16px 20px; border-radius: var(--card-radius);
+    border-left: 4px solid var(--accent);
+    background: var(--surface); box-shadow: var(--card-shadow);
+    margin-bottom: 16px; font-size: 14px; line-height: 1.6;
+  }
+  .hero-card p { margin-bottom: 6px; }
+  .hero-card p:last-child { margin-bottom: 0; }
+  .metric-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .metric-card {
+    flex: 1; min-width: 120px; padding: 14px 16px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border); text-align: center;
+  }
+  .metric-value {
+    font-size: 22px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2px;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  .data-table th {
+    text-align: left; padding: 10px 12px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); border-bottom: 2px solid var(--border);
+  }
+  .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .td-green { color: #22c55e; font-weight: 700; }
+  .sources {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;
+  }
+  .sources a {
+    display: inline-block; padding: 6px 14px; border-radius: 20px;
+    background: var(--tag-bg); color: var(--tag-text);
+    font-size: 12px; font-weight: 600; text-decoration: none;
+  }
+  .sources a:hover { opacity: 0.8; }
+  .report-footer {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted); text-align: center;
+  }
+  .report-footer a { color: var(--accent); }
+  .brand { font-weight: 800; }
+  .panel-nav {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 12px 16px; background: var(--surface);
+    border-radius: var(--card-radius); margin-bottom: 20px;
+    border: 1px solid var(--border); align-items: center;
+  }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 10px; border-radius: 6px;
+    background: var(--bar-bg); cursor: pointer; font-size: 12px;
+    border: 1px solid transparent; user-select: none;
+  }
+  .panel-nav-btn:hover { border-color: var(--accent); }
+  .nav-cb { margin: 0; cursor: pointer; }
+  .nav-color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .nav-label { color: var(--text-primary); text-decoration: none; }
+  .panel-section { transition: opacity 0.2s; }
+  .panel-hidden { display: none !important; }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 60px; }
+    .metric-card { min-width: calc(50% - 8px); }
+    .report-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="report-header">
+  <div class="report-badge">Business Intelligence Brief</div>
+  <h1 class="report-title">🏡 60102 Algonquin — Weekly Business Intel</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-07 @ 1000 UTC</span>
+    <span>🔓 Public</span>
+    <span>📋 ZIP 60102 · Algonquin / Lake in the Hills, IL</span>
+  </div>
+</div>
+
+<div id="panel-nav-bar" class="panel-nav"></div>
+
+<div class="hero-card">
+  <h2>60102 Algonquin — Community Intelligence</h2>
+  <p>Weekly business brief. Residential real estate, major employers, industrial parks, retail corridors, jobs, officials, and funding resources for Algonquin / Lake in the Hills, IL (ZIP 60102). Northwest suburban Chicago.</p>
+</div>
+
+<!-- PANEL 1: REAL ESTATE -->
+<div data-panel="real-estate" data-panel-title="🏢 Real Estate" data-panel-color="#3b82f6" data-panel-default="1">
+<div class="section-header"><span class="icon">🏢</span><h2>Residential Real Estate</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">$489,000</div><div class="metric-label">Median Home</div></div>
+  <div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;background-clip:text">+5.2%</div><div class="metric-label">YoY Change</div></div>
+  <div class="metric-card"><div class="metric-value">$195</div><div class="metric-label">Price/SF</div></div>
+  <div class="metric-card"><div class="metric-value">70d</div><div class="metric-label">Days on Market</div></div>
+</div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">3.0mo</div><div class="metric-label">Supply</div></div>
+  <div class="metric-card"><div class="metric-value">29%</div><div class="metric-label">Above List</div></div>
+  <div class="metric-card"><div class="metric-value">99.1%</div><div class="metric-label">Sale/List</div></div>
+  <div class="metric-card"><div class="metric-value">68</div><div class="metric-label">Active Listings</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#3b82f6">
+<p><strong>Q1 2026 Trend:</strong> Prices up 5.2% YoY to $489,000. Supply tightening from 4.3mo (Feb) to 3.0mo (Mar) — leaning toward seller's market. Strong sales volume (68 sold in Mar).</p>
+<p><strong>Last 8 quarters:</strong> $506K → $490K → $450K → $462K → $466K → $480K → $469K → $489K. Range $450K-$506K.</p>
+</div>
+</div>
+
+<!-- PANEL 2: MONEY -->
+<div data-panel="money" data-panel-title="💰 Economy" data-panel-color="#22c55e" data-panel-default="1">
+<div class="section-header"><span class="icon">💰</span><h2>Local Economy</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">998</div><div class="metric-label">Businesses (2023)</div></div>
+  <div class="metric-card"><div class="metric-value">9,651</div><div class="metric-label">Local Jobs</div></div>
+  <div class="metric-card"><div class="metric-value">$352M</div><div class="metric-label">Annual Payroll</div></div>
+  <div class="metric-card"><div class="metric-value">32,325</div><div class="metric-label">Population</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#22c55e">
+<p><strong>Economic Profile:</strong> Strong northwest suburban economy anchored by manufacturing, healthcare, retail, and technology. Randall Road corridor is the primary commercial hub with Algonquin Commons (80-store outdoor mall) and Algonquin Galleria.</p>
+<p><strong>Key sectors:</strong> Manufacturing (tool/die/mold, plastics), Food processing, Medical devices, Mining, Retail.</p>
+</div>
+</div>
+
+<!-- PANEL 3: EMPLOYERS -->
+<div data-panel="employers" data-panel-title="🏭 Employers" data-panel-color="#f97316" data-panel-default="1">
+<div class="section-header"><span class="icon">🏭</span><h2>Major Employers</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#f97316">
+<div style="padding:4px 0">▸ <strong>Fermi Research Alliance / Fermilab</strong> — Particle accelerator. ~1,700 employees. Major scientific institution in the region.</div>
+<div style="padding:4px 0">▸ <strong>John B. Sanfilippo & Son</strong> — 1200 employees. Nut processing/manufacturing.</div>
+<div style="padding:4px 0">▸ <strong>Sage Products (now Stryker)</strong> — 583 employees. Medical device manufacturer.</div>
+<div style="padding:4px 0">▸ <strong>Knaack Manufacturing (now WernerCo)</strong> — 500 employees. Tool storage / job site equipment.</div>
+<div style="padding:4px 0">▸ <strong>Duro-Life</strong> — Machine parts manufacturer. Randall Road corridor.</div>
+<div style="padding:4px 0">▸ <strong>Meyer Material Service</strong> — Mining/aggregates. Route 31.</div>
+<div style="padding:4px 0">▸ <strong>Motorola Solutions</strong> — Technology / communications. Regional employer.</div>
+<div style="padding:4px 0">▸ <strong>Cyclotron Inc / Kenmode Tool & Engineering</strong> — 820 W Chicago. Printed circuit boards, tool & die.</div>
+<div style="padding:4px 0">▸ <strong>Advocate Health Care / Walgreens</strong> — Healthcare & retail employment base.</div>
+</div>
+</div>
+
+<!-- PANEL 4: INDUSTRIAL PARKS -->
+<div data-panel="industrial" data-panel-title="🏗️ Industrial" data-panel-color="#a855f7" data-panel-default="1">
+<div class="section-header"><span class="icon">🏗️</span><h2>Industrial Parks & Zoning</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#a855f7">
+<p><strong>Algonquin Industrial Park</strong> — Algonquin Road corridor, west of Old Town. Tool/die/mold, plastics, transportation.</p>
+<p><strong>1,000-Acre Corporate Campus</strong> — Randall Rd west to Square Barn Rd, north of Huntley Rd. Incentives available for high-paying jobs. Expedited review.</p>
+<p><strong>Key Corridors:</strong> Randall Road (retail, office), Route 31 (industrial, mining), Algonquin Road (industrial park).</p>
+</div>
+</div>
+
+<!-- PANEL 5: JOBS -->
+<div data-panel="jobs" data-panel-title="💼 Jobs" data-panel-color="#ec4899" data-panel-default="1">
+<div class="section-header"><span class="icon">💼</span><h2>Jobs & Employment</h2><span class="accent-line"></span></div>
+<div class="metric-row">
+  <div class="metric-card"><div class="metric-value">9,651</div><div class="metric-label">Total Jobs</div></div>
+  <div class="metric-card"><div class="metric-value">$352M</div><div class="metric-label">Annual Payroll</div></div>
+  <div class="metric-card"><div class="metric-value">$36.5K</div><div class="metric-label">Avg Wages</div></div>
+</div>
+<div class="hero-card" style="border-left-color:#ec4899">
+<p><strong>Key Employment Sectors:</strong> Manufacturing (Sanfilippo, Knaack, Duro-Life) · Scientific/Fermilab · Medical devices (Sage/Stryker) · Retail (Algonquin Commons, Randall Rd) · Healthcare · Mining.</p>
+<p><strong>Industrial base:</strong> Tool & die, plastics, printed circuit boards, food processing, medical manufacturing, mining/aggregates.</p>
+</div>
+</div>
+
+<!-- PANEL 6: OFFICIALS -->
+<div data-panel="officials" data-panel-title="🏛️ Officials" data-panel-color="#14b8a6" data-panel-default="1">
+<div class="section-header"><span class="icon">🏛️</span><h2>Elected Officials</h2><span class="accent-line"></span></div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Algonquin Village President</strong> — Village Hall: 2200 Harnish Dr, Algonquin. 📞 847-658-5808</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>County Board:</strong> McHenry County Board (north portion) / Kane County Board (south portion)</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>JB Pritzker</strong> — Governor. 📞 217-782-0244</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Dick Durbin</strong> — US Senator. 📞 312-353-4952</div>
+<div style="margin-bottom:6px;padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>Tammy Duckworth</strong> — US Senator. 📞 312-886-3506</div>
+<div style="padding:8px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+<strong>IL-14 Congressional District</strong> — US Rep TBD (check district map)</div>
+</div>
+
+<!-- PANEL 7: FUNDING -->
+<div data-panel="funding" data-panel-title="🔗 Funding" data-panel-color="#f97316" data-panel-default="1">
+<div class="section-header"><span class="icon">🔗</span><h2>Funding Resources</h2><span class="accent-line"></span></div>
+<div class="hero-card" style="border-left-color:#f97316">
+<div style="padding:3px 0">• <strong>SBA 7(a) Loans</strong> (up to $5M) — <a href="https://www.sba.gov/7a" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>IL EDGE Tax Credit</strong> — <a href="https://www2.illinois.gov/dceo/Pages/edge.aspx" style="color:var(--accent)">Apply</a></div>
+<div style="padding:3px 0">• <strong>IL Industrial Training Program</strong> — <a href="https://www2.illinois.gov/dceo" style="color:var(--accent)">Info</a></div>
+<div style="padding:3px 0">• <strong>McHenry County EDC</strong> — <a href="https://mchenrycountyedc.com" style="color:var(--accent)">mchenrycountyedc.com</a></div>
+<div style="padding:3px 0">• <strong>Algonquin/LITH Chamber of Commerce</strong> — <a href="https://alchamber.com" style="color:var(--accent)">alchamber.com</a></div>
+<div style="padding:3px 0">• <strong>Algonquin Corporate Campus Incentives</strong> — Expedited review for high-job-creating businesses. Contact Village Hall: 847-658-5808</div>
+</div>
+</div>
+
+<!-- PANEL 8: SOURCES -->
+<div data-panel="sources" data-panel-title="📚 Sources" data-panel-color="#6b7280" data-panel-default="1">
+<div class="section-header"><span class="icon">📚</span><h2>Sources</h2><span class="accent-line"></span></div>
+<div class="sources">
+  <a href="https://www.algonquin.org">Village of Algonquin</a>
+  <a href="https://mchenrycountyedc.com">McHenry County EDC</a>
+  <a href="https://www.census.gov">US Census Bureau</a>
+  <a href="https://www.openstreetmap.org">OpenStreetMap</a>
+  <a href="https://www2.illinois.gov">State of Illinois</a>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+  <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-07-1000-60102-business-intel.html">Full Report</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var nav = document.getElementById('panel-nav-bar');
+  if (!nav) return;
+  var sections = document.querySelectorAll('[data-panel]');
+  var html = '';
+  sections.forEach(function(s, i){
+    var id = s.getAttribute('data-panel');
+    var title = s.getAttribute('data-panel-title') || id;
+    var color = s.getAttribute('data-panel-color') || '#4a6cf7';
+    var def = s.getAttribute('data-panel-default');
+    var checked = def !== '0';
+    s.id = 'panel-' + id;
+    s.classList.add('panel-section');
+    if (!checked) s.classList.add('panel-hidden');
+    html += '<span class="panel-nav-btn" style="--btn-color:' + color + '">' +
+      '<input type="checkbox" class="nav-cb" data-panel="' + id + '"' + (checked ? ' checked' : '') + '>' +
+      '<span class="nav-color-dot" style="background:' + color + '"></span>' +
+      '<a href="#panel-' + id + '" class="nav-label">' + title + '</a></span>';
+  });
+  nav.innerHTML = html;
+  nav.addEventListener('change', function(e){
+    if (e.target.classList.contains('nav-cb')) {
+      var pid = e.target.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec) {
+        if (e.target.checked) sec.classList.remove('panel-hidden');
+        else sec.classList.add('panel-hidden');
+      }
+    }
+  });
+  nav.addEventListener('click', function(e){
+    if (e.target.classList.contains('nav-cb')) return;
+    if (e.target.closest('a')) {
+      var btn = e.target.closest('.panel-nav-btn');
+      if (!btn) return;
+      var cb = btn.querySelector('.nav-cb');
+      if (!cb) return;
+      var pid = cb.getAttribute('data-panel');
+      var sec = document.getElementById('panel-' + pid);
+      if (sec && sec.classList.contains('panel-hidden')) { cb.checked = true; sec.classList.remove('panel-hidden'); }
+      return;
+    }
+    var btn = e.target.closest('.panel-nav-btn');
+    if (!btn) return;
+    var cb = btn.querySelector('.nav-cb');
+    if (!cb) return;
+    var pid = cb.getAttribute('data-panel');
+    var sec = document.getElementById('panel-' + pid);
+    if (sec && sec.classList.contains('panel-hidden')) { cb.checked = true; sec.classList.remove('panel-hidden'); }
+    window.location.hash = '#panel-' + pid;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>AI World Daily — 2026-05-05 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+
+  /* BRAND HEADER BAR */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* TOP STORY / HERO */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-value {
+    font-size: 24px; font-weight: 800; color: var(--accent);
+  }
+  .entity-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+.entity-card img[src*="svg"] {
+  display: inline-block; width: 32px; height: 32px;
+  background: var(--bar-bg); border-radius: 6px; padding: 4px;
+  margin-bottom: 4px; object-fit: contain;
+}
+.entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.entity-label { font-size: 10px; }
+
+
+    .td-green { color: #22c55e; font-weight: 700; }
+    .td-red { color: #ef4444; font-weight: 700; }
+    .td-price { font-size: 14px; }
+    .td-svg { width: 36px; text-align: center; }
+    .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+    .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+    .entity-card img[src*="svg"] { display: inline-block; width: 28px; height: 28px; background: var(--bar-bg); border-radius: 4px; padding: 2px; margin-bottom: 4px; object-fit: contain; }
+    .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+    .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+    .news-sublinks a { color: var(--accent); text-decoration: none; }
+    .news-sublinks a:hover { text-decoration: underline; }
+
+    /* Entity badge chips for news articles */
+    .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+    .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+<div style="background:var(--surface);border-radius:var(--card-radius);box-shadow:var(--card-shadow);padding:16px 20px;margin-bottom:24px;border-left:4px solid #f59e0b">
+    <div style="font-size:13px;color:var(--text-secondary)">
+        <strong style="color:var(--text-primary)">💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+    </div>
+</div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>🏛️ <a href="https://www.nytimes.com/2026/05/04/technology/trump-ai-models.html" target="_blank" style="color:var(--accent);text-decoration:none">White House Considers Government Vetting of AI Models</a></h2>
+    <p>The Trump administration is discussing an executive order to create an AI working group that would review new AI models before public release — a significant shift from its prior noninterventionist approach. The news broke alongside reports that Anthropic is partnering with Blackstone and Goldman Sachs to form a new AI firm, and that DeepSeek V4's launch is revaluing China's AI sector.</p>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric-card"><div class="metric-value">328</div><div class="metric-label">Entities Tracked</div></div>
+    <div class="metric-card"><div class="metric-value">307</div><div class="metric-label">Relationships</div></div>
+    <div class="metric-card"><div class="metric-value">52</div><div class="metric-label">Models Cataloged</div></div>
+    <div class="metric-card"><div class="metric-value">100</div><div class="metric-label">Timeline Events</div></div>
+</div>
+
+  <div class="section-header"><span class="icon">🏢</span><h2>AI Ecosystem — Key Entities</h2><div class="accent-line"></div></div>
+<div class="entity-row"><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">OpenAI</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Anthropic</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Google DeepMind</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Meta AI</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Microsoft</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/mono.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">xAI</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">DeepSeek</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/mistral/color.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Mistral AI</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">NVIDIA</div></div><div class="entity-card"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/tsmc-text.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">TSMC</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/huggingface/color.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Hugging Face</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/databricks/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Databricks</div></div><div class="entity-card">🧠<div class="entity-label">CoreWeave</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/cerebras/color.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Cerebras</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/groq/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Groq</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/elevenlabs/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">ElevenLabs</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/langchain/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">LangChain</div></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/perplexity/default.svg" style="width:32px;height:32px;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px;object-fit:contain"><div class="entity-label">Perplexity</div></div></div>  <div class="section-header">
+    <span class="icon">📰</span>
+    <h2>This Week in AI</h2>
+    <span class="accent-line"></span>
+  </div>
+  <ul class="news-list">
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.nytimes.com/2026/05/04/technology/trump-ai-models.html" target="_blank" style="color:var(--text-primary);text-decoration:none">1. White House Considers Vetting AI Models Before Release</a></strong><br>
+      Trump administration discussing executive order for AI model review working group — shift from noninterventionist stance.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.nytimes.com/2026/05/04/business/anthropic-blackstone-goldman-artificial-intelligence-firm.html" target="_blank" style="color:var(--text-primary);text-decoration:none">2. Anthropic and Wall Street Giants Join Forces to Create New AI Firm</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="anthropic" title="Anthropic"></span><span class="entity-badge"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/blackstone.svg" alt="Blackstone" title="Blackstone" style="width:18px;height:18px;object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/goldman-sachs/default.svg" alt="goldman-sachs" title="Goldman Sachs"></span><br>
+      Blackstone and Goldman Sachs invest in new firm integrating Anthropic's Claude into financial systems.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.nytimes.com/2026/05/04/business/anthropic-blackstone-goldman-artificial-intelligence-firm.html" target="_blank">NYT</a> • <a href="https://www.gurufocus.com/news/8839119/anthropic-partners-with-blackstone-and-goldman-sachs-for-15b-ai-venture" target="_blank">GuruFocus</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.digitaltoday.co.kr/en/view/52732/deepseek-v4-shock-money-pours-into-china-ai-beneficiaries" target="_blank" style="color:var(--text-primary);text-decoration:none">3. DeepSeek V4 Sparks Revaluation of China's AI Sector</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="deepseek" title="Deepseek"></span><br>
+      V4 launch seen as catalyst for Chinese AI chip designers and broader commercial AI adoption.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://softtechhub.us/2026/05/03/xai-unveils-grok-4-3/" target="_blank" style="color:var(--text-primary);text-decoration:none">4. xAI Unveils Grok 4.3 With Ultra-Low Pricing and Advanced Voice Cloning</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/mono.svg" alt="xai" title="Xai"></span><br>
+      Grok 4.3 features advanced voice cloning and aggressive pricing strategy.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://help.openai.com/en/articles/10128477-chatgpt-enterprise-edu-release-notes" target="_blank" style="color:var(--text-primary);text-decoration:none">5. OpenAI Releases o4-mini — Best AIME Performance</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="openai" title="Openai"></span><br>
+      Small, fast reasoning model with best-ever AIME 2024/2025 benchmarks.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank" style="color:var(--text-primary);text-decoration:none">6. 200,000 MCP Servers Expose Command Execution Flaw</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="anthropic" title="Anthropic"></span><br>
+      Anthropic's MCP protocol has RCE vulnerability affecting 200K servers — Anthropic calls it a 'feature'.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://venturebeat.com/security/mcp-stdio-flaw-200000-ai-agent-servers-exposed-ox-security-audit" target="_blank">VentureBeat</a> • <a href="https://www.theregister.com/2026/04/16/anthropic_mcp_design_flaw/" target="_blank">The Register</a> • <a href="https://thehackernews.com/2026/04/anthropic-mcp-design-vulnerability.html" target="_blank">The Hacker News</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.businessinsider.com/meta-q1-earnings-updates-ai-muse-spark-mark-zuckerberg-2026-4" target="_blank" style="color:var(--text-primary);text-decoration:none">7. Meta Q1 Earnings Beat, But $145B Capex Spooks Wall Street</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="meta" title="Meta"></span><br>
+      Meta revenue $56.3B beats estimates; Muse AI model shown; stock drops on capex guidance.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.businessinsider.com/meta-q1-earnings-updates-ai-muse-spark-mark-zuckerberg-2026-4" target="_blank">Business Insider</a> • <a href="https://gizmodo.com/meta-could-spend-145-billion-this-year-due-to-ai-2000752323" target="_blank">Gizmodo</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://nytimes.com/2026/04/29/technology/ai-spending-tech-data-centers.html" target="_blank" style="color:var(--text-primary);text-decoration:none">8. Big Tech AI Spending Hits $130B+ in Single Quarter</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="google" title="Google"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="amazon" title="Amazon"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/color.svg" alt="microsoft" title="Microsoft"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="meta" title="Meta"></span><br>
+      Google, Amazon, Microsoft, Meta report record quarterly capex for AI data center buildout.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://nytimes.com/2026/04/29/technology/ai-spending-tech-data-centers.html" target="_blank">NYT</a> • <a href="https://reuters.com/business/retail-consumer/big-tech-investors-gauge-payoff-ai-spending-set-hit-600-billion-2026-04-28" target="_blank">Reuters</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.computerworld.com/article/4166669/study-ai-more-accurate-than-doctors-in-emergency-diagnoses.html" target="_blank" style="color:var(--text-primary);text-decoration:none">9. AI More Accurate Than Doctors in Emergency Diagnoses — Harvard Study</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="openai" title="Openai"></span><br>
+      Text-based diagnostic AI outperforms physicians in emergency settings per Harvard Medical School.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.computerworld.com/article/4166669/study-ai-more-accurate-than-doctors-in-emergency-diagnoses.html" target="_blank">Computerworld</a> • <a href="https://npr.org/2026/04/30/nx-s1-5804474/ai-doctors-openai-patient-care-diagnosis" target="_blank">NPR</a></span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.cnet.com/tech/services-and-software/academy-motion-picture-arts-sciences-new-oscars-rules-ai-2026-news/" target="_blank" style="color:var(--text-primary);text-decoration:none">10. Oscars Ban AI 'Actors' and AI-Written Screenplays</a></strong><br>
+      Academy of Motion Picture Arts and Sciences rules AI-generated content ineligible for Oscars.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.stocktitan.net/news/BLND/blend-launches-autopilot-mcp-server-opening-its-lending-platform-to-4m4r4oljcl5i.html" target="_blank" style="color:var(--text-primary);text-decoration:none">11. Blend Launches Autopilot MCP Server for Lending</a></strong><br>
+      Lending platform opens credit, underwriting, and compliance to custom AI agents via MCP.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://letsdatascience.com/news/pipelock-ships-open-source-agent-firewall-for-ai-agents-f934ed8a" target="_blank" style="color:var(--text-primary);text-decoration:none">12. Pipelock Ships Open-Source Agent Firewall for AI Agents</a></strong><br>
+      Emergency stop, audit logging, and SIEM integration for AI agent runtimes.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.kad8.com/ai/anthropic-bets-on-fractile-ai-inference-cost-war-by-2027/" target="_blank" style="color:var(--text-primary);text-decoration:none">13. Anthropic Explores Fractile's Compute-in-Memory Chips</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="anthropic" title="Anthropic"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="nvidia" title="Nvidia"></span><br>
+      Multi-supplier strategy signals AI inference cost war by 2027.
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://decrypt.co/366389/openclaw-apple-mac-mini-shortage-ai-2026" target="_blank" style="color:var(--text-primary);text-decoration:none">14. OpenClaw Puts Apple Back in AI Game — Mac Mini Shortage</a></strong><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" alt="apple" title="Apple"></span><span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="nvidia" title="Nvidia"></span><br>
+      AI inference optimizer turns Mac mini into hottest AI hardware.
+    </span>
+  </li>
+  </ul><div class="chart-container">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="font-size:15px;font-weight:700;color:var(--text-primary)">📊 AI Stock Market Snapshot</h3>
+        <span style="font-size:11px;color:var(--text-muted)">May 4, 2026</span>
+    </div>
+    <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead>
+                <tr style="background:var(--bar-bg)">
+                    <th style="padding:10px;text-align:left;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Ticker</th>
+                    <th style="padding:10px;text-align:left;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Name</th>
+                    <th style="padding:10px;text-align:right;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Price</th>
+                    <th style="padding:10px;text-align:right;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Change $</th>
+                    <th style="padding:10px;text-align:right;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Change %</th>
+                    <th style="padding:10px;text-align:right;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase">Prev Close</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">NVDA</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">NVIDIA</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$198.48</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+0.03</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+0.02%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$198.45</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">AMD</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">AMD</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$341.54</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-19.00</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-5.27%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$360.54</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/tsmc-text.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">TSM</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">TSMC</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$401.61</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+3.94</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+0.99%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$397.67</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">ASML</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">ASML</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$1386.21</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-40.81</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-2.86%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$1427.02</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">AVGO</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Broadcom</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$416.50</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-4.78</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-1.13%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$421.28</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">INTC</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Intel</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$95.78</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-3.84</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-3.85%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$99.62</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">MSFT</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Microsoft</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$413.62</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-0.82</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-0.20%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$414.44</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">GOOGL</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Alphabet</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$383.25</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-2.44</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--danger);font-weight:600">-0.63%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$385.69</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">AMZN</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Amazon</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$272.05</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+3.79</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.41%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$268.26</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">META</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Meta</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$610.41</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.66</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+0.27%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$608.75</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibaba/color.svg" style="width:22px;height:22px;background:var(--bar-bg);border-radius:4px;padding:2px;margin-right:6px;vertical-align:middle;object-fit:contain">BABA</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Alibaba</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$133.27</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.77</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.35%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$131.50</td>
+    </tr><tr>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap">BIDU</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:13px">Baidu</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-weight:600">$127.48</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.60</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;color:var(--success);font-weight:600">+1.27%</td>
+        <td style="padding:8px 10px;border-bottom:1px solid var(--border);text-align:right;font-size:12px;color:var(--text-muted)">$125.88</td>
+    </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:right">
+        AMD (-5.27%) and Intel (-3.85%) led losses. Amazon (+1.41%), Alibaba (+1.35%), TSMC (+0.99%) gained.
+    </div>
+</div><div class="section-header"><span class="icon">🏷️</span><h2>Trending Topics</h2><div class="accent-line"></div></div>
+<div style="margin-bottom:24px"><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#White House AI Model Vetting</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#Anthropic-Blackstone AI Firm</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#DeepSeek V4 Launch</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#xAI Grok 4.3</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#MCP Security Flaw</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#Meta Muse Spark</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#AI Agent Security</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#OpenAI o4-mini</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#Academy AI Rules</a><a href="#" style="display:inline-block;font-size:11px;color:var(--tag-text);text-decoration:none;padding:3px 10px;margin:2px 4px 2px 0;background:var(--tag-bg);border-radius:12px;transition:0.2s">#Agent Safety</a></div><div class="section-header"><span class="icon">⏱️</span><h2>Recent Timeline</h2><div class="accent-line"></div></div><div class="timeline"><div class="timeline-item"><div class="tl-date">May 4</div><div class="tl-title">White House considers AI model review executive order</div></div><div class="timeline-item"><div class="tl-date">May 4</div><div class="tl-title">Anthropic + Blackstone + Goldman Sachs form new AI firm</div></div><div class="timeline-item"><div class="tl-date">May 4</div><div class="tl-title">DeepSeek V4 launches — China AI sector revaluation</div></div><div class="timeline-item"><div class="tl-date">May 4</div><div class="tl-title">Harvard study: AI more accurate than doctors in ER</div></div><div class="timeline-item"><div class="tl-date">May 4</div><div class="tl-title">Oscars ban AI 'actors' and AI-written screenplays</div></div><div class="timeline-item"><div class="tl-date">May 3</div><div class="tl-title">xAI Grok 4.3 with ultra-low pricing and voice cloning</div></div><div class="timeline-item"><div class="tl-date">May 1</div><div class="tl-title">MCP security flaw: 200K servers exposed</div></div><div class="timeline-item"><div class="tl-date">Apr 30</div><div class="tl-title">OpenAI o4-mini release — best AIME benchmarks</div></div><div class="timeline-item"><div class="tl-date">Apr 29</div><div class="tl-title">Big Tech records $130B+ quarterly AI capex</div></div><div class="timeline-item"><div class="tl-date">Apr 28</div><div class="tl-title">Meta Muse AI model revealed; Q1 earnings</div></div></div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h3>Sources</h3>
+    <a href="https://www.nytimes.com" target="_blank">New York Times</a><a href="https://www.reuters.com" target="_blank">Reuters</a><a href="https://venturebeat.com" target="_blank">VentureBeat</a><a href="https://businessinsider.com" target="_blank">Business Insider</a><a href="https://www.cnet.com" target="_blank">CNET</a><a href="https://www.computerworld.com" target="_blank">Computerworld</a><a href="https://decrypt.co" target="_blank">Decrypt</a><a href="https://www.kad8.com" target="_blank">KAD</a><a href="https://www.digitaltoday.co.kr" target="_blank">Digital Today</a><a href="https://letsdatascience.com" target="_blank">Let's Data Science</a><a href="https://softtechhub.us" target="_blank">SoftTechHub</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-05-0404-ai-world-daily.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-05-0404-ai-world-daily.html</a>
+  </div>
+
+</div>
+</body>
+</html>
