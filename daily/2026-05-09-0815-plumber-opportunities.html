@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Plumber Opportunities — Cook County — 2026-05-09 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+/* Panel cards */
+.panel-card {
+  background: var(--surface); border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow); padding: 24px; margin-bottom: 20px;
+}
+.panel-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+.panel-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.panel-card p, .panel-card li { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+.job-card {
+  border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 14px;
+}
+.job-card.highlight {
+  border-left: 4px solid var(--success);
+}
+.job-card .job-details { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; font-size: 13px; color: var(--text-secondary); }
+.job-card .job-details span { background: var(--tag-bg); padding: 2px 8px; border-radius: 6px; }
+.job-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.job-tag.union { background: #dbeafe; color: #1d4ed8; }
+@media (prefers-color-scheme: dark) { .job-tag.union { background: #1e3a5f; color: #93c5fd; } }
+.job-status-closed { font-size: 13px; font-weight: 600; color: var(--danger); margin-bottom: 8px; padding: 4px 8px; background: var(--tag-bg); border-radius: 6px; display: inline-block; }
+.job-note { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+.source-link { display: inline-block; font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; margin-top: 6px; }
+.source-link:hover { text-decoration: underline; }
+.advisory-card { border-left: 4px solid var(--warning); }
+.advisory-card ul { padding-left: 20px; }
+.advisory-card li { margin-bottom: 6px; }
+.union-tip { background: linear-gradient(135deg, var(--surface), var(--tag-bg)); }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Plumber Opportunities</span>
+  <h1 class="report-title">Plumber Opportunities — Cook County — 2026-05-09</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-09</span>
+    <span>✍️ Hermes Agent (elko.ai)</span>
+    <span>🔓 Public</span>
+    <span>📄 Weekly Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>🔧 Illinois DHS Plumber — $9,639–$10,025/mo — Closes May 13</h2>
+    <p>The State of Illinois Department of Human Services has an active PLUMBER position in Kankakee (union, ~$116K–$120K annualized). No other dedicated plumber openings were found this week across Cook County gov, CTA, Metra, Chicago, UI Health, Northwestern Medicine, or Park District. Local 130 apprenticeship applications are closed until November 2026.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+
+  <!-- CONTENT (panel stack) -->
+  
+<div class="panel-card">
+  <h2>📋 Overview</h2>
+  <p>This week's scan of Cook County plumbing job sources found <strong>1 active plumber position</strong> 
+  (State of Illinois DHS in Kankakee) plus several trade-adjacent roles across transit, parks, 
+  and county government. The Local 130 UA apprenticeship program is currently closed — next window opens November 2026.</p>
+</div>
+
+<div class="panel-card">
+  <h2>🏛️ Government Jobs</h2>
+  
+  <div class="job-card highlight">
+    <div class="job-tag union">Union Position</div>
+    <h3><a href="https://illinois.jobs2web.com/job/Kankakee-PLUMBER-IL-60901/1385879300/" target="_blank">PLUMBER — Illinois Department of Human Services</a></h3>
+    <div class="job-details">
+      <span>📍 Kankakee, IL 60901</span>
+      <span>💰 $9,639.60 – $10,025.88/month ($55.40–$57.62/hr)</span>
+      <span>📅 Closes: May 13, 2026</span>
+      <span>🔢 1 vacancy — Full-time, Union (Bargaining Unit PR000)</span>
+    </div>
+    <p class="job-note">💡 Ideal for Bob — union journeyman plumber role with the State of Illinois. ~$116K–$120K annualized. Apply via illinois.jobs2web.com.</p>
+  </div>
+  
+  <div class="job-card">
+    <h3>Cook County OUP (Section 100)</h3>
+    <p>No plumber positions currently posted. 13 jobs listed — all administrative/professional.</p>
+    <a href="https://cookcountyil.taleo.net/careersection/100/joblist.ftl?keyword=plumber" target="_blank" class="source-link">→ Browse Cook County OUP Jobs</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Cook County Health (Section 200)</h3>
+    <p>No plumber positions currently posted. 53 jobs listed — mostly clinical. Electrician role available ($57.75/hr, closes May 15).</p>
+    <a href="https://cookcountyil.taleo.net/careersection/200/joblist.ftl?keyword=plumber" target="_blank" class="source-link">→ Browse Cook County Health Jobs</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Forest Preserve District (Section 400)</h3>
+    <p>No plumber positions. Maintenance Mechanic ($89,842/yr) and Fleet Technician ($72,629/yr) available — closes May 11.</p>
+    <a href="https://cookcountyil.taleo.net/careersection/400/joblist.ftl?keyword=plumber" target="_blank" class="source-link">→ Browse Forest Preserve Jobs</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>City of Chicago</h3>
+    <p>No plumber or maintenance positions currently posted. 23 total job listings — mostly legal, engineering, and admin roles.</p>
+    <a href="https://chicago.taleo.net/careersection/100/joblist.ftl" target="_blank" class="source-link">→ Browse City of Chicago Jobs</a>
+  </div>
+</div>
+
+<div class="panel-card">
+  <h2>🚇 Transit Agencies</h2>
+  
+  <div class="job-card">
+    <h3>CTA (Chicago Transit Authority)</h3>
+    <p>No dedicated plumber positions currently open. Keyword "plumber" returned 0 results.</p>
+    <p><strong>Related trade positions available:</strong></p>
+    <ul>
+      <li><strong>Carpenter</strong> — $56.71/hr (closes May 22)</li>
+      <li><strong>Blacksmith & Welder</strong> — $58.91/hr (closes May 15)</li>
+      <li><strong>Manager, Facilities Maintenance</strong> — $120,970/yr (closes May 22)</li>
+    </ul>
+    <a href="https://chicagotransit.taleo.net/careersection/ex/jobsearch.ftl" target="_blank" class="source-link">→ Browse CTA Jobs</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Metra</h3>
+    <p>No plumber or plumbing positions found. 22 total openings — mostly engineering, admin, and electrician roles.</p>
+    <p><strong>Related trade positions:</strong> Electrician AC Eng, Substation Electrician</p>
+    <a href="https://cta.cadienttalent.com/index.jsp?APPLICATIONNAME=MetraKTMDReqExt" target="_blank" class="source-link">→ Browse Metra Jobs</a>
+  </div>
+</div>
+
+<div class="panel-card">
+  <h2>🔧 Union & Apprenticeships</h2>
+  
+  <div class="job-card">
+    <h3>Plumbers Local 130 UA — Apprenticeship Program</h3>
+    <p class="job-status-closed">⏸️ Applications: CLOSED</p>
+    <p>The 2025–2026 application window has closed. The next cycle opens <strong>November 2026</strong> and runs through approximately February 2027.</p>
+    <p>Applications accepted online at <a href="https://www.apply.jac130.org" target="_blank">apply.jac130.org</a>. $50 non-refundable fee.</p>
+    <p><strong>Requirements:</strong> Valid driver's license, birth certificate/passport, HS diploma/GED, at least 18 by start, English proficiency, pass aptitude test + drug screen + physical + agility test.</p>
+    <p><strong>Contact:</strong> (312) 421-1028</p>
+    <a href="https://plumberslu130ua.com/apprenticeship.aspx" target="_blank" class="source-link">→ Local 130 Apprenticeship Page</a>
+  </div>
+  
+  <div class="job-card union-tip">
+    <h3>💡 Union Hall Referral</h3>
+    <p>For union journeymen like Bob: Local 130 signatory contractors hire through the union hall dispatch. This is an alternative pathway to direct government applications. Contact Local 130 for referral lists and signatory contractor openings.</p>
+    <p><strong>Plumbers Local 130 UA</strong> — 1340 W Washington Blvd, Chicago, IL 60607 | (312) 421-1028</p>
+  </div>
+</div>
+
+<div class="panel-card">
+  <h2>🏥 Healthcare & Institutions</h2>
+  
+  <div class="job-card">
+    <h3>UI Health / University of Illinois Chicago</h3>
+    <p>No plumber positions currently open. The only Crafts & Trades listing is a Journeyman Electrician position.</p>
+    <a href="https://hospital.uillinois.edu/about-ui-health/career-opportunities" target="_blank" class="source-link">→ Browse UI Health Careers</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Cook County Health (Direct Portal)</h3>
+    <p>Redirects to the same Taleo Section 200 already checked above. No plumber postings.</p>
+    <a href="https://cookcountyhealth.org/careers/" target="_blank" class="source-link">→ Cook County Health Careers</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Northwestern Medicine</h3>
+    <p>No plumber positions currently available. 1,266 total job openings — all clinical/healthcare roles.</p>
+    <a href="https://jobs.nm.org" target="_blank" class="source-link">→ Browse NM Jobs</a>
+  </div>
+</div>
+
+<div class="panel-card">
+  <h2>🌳 Other Leads</h2>
+  
+  <div class="job-card">
+    <h3>Chicago Park District</h3>
+    <p>No dedicated plumber positions currently posted. 4 total openings.</p>
+    <p><strong>Most relevant role:</strong></p>
+    <ul>
+      <li><strong>Operating Engineer (M)</strong> — Northerly Island, $123,905.60/yr, Full-time, closes May 11</li>
+      <li>Involves filtration, pumping, boiler, water equipment operation — skills applicable to a plumber</li>
+      <li>Requires: Stationary Engineer's License, Refrigeration Technician Certification</li>
+    </ul>
+    <a href="https://chicagoparkdistrict.com/jobs" target="_blank" class="source-link">→ Chicago Park District Jobs</a>
+  </div>
+  
+  <div class="job-card">
+    <h3>Cook County Electrician (via Health Section)</h3>
+    <p>Electrician — Cook County Health, $57.75/hr (Night shift, closes May 15). Not a plumber role but a trade position at county wages.</p>
+  </div>
+</div>
+
+<div class="panel-card advisory-card">
+  <h2>⚠️ Important Notes</h2>
+  <ul>
+    <li><strong>Government postings expire mid-day</strong> on their closing dates — apply early.</li>
+    <li>Cook County Plumber positions (when posted) typically pay ~$60.50/hr with Journeyman requirements and COUPE Local 130 representation — Bob's ideal target.</li>
+    <li>The State of Illinois <strong>PLUMBER</strong> position in Kankakee ($55–$58/hr, union) is the only active plumber opening this week.</li>
+    <li>Local 130 apprenticeship opens November 2026 — mark the calendar.</li>
+    <li>Check <a href="https://cookcountyil.taleo.net" target="_blank">cookcountyil.taleo.net</a> and <a href="https://chicago.taleo.net" target="_blank">chicago.taleo.net</a> regularly — postings appear and close quickly.</li>
+  </ul>
+</div>
+
+
+  <!-- SOURCES -->
+  
+<a href="https://cookcountyil.taleo.net" target="_blank">Cook County Taleo</a>
+<a href="https://chicago.taleo.net" target="_blank">City of Chicago Taleo</a>
+<a href="https://chicagotransit.taleo.net" target="_blank">CTA Taleo</a>
+<a href="https://cta.cadienttalent.com" target="_blank">Metra Cadient</a>
+<a href="https://illinois.jobs2web.com" target="_blank">IL Jobs Portal</a>
+<a href="https://plumberslu130ua.com" target="_blank">Local 130 UA</a>
+<a href="https://hospital.uillinois.edu" target="_blank">UI Health</a>
+<a href="https://jobs.nm.org" target="_blank">Northwestern Medicine</a>
+<a href="https://chicagoparkdistrict.com/jobs" target="_blank">Chicago Park District</a>
+<a href="https://cookcountyhealth.org/careers/" target="_blank">Cook County Health</a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-09-0815-plumber-opportunities.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-09-0815-plumber-opportunities.html</a>
+  </div>
+
+</div>
+</body>
+</html>
