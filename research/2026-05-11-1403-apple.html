@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Daily Sweep | 2026-05-11 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+/* Entity card adjustments */
+.entity-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.entity-card {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--card-radius); padding: 12px 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.entity-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow); }
+
+/* Section header fix */
+.section-header {
+  display: flex; align-items: center; gap: 8px; margin: 28px 0 12px;
+}
+.section-header .icon { font-size: 20px; }
+.section-header h2 { font-size: 16px; font-weight: 700; color: var(--text-primary); flex-shrink: 0; }
+.section-header .accent-line {
+  flex: 1; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+/* Metric card adjustments */
+.metric-card {
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--surface); border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow); padding: 20px 16px;
+  transition: transform 0.2s;
+}
+.metric-card:hover { transform: translateY(-2px); }
+.metric-value { font-size: 32px !important; font-weight: 800 !important; }
+.metric-label {
+  font-size: 11px !important; font-weight: 600 !important;
+  color: var(--text-muted) !important; margin-top: 4px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Bar chart adjustments */
+.bar-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 4px; padding: 4px 0;
+}
+.bar-label {
+  width: 100px; font-size: 11px; font-weight: 600;
+  color: var(--text-secondary); flex-shrink: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bar-track { flex: 1; height: 18px; background: var(--bar-bg); border-radius: 9px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 9px; transition: width 0.5s ease; }
+.bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+/* Timeline adjustments */
+.timeline-item { margin-bottom: 8px; }
+.tl-title { font-size: 12.5px; line-height: 1.6; color: var(--text-secondary); }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60632 Archer Heights</span>
+  <h1 class="report-title">60632 Archer Heights — Daily Sweep | 2026-05-11</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-11</span>
+    <span>✍️ Hermes Agent (elko.ai)</span>
+    <span>🔓 Public</span>
+    <span>📄 Business Intelligence</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://blockclubchicago.org/2026/04/30/city-removes-brand-new-concrete-bike-lanes-pedestrian-islands-in-brighton-park-amid-protests/" target="_blank" style="color:var(--accent);text-decoration:none">🚧 Archer Ave Complete Streets: City Compromises, Adds 17 Parking Spots After Protests</a></h2>
+    <p>The Chicago Department of Transportation and 12th Ward Ald. Julia Ramirez announced targeted modifications to the Archer Avenue Complete Streets project in Brighton Park, re-adding 17 parking spots across three sections while preserving concrete bike lane protections. The compromise comes after months of dueling weekly rallies between safe-streets advocates and the 'Archer Guardians' opposition group. Separately, Claudia Zuno has announced a campaign for 12th Ward alderwoman, vowing to remove bike barriers entirely if elected.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+<div class="metric-row">
+  <div class="metric-card">
+    <div class="metric-value" style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#4a6cf7,#6c63ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">1218</div>
+    <div class="metric-label">Total Businesses</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#22c55e,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">342</div>
+    <div class="metric-label">Retail &amp; Food</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">45</div>
+    <div class="metric-label">Industrial &amp; Commercial</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value" style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#ef4444,#f87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">63</div>
+    <div class="metric-label">Research Notes</div>
+  </div>
+</div>
+
+
+  <!-- CONTENT (panel stack) -->
+  
+
+<div class="chart-container">
+  <div class="section-header">
+    <span class="icon">📊</span>
+    <h2>Top Business Types in 60632</h2>
+    <span class="accent-line"></span>
+  </div>
+  
+  <div class="bar-row">
+    <div class="bar-label">Other</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:100.0%;background:#4a6cf7" data-pct="100.0%"></div>
+    </div>
+    <div class="bar-count">415</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Retail</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:30.8%;background:#6c63ff" data-pct="30.8%"></div>
+    </div>
+    <div class="bar-count">128</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">School</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:14.5%;background:#818cf8" data-pct="14.5%"></div>
+    </div>
+    <div class="bar-count">60</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Fast Food</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:14.5%;background:#a78bfa" data-pct="14.5%"></div>
+    </div>
+    <div class="bar-count">60</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Restaurant</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:8.4%;background:#c4b5fd" data-pct="8.4%"></div>
+    </div>
+    <div class="bar-count">35</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Yes</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:7.7%;background:#f472b6" data-pct="7.7%"></div>
+    </div>
+    <div class="bar-count">32</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Church</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:5.8%;background:#fb7185" data-pct="5.8%"></div>
+    </div>
+    <div class="bar-count">24</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Place Of Worship</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:5.5%;background:#f87171" data-pct="5.5%"></div>
+    </div>
+    <div class="bar-count">23</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Bicycle Rental</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:5.5%;background:#fbbf24" data-pct="5.5%"></div>
+    </div>
+    <div class="bar-count">23</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Commercial</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:4.3%;background:#34d399" data-pct="4.3%"></div>
+    </div>
+    <div class="bar-count">18</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Mobile Phone</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:4.1%;background:#22c55e" data-pct="4.1%"></div>
+    </div>
+    <div class="bar-count">17</div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Convenience</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:4.1%;background:#14b8a6" data-pct="4.1%"></div>
+    </div>
+    <div class="bar-count">17</div>
+  </div>
+</div>
+
+
+
+<div class="section-header">
+  <span class="icon">📰</span>
+  <h2>Latest Research Findings</h2>
+  <span class="accent-line"></span>
+</div>
+<ul class="news-list">
+  
+  <li class="news-item">
+    <span class="news-bullet" style="background:#4a6cf7"></span>
+    <span class="news-text">
+      <strong>Angelica Garcilazo Agency 5030 Archer May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — Angelica Garcilazo Agency Inc. issued new business license at 5030 S Archer Ave Floor 1, Chicago 60632. License issued Apr 2026. Insurance agency serving Archer Heights corridor.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://data.cityofchicago.org/Business-Transactions/Business-Licenses/uc4x-hmav" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#6c63ff"></span>
+    <span class="news-text">
+      <strong>My Green House Hvac 5145 Archer May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — MY GREEN HOUSE HVAC LLC licensed contractor at 5145 S Archer Ave, Chicago 60632. HVAC services, licensed through 2026-2027. New business addition to Archer Avenue service corridor.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.villageofparkforest.com/DocumentCenter/View/8019/Contractor-list-as-of-5-1-24" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#818cf8"></span>
+    <span class="news-text">
+      <strong>Western Works 100M Groundbreaking Apr2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — Western Works: Brookfield Properties broke ground April 2026 on $100M, 4-building industrial campus at 47th Street and Western Boulevard (28 acres, 560K+ SF). Former Wheatland Tubing site. Cook County Class 6(b) tax incentive saves estimated $7.2M ov...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.chicago.gov/city/en/depts/mayor/press_room/press_releases/2026/april/western-works-groundbreaking.html" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#a78bfa"></span>
+    <span class="news-text">
+      <strong>Archer Medical Arts Available 4900 Archer May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — Archer Medical Arts Building at 4900 S Archer Ave, Chicago 60632 has 1,950 SF office/retail available (expandable to 5,450 SF). Zoned C2-3. Private parking for 30+ vehicles. 10,701 SF building total with 3 medical suites + 1 retail unit + residential...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.loopnet.com/Listing/4900-S-Archer-Ave-Chicago-IL/25579097/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#c4b5fd"></span>
+    <span class="news-text">
+      <strong>Chicago Industrial Vacancy 72Pct Q1 2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — Chicago industrial market Q1 2026 (Savills): vacancy declined 20 bps YoY to 7.2% — lowest since late 2024. Occupiers moving forward on previously delayed decisions. Chicago industrial remains steady post-pandemic with healthy supply-demand balance.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.savills.us/research_articles/256536/389549-0" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#f472b6"></span>
+    <span class="news-text">
+      <strong>Chicago Restaurant Job Losses 2100 May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-06</span> — Chicago lost 2,100 restaurant jobs as industry fights mandated wage hikes (May 4, 2026, The Center Square). Sub-minimum wage phase-out impacts Southwest Side restaurant economy.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.thecentersquare.com/illinois/article_f81e1a86-3db7-4a0c-a7e7-0eb590705085.html" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#fb7185"></span>
+    <span class="news-text">
+      <strong>Angelica Garcilazo Agency Apr2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — Angelica Garcilazo Agency Inc. — new business license issued Apr 2026 at 5030 S Archer Ave Floor 1, Chicago 60632. Insurance agency operating in Archer Heights corridor.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://data.cityofchicago.org/Business-Economic-Development/Business-Licenses/r5kz-chrr" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#f87171"></span>
+    <span class="news-text">
+      <strong>Archer Ave Complete Streets Compromise May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — Archer Avenue Complete Streets compromise: CDOT re-adding 17 parking spots across three sections of Archer Ave in Brighton Park/Archer Heights area after protests. CDOT removing portions of concrete bike barriers near Albany Ave, adding spaces near T...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://blockclubchicago.org/2026/04/30/city-removes-brand-new-concrete-bike-lanes-pedestrian-islands-in-brighton-park-amid-protests/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#fbbf24"></span>
+    <span class="news-text">
+      <strong>Chicago Industrial 15M Sf Under Construction Q1 2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — NAI Hiffman Q1 2026: Nearly 15M SF industrial space under construction in Chicago market. 7.9M SF (53.2%) speculative, 6.9M SF (46.8%) build-to-suit. 3.6M SF broke ground in Q1 across 11 projects. I-55 corridor leads with 2.4M SF, Northwest Indiana 2...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://rejournals.com/the-cranes-are-back-nearly-15-million-square-feet-of-industrial-construction-underway-in-chicago-market-during-first-quarter/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#34d399"></span>
+    <span class="news-text">
+      <strong>Chicago Industrial Market Steady Bet Apr2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — The Real Deal (Apr 30, 2026): Chicago industrial market maintaining healthy supply-demand balance in Q1 2026. Industrial stands out from struggling office and multifamily sectors. NAI Hiffman notes tenant moves more "thoughtful and strategic" post-pa...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://therealdeal.com/chicago/2026/04/30/chicago-industrial-market-performance/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#22c55e"></span>
+    <span class="news-text">
+      <strong>Galvanize Green Oaks Industrial Acquired May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — Galvanize Real Estate (GRE) acquired a 3-property, 462,300 SF industrial portfolio in Green Oaks, IL (north of Chicago). GRE portfolio now exceeds 2.8M SF. May 4, 2026.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.connectcre.com/stories/galvanize-real-estate-acquires-chicagoland-industrial-portfolio/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#14b8a6"></span>
+    <span class="news-text">
+      <strong>4900 S Archer Medical Office Listing May2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — 4900 S Archer Ave, Chicago 60632 — mixed-use property listing: 10,701 SF building with 3 medical office suites + 1 retail (5,251 SF total) plus 1,550 SF garage. 2nd floor 3,900 SF residential (7bd/3ba) with 900 SF rooftop deck. Private parking for 30...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://brevitas.com/p/umj6s3JZ3/mixed-use-property-with-private-parking-lot-available-in-archer-heights-neighborhood" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#4a6cf7"></span>
+    <span class="news-text">
+      <strong>Southwest Suburbs Cook County Reassessment 2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — Cook County Assessor: south and west suburbs undergoing property reassessment in 2026. Every property owner receiving Reassessment Notice with updated estimated fair market value. Archer Heights likely included in this cycle.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.cookcountyassessoril.gov/assessment-calendar-and-deadlines" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#6c63ff"></span>
+    <span class="news-text">
+      <strong>Archer Avenue Historic Preservation Debate Apr2026</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — La Raza (Apr 30, 2026): Spanish-language editorial arguing Archer Avenue should be protected from "dubious changes" and preserved as a historic site. Small business owners fear losing customers from CDOT Complete Streets construction. Bilingual commu...<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://laraza.com/2026/04/30/la-avenida-archer-debe-ser-protegida-de-cambios-dudosos-y-preservada-como-sitio-historico" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+  <li class="news-item">
+    <span class="news-bullet" style="background:#818cf8"></span>
+    <span class="news-text">
+      <strong>55 Chicago Business Center 2600 W 35Th 60632</strong><br>
+      <span style="font-size:11px;color:var(--text-muted)">2026-05-05</span> — 55 Chicago Business Center at 2600 W 35th St, Chicago 60632 — 683,000 SF industrial property (built 1930). Space available for lease in Archer Heights/Brighton Park industrial corridor.<br>
+      <span class="news-sublinks">
+        <span class="links-label">🔗</span> <a href="https://www.commercialcafe.com/commercial-property/us/il/chicago/55-chicago-business-center/" target="_blank">Source</a>
+      </span>
+    </span>
+  </li>
+</ul>
+
+
+
+<div class="section-header">
+  <span class="icon">🏗️</span>
+  <h2>Key Development Projects &amp; Market Trends</h2>
+  <span class="accent-line"></span>
+</div>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="tl-date">Apr 30, 2026</div>
+    <div class="tl-title">Archer Ave Complete Streets Compromise — CDOT re-adding 17 parking spots across three sections of Archer Ave in Brighton Park after community protests. Concrete bike lanes being repositioned, not removed. A reasonable middle-ground for the Archer Heights corridor.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Apr 24, 2026</div>
+    <div class="tl-title">Ald. Julia Ramirez signs off on Archer safety plan edits — calls changes "reasonable traffic safety compromise." Critics like Claudia Zuno (currently running for 12th Ward alderman) vow to remove bike barriers if elected.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Apr 2026</div>
+    <div class="tl-title">Brookfield Properties grounds $100M Western Works — 4-building industrial campus (560K+ SF) at 47th &amp; Western, just east of 60632. Cook County economic development deal. One of Chicago's largest active industrial developments.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Q1 2026</div>
+    <div class="tl-title">Chicago Industrial Market Stable — Near 15M SF under construction across metro. Vacancy declined 20bps YoY to 7.2%. 60632 sits within one of the strongest industrial submarkets nationally thanks to Midway proximity, I-55, and rail intermodal access.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Q1 2026</div>
+    <div class="tl-title">4800 S Kilbourn Ave (60632) — 8.58-acre industrial site for sale with 5,500 SF office. Rare manufacturing campus opportunity near Midway Airport. Cash-flowing tenant in place.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Apr 2026</div>
+    <div class="tl-title">New Business License: Angelica Garcilazo Agency Inc. — Insurance agency at 5030 S Archer Ave, Floor 1, Chicago 60632. New commercial tenant on the Archer Heights corridor.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Apr 2026</div>
+    <div class="tl-title">MY GREEN HOUSE HVAC LLC — Licensed contractor at 5145 S Archer Ave, Chicago 60632. New service business addition to the corridor.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">May 4, 2026</div>
+    <div class="tl-title">Restaurant Industry Headwinds — Chicago lost 2,100 restaurant jobs amid minimum wage phase-out. Impact on Southwest Side food/restaurant economy continues to be monitored.</div>
+  </div>
+  <div class="timeline-item">
+    <div class="tl-date">Ongoing</div>
+    <div class="tl-title">Archer Medical Arts Building (4900 S Archer Ave, 60632) — 1,950 SF office/retail available (expandable to 5,450 SF). Zoned C2-3, private parking for 30+ vehicles. Listing signals available space along the corridor.</div>
+  </div>
+</div>
+
+
+
+<div class="section-header">
+  <span class="icon">🏢</span>
+  <h2>AI Ecosystem Map — Most Connected Entities</h2>
+  <span class="accent-line"></span>
+</div>
+<div class="entity-row">
+  
+  <div class="entity-card" data-name="OpenAI" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" width="28" height="28" alt="OpenAI"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">O</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">OpenAI</span>
+  </div>
+  <div class="entity-card" data-name="Anthropic" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" width="28" height="28" alt="Anthropic"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">A</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Anthropic</span>
+  </div>
+  <div class="entity-card" data-name="NVIDIA" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" width="28" height="28" alt="NVIDIA"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">N</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">NVIDIA</span>
+  </div>
+  <div class="entity-card" data-name="Google" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/default.svg" width="28" height="28" alt="Google"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">G</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Google</span>
+  </div>
+  <div class="entity-card" data-name="Meta AI" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" width="28" height="28" alt="Meta AI"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">M</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Meta AI</span>
+  </div>
+  <div class="entity-card" data-name="Microsoft" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" width="28" height="28" alt="Microsoft"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">M</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Microsoft</span>
+  </div>
+  <div class="entity-card" data-name="Amazon" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" width="28" height="28" alt="Amazon"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">A</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Amazon</span>
+  </div>
+  <div class="entity-card" data-name="DeepSeek" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" width="28" height="28" alt="DeepSeek"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">D</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">DeepSeek</span>
+  </div>
+  <div class="entity-card" data-name="xAI" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" width="28" height="28" alt="xAI"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">x</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">xAI</span>
+  </div>
+  <div class="entity-card" data-name="IBM" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ibm/default.svg" width="28" height="28" alt="IBM"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">I</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">IBM</span>
+  </div>
+  <div class="entity-card" data-name="Oracle" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" width="28" height="28" alt="Oracle"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">O</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Oracle</span>
+  </div>
+  <div class="entity-card" data-name="Mistral AI" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/mistral/default.svg" width="28" height="28" alt="Mistral AI"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">M</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Mistral AI</span>
+  </div>
+  <div class="entity-card" data-name="Midjourney" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/midjourney/default.svg" width="28" height="28" alt="Midjourney"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">M</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Midjourney</span>
+  </div>
+  <div class="entity-card" data-name="ElevenLabs" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/elevenlabs/default.svg" width="28" height="28" alt="ElevenLabs"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">E</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">ElevenLabs</span>
+  </div>
+  <div class="entity-card" data-name="LangChain" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/langchain/default.svg" width="28" height="28" alt="LangChain"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">L</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">LangChain</span>
+  </div>
+  <div class="entity-card" data-name="Stability AI" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/stability/default.svg" width="28" height="28" alt="Stability AI"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">S</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Stability AI</span>
+  </div>
+  <div class="entity-card" data-name="Hugging Face" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/huggingface/default.svg" width="28" height="28" alt="Hugging Face"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">H</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Hugging Face</span>
+  </div>
+  <div class="entity-card" data-name="Perplexity" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/perplexity/default.svg" width="28" height="28" alt="Perplexity"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">P</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Perplexity</span>
+  </div>
+  <div class="entity-card" data-name="Cerebras" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/cerebras/default.svg" width="28" height="28" alt="Cerebras"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">C</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Cerebras</span>
+  </div>
+  <div class="entity-card" data-name="Groq" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/groq/default.svg" width="28" height="28" alt="Groq"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">G</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Groq</span>
+  </div>
+  <div class="entity-card" data-name="Databricks" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/databricks/default.svg" width="28" height="28" alt="Databricks"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">D</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Databricks</span>
+  </div>
+  <div class="entity-card" data-name="Apple" style="cursor:pointer;">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" width="28" height="28" alt="Apple"
+         style="object-fit:contain;background:var(--bar-bg);border-radius:4px;padding:2px;"
+         onerror="this.src='';this.style.display='none';this.parentNode.innerHTML+='<div style=\"width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bar-bg);border-radius:4px;font-size:10px;font-weight:700;color:var(--text-muted);\">A</div>'">
+    <span style="font-size:10px;font-weight:600;color:var(--text-primary);text-align:center;margin-top:4px;">Apple</span>
+  </div>
+</div>
+
+
+
+  <!-- SOURCES -->
+  
+<div class="sources">
+  <h3>🔗 Sources</h3>
+  <a href="https://blockclubchicago.org/2026/04/30/city-removes-brand-new-concrete-bike-lanes-pedestrian-islands-in-brighton-park-amid-protests/" target="_blank">Block Club Chicago</a>
+  <a href="https://chi.streetsblog.org/2026/04/24/archer-edits-ald-julia-ramirez-signs-off-on-reasonable-edits-to-traffic-safety-plan" target="_blank">Streetsblog Chicago</a>
+  <a href="https://www.chicagotribune.com/2026/05/01/editorial-a-sensible-compromise-on-archer-avenue/" target="_blank">Chicago Tribune</a>
+  <a href="https://chicago.suntimes.com/real-estate/2026/04/17/brookfield-breaks-ground-4-building-industrial-campus-back-of-the-yards" target="_blank">Chicago Sun-Times</a>
+  <a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-chicago-first-quarter-industrial-vacancy-20260427/" target="_blank">Crain's Chicago Business</a>
+  <a href="https://www.loopnet.com/Listing/4800-S-Kilbourn-Ave-Chicago-IL/36647697/" target="_blank">LoopNet</a>
+  <a href="https://data.cityofchicago.org/" target="_blank">City of Chicago Data Portal</a>
+  <a href="https://www.loopnet.com/Listing/4900-S-Archer-Ave-Chicago-IL/25579097/" target="_blank">LoopNet (Archer Medical)</a>
+  <a href="https://www.savills.us/research_articles/256536/389549-0" target="_blank">Savills Research</a>
+  <a href="https://therealdeal.com/chicago/2026/04/30/chicago-industrial-market-performance/" target="_blank">The Real Deal</a>
+  <a href="https://rejournals.com/" target="_blank">REJournals</a>
+  <a href="https://www.thecentersquare.com/illinois/" target="_blank">The Center Square</a>
+  <a href="https://www.mahercr.com/burbanks-new-civic-center-and-library/" target="_blank">Maher Commercial Realty</a>
+</div>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-11-1403-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-05-11-1403-60632-daily-sweep.html</a>
+  </div>
+
+</div>
+</body>
+</html>
