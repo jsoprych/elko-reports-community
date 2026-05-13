@@ -1,0 +1,288 @@
+{
+  "date": "2026-05-13",
+  "generated_at": "2026-05-13T04:02:44.033877+00:00",
+  "db_stats": {
+    "entities": 339,
+    "models": 52,
+    "events": 123,
+    "relationships": 310
+  },
+  "entities": [
+    {
+      "name": "OpenAI",
+      "slug": "openai",
+      "wp": "OpenAI",
+      "description": "https://en.wikipedia.org/wiki/OpenAI"
+    },
+    {
+      "name": "Anthropic",
+      "slug": "anthropic",
+      "wp": "Anthropic",
+      "description": "https://en.wikipedia.org/wiki/Anthropic"
+    },
+    {
+      "name": "Google DeepMind",
+      "slug": "google",
+      "wp": "Google_DeepMind",
+      "description": "https://en.wikipedia.org/wiki/Google_DeepMind"
+    },
+    {
+      "name": "xAI",
+      "slug": "xai",
+      "wp": "xAI_(company)",
+      "description": "https://en.wikipedia.org/wiki/XAI_(company)"
+    },
+    {
+      "name": "Meta AI",
+      "slug": "meta",
+      "wp": "Meta_AI",
+      "description": "https://en.wikipedia.org/wiki/Meta_AI"
+    },
+    {
+      "name": "Microsoft",
+      "slug": "microsoft",
+      "wp": "Microsoft",
+      "description": "https://en.wikipedia.org/wiki/Microsoft"
+    },
+    {
+      "name": "Amazon",
+      "slug": "amazon_aws",
+      "wp": "Amazon_(company)",
+      "description": "https://en.wikipedia.org/wiki/Amazon_(company)"
+    },
+    {
+      "name": "NVIDIA",
+      "slug": "nvidia",
+      "wp": "Nvidia",
+      "description": "https://en.wikipedia.org/wiki/Nvidia"
+    },
+    {
+      "name": "AMD",
+      "slug": "amd",
+      "wp": "Advanced_Micro_Devices",
+      "description": "https://en.wikipedia.org/wiki/Advanced_Micro_Devices"
+    },
+    {
+      "name": "Intel",
+      "slug": "intel",
+      "wp": "Intel",
+      "description": "https://en.wikipedia.org/wiki/Intel"
+    },
+    {
+      "name": "TSMC",
+      "slug": "tsmc",
+      "wp": "TSMC",
+      "description": "https://en.wikipedia.org/wiki/TSMC"
+    },
+    {
+      "name": "ASML",
+      "slug": "asml",
+      "wp": "ASML_Holding",
+      "description": "https://en.wikipedia.org/wiki/ASML_Holding"
+    },
+    {
+      "name": "Broadcom",
+      "slug": "broadcom",
+      "wp": "Broadcom_Inc.",
+      "description": "The official Broadcom logo"
+    },
+    {
+      "name": "Apple",
+      "slug": "apple",
+      "wp": "Apple_Inc.",
+      "description": "https://en.wikipedia.org/wiki/Apple_Inc."
+    },
+    {
+      "name": "DeepSeek",
+      "slug": "deepseek",
+      "wp": "DeepSeek",
+      "description": "https://en.wikipedia.org/wiki/DeepSeek"
+    },
+    {
+      "name": "Alibaba",
+      "slug": "alibaba",
+      "wp": "Alibaba_Group",
+      "description": "https://en.wikipedia.org/wiki/Alibaba_Group"
+    },
+    {
+      "name": "Baidu",
+      "slug": "baidu",
+      "wp": "Baidu",
+      "description": "https://en.wikipedia.org/wiki/Baidu"
+    },
+    {
+      "name": "IBM",
+      "slug": "ibm",
+      "wp": "IBM",
+      "description": "International Business Machines Corporation (IBM) is an American multinational t"
+    },
+    {
+      "name": "Oracle",
+      "slug": "oracle",
+      "wp": "Oracle_Corporation",
+      "description": "https://en.wikipedia.org/wiki/Oracle_Corporation"
+    },
+    {
+      "name": "Hugging Face",
+      "slug": "hugging-face",
+      "wp": "Hugging_Face",
+      "description": "https://en.wikipedia.org/wiki/Hugging_Face"
+    },
+    {
+      "name": "Palantir",
+      "slug": "palantir",
+      "wp": "Palantir_Technologies",
+      "description": "Palantir Technologies Inc. is a U.S. software company that develops platforms fo"
+    },
+    {
+      "name": "Salesforce",
+      "slug": "salesforce",
+      "wp": "Salesforce",
+      "description": "Salesforce, Inc. is an American multinational software company headquartered in "
+    }
+  ],
+  "events": [
+    {
+      "title": "ClawHavoc MCP backdoor: CLI-Anything reaches 30K GitHub stars",
+      "date": "2026-05-06",
+      "category": "research_breakthrough",
+      "description": "CLI-Anything tool generates SKILL.md files that AI agents trust. Supply-chain scanners have no detection category for agent integration layer threats."
+    },
+    {
+      "title": "Google DeepMind UK employees vote to unionize over military contracts",
+      "date": "2026-05-06",
+      "category": "regulatory",
+      "description": "Google DeepMind UK employees launched unionization bid over concerns about defense work with Israel and Pentagon."
+    },
+    {
+      "title": "CopilotKit raises $27M for AG-UI agent interface layer",
+      "date": "2026-05-06",
+      "category": "funding",
+      "description": "CopilotKit raised $27M to build AG-UI, the interface layer between humans and AI agents. Adopted by Google, Microsoft, Amazon, Oracle."
+    },
+    {
+      "title": "Subquadratic emerges from stealth with SubQ model",
+      "date": "2026-05-06",
+      "category": "product_launch",
+      "description": "Miami startup Subquadratic launched SubQ 1M-Preview, claiming first fully subquadratic LLM with 12M-token context. Raised $29M at $500M valuation."
+    },
+    {
+      "title": "US gov expands CAISI vetting to Microsoft, xAI, Google DeepMind",
+      "date": "2026-05-06",
+      "category": "regulatory",
+      "description": "Microsoft, xAI and Google DeepMind signed agreements to give CAISI pre-release access to their AI models for national security testing."
+    },
+    {
+      "title": "GPT-5.5 launch party held at OpenAI HQ",
+      "date": "2026-05-05",
+      "category": "product_launch",
+      "description": "OpenAI hosted exclusive GPT-5.5 launch party at SF HQ on 5/5 at 5:55pm. ChatGPT planned its own party. Sam Altman invited Elon Musk amid ongoing legal battle."
+    },
+    {
+      "title": "CAISI evaluates DeepSeek V4 Pro",
+      "date": "2026-05-05",
+      "category": "research_breakthrough",
+      "description": "NIST's CAISI published evaluation of DeepSeek V4 Pro, finding it more cost-efficient than GPT-5.4 mini on 5 of 7 benchmarks."
+    },
+    {
+      "title": "Sam Altman reveals OpenClaw agent usage",
+      "date": "2026-05-05",
+      "category": "product_launch",
+      "description": "Sam Altman tells Patrick Collison OpenClaw was his 'magic AGI moment,' used it to build an app for managing morning messages."
+    },
+    {
+      "title": "Google DeepMind UK workers vote to unionize",
+      "date": "2026-05-05",
+      "category": "regulatory",
+      "description": "Google DeepMind UK employees vote to unionize over Pentagon deal and $1.2B Project Nimbus contract with Israel. First frontier AI lab union bid."
+    },
+    {
+      "title": "White House considers executive order for AI model vetting",
+      "date": "2026-05-05",
+      "category": "regulatory",
+      "description": "Trump administration discussing executive order to create AI working group for pre-release model review. CAISI signs Microsoft, Google DeepMind, xAI for voluntary vetting."
+    },
+    {
+      "title": "White House considers vetting AI models before release",
+      "date": "2026-05-04",
+      "category": "regulatory",
+      "description": "Trump administration discussing executive order to create AI working group to review models before public release, citing Claude Mythos concerns."
+    },
+    {
+      "title": "Anthropic launches $1.5B enterprise AI venture with Blackstone, Goldman Sachs",
+      "date": "2026-05-04",
+      "category": "funding",
+      "description": "Anthropic partnered with Blackstone ($300M), Hellman & Friedman ($300M), and Goldman Sachs ($150M) to launch a standalone enterprise AI services firm deploying Claude across PE portfolio companies."
+    },
+    {
+      "title": "AI Emergency Diagnosis Study",
+      "date": "2026-05-04",
+      "category": "research_breakthrough",
+      "description": "Harvard Medical School study finds AI more accurate than doctors in text-based emergency diagnoses."
+    },
+    {
+      "title": "DeepSeek V4 Launch",
+      "date": "2026-05-04",
+      "category": "product_launch",
+      "description": "DeepSeek V4 launched, sparking revaluation of China's AI sector with chip designers as beneficiaries."
+    },
+    {
+      "title": "Blend MCP Server",
+      "date": "2026-05-04",
+      "category": "product_launch",
+      "description": "Blend launches Autopilot MCP Server, opening its lending platform to custom AI agents."
+    }
+  ],
+  "trending_tags": [
+    {
+      "tag": "Microsoft-OpenAI AGI Agreement",
+      "category": "ecosystem",
+      "mentions": 5
+    },
+    {
+      "tag": "Claude Database Wipe",
+      "category": "safety",
+      "mentions": 4
+    },
+    {
+      "tag": "Canva AI Palestine",
+      "category": "ethics",
+      "mentions": 3
+    },
+    {
+      "tag": "Agent Safety",
+      "category": "safety",
+      "mentions": 3
+    },
+    {
+      "tag": "AI Content Moderation",
+      "category": "ethics",
+      "mentions": 3
+    },
+    {
+      "tag": "3D X-DRAM",
+      "category": "hardware",
+      "mentions": 2
+    },
+    {
+      "tag": "AI Deanonymization",
+      "category": "privacy",
+      "mentions": 2
+    },
+    {
+      "tag": "HBM Alternatives",
+      "category": "hardware",
+      "mentions": 2
+    },
+    {
+      "tag": "MCP Security Flaw",
+      "category": "ecosystem",
+      "mentions": 2
+    },
+    {
+      "tag": "White House AI Model Vetting",
+      "category": "regulation",
+      "mentions": 2
+    }
+  ]
+}
