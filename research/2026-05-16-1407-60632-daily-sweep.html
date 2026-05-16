@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Daily Sweep | 2026-05-16 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.entity-card{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);transition:transform 0.15s,box-shadow 0.15s}
+.entity-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.source-pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:var(--accent);color:#fff}
+.news-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.news-bullet{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.news-sublinks{margin-top:4px;display:block;font-size:11px}
+.news-sublinks .links-label{font-weight:800;color:#1a7a3a;text-transform:uppercase;letter-spacing:0.5px;margin-right:2px}
+.news-sublinks a{color:var(--accent);text-decoration:none}
+.news-sublinks a:hover{text-decoration:underline}
+.bar-chart{margin:16px 0}
+.chart-title{font-weight:700;font-size:15px;margin-bottom:12px;color:var(--text-primary)}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-label{width:130px;font-size:12px;text-align:right;color:var(--text-secondary)}
+.bar-track{flex:1;height:20px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.4s ease}
+.bar-count{width:40px;font-size:12px;font-weight:600;color:var(--text-primary)}
+.metric-row{display:flex;gap:16px;flex-wrap:wrap}
+.metric-card{flex:1;min-width:140px;text-align:center;padding:18px 12px;border-radius:12px;color:#fff}
+.metric-label{font-size:11px;opacity:0.9;text-transform:uppercase;letter-spacing:0.5px}
+.metric-value{font-size:28px;font-weight:800;margin-top:4px}
+.section-header{font-size:16px;font-weight:700;color:var(--text-primary);margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+.market-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.market-table th{text-align:left;padding:8px 10px;font-weight:700;color:var(--text-secondary);border-bottom:2px solid var(--border);text-transform:uppercase;font-size:11px}
+.market-table td{padding:10px;border-bottom:1px solid var(--border);color:var(--text-primary);vertical-align:top}
+.td-green{color:#10b981;font-weight:600}
+.td-yellow{color:#f59e0b;font-weight:600}
+.td-red{color:#ef4444;font-weight:600}
+@media(max-width:600px){.bar-label{width:90px}.metric-row{flex-direction:column}}
+
+
+.grok-popup {
+  position: fixed; z-index: 9999;
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  width: 320px; padding: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  pointer-events: none;
+  font-size: 13px; line-height: 1.6; overflow: hidden;
+}
+.grok-popup.visible { opacity: 1; visibility: visible; }
+.grok-popup .popup-thumb {
+  width: 100%; height: 120px;
+  object-fit: cover; border-radius: 10px 10px 0 0;
+  background: var(--bar-bg); display: block;
+}
+.grok-popup .popup-body { padding: 12px 16px 14px; }
+.grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+.grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+.grok-popup .popup-link {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  text-decoration: none;
+}
+.grok-popup .popup-footer {
+  padding: 8px 16px; border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--text-muted);
+}
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60632 Archer Heights</span>
+  <h1 class="report-title">60632 Archer Heights — Daily Sweep | 2026-05-16</h1>
+  <div class="report-meta">
+    <span>📅 </span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://www.axios.com/local/chicago/2026/05/05/chicago-bike-lanes-brighton-park-logan-square-west-town-grand-archer" target="_blank" style="color:var(--accent);text-decoration:none">💥 Moving Archer Forward Debate Intensifies — Dueling Rallies, Tribune Editorial, and a Divided Community</a></h2>
+    <p>The Archer Avenue Complete Streets redesign has become Chicago’s most contentious neighborhood planning battle, with weekly pro- and anti-bike-lane rallies now in their fifth month. The Tribune Editorial Board called for a “sensible compromise” while safe-streets advocates cite crash data showing the corridor’s danger for pedestrians and cyclists. Meanwhile, the 60632 business inventory now stands at 1,218 catalogued businesses, with 9 industrial properties listed for sale on LoopNet and new residential construction underway at 49th & Ridgeway.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row">
+  <div class="metric-card" style="background:linear-gradient(135deg,#4a6cf7,#6d8cff)">
+    <div class="metric-label">Total Businesses</div>
+    <div class="metric-value">1,218</div>
+  </div>
+  <div class="metric-card" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">
+    <div class="metric-label">Industrial / Mfg</div>
+    <div class="metric-value">13</div>
+  </div>
+  <div class="metric-card" style="background:linear-gradient(135deg,#10b981,#34d399)">
+    <div class="metric-label">Retail / Food</div>
+    <div class="metric-value">286</div>
+  </div>
+  <div class="metric-card" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">
+    <div class="metric-label">Other</div>
+    <div class="metric-value">919</div>
+  </div>
+</div>
+
+  <!-- CONTENT (panel stack) -->
+  
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#4a6cf7"></span>
+  <div>
+    <a href="https://chicagoyimby.com/2026/02/corner-lot-at-49th-and-ridgeway-in-archer-heights-permitted-for-two-single-family-homes.html" target="_blank" rel="noopener"><strong>🏠 Two Single-Family Homes Permitted at 49th & Ridgeway</strong></a>
+    <p>New residential permits were issued in February 2026 for two single-family homes at 4847–4851 South Ridgeway Avenue in Archer Heights, developed by a Palos Hills builder expanding their portfolio in the neighborhood.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://chicagoyimby.com/2026/02/corner-lot-at-49th-and-ridgeway-in-archer-heights-permitted-for-two-single-family-homes.html" target="_blank">Chicago YIMBY</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#f59e0b"></span>
+  <div>
+    <a href="https://chi.streetsblog.org/2026/03/02/best-foot-forward-plans-for-archer-avenue-emphasize-pedestrian-friendly-main-street" target="_blank" rel="noopener"><strong>🚶 Moving Archer Forward — Pedestrian-Friendly Main Street Vision</strong></a>
+    <p>The Chicago Department of Planning and Development held its second public meeting for the Moving Archer Forward plan, outlining three community visions focused on pedestrian safety, streetscape improvements, and economic revitalization along the corridor.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://chi.streetsblog.org/2026/03/02/best-foot-forward-plans-for-archer-avenue-emphasize-pedestrian-friendly-main-street" target="_blank">Streetsblog Chicago</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#ef4444"></span>
+  <div>
+    <a href="https://www.chicagotribune.com/2026/05/01/editorial-a-sensible-compromise-on-archer-avenue-takes-more-than-bike-activists-into-account/" target="_blank" rel="noopener"><strong>📰 Tribune Editorial: “A Sensible Compromise on Archer Avenue”</strong></a>
+    <p>The Chicago Tribune Editorial Board weighed in on the Moving Archer Forward debate, arguing that while Complete Streets principles have merit, Chicago streets “have to be for everyone” — not just bike activists. The editorial drew sharp rebuttals from safe-streets advocates who cited crash and fatality data.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.chicagotribune.com/2026/05/01/editorial-a-sensible-compromise-on-archer-avenue-takes-more-than-bike-activists-into-account/" target="_blank">Chicago Tribune</a> · <a href="https://www.chicagotribune.com/2026/05/07/letters-050726-archer-avenue-bike-lanes/" target="_blank">Letters Rebuttal</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#8b5cf6"></span>
+  <div>
+    <a href="https://www.axios.com/local/chicago/2026/05/05/chicago-bike-lanes-brighton-park-logan-square-west-town-grand-archer" target="_blank" rel="noopener"><strong>💥 Chicago Bike Lanes Spark Protests Across Southwest Side</strong></a>
+    <p>Axios Chicago reports that resident pushback against parking loss has fueled dueling weekly rallies on both Archer Avenue and Grand Avenue, with pro- and anti-Complete Streets demonstrators facing off. Ald. Jeylu Gutierrez (14th) and Silvana Tabares (23rd) have taken different positions on the project.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.axios.com/local/chicago/2026/05/05/chicago-bike-lanes-brighton-park-logan-square-west-town-grand-archer" target="_blank">Axios Chicago</a> · <a href="https://chi.streetsblog.org/2026/04/22/this-is-grand-scenes-from-chicagos-newest-weekly-dueling-rallies-against-and-for-a-complete-streets-project" target="_blank">Streetsblog</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#10b981"></span>
+  <div>
+    <a href="https://www.loopnet.com/search/industrial-properties/chicago-il-60632/for-sale/" target="_blank" rel="noopener"><strong>🏭 9 Industrial Properties Listed for Sale in 60632</strong></a>
+    <p>LoopNet shows 9 active industrial property listings in the 60632 ZIP code, with Chicago Industrial Real Estate (headquartered at 2743 W. 36th Place) as the dominant local brokerage. CityFeet lists 4525 S Tripp Ave among active industrial offerings.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.loopnet.com/search/industrial-properties/chicago-il-60632/for-sale/" target="_blank">LoopNet</a> · <a href="https://www.cityfeet.com/cont/chicago-il/industrial-properties-for-sale" target="_blank">CityFeet</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#f59e0b"></span>
+  <div>
+    <a href="https://southwestregionalpublishing.com/2026/03/11/" target="_blank" rel="noopener"><strong>📋 Aldermen Divided on Moving Archer Forward</strong></a>
+    <p>Southwest Regional Publishing reports that Ald. Jeylu Gutierrez (14th) and Ald. Silvana Tabares (23rd), whose wards both include stretches of Archer Avenue, have expressed differing views on the Complete Streets redesign — reflecting the broader community split.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://southwestregionalpublishing.com/category/your-town/chicago-archer-heights/" target="_blank">SW Regional Publishing</a></span>
+  </div>
+</div>
+
+<div class="news-item">
+  <span class="news-bullet" style="background:#06b6d4"></span>
+  <div>
+    <a href="https://chicago.suntimes.com/archer-heights" target="_blank" rel="noopener"><strong>📊 Archer Heights Among Highest 311 Dibs Calls in Chicago</strong></a>
+    <p>The Chicago Sun-Times reports that Archer Heights, Brighton Park, and Hermosa have the highest rates of 311 calls over winter dibs disputes, while Oakland and Riverdale have the lowest — a neighborhood culture indicator.</p>
+    <span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://chicago.suntimes.com/archer-heights" target="_blank">Chicago Sun-Times</a></span>
+  </div>
+</div>
+
+
+<div class="section-header">📊 60632 Business Inventory Snapshot</div>
+<div class="bar-chart">
+  <div class="chart-title">📊 Top Business Types in 60632</div>
+  <div class="bar-row">
+      <div class="bar-label">Other</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:100%;background:#4a6cf7" title="415 businesses (100%)"></div>
+      </div>
+      <div class="bar-count">415</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Retail</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:31%;background:#f59e0b" title="128 businesses (31%)"></div>
+      </div>
+      <div class="bar-count">128</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Fast Food</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:14%;background:#10b981" title="60 businesses (14%)"></div>
+      </div>
+      <div class="bar-count">60</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">School</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:14%;background:#ef4444" title="60 businesses (14%)"></div>
+      </div>
+      <div class="bar-count">60</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Restaurant</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:8%;background:#8b5cf6" title="35 businesses (8%)"></div>
+      </div>
+      <div class="bar-count">35</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Church</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:6%;background:#ec4899" title="24 businesses (6%)"></div>
+      </div>
+      <div class="bar-count">24</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Place of Worship</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:6%;background:#06b6d4" title="23 businesses (6%)"></div>
+      </div>
+      <div class="bar-count">23</div>
+    </div>
+<div class="bar-row">
+      <div class="bar-label">Bicycle Rental</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:6%;background:#84cc16" title="23 businesses (6%)"></div>
+      </div>
+      <div class="bar-count">23</div>
+    </div>
+</div>
+
+<div class="section-header">🏗 Key Development Projects</div>
+
+<table class="market-table">
+  <thead><tr><th>Project</th><th>Status</th><th>Details</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Moving Archer Forward</strong></td>
+      <td><span class="td-green">Active Planning</span></td>
+      <td>CDPD-led Complete Streets redesign of Archer Ave corridor. Second public meeting held March 2026. Three community visions: pedestrian safety, streetscape upgrades, economic revitalization. Dueling rallies ongoing.</td>
+    </tr>
+    <tr>
+      <td><strong>49th & Ridgeway Homes</strong></td>
+      <td><span class="td-green">Permitted</span></td>
+      <td>Two single-family homes at 4847–4851 S Ridgeway. Palos Hills developer. Permits issued Feb 2026.</td>
+    </tr>
+    <tr>
+      <td><strong>60632 Industrial Listings</strong></td>
+      <td><span class="td-green">Active</span></td>
+      <td>9 industrial properties for sale on LoopNet. Chicago Industrial Real Estate (2743 W 36th Pl) is dominant local broker. 4525 S Tripp Ave listed on CityFeet.</td>
+    </tr>
+    <tr>
+      <td><strong>Chicago Ridge Mall (95th St)</strong></td>
+      <td><span class="td-green">Operating</span></td>
+      <td>6500 W 95th Street retail hub adjacent to 60632. Anchored by Aldi, Dunkin', Starbucks, Little Caesars, Things Remembered.</td>
+    </tr>
+    <tr>
+      <td><strong>Archer Ave Safety</strong></td>
+      <td><span class="td-yellow">Contentious</span></td>
+      <td>Tribune editorial vs. safe-streets advocates debate. Letters citing crash data. Weekly pro/con rallies ongoing since Jan 2026.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-header">🌍 AI Ecosystem Map — Enterprise Landscape</div>
+<div class="entity-row"><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="22" height="22" onerror="this.style.display='none'"><span>OpenAI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="22" height="22" onerror="this.style.display='none'"><span>Anthropic</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google-deepmind/default.svg" alt="Google DeepMind" width="22" height="22" onerror="this.style.display='none'"><span>Google DeepMind</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" alt="xAI" width="22" height="22" onerror="this.style.display='none'"><span>xAI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta-ai/default.svg" alt="Meta AI" width="22" height="22" onerror="this.style.display='none'"><span>Meta AI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="Microsoft" width="22" height="22" onerror="this.style.display='none'"><span>Microsoft</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="Amazon" width="22" height="22" onerror="this.style.display='none'"><span>Amazon</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" alt="NVIDIA" width="22" height="22" onerror="this.style.display='none'"><span>NVIDIA</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" width="22" height="22" onerror="this.style.display='none'"><span>AMD</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" width="22" height="22" onerror="this.style.display='none'"><span>Intel</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tsmc/default.svg" alt="TSMC" width="22" height="22" onerror="this.style.display='none'"><span>TSMC</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/asml/default.svg" alt="ASML" width="22" height="22" onerror="this.style.display='none'"><span>ASML</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" alt="Broadcom" width="22" height="22" onerror="this.style.display='none'"><span>Broadcom</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" alt="Apple" width="22" height="22" onerror="this.style.display='none'"><span>Apple</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="22" height="22" onerror="this.style.display='none'"><span>DeepSeek</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibaba/default.svg" alt="Alibaba" width="22" height="22" onerror="this.style.display='none'"><span>Alibaba</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" width="22" height="22" onerror="this.style.display='none'"><span>Baidu</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ibm/default.svg" alt="IBM" width="22" height="22" onerror="this.style.display='none'"><span>IBM</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" width="22" height="22" onerror="this.style.display='none'"><span>Oracle</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hugging-face/default.svg" alt="Hugging Face" width="22" height="22" onerror="this.style.display='none'"><span>Hugging Face</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/palantir/default.svg" alt="Palantir" width="22" height="22" onerror="this.style.display='none'"><span>Palantir</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/salesforce/default.svg" alt="Salesforce" width="22" height="22" onerror="this.style.display='none'"><span>Salesforce</span></div>
+</div>
+
+<div class="section-header">📁 Database Status</div>
+
+<table class="market-table">
+  <thead><tr><th>Metric</th><th>Count</th></tr></thead>
+  <tbody>
+    <tr><td>Total Businesses</td><td><strong>1218</strong></td></tr>
+    <tr><td>Industrial / Manufacturing</td><td>13</td></tr>
+    <tr><td>Retail / Food Service</td><td>286</td></tr>
+    <tr><td>Other Categories</td><td>919</td></tr>
+    <tr><td>Unique Business Types</td><td>35</td></tr>
+  </tbody>
+</table>
+
+
+  <!-- SOURCES -->
+  
+<a href="https://chicagoyimby.com/2026/02/corner-lot-at-49th-and-ridgeway-in-archer-heights-permitted-for-two-single-family-homes.html" target="_blank" rel="noopener"><span class="source-pill">Chicago YIMBY</span></a>
+<a href="https://chi.streetsblog.org/2026/03/02/best-foot-forward-plans-for-archer-avenue-emphasize-pedestrian-friendly-main-street" target="_blank" rel="noopener"><span class="source-pill">Streetsblog Chicago</span></a>
+<a href="https://www.chicagotribune.com/2026/05/01/editorial-a-sensible-compromise-on-archer-avenue-takes-more-than-bike-activists-into-account/" target="_blank" rel="noopener"><span class="source-pill">Chicago Tribune</span></a>
+<a href="https://www.axios.com/local/chicago/2026/05/05/chicago-bike-lanes-brighton-park-logan-square-west-town-grand-archer" target="_blank" rel="noopener"><span class="source-pill">Axios Chicago</span></a>
+<a href="https://www.loopnet.com/search/industrial-properties/chicago-il-60632/for-sale/" target="_blank" rel="noopener"><span class="source-pill">LoopNet</span></a>
+<a href="https://www.cityfeet.com/cont/chicago-il/industrial-properties-for-sale" target="_blank" rel="noopener"><span class="source-pill">CityFeet</span></a>
+<a href="https://chicagoindustrialre.com/" target="_blank" rel="noopener"><span class="source-pill">Chicago Industrial RE</span></a>
+<a href="https://southwestregionalpublishing.com/category/your-town/chicago-archer-heights/" target="_blank" rel="noopener"><span class="source-pill">SW Regional Pub</span></a>
+<a href="https://chicago.suntimes.com/archer-heights" target="_blank" rel="noopener"><span class="source-pill">Chicago Sun-Times</span></a>
+<a href="https://www.chicagocityscape.com/place/neighborhood-archer-heights" target="_blank" rel="noopener"><span class="source-pill">Chicago Cityscape</span></a>
+<a href="https://data.cityofchicago.org/" target="_blank" rel="noopener"><span class="source-pill">City of Chicago Data</span></a>
+<a href="https://chicago.urbanize.city/neighborhood/archer-heights" target="_blank" rel="noopener"><span class="source-pill">Urbanize Chicago</span></a>
+<a href="https://illinoisedc.org/resource/the-state-of-business-2026" target="_blank" rel="noopener"><span class="source-pill">Illinois EDC</span></a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-05-16-1407-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-05-16-1407-60632-daily-sweep.html</a>
+  </div>
+
+</div>
+<script>
+(function(){
+  const SUMMARIES = {"AMD": {"extract": "Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company headquartered in Santa Clara, California. It develops central processing units (CPUs), graphics processing units (GPUs), field-programmable gate arrays (FPGAs), system-on-chips (SoCs), and high-", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg/330px-2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg", "url": "https://en.wikipedia.org/wiki/Advanced_Micro_Devices"}, "ASML": {"extract": "ASML Holding N.V. is a Dutch multinational corporation that develops and manufactures photolithography machines which are used to produce integrated circuits. It is the largest supplier for the semiconductor industry, as well as the most advanced producer of extreme ultraviolet l", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/ASML_headquarters_Veldhoven.jpg/330px-ASML_headquarters_Veldhoven.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/ASML_Holding"}, "Alibaba": {"extract": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TaobaoCity_Alibaba_Xixi_Park.jpg/330px-TaobaoCity_Alibaba_Xixi_Park.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Amazon": {"extract": "Amazon.com, Inc. is an American multinational technology company engaged in e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. Founded in 1994 by Jeff Bezos in Bellevue, Washington, the company originally started as an online marketpl", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon_Tower_I_topped_out%2C_June_2015.jpg/330px-Amazon_Tower_I_topped_out%2C_June_2015.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Amazon_(company)"}, "Anthropic": {"extract": "Anthropic is an American artificial intelligence (AI) company headquartered in San Francisco. It has developed a range of large language models (LLMs) named Claude and focuses on AI safety. Anthropic was founded in 2021 by former members of OpenAI, including siblings Daniela Amod", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Apple": {"extract": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, in Silicon Valley, and known for consumer electronics, software and online services. Founded in 1976 as Apple Computer Company by Steve Jobs, Steve Wozniak and Ronald Wayne, the com", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/330px-Apple_logo_black.svg.png", "url": "https://en.wikipedia.org/wiki/Apple_Inc."}, "Baidu": {"extract": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet services and artificial intelligence. It holds a dominant position in China's search engine market, and provides a wide variety of other internet services such as Baidu App, Baidu Baike, iQIYI, Bai", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg/330px-Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Baidu"}, "Broadcom": {"extract": "Broadcom Inc. is an American multinational designer, developer, manufacturer, and global supplier of a wide range of semiconductor and infrastructure software products. Broadcom's product offerings serve the data center, networking, software, broadband, wireless, storage, and ind", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Broadcom_Headquarters_San_Jose.jpg/330px-Broadcom_Headquarters_San_Jose.jpg", "url": "https://en.wikipedia.org/wiki/Broadcom_Inc."}, "DeepSeek": {"extract": "Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd., doing business as DeepSeek, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chin", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Google DeepMind": {"extract": "Google DeepMind, trading as Google DeepMind or simply DeepMind, is a British-American artificial intelligence (AI) research laboratory which serves as a subsidiary of Alphabet Inc. Founded in the UK in 2010, it was acquired by Google in 2014 and merged with Google AI's Google Bra", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Google_DeepMind"}, "Hugging Face": {"extract": "Hugging Face, Inc., is an American company based in New York City that develops computation tools for building applications using machine learning. Its transformers library built for natural language processing applications and its platform allow users to share machine learning m", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Hugging_Face"}, "IBM": {"extract": "International Business Machines Corporation, doing business as IBM, is an American multinational technology company headquartered in Armonk, New York, and present in over 175 countries. It is a publicly traded company and one of the 30 companies in the Dow Jones Industrial Averag", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/IBM_CHQ_-_Oct_2014.jpg/330px-IBM_CHQ_-_Oct_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/IBM"}, "Intel": {"extract": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units (CPUs) and related products for business and consumer markets. Intel was the world'", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Intel_Headquarters_in_2023.jpg/330px-Intel_Headquarters_in_2023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Intel"}, "Meta AI": {"extract": "Meta AI is a research division of Meta that develops artificial intelligence and augmented reality technologies.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Meta_AI_screenshot.jpg/330px-Meta_AI_screenshot.jpg", "url": "https://en.wikipedia.org/wiki/Meta_AI"}, "Microsoft": {"extract": "Microsoft Corporation is an American multinational technology company headquartered in Redmond, Washington. The company became influential in the rise of personal computers through software like Windows and has since expanded into areas such as Internet services, cloud computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Aerial_Microsoft_West_Campus_August_2009.jpg/330px-Aerial_Microsoft_West_Campus_August_2009.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Microsoft"}, "NVIDIA": {"extract": "Nvidia Corporation is an American multinational technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for data science, high-performance computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/330px-2788-2888_San_Tomas_Expwy.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "OpenAI": {"extract": "OpenAI is an American artificial intelligence (AI) research organization headquartered in San Francisco, consisting of a for-profit public benefit corporation (PBC) partially controlled by a nonprofit foundation. OpenAI developed the generative pre-trained transformer (GPT) famil", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "Oracle": {"extract": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California, in 1977 by Bob Miner, Ed Oates, and current chairman of the board and chief technology officer Larry Ellison, Oracle is among the 20 largest c", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}, "Palantir": {"extract": "Palantir Technologies Inc. is an American publicly traded company that develops data integration and analytics platforms. Headquartered in Miami, Florida, it was founded in 2003 by Peter Thiel, Stephen Cohen, Joe Lonsdale, Alex Karp, and Nathan Gettings.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Palantir_Technologies"}, "Salesforce": {"extract": "Salesforce, Inc., is an American cloud-based software company headquartered in San Francisco, California. It is primarily known for its customer relationship management software and related applications which it delivers through a software as a service subscription business model", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/330px-Salesforce.com_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Salesforce"}, "TSMC": {"extract": "Taiwan Semiconductor Manufacturing Company Limited is a Taiwanese multinational semiconductor contract manufacturing and design company. Headquartered in Hsinchu Science Park, it is one of the world's largest non-U.S. companies by market capitalisation. It holds a commanding majo", "thumbnail": "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Tsmc.svg/330px-Tsmc.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail", "url": "https://en.wikipedia.org/wiki/TSMC"}, "xAI": {"extract": "SpaceXAI is a division of American aerospace company SpaceX working in the area of artificial intelligence (AI), social media and technology.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/xAI_(company)"}};
+  const popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+  let activeCard = null, hideTimer = null;
+
+  function showPopup(card, data) {
+    const name = card.getAttribute('data-name') || card.querySelector('span')?.textContent?.trim() || '';
+    const thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    const extract = data.extract
+      ? data.extract.substring(0, 300) + '\u2026'
+      : 'No description available.';
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia \u2192</a>' +
+      '</div>' +
+      '<div class="popup-footer">Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+    let left = rect.left + rect.width + 10;
+    let top = rect.top;
+    if (left + pw > window.innerWidth - 10) left = rect.left - pw - 10;
+    if (top + ph > window.innerHeight - 10) top = window.innerHeight - ph - 10;
+    if (top < 10) top = 10;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const name = card.querySelector('span')?.textContent?.trim();
+    if (!name || !SUMMARIES[name]) return;
+    card.style.cursor = 'pointer';
+    card.setAttribute('data-name', name);
+    card.addEventListener('mouseenter', function() {
+      clearTimeout(hideTimer);
+      activeCard = this;
+      showPopup(this, SUMMARIES[name]);
+    });
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(function() { popup.classList.remove('visible'); }, 200);
+    });
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) positionPopup(this);
+    });
+  });
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', function() { popup.classList.remove('visible'); });
+})();
+</script></body>
+</html>
