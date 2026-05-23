@@ -1,0 +1,992 @@
+{
+  "type": "agent-marketplace",
+  "generated_at": "2026-05-23T06:02:14.255366+00:00",
+  "date": "2026-05-23",
+  "snapshot_id": 25,
+  "total_entries": 1647,
+  "new_entries": 74,
+  "top_tools": [
+    {
+      "platform": "github_topics",
+      "name": "n8n-io/n8n",
+      "downloads": 189341,
+      "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with cus"
+    },
+    {
+      "platform": "claude_code_hub",
+      "name": "affaan-m/ECC",
+      "downloads": 188611,
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research"
+    },
+    {
+      "platform": "claude_code_hub",
+      "name": "affaan-m/everything-claude-code",
+      "downloads": 185901,
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research"
+    },
+    {
+      "platform": "claude_code_hub",
+      "name": "multica-ai/andrej-karpathy-skills",
+      "downloads": 147516,
+      "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations"
+    },
+    {
+      "platform": "claude_code_hub",
+      "name": "forrestchang/andrej-karpathy-skills",
+      "downloads": 127380,
+      "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations"
+    },
+    {
+      "platform": "github_topics",
+      "name": "google-gemini/gemini-cli",
+      "downloads": 104499,
+      "description": "An open-source AI agent that brings the power of Gemini directly into your terminal."
+    },
+    {
+      "platform": "community",
+      "name": "awesome/punkpeye/awesome-mcp-servers",
+      "downloads": 87519,
+      "description": "A collection of MCP servers."
+    },
+    {
+      "platform": "claude_code_hub",
+      "name": "JuliusBrussee/caveman",
+      "downloads": 63828,
+      "description": "\ud83e\udea8 why use many token when few token do trick \u2014 Claude Code skill that cuts 65% of tokens by talking "
+    },
+    {
+      "platform": "github_topics",
+      "name": "sansan0/TrendRadar",
+      "downloads": 58054,
+      "description": "\u2b50AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.\ud83c\udfaf \u544a"
+    },
+    {
+      "platform": "github_topics",
+      "name": "upstash/context7",
+      "downloads": 55911,
+      "description": "Context7 Platform -- Up-to-date code documentation for LLMs and AI code editors"
+    }
+  ],
+  "overlaps": [
+    {
+      "name": "ruvnet/ruflo",
+      "platform": "github_topics",
+      "url": "https://github.com/ruvnet/ruflo",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "gooseworks-ai/goose-aeo",
+      "platform": "github_topics",
+      "url": "https://github.com/gooseworks-ai/goose-aeo",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "Sasa993/Agent-Tool",
+      "platform": "github_topics",
+      "url": "https://github.com/Sasa993/Agent-Tool",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "caikiji/pathnote",
+      "platform": "github_topics",
+      "url": "https://github.com/caikiji/pathnote",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "longbiao515/rcs-message-skill",
+      "platform": "github_topics",
+      "url": "https://github.com/longbiao515/rcs-message-skill",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "AgriciDaniel/claude-ads",
+      "platform": "github_topics",
+      "url": "https://github.com/AgriciDaniel/claude-ads",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "AgriciDaniel/claude-blog",
+      "platform": "github_topics",
+      "url": "https://github.com/AgriciDaniel/claude-blog",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "aaronjmars/soul.md",
+      "platform": "github_topics",
+      "url": "https://github.com/aaronjmars/soul.md",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "prompt-security/clawsec",
+      "platform": "github_topics",
+      "url": "https://github.com/prompt-security/clawsec",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "kriuchkov/tock",
+      "platform": "github_topics",
+      "url": "https://github.com/kriuchkov/tock",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "iPythoning/b2b-sdr-hermes-skill",
+      "platform": "github_topics",
+      "url": "https://github.com/iPythoning/b2b-sdr-hermes-skill",
+      "matches": [
+        "email"
+      ]
+    },
+    {
+      "name": "Andrew-Girgis/microsoft-workspace-skill",
+      "platform": "github_topics",
+      "url": "https://github.com/Andrew-Girgis/microsoft-workspace-skill",
+      "matches": [
+        "contact"
+      ]
+    },
+    {
+      "name": "Ashutosh2M/ExpertLens",
+      "platform": "github_topics",
+      "url": "https://github.com/Ashutosh2M/ExpertLens",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "ShiyangZheng/storyweave",
+      "platform": "github_topics",
+      "url": "https://github.com/ShiyangZheng/storyweave",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "CambrianTech/airc",
+      "platform": "github_topics",
+      "url": "https://github.com/CambrianTech/airc",
+      "matches": [
+        "message",
+        "encrypt"
+      ]
+    },
+    {
+      "name": "monch1962/logseq-hermes-agent",
+      "platform": "github_topics",
+      "url": "https://github.com/monch1962/logseq-hermes-agent",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "wasp-lang/open-saas",
+      "platform": "claude_code_hub",
+      "url": "https://github.com/wasp-lang/open-saas",
+      "matches": [
+        "email"
+      ]
+    },
+    {
+      "name": "conorbronsdon/avoid-ai-writing",
+      "platform": "hermes_hub",
+      "url": "https://github.com/conorbronsdon/avoid-ai-writing",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "prompt-security/clawsec",
+      "platform": "hermes_hub",
+      "url": "https://github.com/prompt-security/clawsec",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1s7fepn",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1s7fepn/rclaudeai_list_of_ongoing_megathreads/",
+      "matches": [
+        "thread"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1szinqb",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1szinqb/i_read_every_major_thread_on_rclaudeai_and_turn/",
+      "matches": [
+        "thread"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1szbrd1",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1szbrd1/what_is_claude_mythos_doing_in_my_azure_model/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "hn/47952722",
+      "platform": "community",
+      "url": "https://github.com/anthropics/claude-code/issues/53262",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "awesome/getagentseal/agentseal",
+      "platform": "community",
+      "url": "https://github.com/getagentseal/agentseal",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t098jx",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t098jx/anthropic_just_analyzed_1_million_claude/",
+      "matches": [
+        "conversation",
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1szxy0m",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1szxy0m/hermesmd_in_a_git_commit_message_silently_drained/",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t0fqgl",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t0fqgl/i_run_out_of_usage_in_gpt_gemini_and_claude_but/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t0iehj",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t0iehj/what_plan_are_people_using/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t1cys0",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t1cys0/i_gave_my_claude_code_agent_the_ability_to_add/",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t16utb",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t16utb/i_built_a_six_hats_skill_that_runs_structured/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t198gc",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t198gc/anthropics_analysis_of_claude_usage_for_personal/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "hn/47977748",
+      "platform": "community",
+      "url": "https://www.newyorker.com/culture/annals-of-inquiry/its-possible-to-learn-in-our-sleep-should-we",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t1y8my",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t1y8my/why_are_people_proud_to_say_this/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t29hxk",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t29hxk/are_there_privacy_concerns_regarding_cowork_or/",
+      "matches": [
+        "email"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t1pdqc",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t1pdqc/i_reverseengineered_the_perplexity_app_and_built/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t25ohs",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t25ohs/qwen3627b_vs_35b_i_prefer_35b_but_more_people/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t30lby",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t30lby/ai_isnt_replacing_frontend_devs_but_its/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t33k25",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t33k25/rclaudeai_user_problem_report_log_and_surge/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t35yeq",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t35yeq/i_cant_be_the_only_person_with_a_normal_claude/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t2uk1m",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t2uk1m/one_bash_permission_slipped/",
+      "matches": [
+        "permission"
+      ]
+    },
+    {
+      "name": "hrabanazviking/Heimdall-SL-Hermes-Agent",
+      "platform": "github_topics",
+      "url": "https://github.com/hrabanazviking/Heimdall-SL-Hermes-Agent",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "danieljustus/OpenPass",
+      "platform": "github_topics",
+      "url": "https://github.com/danieljustus/OpenPass",
+      "matches": [
+        "encrypt"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t4yygx",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t4yygx/i_tracked_my_own_mac_usage_every_5_seconds_for_6/",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t4j9rx",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t4j9rx/stream_ended_without_a_final_message_in_claude/",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t4wjd7",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t4wjd7/why_do_a_lot_of_programmers_and_technical_people/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t4tj11",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t4tj11/us_and_tech_firms_strike_deal_to_review_ai_models/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t4jehc",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t4jehc/supercharging_llm_inference_on_google_tpus/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t5jagw",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t5jagw/does_doubling_claude_codes_5hour_limits_mean/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t5ex0w",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t5ex0w/some_people_just_cant_be_replaced_by_ai/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t5s8o6",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t5s8o6/so_i_heard_people_got_resets_may_i_have_one_too/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t5suyy",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t5suyy/i_used_claude_to_make_a_quiz_that_tells_you_your/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t5o4kc",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t5o4kc/most_people_seem_obsessed_with_token_generation/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1t6y7io",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1t6y7io/when_claude_code_ask_you_a_series_of_permissions/",
+      "matches": [
+        "permission"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t7g5bi",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t7g5bi/spotify_cto_says_claude_can_create_personal/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t7e3sg",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t7e3sg/leaked_internal_messages_reveal_the_truth_behind/",
+      "matches": [
+        "message"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1t7d9h0",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1t7d9h0/the_amount_of_new_agent_apisharnesses_are/",
+      "matches": [
+        "thread"
+      ]
+    },
+    {
+      "name": "runafreyjasdottir/kista",
+      "platform": "github_topics",
+      "url": "https://github.com/runafreyjasdottir/kista",
+      "matches": [
+        "credential",
+        "encrypt"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t8hryl",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t8hryl/whats_currently_the_bestsafest_way_to_build_an/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1t9fyns",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t9fyns/i_read_threads_complaining_about_claude_every/",
+      "matches": [
+        "thread"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1ta3pwf",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1ta3pwf/some_people_got_fired_so_i_guess_they_work_less/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1ta910s",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1ta910s/and_people_say_opus_isnt_useful/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tacodw",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tacodw/this_guy_build_a_drone_that_tracks_targets_with_a/",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tapq4s",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tapq4s/is_claude_code_from_your_phone_with_ide_terminal/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tad468",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tad468/i_built_an_app_with_claude_code_that_converts_any/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tas0op",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tas0op/why_claude_users_are_systematically_missing_from/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1tagtpv",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1tagtpv/i_catalogued_every_way_local_models_break_json/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1tbftlt",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1tbftlt/is_using_vllm_actually_worth_it_if_you_arent/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tcflgd",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tcflgd/where_do_you_personally_draw_the_line_with_ai/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tclb0x",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tclb0x/claude_decided_to_leave_mid_conversation_after/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "AlekseiUL/agentic-business-analysis",
+      "platform": "github_topics",
+      "url": "https://github.com/AlekseiUL/agentic-business-analysis",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tdmtib",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tdmtib/i_thought_claude_max_20x_would_be_enough_for/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1tdyf75",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1tdyf75/are_the_rich_ram_poor_gpu_people_wrong_here/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tf8k45",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tf8k45/opus_47_refuses_to_use_end_conversation_instead/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tff43w",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tff43w/these_are_my_profile_personal_preferences_to_make/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tg0h9s",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tg0h9s/every_conversation_i_have_nowadays_with_claude/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tg4bn9",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tg4bn9/analog_usage_meter/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tfxe5n",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tfxe5n/feeling_left_behind_in_the_ai_race_as_a/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1tft1il",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1tft1il/llama_avoid_copying_logits_during_prompt_decode/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/LocalLLaMA/1tg7s7j",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1tg7s7j/gemma4gembrain31bituncensoredheretic_is_out_now_a/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "awesome/QVerisAI/qveris-agent-toolkit",
+      "platform": "community",
+      "url": "https://github.com/QVerisAI/qveris-agent-toolkit",
+      "matches": [
+        "audit"
+      ]
+    },
+    {
+      "name": "AbhishekK130804/Claude-Mythos-AI-Anthropic-App",
+      "platform": "github_topics",
+      "url": "https://github.com/AbhishekK130804/Claude-Mythos-AI-Anthropic-App",
+      "matches": [
+        "role"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1ti5dil",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1ti5dil/tracked_every_api_call_across_two_max_20_accounts/",
+      "matches": [
+        "track"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1thq69k",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1thq69k/claude_accidentally_proposed_a_swastika_for_a_logo/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1ticj8s",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1ticj8s/does_it_happen_to_eveyone_or_just_me_old/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1ti9j73",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1ti9j73/small_personal_win_built_my_first_website/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1thi6nh",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1thi6nh/100_tips_tricks_for_building_your_own_personal_ai/",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "imphillip/SoulTavern",
+      "platform": "github_topics",
+      "url": "https://github.com/imphillip/SoulTavern",
+      "matches": [
+        "person"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tirlb5",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tirlb5/any_adhd_people_obsessed_with_cc_too/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tiziga",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tiziga/what_do_people_use_to_maintain_claudemd_file/",
+      "matches": [
+        "people"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tjabxl",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tjabxl/a_cloud_that_claude_uses_without_login/",
+      "matches": [
+        "log"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tkmt5c",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tkmt5c/i_read_threads_complaining_about_claude_every/",
+      "matches": [
+        "thread"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeCode/1tl3one",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tl3one/connect_claude_code_with_googles_antigravity/",
+      "matches": [
+        "role"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tkto9w",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tkto9w/claude_has_no_way_to_navigate_long_conversations/",
+      "matches": [
+        "conversation"
+      ]
+    },
+    {
+      "name": "reddit/ClaudeAI/1tkqevl",
+      "platform": "community",
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1tkqevl/i_built_an_app_with_claude_code_that_converts_any/",
+      "matches": [
+        "log"
+      ]
+    }
+  ],
+  "overlaps_count": 94,
+  "community_hot_topics": [
+    {
+      "name": "awesome/punkpeye/awesome-mcp-servers",
+      "description": "A collection of MCP servers.",
+      "score": 87519,
+      "url": "https://github.com/punkpeye/awesome-mcp-servers"
+    },
+    {
+      "name": "awesome/yzfly/Awesome-MCP-ZH",
+      "description": "MCP \u8d44\u6e90\u7cbe\u9009\uff0c MCP\u6307\u5357\uff0cClaude MCP\uff0cMCP Servers, MCP Clients",
+      "score": 7131,
+      "url": "https://github.com/yzfly/Awesome-MCP-ZH"
+    },
+    {
+      "name": "reddit/ClaudeAI/1t6c26a",
+      "description": "If the EU had built Claude",
+      "score": 6876,
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t6c26a/if_the_eu_had_built_claude/"
+    },
+    {
+      "name": "reddit/ClaudeAI/1thpuf1",
+      "description": "Karpathy joins Anthropic",
+      "score": 6497,
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1thpuf1/karpathy_joins_anthropic/"
+    },
+    {
+      "name": "reddit/ClaudeCode/1tb7edc",
+      "description": "Inherited a 3-month old repo from a Vibe Engineer. Wrote the most satisfying PR in my career",
+      "score": 6394,
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1tb7edc/inherited_a_3month_old_repo_from_a_vibe_engineer/"
+    },
+    {
+      "name": "awesome/appcypher/awesome-mcp-servers",
+      "description": "Awesome MCP Servers - A curated list of Model Context Protocol servers",
+      "score": 5560,
+      "url": "https://github.com/appcypher/awesome-mcp-servers"
+    },
+    {
+      "name": "reddit/ClaudeAI/1t9cfga",
+      "description": "What\u2019s up, Claude?",
+      "score": 4549,
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t9cfga/whats_up_claude/"
+    },
+    {
+      "name": "reddit/ClaudeAI/1t6fz5p",
+      "description": "Don\u2019t worry guys, we\u2019re working on the vaccine.",
+      "score": 4510,
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t6fz5p/dont_worry_guys_were_working_on_the_vaccine/"
+    },
+    {
+      "name": "awesome/libukai/awesome-agent-skills",
+      "description": "Agent Skills \u7ec8\u6781\u6307\u5357\uff1a\u5feb\u901f\u5165\u95e8\u3001\u8d44\u6e90\u63a8\u8350\u3001\u7cbe\u9009\u6280\u80fd\u4e0e\u5b9e\u7528\u5de5\u5177 \uff5cThe Ultimate Guide to Agent Skills: QuickStart, Resources, Features&Toolkit",
+      "score": 4473,
+      "url": "https://github.com/libukai/awesome-agent-skills"
+    },
+    {
+      "name": "reddit/ClaudeAI/1t77iid",
+      "description": "POV: Anthropic releases their new model",
+      "score": 4402,
+      "url": "https://www.reddit.com/r/ClaudeAI/comments/1t77iid/pov_anthropic_releases_their_new_model/"
+    }
+  ],
+  "sources": {
+    "community": {
+      "count": 1470,
+      "total_downloads": 545696
+    },
+    "github_topics": {
+      "count": 133,
+      "total_downloads": 917384
+    },
+    "claude_code_hub": {
+      "count": 25,
+      "total_downloads": 1194137
+    },
+    "hermes_hub": {
+      "count": 19,
+      "total_downloads": 36286
+    }
+  },
+  "trending": [
+    {
+      "category": "community_discussion",
+      "count": 74
+    }
+  ],
+  "suggestions": [
+    {
+      "type": "hot_category",
+      "suggestion": "community_discussion is the most populated category (1470 entries, avg 371 downloads). Build elko-skills products here.",
+      "confidence": "high",
+      "data": {
+        "category": "community_discussion",
+        "cnt": 1470,
+        "avg_dl": 371.22176870748297
+      }
+    },
+    {
+      "type": "community_hot",
+      "suggestion": "Hot community topics: A collection of MCP servers.. MCP \u8d44\u6e90\u7cbe\u9009\uff0c MCP\u6307\u5357\uff0cClaude MCP\uff0cMCP Servers, MCP Clients. If the EU had built Claude. Consider building tools that address these.",
+      "confidence": "medium",
+      "topics": [
+        "A collection of MCP servers.",
+        "MCP \u8d44\u6e90\u7cbe\u9009\uff0c MCP\u6307\u5357\uff0cClaude MCP\uff0cMCP Servers, MCP Clients",
+        "If the EU had built Claude",
+        "Karpathy joins Anthropic",
+        "Inherited a 3-month old repo from a Vibe Engineer. Wrote the most satisfying PR in my career"
+      ]
+    },
+    {
+      "type": "competitive_analysis",
+      "suggestion": "Top 5 downloaded entries in our domain. Study these for feature ideas.",
+      "confidence": "high",
+      "top_competitors": [
+        {
+          "name": "n8n-io/n8n",
+          "platform": "github_topics",
+          "downloads": 189341
+        },
+        {
+          "name": "affaan-m/ECC",
+          "platform": "claude_code_hub",
+          "downloads": 188611
+        },
+        {
+          "name": "affaan-m/everything-claude-code",
+          "platform": "claude_code_hub",
+          "downloads": 185901
+        },
+        {
+          "name": "multica-ai/andrej-karpathy-skills",
+          "platform": "claude_code_hub",
+          "downloads": 147516
+        },
+        {
+          "name": "forrestchang/andrej-karpathy-skills",
+          "platform": "claude_code_hub",
+          "downloads": 127380
+        }
+      ]
+    },
+    {
+      "type": "strategic",
+      "suggestion": "Continue building: hs-credentials (encrypted key store), hs-audit-log (immutable action log), hs-email-threads (Message-ID threading), hs-blog-pipeline (draft/publish workflow). These fill gaps no MCP server addresses well.",
+      "confidence": "high",
+      "roadmap": [
+        "hs-credentials",
+        "hs-audit-log",
+        "hs-email-threads",
+        "hs-blog-pipeline",
+        "hs-ai-world-kg"
+      ]
+    },
+    {
+      "type": "new_product_idea",
+      "suggestion": "Consider an \"MCP Server Generator\" elko-skill \u2014 given a SQL schema and API design, it auto-generates a working MCP server. No existing tool does this for the elko-skill pattern.",
+      "confidence": "medium"
+    },
+    {
+      "type": "new_product_idea",
+      "suggestion": "Build hs-discovery \u2014 a skill that watches these same marketplaces and auto-recommends which agent-tools to install based on your role (dev, ops, research). Becomes the \"app store\" for agent skills.",
+      "confidence": "medium"
+    }
+  ]
+}
