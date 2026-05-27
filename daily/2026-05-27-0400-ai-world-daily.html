@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>AI World Daily — 2026-05-27 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.entity-card {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px; border-radius: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.entity-card:hover {
+  transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.source-pill {
+  display: inline-block; padding: 4px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 600;
+  background: var(--accent); color: #fff;
+}
+.td-green { color: #00c853 !important; }
+.td-red { color: #ff1744 !important; }
+.news-item { display: flex; align-items: flex-start; gap: 10px; }
+.news-bullet { display: inline-block; border-radius: 50%; flex-shrink: 0; }
+.entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+.grok-popup {
+  position: fixed; z-index: 9999;
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  width: 320px; padding: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  pointer-events: none;
+  font-size: 13px; line-height: 1.6; overflow: hidden;
+}
+.grok-popup.visible { opacity: 1; visibility: visible; }
+.grok-popup .popup-thumb {
+  width: 100%; height: 120px;
+  object-fit: cover; border-radius: 10px 10px 0 0;
+  background: var(--bar-bg); display: block;
+}
+.grok-popup .popup-body { padding: 12px 16px 14px; }
+.grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+.grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+.grok-popup .popup-link { font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.grok-popup .popup-footer { padding: 8px 16px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted); }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">AI World Daily</span>
+  <h1 class="report-title">AI World Daily — 2026-05-27</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-27</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><span style="color:var(--text-primary);font-size:18px;font-weight:700">🇨🇳 Chinese AI Rivals Strike at OpenAI & Anthropic — Beijing Tightens Talent Grip as Global AI Order Shifts</span></h2>
+    <p>Chinese AI companies are mounting their strongest challenge yet to Western frontier labs, hitting OpenAI and Anthropic on price and performance. Meanwhile, Beijing has expanded travel restrictions to include private-sector AI experts, requiring government approval for international travel — a move that signals the strategic value China places on its AI talent pool. The hardening of China's "AI talent drawbridge" comes as the Vatican, California, and Washington all scramble to shape the regulatory landscape.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row" style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 24px">
+  <div class="metric-card" style="flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center">
+    <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Chinese AI Push</div>
+    <div style="font-size:22px;font-weight:700;color:var(--accent);margin:8px 0">3 Major Stories</div>
+    <div style="font-size:13px;color:var(--text-secondary)">Talent + Rivals + Chips</div>
+  </div>
+  <div class="metric-card" style="flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center">
+  <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Micron Technology, I</div>
+  <div style="font-size:22px;font-weight:700;color:#00c853;margin:8px 0">+19.3% ▲</div>
+  <div style="font-size:13px;color:var(--text-secondary)">$895.88</div>
+</div><div class="metric-card" style="flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center">
+  <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Advanced Micro Devic</div>
+  <div style="font-size:22px;font-weight:700;color:#00c853;margin:8px 0">+7.8% ▲</div>
+  <div style="font-size:13px;color:var(--text-secondary)">$503.89</div>
+</div><div class="metric-card" style="flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center">
+  <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">Marvell Technology, </div>
+  <div style="font-size:22px;font-weight:700;color:#00c853;margin:8px 0">+6.1% ▲</div>
+  <div style="font-size:13px;color:var(--text-secondary)">$208.26</div>
+</div>
+</div>
+
+  <!-- CONTENT (panel stack) -->
+  <div class="panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px">
+  <h2 style="font-size:16px;font-weight:700;margin:0 0 16px;color:var(--text-primary)">🌍 AI Ecosystem Map</h2>
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px">LLM Providers (7)</div>
+    <div class="entity-row"><a href="https://en.wikipedia.org/wiki/Anthropic" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Anthropic">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Anthropic</span>
+  </a><a href="https://en.wikipedia.org/wiki/Cohere_(company)" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Cohere">
+    <img src="" alt="Cohere" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Cohere</span>
+  </a><a href="https://en.wikipedia.org/wiki/Google" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Google (Alphabet)">
+    <img src="" alt="Google (Alphabet)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Google (Alphabet)</span>
+  </a><a href="https://en.wikipedia.org/wiki/microsoft_ai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Microsoft AI">
+    <img src="" alt="Microsoft AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Microsoft AI</span>
+  </a><a href="https://en.wikipedia.org/wiki/Mistral_AI" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Mistral AI">
+    <img src="" alt="Mistral AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Mistral AI</span>
+  </a><a href="https://en.wikipedia.org/wiki/OpenAI" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="OpenAI">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">OpenAI</span>
+  </a><a href="https://en.wikipedia.org/wiki/XAI_(company)" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="xAI">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" alt="xAI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">xAI</span>
+  </a></div>
+  </div><div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px">Chip Designers (6)</div>
+    <div class="entity-row"><a href="https://en.wikipedia.org/wiki/Advanced_Micro_Devices" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="AMD">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">AMD</span>
+  </a><a href="https://en.wikipedia.org/wiki/Cerebras" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Cerebras Systems">
+    <img src="" alt="Cerebras Systems" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Cerebras Systems</span>
+  </a><a href="https://en.wikipedia.org/wiki/groq" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Groq">
+    <img src="" alt="Groq" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Groq</span>
+  </a><a href="https://en.wikipedia.org/wiki/Intel" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Intel">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Intel</span>
+  </a><a href="https://en.wikipedia.org/wiki/Nvidia" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="NVIDIA">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" alt="NVIDIA" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">NVIDIA</span>
+  </a><a href="https://en.wikipedia.org/wiki/tenstorrent" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Tenstorrent">
+    <img src="" alt="Tenstorrent" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Tenstorrent</span>
+  </a></div>
+  </div><div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px">Chinese AI (10)</div>
+    <div class="entity-row"><a href="https://en.wikipedia.org/wiki/01ai_yi" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="01.AI (Yi)">
+    <img src="" alt="01.AI (Yi)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">01.AI (Yi)</span>
+  </a><a href="https://en.wikipedia.org/wiki/Alibaba_Group" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Alibaba Cloud (Alibaba Group)">
+    <img src="" alt="Alibaba Cloud (Alibaba Group)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Alibaba Cloud (Alibaba Group)</span>
+  </a><a href="https://en.wikipedia.org/wiki/Baidu" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Baidu">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Baidu</span>
+  </a><a href="https://en.wikipedia.org/wiki/ByteDance" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="ByteDance (Doubao)">
+    <img src="" alt="ByteDance (Doubao)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">ByteDance (Doubao)</span>
+  </a><a href="https://en.wikipedia.org/wiki/DeepSeek" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="DeepSeek">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">DeepSeek</span>
+  </a><a href="https://en.wikipedia.org/wiki/minimax" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="MiniMax">
+    <img src="" alt="MiniMax" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">MiniMax</span>
+  </a><a href="https://en.wikipedia.org/wiki/moonshot_ai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Moonshot AI">
+    <img src="" alt="Moonshot AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Moonshot AI</span>
+  </a><a href="https://en.wikipedia.org/wiki/SenseTime" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="SenseTime">
+    <img src="" alt="SenseTime" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">SenseTime</span>
+  </a><a href="https://en.wikipedia.org/wiki/shanghai_ai_lab" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Shanghai AI Lab">
+    <img src="" alt="Shanghai AI Lab" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Shanghai AI Lab</span>
+  </a><a href="https://en.wikipedia.org/wiki/Zhipu_AI" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Zhipu AI">
+    <img src="" alt="Zhipu AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Zhipu AI</span>
+  </a></div>
+  </div><div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px">Cloud & Infra (47)</div>
+    <div class="entity-row"><a href="https://en.wikipedia.org/wiki/Alibaba_Group" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Alibaba Cloud (Alibaba Group)">
+    <img src="" alt="Alibaba Cloud (Alibaba Group)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Alibaba Cloud (Alibaba Group)</span>
+  </a><a href="https://en.wikipedia.org/wiki/Amazon_(company)" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Amazon (AWS)">
+    <img src="" alt="Amazon (AWS)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Amazon (AWS)</span>
+  </a><a href="https://en.wikipedia.org/wiki/arize_ai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Arize AI">
+    <img src="" alt="Arize AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Arize AI</span>
+  </a><a href="https://en.wikipedia.org/wiki/autogpt" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="AutoGPT">
+    <img src="" alt="AutoGPT" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">AutoGPT</span>
+  </a><a href="https://en.wikipedia.org/wiki/autogen_microsoft" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="AutoGen (Microsoft)">
+    <img src="" alt="AutoGen (Microsoft)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">AutoGen (Microsoft)</span>
+  </a><a href="https://en.wikipedia.org/wiki/braintrust" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Braintrust">
+    <img src="" alt="Braintrust" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Braintrust</span>
+  </a><a href="https://en.wikipedia.org/wiki/chromadb" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="ChromaDB">
+    <img src="" alt="ChromaDB" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">ChromaDB</span>
+  </a><a href="https://en.wikipedia.org/wiki/composio" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Composio">
+    <img src="" alt="Composio" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Composio</span>
+  </a><a href="https://en.wikipedia.org/wiki/coreweave" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="CoreWeave">
+    <img src="" alt="CoreWeave" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">CoreWeave</span>
+  </a><a href="https://en.wikipedia.org/wiki/crewai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="CrewAI">
+    <img src="" alt="CrewAI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">CrewAI</span>
+  </a><a href="https://en.wikipedia.org/wiki/diffusers_hugging_face" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Diffusers (Hugging Face)">
+    <img src="" alt="Diffusers (Hugging Face)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Diffusers (Hugging Face)</span>
+  </a><a href="https://en.wikipedia.org/wiki/dify" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Dify">
+    <img src="" alt="Dify" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Dify</span>
+  </a><a href="https://en.wikipedia.org/wiki/exa" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Exa">
+    <img src="" alt="Exa" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Exa</span>
+  </a><a href="https://en.wikipedia.org/wiki/flowise" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Flowise">
+    <img src="" alt="Flowise" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Flowise</span>
+  </a><a href="https://en.wikipedia.org/wiki/gantry" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Gantry">
+    <img src="" alt="Gantry" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Gantry</span>
+  </a><a href="https://en.wikipedia.org/wiki/Hugging_Face" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Hugging Face">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hugging-face/default.svg" alt="Hugging Face" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Hugging Face</span>
+  </a><a href="https://en.wikipedia.org/wiki/hugging_face_transformers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Hugging Face Transformers">
+    <img src="" alt="Hugging Face Transformers" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Hugging Face Transformers</span>
+  </a><a href="https://en.wikipedia.org/wiki/langchain" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="LangChain">
+    <img src="" alt="LangChain" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">LangChain</span>
+  </a><a href="https://en.wikipedia.org/wiki/langfuse" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="LangFuse">
+    <img src="" alt="LangFuse" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">LangFuse</span>
+  </a><a href="https://en.wikipedia.org/wiki/langgraph" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="LangGraph">
+    <img src="" alt="LangGraph" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">LangGraph</span>
+  </a><a href="https://en.wikipedia.org/wiki/langsmith" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="LangSmith">
+    <img src="" alt="LangSmith" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">LangSmith</span>
+  </a><a href="https://en.wikipedia.org/wiki/llamacpp" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Llama.cpp">
+    <img src="" alt="Llama.cpp" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Llama.cpp</span>
+  </a><a href="https://en.wikipedia.org/wiki/mcp_model_context_protocol" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="MCP (Model Context Protocol)">
+    <img src="" alt="MCP (Model Context Protocol)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">MCP (Model Context Protocol)</span>
+  </a><a href="https://en.wikipedia.org/wiki/mcp_servers_hub_modelcontextprotocol/servers" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="MCP Servers Hub (modelcontextprotocol/servers)">
+    <img src="" alt="MCP Servers Hub (modelcontextprotocol/servers)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">MCP Servers Hub (modelcontextprotocol/servers)</span>
+  </a><a href="https://en.wikipedia.org/wiki/milvus" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Milvus">
+    <img src="" alt="Milvus" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Milvus</span>
+  </a><a href="https://en.wikipedia.org/wiki/modal" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Modal">
+    <img src="" alt="Modal" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Modal</span>
+  </a><a href="https://en.wikipedia.org/wiki/ollama" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Ollama">
+    <img src="" alt="Ollama" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Ollama</span>
+  </a><a href="https://en.wikipedia.org/wiki/open_interpreter" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Open Interpreter">
+    <img src="" alt="Open Interpreter" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Open Interpreter</span>
+  </a><a href="https://en.wikipedia.org/wiki/openai_agents_sdk" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="OpenAI Agents SDK">
+    <img src="" alt="OpenAI Agents SDK" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">OpenAI Agents SDK</span>
+  </a><a href="https://en.wikipedia.org/wiki/openai_whisper" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="OpenAI Whisper">
+    <img src="" alt="OpenAI Whisper" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">OpenAI Whisper</span>
+  </a><a href="https://en.wikipedia.org/wiki/Oracle_Corporation" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Oracle">
+    <img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Oracle</span>
+  </a><a href="https://en.wikipedia.org/wiki/perplexity_ai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Perplexity AI">
+    <img src="" alt="Perplexity AI" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Perplexity AI</span>
+  </a><a href="https://en.wikipedia.org/wiki/pinecone" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Pinecone">
+    <img src="" alt="Pinecone" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Pinecone</span>
+  </a><a href="https://en.wikipedia.org/wiki/pulsemcp" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="PulseMCP">
+    <img src="" alt="PulseMCP" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">PulseMCP</span>
+  </a><a href="https://en.wikipedia.org/wiki/PyTorch" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="PyTorch">
+    <img src="" alt="PyTorch" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">PyTorch</span>
+  </a><a href="https://en.wikipedia.org/wiki/qdrant" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Qdrant">
+    <img src="" alt="Qdrant" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Qdrant</span>
+  </a><a href="https://en.wikipedia.org/wiki/rag" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Rag">
+    <img src="" alt="Rag" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Rag</span>
+  </a><a href="https://en.wikipedia.org/wiki/smithery" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Smithery">
+    <img src="" alt="Smithery" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Smithery</span>
+  </a><a href="https://en.wikipedia.org/wiki/tavily" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Tavily">
+    <img src="" alt="Tavily" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Tavily</span>
+  </a><a href="https://en.wikipedia.org/wiki/TensorFlow" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="TensorFlow">
+    <img src="" alt="TensorFlow" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">TensorFlow</span>
+  </a><a href="https://en.wikipedia.org/wiki/weaviate" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Weaviate">
+    <img src="" alt="Weaviate" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Weaviate</span>
+  </a><a href="https://en.wikipedia.org/wiki/weights_and_biases_wandb" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Weights & Biases (WandB)">
+    <img src="" alt="Weights & Biases (WandB)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Weights & Biases (WandB)</span>
+  </a><a href="https://en.wikipedia.org/wiki/whisper_openai" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="Whisper (OpenAI)">
+    <img src="" alt="Whisper (OpenAI)" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">Whisper (OpenAI)</span>
+  </a><a href="https://en.wikipedia.org/wiki/youcom" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="You.com">
+    <img src="" alt="You.com" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">You.com</span>
+  </a><a href="https://en.wikipedia.org/wiki/mcp-get" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="mcp-get">
+    <img src="" alt="mcp-get" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">mcp-get</span>
+  </a><a href="https://en.wikipedia.org/wiki/n8n" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="n8n">
+    <img src="" alt="n8n" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">n8n</span>
+  </a><a href="https://en.wikipedia.org/wiki/vllm" target="_blank" rel="noopener" style="text-decoration:none;color:inherit" class="entity-card" data-name="vLLM">
+    <img src="" alt="vLLM" width="24" height="24" style="object-fit:contain;border-radius:4px;flex-shrink:0" onerror="this.style.display='none'">
+    <span style="font-size:12px;font-weight:600;white-space:nowrap">vLLM</span>
+  </a></div>
+  </div>
+</div><div class="panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px">
+  <h2 style="font-size:16px;font-weight:700;margin:0 0 16px;color:var(--text-primary)">📰 Top Stories</h2>
+  <div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#e17055;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        <span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="18" height="18" style="object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle" onerror="this.style.display='none'"></span> <span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="18" height="18" style="object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle" onerror="this.style.display='none'"></span> <span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="18" height="18" style="object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle" onerror="this.style.display='none'"></span>
+        <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxQQTRMV1NhbVJvSzhNTE9jZ3hTSXctZzQyWmJCaWZUNTRGN0Q3c3dvTFlPSURoUFc2WndBM1hKdzVhN2VjV1VmQkYwVm4zMEdTMWtjR25mRzdPcFh6RU0yNUE2cmRRc3FRRG5QY0FneFg3b0MyWG5sd0FNWU0yTC1wbWEzX3JwRmlPVmlXcW1GaGJtX1ctWE9BRER3?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Chinese AI rival hits OpenAI, Anthropic where it really hurts</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">thestreet.com</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Chinese AI rival hits OpenAI, Anthropic where it really hurts&nbsp;&nbsp;thestreet.com</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#00b894;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        <span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="18" height="18" style="object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle" onerror="this.style.display='none'"></span>
+        <a href="https://news.google.com/rss/articles/CBMi5gJBVV95cUxQUnc4SGNnUVFiRzRIWTduc0tsbWJLYmRKeDByeUxEMkJMMGlCdDFwWHJaWnpFY21TS0NOWWNnVGdZLUQ2VjQtUDJ5SU5oc0ZLUnVQbG1MREw1cjhHUXVTY2NVa1dKdFhDXzM5QmNKaDdJMVB2cTBxM2NGQlJCdzl6R3pnYVVCVTQ3QWhJa3NRc3puZ3RCaUJ0Tmh3Q2c2UVlYYWxWNnM3T2VRQTVhQ1ItOXdKWFhfRzZJSVl5aFQtVWJrdndCVVczWjRvcGhDdHhjSFJya0NfQmpTWHBhVE1QY2h4OXFES3FwTm85UWhLUmZuaGc1cXZCX0szakRGZkpHbkVpTkp5TVFscmo5UU5uQVNUNTh0enNPQlhNVmpSeWFHTC1TZFpGUkRtbVBOVkVxeTlxTDVwd1VKeE94Q1dLNVpoQUpMMXN5YW0ycXdmVUVXejlOenZ5eHdTdVBMbFhORTNqeExn?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Chinese AI experts in private firms now required to secure approval before international travel — Beijing enforces polic...</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">Tom's Hardware</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Chinese AI experts in private firms now required to secure approval before international travel — Beijing enforces policy to secure top-tier talent, expands measures beyond government&nbsp;&nbsp;Tom's...</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#00b894;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQ1JLdHdHZ1FPc2FHUlZhWUVuOWljWDNsdU1CQndwOG9RcUNrQnNWeUNtZWNWdklqYkJJVnhQSnBOcG1XYjY4U00tYkdDU1FmNXhXeTFvVmpJM0pHYjJTdE9tS2dlRENoUGxWR2JWY2FnX3daWl9USE5GMVNQZ242RDA3NVFCaXQxZGUtRHVNNHNqY0k5ME1QcUJnSFFPMlI5MHRwdGlLWU5WN0gtZUFqS1pmV1BYcmJRTFhnU21mRTBfcVE?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">South Africa targets January 2027 for revised AI policy after earlier withdrawal</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">Reuters</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">South Africa targets January 2027 for revised AI policy after earlier withdrawal&nbsp;&nbsp;Reuters</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#00b894;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxQVjMxWVlpUUhJb1JjYnFPRXpkeE1qaTc3aDNQQXltRWZYNmo4T1dmN095X3R6bDY5NmkxdHBwTERrNkg1ajFIZDFZR09VQzd6a2oyalZTM2tkcjRwMFVyXzM5RUhkZWNQQ216cExQbkI1OGN0RS1CazVJV1dvTV9aYUt2cVVsc3Z6LVJDanZySTdMOHdEWmlIVTI4VVI?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Pope calls for robust regulation of AI in manifesto that ponders the future of humanity</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">AP News</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Pope calls for robust regulation of AI in manifesto that ponders the future of humanity&nbsp;&nbsp;AP News</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxNWko0ZE13QUlLMHNBWGhlS2NMV0JIQ0FZOFRwRE1uRzhsREgxN3RoVHpEZVFOVi16Q2VkWVZHNE9hb0drNEx1V1V5SFd0SVlYbk13N2IzUUJ3TjdYeXdueVB4OGJMM01fblh5LTRyOTRJT3RTNWpIRXlCNklZdVR4TmJxMGltZF9VZEh0eDBIcUJ4MEx3Y0Y3cnVGSWRXWXMwWWFZcmo3dWxoa3dyMHB0R25YNFNFTlU?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Pope, urging AI regulation, warns some weapons now beyond human control</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">Reuters</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Pope, urging AI regulation, warns some weapons now beyond human control&nbsp;&nbsp;Reuters</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxOYi1DcHMxODktU05DelRxZXhhTFpJdDVpaUtiWC1sb04wNlRWMGExd1JfaGhyZVJkR3pJRm5UYTBYMXhoLWkycWdJUGJ0ZWhfcE1ySG1nWDVHLWV2YjhKQU1qNUJtbVlBTzRBTWNTck9hOWR6MHZ3RVVSVnF0ajRCam9fWE5ZMzhWVTdHTHZBeFRjZDNXaURMcmppM1libDJCX2tzdENIUGhINFlUU1RCSjN1ZG9jVDRBS1luWU1kdGgxMjZOVm1CSnBFeHpDNnhIOVBqVmFPV0xnZzZCMGlfdmI3akp6alU?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Governor Newsom signs first-of-its-kind executive order to prepare workers and businesses for potential AI disruption - ...</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">California State Portal | CA.gov</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Governor Newsom signs first-of-its-kind executive order to prepare workers and businesses for potential AI disruption&nbsp;&nbsp;California State Portal | CA.gov</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxNekpOWGFLZ2ZvS19DbWROV2F0WVhhUm9wSDVqaGpSTUNlTlR4NmlyUUJJZmc4bzl0eXdXVnExYnU4RnVUaThhelhNY1F2LXNoaUczU0N1VnMtY05rNXY5NUh2VkliS2FNYzF5b0h6V1BfVWVTR2kwa3RGUGJpc2REZTVTNVQ?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">After AI layoffs, Newsom orders state government to find ways to ease the pain - CalMatters</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">CalMatters</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">After AI layoffs, Newsom orders state government to find ways to ease the pain&nbsp;&nbsp;CalMatters</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE9jZ01idHZxb0o0MUdCQ25lMFpJWVRhOFlod3BIc2RyVFhXdGgwQ2tiYTFGdml3QUJ3TzJuaTJoM0JFNGlfUVp4alNRelQ2d0laNGs2eDl1dmh3bDNtMHI4NHAtOXltTFlHb2dDeUlQWklZd3IycF9SSzdkV3JndjA?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">How big tech got its way on Trump’s AI executive order</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">The Guardian</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">How big tech got its way on Trump’s AI executive order&nbsp;&nbsp;The Guardian</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxPS2lxNUlmSDlnWmQ2bFJxSlNiNmdRUGl2eDdKR1UwZDhZbHJ5WFdwdlRSLUlsT2dGbEpRRF9KdU1hVmRmNXBybldycl8zTkQ3MnBRUnZ0bURZbmROa083RHBOaVdlSUtfZU85RlZrU2d6djNHb0p6a1Y5azNsckxhT0Mxb3NxZzR1OUdsNC1uaFVualFfcmNvTFJFNHpnaTdQeVpoY2FENElJU3B2dHRudFF4YnJITldlYmRiQTUwSDVXT2J5OExOZWlBLS0zUQ?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">The tech bro billionaires won the fight over the AI executive order. But are they losing the war? - Fortune</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">Fortune</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">The tech bro billionaires won the fight over the AI executive order. But are they losing the war?&nbsp;&nbsp;Fortune</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxQMHhraVdVR1lSNWxJWlVqVkxKMktkcmZua1I4Q1I4dHZuNHl2MzhVWWFnWG1zZ1NSaVBPSzR2anpXendaUHhRN3V1WW1SYzN2eFJQZ25JSURWZEluUnZWSmNGTFUxaUNmeWNLemt0Z2ZIT2FOWHN2TF9hREpiY193SnVaWnhhYzNXMnFFbXhDWDRwVFVVTHRINVY2Q1hCZnBzSmV4TFVpRUpYZmVFNG1ibUE4aHE?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Trump delays executive order on AI oversight hours before planned signing</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">The Washington Post</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Trump delays executive order on AI oversight hours before planned signing&nbsp;&nbsp;The Washington Post</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        <span class="entity-badge"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="18" height="18" style="object-fit:contain;background:var(--bar-bg);border-radius:3px;padding:1px;vertical-align:middle" onerror="this.style.display='none'"></span>
+        <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxOX3NTUWJRanZtZmhYUzNlOE5xMWNFOFdZRGZVbEQyUnp6RzltZWNUM3lJc3pnclNXcHc2eVh5ZldaUExFbDZFM3FiS2dGQnp1YmJNZFZySVVhSHZOS25MN1dCWXN0VWVsaW9DeW05ZExVT1RrcFFCbFBGQ21kMTlKU1JicnlZTzhQN3pfNmpfd2dFeTZ4WDBuTUw0MHd6ZTRmVGRUOWVZMjNJazlXX3J3ZA?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Anthropic’s Christopher Olah urges global moral oversight of AI at Vatican presentation - OSV News</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">OSV News</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Anthropic’s Christopher Olah urges global moral oversight of AI at Vatican presentation&nbsp;&nbsp;OSV News</p>
+    </div>
+  </div><div class="news-item" style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+    <div class="news-bullet" style="background:#4a6cf7;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px"></div>
+    <div style="flex:1">
+      <div style="margin-bottom:2px">
+        
+        <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE4ta2xma2VJZU5YQlFtaWh2UURqWEVlUzJndUhnUkwyYXROWjJLQnNWOEZXM2J5VFdxX3Y0X1ZzNUk1bWxSTTcxQml5NW1oR3NoOTJZaXN1eVJyX2xRMUZPR2ZiaUVhM1hKbEJtNnB4SHctQTFreXN4WmQ1amJzdw?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:14px">Inside the U.S. military's war games using AI - CBS News</a>
+        <span style="font-size:11px;color:var(--text-muted);margin-left:6px">CBS News</span>
+      </div>
+      <p style="margin:4px 0;font-size:12.5px;color:var(--text-secondary);line-height:1.5">Inside the U.S. military's war games using AI&nbsp;&nbsp;CBS News</p>
+    </div>
+  </div>
+</div><div class="panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px">
+  <h2 style="font-size:16px;font-weight:700;margin:0 0 12px;color:var(--text-primary)">📈 Market Snapshot</h2>
+  <table style="width:100%;border-collapse:collapse">
+    <tr style="border-bottom:1px solid var(--border)">
+      <th style="text-align:left;padding:6px 10px;font-size:10px;color:var(--text-muted);text-transform:uppercase">Ticker</th>
+      <th style="text-align:left;padding:6px 10px;font-size:10px;color:var(--text-muted);text-transform:uppercase">Name</th>
+      <th style="text-align:right;padding:6px 10px;font-size:10px;color:var(--text-muted);text-transform:uppercase">Price</th>
+      <th style="text-align:right;padding:6px 10px;font-size:10px;color:var(--text-muted);text-transform:uppercase">Day</th>
+      <th style="text-align:right;padding:6px 10px;font-size:10px;color:var(--text-muted);text-transform:uppercase">52W Range</th>
+    </tr>
+    <tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">NVDA</td>
+    <td style="padding:6px 10px;font-size:12px">NVIDIA Corporation</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$214.86</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$133–$237</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">MSFT</td>
+    <td style="padding:6px 10px;font-size:12px">Microsoft Corporation</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$416.03</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.6%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$356–$555</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">GOOGL</td>
+    <td style="padding:6px 10px;font-size:12px">Alphabet Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$388.88</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 1.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$162–$409</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">AMZN</td>
+    <td style="padding:6px 10px;font-size:12px">Amazon.com, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$265.29</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.4%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$196–$279</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">META</td>
+    <td style="padding:6px 10px;font-size:12px">Meta Platforms, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$612.34</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 0.3%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$520–$796</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">AVGO</td>
+    <td style="padding:6px 10px;font-size:12px">Broadcom Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$422.01</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 1.9%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$234–$442</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">TSM</td>
+    <td style="padding:6px 10px;font-size:12px">Taiwan Semiconductor Manufac</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$412.32</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 1.9%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$191–$422</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">AMD</td>
+    <td style="padding:6px 10px;font-size:12px">Advanced Micro Devices, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$503.89</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 7.8%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$109–$507</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">INTC</td>
+    <td style="padding:6px 10px;font-size:12px">Intel Corporation</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$123.52</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 3.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$19–$133</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">AAPL</td>
+    <td style="padding:6px 10px;font-size:12px">Apple Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$308.33</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$195–$312</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">BABA</td>
+    <td style="padding:6px 10px;font-size:12px">Alibaba Group Holding Limite</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$129.47</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.4%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$104–$193</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">BIDU</td>
+    <td style="padding:6px 10px;font-size:12px">Baidu, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$126.83</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.8%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$81–$165</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">ASML</td>
+    <td style="padding:6px 10px;font-size:12px">ASML Holding N.V. - New York</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$1,632.03</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$683–$1,654</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">ARM</td>
+    <td style="padding:6px 10px;font-size:12px">Arm Holdings plc</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$321.22</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 4.8%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$100–$325</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">SNOW</td>
+    <td style="padding:6px 10px;font-size:12px">Snowflake Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$177.60</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 3.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$118–$281</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">CRM</td>
+    <td style="padding:6px 10px;font-size:12px">Salesforce, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$179.08</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$164–$279</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">ORCL</td>
+    <td style="padding:6px 10px;font-size:12px">Oracle Corporation</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$193.06</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 0.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$135–$346</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">IBM</td>
+    <td style="padding:6px 10px;font-size:12px">International Business Machi</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$250.69</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 1.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$212–$325</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">PLTR</td>
+    <td style="padding:6px 10px;font-size:12px">Palantir Technologies Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$136.60</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 0.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$119–$208</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">SNAP</td>
+    <td style="padding:6px 10px;font-size:12px">Snap Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$5.75</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 0.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$4–$10</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">UBER</td>
+    <td style="padding:6px 10px;font-size:12px">Uber Technologies, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$70.12</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 2.4%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$68–$102</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">SHOP</td>
+    <td style="padding:6px 10px;font-size:12px">Shopify Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$104.90</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 1.8%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$94–$182</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">ADBE</td>
+    <td style="padding:6px 10px;font-size:12px">Adobe Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$240.49</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 1.7%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$224–$421</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">NOW</td>
+    <td style="padding:6px 10px;font-size:12px">ServiceNow, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$99.92</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 2.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$81–$211</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">CRWD</td>
+    <td style="padding:6px 10px;font-size:12px">CrowdStrike Holdings, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$671.55</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 1.2%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$343–$678</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">PANW</td>
+    <td style="padding:6px 10px;font-size:12px">Palo Alto Networks, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$256.75</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 1.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$140–$261</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">DDOG</td>
+    <td style="padding:6px 10px;font-size:12px">Datadog, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$223.65</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 0.6%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$98–$226</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">MDB</td>
+    <td style="padding:6px 10px;font-size:12px">MongoDB, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$307.35</td>
+    <td class="td-red" style="padding:6px 10px;font-size:12px;text-align:right">▼ 5.8%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$182–$445</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">NET</td>
+    <td style="padding:6px 10px;font-size:12px">Cloudflare, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$217.54</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 0.6%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$159–$260</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">RDDT</td>
+    <td style="padding:6px 10px;font-size:12px">Reddit, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$144.64</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 2.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$103–$283</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">WSM</td>
+    <td style="padding:6px 10px;font-size:12px">Williams-Sonoma, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$198.38</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 3.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$152–$222</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">MU</td>
+    <td style="padding:6px 10px;font-size:12px">Micron Technology, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$895.88</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 19.3%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$92–$917</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">MRVL</td>
+    <td style="padding:6px 10px;font-size:12px">Marvell Technology, Inc.</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$208.26</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 6.1%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$59–$217</td>
+  </tr><tr>
+    <td style="padding:6px 10px;font-family:monospace;font-size:12px;font-weight:700">QCOM</td>
+    <td style="padding:6px 10px;font-size:12px">QUALCOMM Incorporated</td>
+    <td style="padding:6px 10px;font-size:12px;text-align:right">$248.82</td>
+    <td class="td-green" style="padding:6px 10px;font-size:12px;text-align:right">▲ 4.5%</td>
+    <td style="padding:6px 10px;font-size:11px;color:var(--text-muted);text-align:right">$122–$258</td>
+  </tr>
+  </table>
+</div><div class="panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px">
+  <h2 style="font-size:16px;font-weight:700;margin:0 0 12px;color:var(--text-primary)">📊 Trending Themes</h2>
+  <div style="line-height:2"><span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">China AI Talent Controls</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">Vatican AI Ethics & Disarmament</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">Trump AI Executive Order Delay</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">California AI Workforce Order</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">AI Chip $1 Trillion Club</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">Military AI War Games</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">SpaceX/OpenAI IPO Buzz</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">EU AI Act Deregulation</span> <span class="source-pill" style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;background:var(--accent);color:#fff;margin:3px 4px">AI-Driven Layoffs (26%)</span></div>
+</div><div class="panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px">
+  <h2 style="font-size:16px;font-weight:700;margin:0 0 12px;color:var(--text-primary)">🧠 Knowledge Graph</h2>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+    <div style="flex:1;min-width:100px;text-align:center;padding:12px;background:var(--bar-bg);border-radius:8px">
+      <div style="font-size:24px;font-weight:700;color:var(--accent)">339</div>
+      <div style="font-size:10px;color:var(--text-muted)">Entities</div>
+    </div>
+    <div style="flex:1;min-width:100px;text-align:center;padding:12px;background:var(--bar-bg);border-radius:8px">
+      <div style="font-size:24px;font-weight:700;color:var(--accent)">310</div>
+      <div style="font-size:10px;color:var(--text-muted)">Relationships</div>
+    </div>
+    <div style="flex:1;min-width:100px;text-align:center;padding:12px;background:var(--bar-bg);border-radius:8px">
+      <div style="font-size:24px;font-weight:700;color:var(--accent)">52</div>
+      <div style="font-size:10px;color:var(--text-muted)">Models Tracked</div>
+    </div>
+    <div style="flex:1;min-width:100px;text-align:center;padding:12px;background:var(--bar-bg);border-radius:8px">
+      <div style="font-size:24px;font-weight:700;color:var(--accent)">34</div>
+      <div style="font-size:10px;color:var(--text-muted)">Categories</div>
+    </div>
+  </div>
+  <h3 style="font-size:13px;font-weight:700;color:var(--text-secondary);margin:12px 0 6px">Top Models by Elo</h3>
+  <table style="width:100%;border-collapse:collapse">
+    <tr style="border-bottom:1px solid var(--border)">
+      <th style="text-align:left;padding:4px 10px;font-size:10px;color:var(--text-muted)">#</th>
+      <th style="text-align:left;padding:4px 10px;font-size:10px;color:var(--text-muted)">Model</th>
+      <th style="text-align:right;padding:4px 10px;font-size:10px;color:var(--text-muted)">Elo</th>
+    </tr>
+    <tr><td style="padding:4px 10px;font-size:12px">1</td><td style="padding:4px 10px;font-size:12px">Claude 3.5 Sonnet</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1318</td></tr><tr><td style="padding:4px 10px;font-size:12px">2</td><td style="padding:4px 10px;font-size:12px">o3-mini</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1290</td></tr><tr><td style="padding:4px 10px;font-size:12px">3</td><td style="padding:4px 10px;font-size:12px">GPT-4o</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1288</td></tr><tr><td style="padding:4px 10px;font-size:12px">4</td><td style="padding:4px 10px;font-size:12px">GPT-4o-mini</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1270</td></tr><tr><td style="padding:4px 10px;font-size:12px">5</td><td style="padding:4px 10px;font-size:12px">Gemini 2.0 Flash</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1260</td></tr><tr><td style="padding:4px 10px;font-size:12px">6</td><td style="padding:4px 10px;font-size:12px">Claude 3.5 Haiku</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1250</td></tr><tr><td style="padding:4px 10px;font-size:12px">7</td><td style="padding:4px 10px;font-size:12px">Grok 2</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1248</td></tr><tr><td style="padding:4px 10px;font-size:12px">8</td><td style="padding:4px 10px;font-size:12px">DeepSeek-V3</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1246</td></tr><tr><td style="padding:4px 10px;font-size:12px">9</td><td style="padding:4px 10px;font-size:12px">Gemini 1.5 Pro</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1245</td></tr><tr><td style="padding:4px 10px;font-size:12px">10</td><td style="padding:4px 10px;font-size:12px">Mistral Large 2 (24.11)</td><td style="padding:4px 10px;font-size:12px;text-align:right;font-family:monospace">1220</td></tr>
+  </table>
+</div>
+<script>
+(function(){
+  var SUMMARIES = {"OpenAI": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "Anthropic": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Google DeepMind": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Google_DeepMind"}, "xAI": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/xAI_(company)"}, "Meta AI": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Meta_AI"}, "Microsoft": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Microsoft"}, "Amazon": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Amazon_(company)"}, "NVIDIA": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "AMD": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Advanced_Micro_Devices"}, "Intel": {"extract": "", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Intel_Headquarters_in_2023.jpg/330px-Intel_Headquarters_in_2023.jpg", "url": "https://en.wikipedia.org/wiki/Intel"}, "TSMC": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/TSMC"}, "ASML": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/ASML_Holding"}, "Broadcom": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Broadcom_Inc."}, "Apple": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Apple_Inc."}, "DeepSeek": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Alibaba": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Baidu": {"extract": "", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg/330px-Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg", "url": "https://en.wikipedia.org/wiki/Baidu"}, "IBM": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/IBM"}, "Oracle": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}, "Hugging Face": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Hugging_Face"}, "Palantir": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Palantir_Technologies"}, "Salesforce": {"extract": "", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Salesforce"}};
+  var popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+  var hideTimer = null;
+
+  function showPopup(card, data) {
+    var name = card.getAttribute('data-name') || (card.querySelector('span') ? card.querySelector('span').textContent.trim() : '');
+    var thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    var extract = data.extract
+      ? data.extract.substring(0, 300) + '…'
+      : 'No description available.';
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '</div>' +
+      '<div class="popup-footer">Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    var rect = card.getBoundingClientRect();
+    var pw = popup.offsetWidth || 320;
+    var ph = popup.offsetHeight || 200;
+    var left = rect.left + rect.width + 10;
+    var top = rect.top;
+    if (left + pw > window.innerWidth - 10) left = rect.left - pw - 10;
+    if (top + ph > window.innerHeight - 10) top = window.innerHeight - ph - 10;
+    if (top < 10) top = 10;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  document.querySelectorAll('.entity-card').forEach(function(card) {
+    var name = card.getAttribute('data-name') || (card.querySelector('span') ? card.querySelector('span').textContent.trim() : '');
+    if (!name || !SUMMARIES[name]) return;
+    card.style.cursor = 'pointer';
+    card.addEventListener('mouseenter', function() {
+      clearTimeout(hideTimer);
+      showPopup(card, SUMMARIES[name]);
+    });
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(function() { popup.classList.remove('visible'); }, 200);
+    });
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) positionPopup(card);
+    });
+  });
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', function() { popup.classList.remove('visible'); });
+})();
+</script>
+
+
+  <!-- SOURCES -->
+  <a href="https://news.google.com" target="_blank" rel="noopener" style="display:inline-block;padding:5px 12px;background:var(--bar-bg);border-radius:12px;font-size:11px;color:var(--text-secondary);text-decoration:none;margin:3px 4px">Google News RSS</a> <a href="https://finance.yahoo.com" target="_blank" rel="noopener" style="display:inline-block;padding:5px 12px;background:var(--bar-bg);border-radius:12px;font-size:11px;color:var(--text-secondary);text-decoration:none;margin:3px 4px">Yahoo Finance (yfinance)</a> <a href="https://github.com/jsoprych/elko-reports-community" target="_blank" rel="noopener" style="display:inline-block;padding:5px 12px;background:var(--bar-bg);border-radius:12px;font-size:11px;color:var(--text-secondary);text-decoration:none;margin:3px 4px">ai_world.db</a> <a href="https://en.wikipedia.org/api/rest_v1" target="_blank" rel="noopener" style="display:inline-block;padding:5px 12px;background:var(--bar-bg);border-radius:12px;font-size:11px;color:var(--text-secondary);text-decoration:none;margin:3px 4px">Wikipedia API</a> <a href="https://elko.ai" target="_blank" rel="noopener" style="display:inline-block;padding:5px 12px;background:var(--bar-bg);border-radius:12px;font-size:11px;color:var(--text-secondary);text-decoration:none;margin:3px 4px">ELKO Reports</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-27-0400-ai-world-daily.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-27-0400-ai-world-daily.html</a>
+  </div>
+
+</div>
+</body>
+</html>
