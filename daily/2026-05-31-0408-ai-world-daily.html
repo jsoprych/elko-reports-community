@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>AI World Daily — 2026-05-31 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+.entity-card {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px; border-radius: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-decoration: none; color: var(--text-primary);
+}
+.entity-card:hover {
+  transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.metric-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; text-align: center;
+  flex: 1; min-width: 140px;
+}
+.metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.metric-value { font-size: 22px; font-weight: 800; margin: 4px 0; }
+.metric-sub { font-size: 13px; color: var(--text-secondary); }
+.metric-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.source-pill {
+  display: inline-block; padding: 4px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 600;
+  background: var(--accent); color: #fff;
+}
+.td-green { color: #00c853 !important; font-weight: 700; }
+.td-red { color: #ff1744 !important; font-weight: 700; }
+.news-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px; }
+.news-bullet { 
+  display: inline-block; width: 8px; height: 8px; 
+  border-radius: 50%; flex-shrink: 0; margin-top: 7px;
+}
+.news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+.news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+.news-sublinks a { color: var(--accent); text-decoration: none; }
+.news-sublinks a:hover { text-decoration: underline; }
+.market-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.market-table th { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.market-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.panel-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">AI World Daily</span>
+  <h1 class="report-title">AI World Daily — 2026-05-31</h1>
+  <div class="report-meta">
+    <span>📅 2026-05-31</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://nvidianews.nvidia.com/news/nvidia-and-corning-announce-long-term-partnership-to-strengthen-us-manufacturing-for-ai-infrastructure" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">🔗 NVIDIA and Corning Announce Long-Term Partnership to Strengthen US Manufacturing for AI Infrastructure</a></h2>
+    <p>NVIDIA and Corning announced a multiyear commercial and technology partnership to expand U.S.-based manufacturing of advanced optical connectivity solutions for next-gen AI infrastructure.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row"><div class="metric-card"><div class="metric-label">ServiceNow (NOW)</div><div class="metric-value td-green">▲ 14.4%</div><div class="metric-sub">$124.37</div></div><div class="metric-card"><div class="metric-label">International Busine (IBM)</div><div class="metric-value td-green">▲ 12.7%</div><div class="metric-sub">$297.80</div></div><div class="metric-card"><div class="metric-label">Oracle (ORCL)</div><div class="metric-value td-green">▲ 10.8%</div><div class="metric-sub">$225.78</div></div><div class="metric-card"><div class="metric-label">Datadog (DDOG)</div><div class="metric-value td-green">▲ 9.8%</div><div class="metric-sub">$247.35</div></div></div>
+
+  <!-- CONTENT (panel stack) -->
+  
+<div style="margin-bottom:14px"><div style="font-size:11px;font-weight:700;color:#6C5CE7;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">LLM Providers</div><div class="entity-row"><a href="https://en.wikipedia.org/wiki/Anthropic" target="_blank" rel="noopener" class="entity-card" data-name="Anthropic"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>Anthropic</span></a><a href="https://en.wikipedia.org/wiki/Cohere" target="_blank" rel="noopener" class="entity-card" data-name="Cohere"><span>Cohere</span></a><a href="https://en.wikipedia.org/wiki/Google_(Alphabet)" target="_blank" rel="noopener" class="entity-card" data-name="Google (Alphabet)"><span>Google (Alphabet)</span></a><a href="https://en.wikipedia.org/wiki/Microsoft_AI" target="_blank" rel="noopener" class="entity-card" data-name="Microsoft AI"><span>Microsoft AI</span></a><a href="https://en.wikipedia.org/wiki/Mistral_AI" target="_blank" rel="noopener" class="entity-card" data-name="Mistral AI"><span>Mistral AI</span></a><a href="https://en.wikipedia.org/wiki/OpenAI" target="_blank" rel="noopener" class="entity-card" data-name="OpenAI"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>OpenAI</span></a><a href="https://en.wikipedia.org/wiki/xAI_(company)" target="_blank" rel="noopener" class="entity-card" data-name="xAI"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" alt="xAI" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>xAI</span></a></div></div><div style="margin-bottom:14px"><div style="font-size:11px;font-weight:700;color:#00B894;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Chip Designers</div><div class="entity-row"><a href="https://en.wikipedia.org/wiki/Advanced_Micro_Devices" target="_blank" rel="noopener" class="entity-card" data-name="AMD"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>AMD</span></a><a href="https://en.wikipedia.org/wiki/Cerebras_Systems" target="_blank" rel="noopener" class="entity-card" data-name="Cerebras Systems"><span>Cerebras Systems</span></a><a href="https://en.wikipedia.org/wiki/Groq" target="_blank" rel="noopener" class="entity-card" data-name="Groq"><span>Groq</span></a><a href="https://en.wikipedia.org/wiki/Intel" target="_blank" rel="noopener" class="entity-card" data-name="Intel"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>Intel</span></a><a href="https://en.wikipedia.org/wiki/Nvidia" target="_blank" rel="noopener" class="entity-card" data-name="NVIDIA"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" alt="NVIDIA" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>NVIDIA</span></a><a href="https://en.wikipedia.org/wiki/Tenstorrent" target="_blank" rel="noopener" class="entity-card" data-name="Tenstorrent"><span>Tenstorrent</span></a></div></div><div style="margin-bottom:14px"><div style="font-size:11px;font-weight:700;color:#E17055;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Chinese AI</div><div class="entity-row"><a href="https://en.wikipedia.org/wiki/01.AI_(Yi)" target="_blank" rel="noopener" class="entity-card" data-name="01.AI (Yi)"><span>01.AI (Yi)</span></a><a href="https://en.wikipedia.org/wiki/Alibaba_Cloud_(Alibaba_Group)" target="_blank" rel="noopener" class="entity-card" data-name="Alibaba Cloud (Alibaba Group)"><span>Alibaba Cloud (Alibaba Group)</span></a><a href="https://en.wikipedia.org/wiki/Baidu" target="_blank" rel="noopener" class="entity-card" data-name="Baidu"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>Baidu</span></a><a href="https://en.wikipedia.org/wiki/ByteDance_(Doubao)" target="_blank" rel="noopener" class="entity-card" data-name="ByteDance (Doubao)"><span>ByteDance (Doubao)</span></a><a href="https://en.wikipedia.org/wiki/DeepSeek" target="_blank" rel="noopener" class="entity-card" data-name="DeepSeek"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>DeepSeek</span></a><a href="https://en.wikipedia.org/wiki/MiniMax" target="_blank" rel="noopener" class="entity-card" data-name="MiniMax"><span>MiniMax</span></a><a href="https://en.wikipedia.org/wiki/Moonshot_AI" target="_blank" rel="noopener" class="entity-card" data-name="Moonshot AI"><span>Moonshot AI</span></a><a href="https://en.wikipedia.org/wiki/SenseTime" target="_blank" rel="noopener" class="entity-card" data-name="SenseTime"><span>SenseTime</span></a><a href="https://en.wikipedia.org/wiki/Shanghai_AI_Lab" target="_blank" rel="noopener" class="entity-card" data-name="Shanghai AI Lab"><span>Shanghai AI Lab</span></a><a href="https://en.wikipedia.org/wiki/Zhipu_AI" target="_blank" rel="noopener" class="entity-card" data-name="Zhipu AI"><span>Zhipu AI</span></a></div></div><div style="margin-bottom:14px"><div style="font-size:11px;font-weight:700;color:#0984E3;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Cloud & Infra</div><div class="entity-row"><a href="https://en.wikipedia.org/wiki/Alibaba_Cloud_(Alibaba_Group)" target="_blank" rel="noopener" class="entity-card" data-name="Alibaba Cloud (Alibaba Group)"><span>Alibaba Cloud (Alibaba Group)</span></a><a href="https://en.wikipedia.org/wiki/Amazon_(AWS)" target="_blank" rel="noopener" class="entity-card" data-name="Amazon (AWS)"><span>Amazon (AWS)</span></a><a href="https://en.wikipedia.org/wiki/Arize_AI" target="_blank" rel="noopener" class="entity-card" data-name="Arize AI"><span>Arize AI</span></a><a href="https://en.wikipedia.org/wiki/AutoGPT" target="_blank" rel="noopener" class="entity-card" data-name="AutoGPT"><span>AutoGPT</span></a><a href="https://en.wikipedia.org/wiki/AutoGen_(Microsoft)" target="_blank" rel="noopener" class="entity-card" data-name="AutoGen (Microsoft)"><span>AutoGen (Microsoft)</span></a><a href="https://en.wikipedia.org/wiki/Braintrust" target="_blank" rel="noopener" class="entity-card" data-name="Braintrust"><span>Braintrust</span></a><a href="https://en.wikipedia.org/wiki/ChromaDB" target="_blank" rel="noopener" class="entity-card" data-name="ChromaDB"><span>ChromaDB</span></a><a href="https://en.wikipedia.org/wiki/Composio" target="_blank" rel="noopener" class="entity-card" data-name="Composio"><span>Composio</span></a><a href="https://en.wikipedia.org/wiki/CoreWeave" target="_blank" rel="noopener" class="entity-card" data-name="CoreWeave"><span>CoreWeave</span></a><a href="https://en.wikipedia.org/wiki/CrewAI" target="_blank" rel="noopener" class="entity-card" data-name="CrewAI"><span>CrewAI</span></a><a href="https://en.wikipedia.org/wiki/Diffusers_(Hugging_Face)" target="_blank" rel="noopener" class="entity-card" data-name="Diffusers (Hugging Face)"><span>Diffusers (Hugging Face)</span></a><a href="https://en.wikipedia.org/wiki/Dify" target="_blank" rel="noopener" class="entity-card" data-name="Dify"><span>Dify</span></a><a href="https://en.wikipedia.org/wiki/Exa" target="_blank" rel="noopener" class="entity-card" data-name="Exa"><span>Exa</span></a><a href="https://en.wikipedia.org/wiki/Flowise" target="_blank" rel="noopener" class="entity-card" data-name="Flowise"><span>Flowise</span></a><a href="https://en.wikipedia.org/wiki/Gantry" target="_blank" rel="noopener" class="entity-card" data-name="Gantry"><span>Gantry</span></a><a href="https://en.wikipedia.org/wiki/Hugging_Face" target="_blank" rel="noopener" class="entity-card" data-name="Hugging Face"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hugging-face/default.svg" alt="Hugging Face" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>Hugging Face</span></a><a href="https://en.wikipedia.org/wiki/Hugging_Face_Transformers" target="_blank" rel="noopener" class="entity-card" data-name="Hugging Face Transformers"><span>Hugging Face Transformers</span></a><a href="https://en.wikipedia.org/wiki/LangChain" target="_blank" rel="noopener" class="entity-card" data-name="LangChain"><span>LangChain</span></a><a href="https://en.wikipedia.org/wiki/LangFuse" target="_blank" rel="noopener" class="entity-card" data-name="LangFuse"><span>LangFuse</span></a><a href="https://en.wikipedia.org/wiki/LangGraph" target="_blank" rel="noopener" class="entity-card" data-name="LangGraph"><span>LangGraph</span></a><a href="https://en.wikipedia.org/wiki/LangSmith" target="_blank" rel="noopener" class="entity-card" data-name="LangSmith"><span>LangSmith</span></a><a href="https://en.wikipedia.org/wiki/Llama.cpp" target="_blank" rel="noopener" class="entity-card" data-name="Llama.cpp"><span>Llama.cpp</span></a><a href="https://en.wikipedia.org/wiki/MCP_(Model_Context_Protocol)" target="_blank" rel="noopener" class="entity-card" data-name="MCP (Model Context Protocol)"><span>MCP (Model Context Protocol)</span></a><a href="https://en.wikipedia.org/wiki/MCP_Servers_Hub_(modelcontextprotocol/servers)" target="_blank" rel="noopener" class="entity-card" data-name="MCP Servers Hub (modelcontextprotocol/servers)"><span>MCP Servers Hub (modelcontextprotocol/servers)</span></a><a href="https://en.wikipedia.org/wiki/Milvus" target="_blank" rel="noopener" class="entity-card" data-name="Milvus"><span>Milvus</span></a><a href="https://en.wikipedia.org/wiki/Modal" target="_blank" rel="noopener" class="entity-card" data-name="Modal"><span>Modal</span></a><a href="https://en.wikipedia.org/wiki/Ollama" target="_blank" rel="noopener" class="entity-card" data-name="Ollama"><span>Ollama</span></a><a href="https://en.wikipedia.org/wiki/Open_Interpreter" target="_blank" rel="noopener" class="entity-card" data-name="Open Interpreter"><span>Open Interpreter</span></a><a href="https://en.wikipedia.org/wiki/OpenAI_Agents_SDK" target="_blank" rel="noopener" class="entity-card" data-name="OpenAI Agents SDK"><span>OpenAI Agents SDK</span></a><a href="https://en.wikipedia.org/wiki/OpenAI_Whisper" target="_blank" rel="noopener" class="entity-card" data-name="OpenAI Whisper"><span>OpenAI Whisper</span></a><a href="https://en.wikipedia.org/wiki/Oracle_Corporation" target="_blank" rel="noopener" class="entity-card" data-name="Oracle"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" width="24" height="24" style="object-fit:contain;border-radius:4px" onerror="this.style.display='none'"><span>Oracle</span></a><a href="https://en.wikipedia.org/wiki/Perplexity_AI" target="_blank" rel="noopener" class="entity-card" data-name="Perplexity AI"><span>Perplexity AI</span></a><a href="https://en.wikipedia.org/wiki/Pinecone" target="_blank" rel="noopener" class="entity-card" data-name="Pinecone"><span>Pinecone</span></a><a href="https://en.wikipedia.org/wiki/PulseMCP" target="_blank" rel="noopener" class="entity-card" data-name="PulseMCP"><span>PulseMCP</span></a><a href="https://en.wikipedia.org/wiki/PyTorch" target="_blank" rel="noopener" class="entity-card" data-name="PyTorch"><span>PyTorch</span></a><a href="https://en.wikipedia.org/wiki/Qdrant" target="_blank" rel="noopener" class="entity-card" data-name="Qdrant"><span>Qdrant</span></a><a href="https://en.wikipedia.org/wiki/Rag" target="_blank" rel="noopener" class="entity-card" data-name="Rag"><span>Rag</span></a><a href="https://en.wikipedia.org/wiki/Smithery" target="_blank" rel="noopener" class="entity-card" data-name="Smithery"><span>Smithery</span></a><a href="https://en.wikipedia.org/wiki/Tavily" target="_blank" rel="noopener" class="entity-card" data-name="Tavily"><span>Tavily</span></a><a href="https://en.wikipedia.org/wiki/TensorFlow" target="_blank" rel="noopener" class="entity-card" data-name="TensorFlow"><span>TensorFlow</span></a><a href="https://en.wikipedia.org/wiki/Weaviate" target="_blank" rel="noopener" class="entity-card" data-name="Weaviate"><span>Weaviate</span></a><a href="https://en.wikipedia.org/wiki/Weights_&_Biases_(WandB)" target="_blank" rel="noopener" class="entity-card" data-name="Weights & Biases (WandB)"><span>Weights & Biases (WandB)</span></a><a href="https://en.wikipedia.org/wiki/Whisper_(OpenAI)" target="_blank" rel="noopener" class="entity-card" data-name="Whisper (OpenAI)"><span>Whisper (OpenAI)</span></a><a href="https://en.wikipedia.org/wiki/You.com" target="_blank" rel="noopener" class="entity-card" data-name="You.com"><span>You.com</span></a><a href="https://en.wikipedia.org/wiki/mcp-get" target="_blank" rel="noopener" class="entity-card" data-name="mcp-get"><span>mcp-get</span></a><a href="https://en.wikipedia.org/wiki/n8n" target="_blank" rel="noopener" class="entity-card" data-name="n8n"><span>n8n</span></a><a href="https://en.wikipedia.org/wiki/vLLM" target="_blank" rel="noopener" class="entity-card" data-name="vLLM"><span>vLLM</span></a></div></div>
+<div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#6C5CE7"></div><div style="flex:1"><a href="https://cbsnews.com/news/ai-layoffs-job-cuts-challenger-report-april-2026" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">1. AI emerges as a top cause of layoffs, accounting for 26% of April job cuts</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">labor</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">trends</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">New data shows artificial intelligence is the most cited reason for layoffs, even as economists debate whether it is truly displacing workers.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://cbsnews.com/news/ai-layoffs-job-cuts-challenger-report-april-2026" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#00b894"></div><div style="flex:1"><a href="https://news.sky.com/story/eu-waters-down-landmark-ai-regulation-amid-industry-pressure-13541012" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">2. EU waters down landmark AI regulation amid industry pressure</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">regulation</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">policy</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">The drive to simplify rules around AI came after businesses complained about overlapping regulations and red tape hampering their ability to compete with US and Asian rivals.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.sky.com/story/eu-waters-down-landmark-ai-regulation-amid-industry-pressure-13541012" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#e17055"></div><div style="flex:1"><a href="https://www.reuters.com/world/asia-pacific/asias-tech-giants-give-ai-bull-run-new-centre-gravity-2026-05-07/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">3. Asia's tech giants give AI bull run a new centre of gravity</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">markets</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">asia</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">A fresh investor frenzy has hit Asia's tech names, making Seoul's stock market the world's hottest and delivering bonuses at Korean chipmakers.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.reuters.com/world/asia-pacific/asias-tech-giants-give-ai-bull-run-new-centre-gravity-2026-05-07/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#0984e3"></div><div style="flex:1"><a href="https://timesofindia.indiatimes.com/technology/tech-news/google-rolls-out-updates-to-ai-mode-and-ai-overviews-what-is-changing/articleshow/130908566.cms" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">4. Google rolls out updates to AI Mode and AI Overviews</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">product</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">search</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">Google announced updates to its generative AI search experiences, targeting AI Mode and AI Overviews.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://timesofindia.indiatimes.com/technology/tech-news/google-rolls-out-updates-to-ai-mode-and-ai-overviews-what-is-changing/articleshow/130908566.cms" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#fdcb6e"></div><div style="flex:1"><a href="https://investingnews.com/nvidia-and-iren-announce-strategic-partnership-to-accelerate-deployment-of-up-to-5-gigawatts-of-ai-infrastructure/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">5. NVIDIA and IREN Announce Strategic Partnership for up to 5 Gigawatts of AI Infrastructure</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">infrastructure</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">partnership</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">NVIDIA and IREN announced a strategic partnership to accelerate deployment of next-generation AI infrastructure, targeting up to 5 gigawatts of NVIDIA DSX-aligned infrastructure.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://investingnews.com/nvidia-and-iren-announce-strategic-partnership-to-accelerate-deployment-of-up-to-5-gigawatts-of-ai-infrastructure/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#e84393"></div><div style="flex:1"><a href="https://www.indiatoday.in/amp/technology/news/story/xai-is-likely-over-elon-musk-says-it-will-just-be-spacexai-in-future-2907878-2026-05-07" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">6. xAI is likely over, Elon Musk says it will just be SpaceXAI soon</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">corporate</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">restructuring</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">Elon Musk revealed that it may be the end of xAI. New AI products will now come under SpaceX, following SpaceX's recent compute deal with Anthropic.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://www.indiatoday.in/amp/technology/news/story/xai-is-likely-over-elon-musk-says-it-will-just-be-spacexai-in-future-2907878-2026-05-07" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#00cec9"></div><div style="flex:1"><a href="https://adage.com/technology/ai/aa-emerging-news-and-trends-openai-google-x-minnesota-lottery" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">7. Emerging tech news: OpenAI, Google, X - AI ads and tools updates</a><div style="margin-top:2px"><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">advertising</span><span class="source-pill" style="margin-right:4px;font-size:10px;padding:2px 8px">product</span></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">OpenAI teams with ad tech partners for ChatGPT advertising, Google rolls out visual measurement tools, X launches an AI-powered ads manager.</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://adage.com/technology/ai/aa-emerging-news-and-trends-openai-google-x-minnesota-lottery" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Read</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#d63031"></div><div style="flex:1"><a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxOeHBtVnJRX1VLN1Bnc3JOTjNmLUtPeGZqclVxMWMydXVXbEo4ejVUbDFWN0xVaThXSU54UVRjWDk4VWRkZDJvWS1ORmd2cVo0WlotcUJORWw4SEVEdmFBZUQzdElEMEk0c28wNUQ0Ulk5ZHlVRnc5MkwxZ08zb19GNHZaQ21aUGh5Ym9Dcm9nQ1TSAZYBQVVfeXFMTXA3di1BanhRY2Ixa3FRS0hiRURKV3Q0eWp6cWE1NTZ3eVg2a3NucWltaG1pcTBoWFh1Y3pnMHZfX29mNF93RmhWbXRKM1lxRUUzMzNSNjRPNjhib0ZYTGt0b2Q3cGNFeXN2VVJpWnc3aldoNXFYT0JscnRKQTVwOHp0bHRQS0c5aFZDS3FIVUtQWmdCcXln?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">8. Huawei chip innovation is a threat to Nvidia’s AI market in China: Analysts - Huawei Central</a><div style="margin-top:2px"></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">Huawei chip innovation is a threat to Nvidia’s AI market in China: Analysts &nbsp;&nbsp; Huawei Central</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxOeHBtVnJRX1VLN1Bnc3JOTjNmLUtPeGZqclVxMWMydXVXbEo4ejVUbDFWN0xVaThXSU54UVRjWDk4VWRkZDJvWS1ORmd2cVo0WlotcUJORWw4SEVEdmFBZUQzdElEMEk0c28wNUQ0Ulk5ZHlVRnc5MkwxZ08zb19GNHZaQ21aUGh5Ym9Dcm9nQ1TSAZYBQVVfeXFMTXA3di1BanhRY2Ixa3FRS0hiRURKV3Q0eWp6cWE1NTZ3eVg2a3NucWltaG1pcTBoWFh1Y3pnMHZfX29mNF93RmhWbXRKM1lxRUUzMzNSNjRPNjhib0ZYTGt0b2Q3cGNFeXN2VVJpWnc3aldoNXFYT0JscnRKQTVwOHp0bHRQS0c5aFZDS3FIVUtQWmdCcXln?oc=5" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Huawei Central</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#6c5ce7"></div><div style="flex:1"><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxPTGRBZk5BZnhVd2xKbHN3TkZzRmdZS2JWOG5RVkotUy1IWDcyVVNrWGVVS0dvdVpqTHotVHBlcGRpVUpLTFJpZ0xyMWphMjJZQm9RbXFyUmd1NnVlR1ZINW9sU0hkZ1RTLW5vUzR3TUVXQ2hNMldqaXNYcE9aZ2xDUGlaY3NoVWRmbWthN29QQ1lqaVBaZ29hdVFJMlcyMG1BU1JWWGxvU2o5ckJYWmpiOEpGMnZWNGRpSENZbl9CQlk?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">9. China adds homegrown AI chips to 'secure and reliable' procurement list for the first time — nine options added as move away from Nvidia continues - Tom's Hardware</a><div style="margin-top:2px"></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">China adds homegrown AI chips to 'secure and reliable' procurement list for the first time — nine options added as move away from Nvidia continues &nbsp;&nbsp; Tom's Hardware</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxPTGRBZk5BZnhVd2xKbHN3TkZzRmdZS2JWOG5RVkotUy1IWDcyVVNrWGVVS0dvdVpqTHotVHBlcGRpVUpLTFJpZ0xyMWphMjJZQm9RbXFyUmd1NnVlR1ZINW9sU0hkZ1RTLW5vUzR3TUVXQ2hNMldqaXNYcE9aZ2xDUGlaY3NoVWRmbWthN29QQ1lqaVBaZ29hdVFJMlcyMG1BU1JWWGxvU2o5ckJYWmpiOEpGMnZWNGRpSENZbl9CQlk?oc=5" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Tom's Hardware</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#2d3436"></div><div style="flex:1"><a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxOcW0yR2cyY3pvY3g2cHdrLWlBOTdyOWpnaGlkQm5SRGt4elVra3J4dF93QTF6M19mRWhJTVFyZ25vdzllX0gyRXFFSl9EY1lvUTQ4S3Y2ZG5NTkZRSnZiMDFLUVdyV2VJdWRzVTlQZ2l4QUlQT0xIOUNGOUl3SWY2UVZOUTc0U203eDRXaXd2UU5hZXFkdGM4Tlk2R0xORlQ1djZlRWVwa0lBeFJlRk5BNE5kOA?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">10. Taiwan suspects Nvidia AI chips routed to China through Japan - The American Bazaar</a><div style="margin-top:2px"></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">Taiwan suspects Nvidia AI chips routed to China through Japan &nbsp;&nbsp; The American Bazaar</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxOcW0yR2cyY3pvY3g2cHdrLWlBOTdyOWpnaGlkQm5SRGt4elVra3J4dF93QTF6M19mRWhJTVFyZ25vdzllX0gyRXFFSl9EY1lvUTQ4S3Y2ZG5NTkZRSnZiMDFLUVdyV2VJdWRzVTlQZ2l4QUlQT0xIOUNGOUl3SWY2UVZOUTc0U203eDRXaXd2UU5hZXFkdGM4Tlk2R0xORlQ1djZlRWVwa0lBeFJlRk5BNE5kOA?oc=5" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">The American Bazaar</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#636e72"></div><div style="flex:1"><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOW9xZUxFSE9MU1RlOEZKelE3OU1iRE1SMzFuZUdBWDN2RU1iU3hMWGdndE5fRlF0VVJDQk5XTWtzUkhYd1Q5eHktZ2EyLVB3T2hvMjJaT2lWb2Nhd2tyU3NmYlktNHFOT3VaZjBjSlRuTERGcHA2SEJ4cDBSSk4wRGUzQUsxMWZhTEQyZGJtYUZSRXh5Mlk1bzdWZzJpbnpSUVFjeTUydGM?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">11. China’s ByteDance Developing New AI Chips Like Those from Nvidia Partner Groq - The Information</a><div style="margin-top:2px"></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">China’s ByteDance Developing New AI Chips Like Those from Nvidia Partner Groq &nbsp;&nbsp; The Information</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOW9xZUxFSE9MU1RlOEZKelE3OU1iRE1SMzFuZUdBWDN2RU1iU3hMWGdndE5fRlF0VVJDQk5XTWtzUkhYd1Q5eHktZ2EyLVB3T2hvMjJaT2lWb2Nhd2tyU3NmYlktNHFOT3VaZjBjSlRuTERGcHA2SEJ4cDBSSk4wRGUzQUsxMWZhTEQyZGJtYUZSRXh5Mlk1bzdWZzJpbnpSUVFjeTUydGM?oc=5" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">The Information</a></div></div></div><div class="news-item" style="margin-bottom:18px"><div class="news-bullet" style="background:#b2bec3"></div><div style="flex:1"><a href="https://news.google.com/rss/articles/CBMi-gJBVV95cUxPSlAyRlFSMzhNZU01anhhYmdHMVVJeHpBZXRlelZkcUhMcU1MVHZuM2QzZEFxRV82U3NBbDRtUzhKajM1NDBWMEIzSUhBX2psLVFGZGo0U1pGS09uS090d0RzbW9vYVh2cjFKWDFndDh2YlBTSG9zazduZWZTOGZ6WWZlenJZTnBRSTYzSGZsd2w1SFJPczRKSnlwLWEwb0VtaDh4a0xSYlRuck8wd1RzNEdSV0NZM0s4ekFqb2ppS2gyMkdmNDFXLWFmZzQtQ29CRHltNFpROGdqdEswU1BqMTU5Y3BJaW9vMkd0cnJEMzVhcEM5SVZQVU9UZkRuX2pJZldlbnF0TGNfdERFX1M4dkdJUW5Ka3FMY0ZIaGF2X0UxdnozajIxSFFGcnlmU1pETl91b0djaUNxWFdMQXBQWnpzS0VMNUZ4MHVuSTR0azk2OEJxY0xOZ3pWOGdwY3ZsRFNmdWxpaGpNMG1sUldLR29KM2xadkNDVUE?oc=5" target="_blank" rel="noopener" style="font-weight:700;color:var(--text-primary);text-decoration:none;font-size:15px;line-height:1.4">12. Huawei chairman thanks the US for export restrictions on chips, says it supercharged China’s semiconductor industry — Washington’s export controls encouraged Chinese firms to invest in R&D and build t</a><div style="margin-top:2px"></div><p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.5">Huawei chairman thanks the US for export restrictions on chips, says it supercharged China’s semiconductor industry — Washington’s export controls encouraged Chinese firms to invest in R&D and build their own tech stack competing with American tech &nbsp;&nbsp; Tom's Hardware</p><div class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMi-gJBVV95cUxPSlAyRlFSMzhNZU01anhhYmdHMVVJeHpBZXRlelZkcUhMcU1MVHZuM2QzZEFxRV82U3NBbDRtUzhKajM1NDBWMEIzSUhBX2psLVFGZGo0U1pGS09uS090d0RzbW9vYVh2cjFKWDFndDh2YlBTSG9zazduZWZTOGZ6WWZlenJZTnBRSTYzSGZsd2w1SFJPczRKSnlwLWEwb0VtaDh4a0xSYlRuck8wd1RzNEdSV0NZM0s4ekFqb2ppS2gyMkdmNDFXLWFmZzQtQ29CRHltNFpROGdqdEswU1BqMTU5Y3BJaW9vMkd0cnJEMzVhcEM5SVZQVU9UZkRuX2pJZldlbnF0TGNfdERFX1M4dkdJUW5Ka3FMY0ZIaGF2X0UxdnozajIxSFFGcnlmU1pETl91b0djaUNxWFdMQXBQWnpzS0VMNUZ4MHVuSTR0azk2OEJxY0xOZ3pWOGdwY3ZsRFNmdWxpaGpNMG1sUldLR29KM2xadkNDVUE?oc=5" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-size:11px">Tom's Hardware</a></div></div></div>
+<div class="panel">
+<div class="panel-title">Market Snapshot — 2026-05-31</div>
+<div style="overflow-x:auto">
+<table class="market-table">
+<thead><tr><th>Ticker</th><th>Company</th><th>Price</th><th>Change</th><th>52W Range</th></tr></thead>
+<tbody><tr><td style="font-weight:700">NVDA</td><td>NVIDIA Corporation</td><td>$211.14</td><td class="td-red">▼ -1.45%</td><td style="font-size:11px;color:var(--text-muted)">$135.40 – $236.54</td></tr><tr><td style="font-weight:700">GOOGL</td><td>Alphabet Inc.</td><td>$380.34</td><td class="td-red">▼ -2.51%</td><td style="font-size:11px;color:var(--text-muted)">$162.00 – $408.61</td></tr><tr><td style="font-weight:700">AAPL</td><td>Apple Inc.</td><td>$312.06</td><td class="td-red">▼ -0.14%</td><td style="font-size:11px;color:var(--text-muted)">$195.07 – $315.00</td></tr><tr><td style="font-weight:700">MSFT</td><td>Microsoft Corporation</td><td>$450.24</td><td class="td-green">▲ +5.45%</td><td style="font-size:11px;color:var(--text-muted)">$356.28 – $555.45</td></tr><tr><td style="font-weight:700">AMZN</td><td>Amazon.com, Inc.</td><td>$270.64</td><td class="td-red">▼ -1.23%</td><td style="font-size:11px;color:var(--text-muted)">$196.00 – $278.56</td></tr><tr><td style="font-weight:700">TSM</td><td>Taiwan Semiconductor Manufactu</td><td>$418.45</td><td class="td-red">▼ -1.51%</td><td style="font-size:11px;color:var(--text-muted)">$192.20 – $430.55</td></tr><tr><td style="font-weight:700">AVGO</td><td>Broadcom Inc.</td><td>$446.77</td><td class="td-green">▲ +4.73%</td><td style="font-size:11px;color:var(--text-muted)">$241.11 – $448.90</td></tr><tr><td style="font-weight:700">META</td><td>Meta Platforms, Inc.</td><td>$632.51</td><td class="td-red">▼ -0.44%</td><td style="font-size:11px;color:var(--text-muted)">$520.26 – $796.25</td></tr><tr><td style="font-weight:700">MU</td><td>Micron Technology, Inc.</td><td>$971.00</td><td class="td-green">▲ +5.14%</td><td style="font-size:11px;color:var(--text-muted)">$94.40 – $981.00</td></tr><tr><td style="font-weight:700">AMD</td><td>Advanced Micro Devices, Inc.</td><td>$516.10</td><td class="td-red">▼ -0.38%</td><td style="font-size:11px;color:var(--text-muted)">$111.01 – $527.20</td></tr><tr><td style="font-weight:700">ORCL</td><td>Oracle Corporation</td><td>$225.78</td><td class="td-green">▲ +10.84%</td><td style="font-size:11px;color:var(--text-muted)">$134.57 – $345.72</td></tr><tr><td style="font-weight:700">ASML</td><td>ASML Holding N.V. - New York R</td><td>$1,612.76</td><td class="td-green">▲ +0.44%</td><td style="font-size:11px;color:var(--text-muted)">$683.48 – $1,654.20</td></tr><tr><td style="font-weight:700">INTC</td><td>Intel Corporation</td><td>$114.68</td><td class="td-red">▼ -5.14%</td><td style="font-size:11px;color:var(--text-muted)">$18.97 – $132.75</td></tr><tr><td style="font-weight:700">ARM</td><td>Arm Holdings plc</td><td>$353.29</td><td class="td-green">▲ +5.37%</td><td style="font-size:11px;color:var(--text-muted)">$100.02 – $356.45</td></tr><tr><td style="font-weight:700">PLTR</td><td>Palantir Technologies Inc.</td><td>$156.54</td><td class="td-green">▲ +9.21%</td><td style="font-size:11px;color:var(--text-muted)">$118.93 – $207.52</td></tr><tr><td style="font-weight:700">BABA</td><td>Alibaba Group Holding Limited</td><td>$124.22</td><td class="td-red">▼ -1.54%</td><td style="font-size:11px;color:var(--text-muted)">$103.71 – $192.67</td></tr><tr><td style="font-weight:700">IBM</td><td>International Business Machine</td><td>$297.80</td><td class="td-green">▲ +12.71%</td><td style="font-size:11px;color:var(--text-muted)">$212.34 – $324.90</td></tr><tr><td style="font-weight:700">QCOM</td><td>QUALCOMM Incorporated</td><td>$251.02</td><td class="td-green">▲ +3.18%</td><td style="font-size:11px;color:var(--text-muted)">$121.99 – $259.92</td></tr><tr><td style="font-weight:700">PANW</td><td>Palo Alto Networks, Inc.</td><td>$281.69</td><td class="td-green">▲ +9.28%</td><td style="font-size:11px;color:var(--text-muted)">$139.57 – $283.71</td></tr><tr><td style="font-weight:700">CRWD</td><td>CrowdStrike Holdings, Inc.</td><td>$731.00</td><td class="td-green">▲ +8.94%</td><td style="font-size:11px;color:var(--text-muted)">$342.72 – $731.49</td></tr><tr><td style="font-weight:700">MRVL</td><td>Marvell Technology, Inc.</td><td>$205.00</td><td class="td-green">▲ +0.08%</td><td style="font-size:11px;color:var(--text-muted)">$59.53 – $218.26</td></tr><tr><td style="font-weight:700">CRM</td><td>Salesforce, Inc.</td><td>$191.10</td><td class="td-green">▲ +8.47%</td><td style="font-size:11px;color:var(--text-muted)">$163.52 – $276.80</td></tr><tr><td style="font-weight:700">SHOP</td><td>Shopify Inc.</td><td>$118.71</td><td class="td-green">▲ +3.20%</td><td style="font-size:11px;color:var(--text-muted)">$94.00 – $182.19</td></tr><tr><td style="font-weight:700">UBER</td><td>Uber Technologies, Inc.</td><td>$70.40</td><td class="td-red">▼ -0.73%</td><td style="font-size:11px;color:var(--text-muted)">$68.46 – $101.99</td></tr><tr><td style="font-weight:700">NOW</td><td>ServiceNow, Inc.</td><td>$124.37</td><td class="td-green">▲ +14.38%</td><td style="font-size:11px;color:var(--text-muted)">$81.24 – $211.48</td></tr><tr><td style="font-weight:700">ADBE</td><td>Adobe Inc.</td><td>$259.21</td><td class="td-green">▲ +7.36%</td><td style="font-size:11px;color:var(--text-muted)">$224.13 – $421.48</td></tr><tr><td style="font-weight:700">SNOW</td><td>Snowflake Inc.</td><td>$255.55</td><td class="td-green">▲ +6.84%</td><td style="font-size:11px;color:var(--text-muted)">$118.30 – $280.67</td></tr><tr><td style="font-weight:700">DDOG</td><td>Datadog, Inc.</td><td>$247.35</td><td class="td-green">▲ +9.82%</td><td style="font-size:11px;color:var(--text-muted)">$98.01 – $249.81</td></tr><tr><td style="font-weight:700">NET</td><td>Cloudflare, Inc.</td><td>$241.82</td><td class="td-green">▲ +6.01%</td><td style="font-size:11px;color:var(--text-muted)">$158.83 – $260.00</td></tr><tr><td style="font-weight:700">BIDU</td><td>Baidu, Inc.</td><td>$135.31</td><td class="td-green">▲ +2.47%</td><td style="font-size:11px;color:var(--text-muted)">$82.39 – $165.30</td></tr><tr><td style="font-weight:700">RDDT</td><td>Reddit, Inc.</td><td>$176.00</td><td class="td-green">▲ +4.96%</td><td style="font-size:11px;color:var(--text-muted)">$109.16 – $282.95</td></tr><tr><td style="font-weight:700">MDB</td><td>MongoDB, Inc.</td><td>$335.55</td><td class="td-green">▲ +3.03%</td><td style="font-size:11px;color:var(--text-muted)">$183.64 – $444.72</td></tr><tr><td style="font-weight:700">WSM</td><td>Williams-Sonoma, Inc.</td><td>$203.57</td><td class="td-red">▼ -0.99%</td><td style="font-size:11px;color:var(--text-muted)">$152.20 – $222.00</td></tr><tr><td style="font-weight:700">SNAP</td><td>Snap Inc.</td><td>$5.71</td><td class="td-red">▼ -3.38%</td><td style="font-size:11px;color:var(--text-muted)">$3.81 – $10.41</td></tr></tbody>
+</table>
+</div></div>
+<div class="panel">
+<div class="panel-title">Trending Themes</div>
+<div style="margin-top:8px"><span class="source-pill" style="margin:3px">AI Chip Geopolitics</span><span class="source-pill" style="margin:3px">NVIDIA-China Export Controls</span><span class="source-pill" style="margin:3px">Enterprise AI Software Surge</span><span class="source-pill" style="margin:3px">AI Model Competition</span><span class="source-pill" style="margin:3px">AI Regulation & Policy</span><span class="source-pill" style="margin:3px">Data Center Infrastructure</span></div>
+</div>
+<div class="panel">
+<div class="panel-title">Top AI Models by ELO Score</div>
+<table class="market-table">
+<thead><tr><th>#</th><th>Model</th><th>ELO</th></tr></thead>
+<tbody><tr><td style="font-weight:700">1</td><td>Claude 3.5 Sonnet</td><td>1318.0</td></tr><tr><td style="font-weight:700">2</td><td>o3-mini</td><td>1290.0</td></tr><tr><td style="font-weight:700">3</td><td>GPT-4o</td><td>1288.0</td></tr><tr><td style="font-weight:700">4</td><td>GPT-4o-mini</td><td>1270.0</td></tr><tr><td style="font-weight:700">5</td><td>Gemini 2.0 Flash</td><td>1260.0</td></tr><tr><td style="font-weight:700">6</td><td>Claude 3.5 Haiku</td><td>1250.0</td></tr><tr><td style="font-weight:700">7</td><td>Grok 2</td><td>1248.0</td></tr><tr><td style="font-weight:700">8</td><td>DeepSeek-V3</td><td>1246.0</td></tr><tr><td style="font-weight:700">9</td><td>Gemini 1.5 Pro</td><td>1245.0</td></tr><tr><td style="font-weight:700">10</td><td>Mistral Large 2 (24.11)</td><td>1220.0</td></tr></tbody>
+</table></div>
+<div class="panel">
+<div class="panel-title">Knowledge Graph Stats</div>
+<table class="market-table"><tbody><tr><td>Entities</td><td style="font-weight:700">339</td></tr>
+<tr><td>Relationships</td><td style="font-weight:700">310</td></tr>
+<tr><td>Models Tracked</td><td style="font-weight:700">52</td></tr>
+<tr><td>Categories</td><td style="font-weight:700">34</td></tr></tbody></table>
+</div>
+
+
+  <!-- SOURCES -->
+  <a href="#" target="_blank" rel="noopener" class="source-pill" style="margin:3px;background:var(--surface);color:var(--accent);border:1px solid var(--border)">Huawei Central</a><a href="#" target="_blank" rel="noopener" class="source-pill" style="margin:3px;background:var(--surface);color:var(--accent);border:1px solid var(--border)">The American Bazaar</a><a href="#" target="_blank" rel="noopener" class="source-pill" style="margin:3px;background:var(--surface);color:var(--accent);border:1px solid var(--border)">The Information</a><a href="#" target="_blank" rel="noopener" class="source-pill" style="margin:3px;background:var(--surface);color:var(--accent);border:1px solid var(--border)">The New York Times</a><a href="#" target="_blank" rel="noopener" class="source-pill" style="margin:3px;background:var(--surface);color:var(--accent);border:1px solid var(--border)">Tom's Hardware</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-05-31-0408-ai-world-daily.html">https://jsoprych.github.io/elko-reports-community/daily/2026-05-31-0408-ai-world-daily.html</a>
+  </div>
+
+</div>
+
+<style>
+.grok-popup {
+  position: fixed; z-index: 9999;
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  width: 320px; padding: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  pointer-events: none;
+  font-size: 13px; line-height: 1.6; overflow: hidden;
+}
+.grok-popup.visible { opacity: 1; visibility: visible; }
+.grok-popup .popup-thumb {
+  width: 100%; height: 120px;
+  object-fit: cover; border-radius: 10px 10px 0 0;
+  background: var(--bar-bg); display: block;
+}
+.grok-popup .popup-body { padding: 12px 16px 14px; }
+.grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+.grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+.grok-popup .popup-link {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  text-decoration: none;
+}
+.grok-popup .popup-footer {
+  padding: 8px 16px; border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--text-muted);
+}
+</style>
+<script>
+(function(){
+  const SUMMARIES = {"Anthropic": {"extract": "Anthropic PBC is an American artificial intelligence (AI) company headquartered in San Francisco, California. It has developed a series of large language models (LLMs) named Claude and has a focus on AI safety. Anthropic was founded in 2021 by former members of OpenAI, including ", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Google DeepMind": {"extract": "Google LLC is an American multinational technology corporation focused on information technology, online advertising, search engine technology, email, cloud computing, software, quantum computing, e-commerce, consumer electronics, and artificial intelligence (AI). It has been ref", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/330px-Googleplex_HQ_%28cropped%29.jpg", "url": "https://en.wikipedia.org/wiki/Google"}, "Mistral AI": {"extract": "Mistral AI SAS is a French artificial intelligence (AI) company, headquartered in Paris. Founded in 2023, it has open-weight large language models (LLMs), with both open-source and proprietary AI models. As of 2025 the company has a valuation of more than US$14 billion.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Mistral_AI_logo_%282025%E2%80%93%29.svg/330px-Mistral_AI_logo_%282025%E2%80%93%29.svg.png", "url": "https://en.wikipedia.org/wiki/Mistral_AI"}, "OpenAI": {"extract": "OpenAI is an American artificial intelligence (AI) research organization headquartered in San Francisco, consisting of OpenAI Group PBC, a for-profit public benefit corporation (PBC), partially controlled by OpenAI Foundation, a nonprofit. OpenAI developed the generative pre-trai", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "AMD": {"extract": "Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company headquartered in Santa Clara, California. It develops central processing units (CPUs), graphics processing units (GPUs), field-programmable gate arrays (FPGAs), system-on-chips (SoCs), and high-", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg/330px-2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg", "url": "https://en.wikipedia.org/wiki/AMD"}, "Intel": {"extract": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units (CPUs) and related products for business and consumer markets. Intel was the world'", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Intel_Headquarters_in_2023.jpg/330px-Intel_Headquarters_in_2023.jpg", "url": "https://en.wikipedia.org/wiki/Intel"}, "NVIDIA": {"extract": "Nvidia Corporation is an American multinational technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for data science, high-performance computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/330px-2788-2888_San_Tomas_Expwy.jpg", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "Alibaba": {"extract": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TaobaoCity_Alibaba_Xixi_Park.jpg/330px-TaobaoCity_Alibaba_Xixi_Park.jpg", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Baidu": {"extract": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet services and artificial intelligence. It holds a dominant position in China's search engine market, and provides a wide variety of other internet services such as Baidu App, Baidu Baike, iQIYI, Bai", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg/330px-Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg", "url": "https://en.wikipedia.org/wiki/Baidu"}, "DeepSeek": {"extract": "Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd., doing business as DeepSeek, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chin", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Oracle": {"extract": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California, in 1977 by Bob Miner, Ed Oates, and current chairman of the board and chief technology officer Larry Ellison, Oracle is among the 20 largest c", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}};
+  const popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+  let activeCard = null, hideTimer = null;
+
+  function showPopup(card, data) {
+    const name = card.getAttribute('data-name') || card.querySelector('span')?.textContent?.trim() || '';
+    const thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    const extract = data.extract
+      ? data.extract.substring(0, 300) + '…'
+      : 'No description available.';
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '</div>' +
+      '<div class="popup-footer">Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+    let left = rect.left + rect.width + 10;
+    let top = rect.top;
+    if (left + pw > window.innerWidth - 10) left = rect.left - pw - 10;
+    if (top + ph > window.innerHeight - 10) top = window.innerHeight - ph - 10;
+    if (top < 10) top = 10;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const name = card.querySelector('span')?.textContent?.trim();
+    if (!name || !SUMMARIES[name]) return;
+    card.style.cursor = 'pointer';
+    card.setAttribute('data-name', name);
+    card.addEventListener('mouseenter', function() {
+      clearTimeout(hideTimer);
+      activeCard = this;
+      showPopup(this, SUMMARIES[name]);
+    });
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(function() { popup.classList.remove('visible'); }, 200);
+    });
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) positionPopup(this);
+    });
+  });
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', function() { popup.classList.remove('visible'); });
+})();
+</script>
+
+</body>
+</html>
