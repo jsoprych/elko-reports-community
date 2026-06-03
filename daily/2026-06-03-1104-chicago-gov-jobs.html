@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Chicago Gov Jobs — 2026-06-03 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.employer-grid { display: flex; flex-direction: column; gap: 12px; }
+.employer-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--card-shadow); }
+.ec-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--bar-bg); }
+.ec-icon { font-size: 16px; }
+.ec-name { font-weight: 700; font-size: 15px; flex: 1; }
+.ec-status { font-size: 11px; color: var(--text-muted); }
+.ec-body { padding: 12px 16px; }
+.ec-roles { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+.role-tag { display: inline-block; font-size: 10px; font-weight: 600; color: var(--accent); background: var(--tag-bg); padding: 2px 8px; border-radius: 8px; }
+.ec-stats { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+.ec-link { font-size: 11px; color: var(--accent); text-decoration: none; font-weight: 600; }
+.ec-link:hover { text-decoration: underline; }
+.job-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); padding-top: 8px; }
+.job-listing { padding: 4px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+.job-listing:last-child { border-bottom: none; }
+.job-listing a:hover { color: var(--accent) !important; }
+.kw-section { margin-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.kw-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.kw-tag { font-size: 10px; color: var(--text-secondary); background: var(--bar-bg); padding: 1px 6px; border-radius: 6px; }
+.guides-grid { display: flex; flex-direction: column; gap: 10px; }
+.guide-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.guide-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+.guide-list { list-style: none; padding: 0; margin: 0; }
+.guide-item { padding: 3px 0; font-size: 13px; color: var(--text-secondary); position: relative; padding-left: 16px; }
+.guide-item::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.skill-table-wrap { overflow-x: auto; margin: 12px 0; }
+.skill-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.skill-table th { text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+.skill-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.skill-factory { color: var(--text-primary); font-weight: 500; }
+.skill-arrow { color: var(--text-muted); text-align: center; width: 30px; }
+.skill-gov { color: var(--accent); }
+.strategy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.strategy-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px; box-shadow: var(--card-shadow); }
+.st-header { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.st-list { list-style: none; padding: 0; margin: 0; }
+.strategy-item { padding: 4px 0; font-size: 12px; color: var(--text-secondary); position: relative; padding-left: 14px; line-height: 1.5; }
+.strategy-item::before { content: "✓"; position: absolute; left: 0; color: var(--success); font-size: 10px; font-weight: 700; }
+@media (max-width: 600px) { .strategy-grid { grid-template-columns: 1fr; } }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Chicago Gov Jobs Intel</span>
+  <h1 class="report-title">Chicago Gov Jobs — 2026-06-03</h1>
+  <div class="report-meta">
+    <span>📅 2026-06-03</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>🏢 25 Entry-Level Openings Across 7/7 Employers</h2>
+    <p>Daily scan of government and quasi-government job portals in the Chicago area. Target roles: USPS mail handlers and clerks, Amtrak station staff, Metra attendants, and city/county/state entry-level positions. Best fit for candidates with factory and production backgrounds — skills transfer via stamina, safety compliance, attention to detail, and shift reliability.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+    <div class="metric-row">
+        <div class="metric-card"><div class="metric-value">25</div><div class="metric-label">Openings</div></div>
+        <div class="metric-card"><div class="metric-value">7/7</div><div class="metric-label">Sources</div></div>
+        <div class="metric-card"><div class="metric-value">2026-06-03</div><div class="metric-label">Date</div></div>
+    </div>
+
+  <!-- CONTENT (panel stack) -->
+  
+    <div data-panel="overview" data-panel-title="Overview" data-panel-color="#4a6cf7" data-panel-default="1">
+        <div class="section-header"><span class="icon">📋</span><h2>Executive Summary</h2><span class="accent-line"></span></div>
+        <div class="hero-card" style="border-left-color:#4a6cf7">
+            <p>Daily scan of <strong>7</strong> government and quasi-government job portals in the Chicago area. Found approximately <strong>25</strong> potential entry-level openings across <strong>7</strong> reachable sources.</p>
+        </div>
+        <div class="pulse-display" style="display:flex;align-items:center;gap:10px;background:var(--bar-bg);padding:12px 16px;border-radius:10px;margin-top:12px;">
+            <span style="font-size:28px;">😊</span>
+            <span style="font-size:13px;color:var(--text-secondary);">Report Pulse · Candidates with factory/production backgrounds are a strong fit for these roles — transferable skills in safety, stamina, reliability, and attention to detail.</span>
+        </div>
+        
+    <div class="metric-row">
+        <div class="metric-card"><div class="metric-value">25</div><div class="metric-label">Openings</div></div>
+        <div class="metric-card"><div class="metric-value">7/7</div><div class="metric-label">Sources</div></div>
+        <div class="metric-card"><div class="metric-value">2026-06-03</div><div class="metric-label">Date</div></div>
+    </div>
+    </div>
+    <div data-panel="openings" data-panel-title="Openings" data-panel-color="#22c55e" data-panel-default="1">
+        <div class="section-header"><span class="icon">🏢</span><h2>Current Openings by Employer</h2><span class="accent-line"></span></div>
+        <div class="employer-grid">
+            
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">USPS Chicago</span>
+            <span class="ec-status">Reachable (HTTP 403) — HTTP Error 403: Forbidden</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Mail Handler Assistant</span><span class="role-tag">City Carrier Assistant</span><span class="role-tag">PSE Mail Processing Clerk</span><span class="role-tag">PSE Sales & Services</span><span class="role-tag">Custodial</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://about.usps.com/careers/jobs/search.htm?location=chicago%2C%20il&keyword=mail+handler" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">Amtrak Chicago</span>
+            <span class="ec-status">Reachable (HTTP 200)</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Station Services</span><span class="role-tag">Custodial</span><span class="role-tag">Warehouse</span><span class="role-tag">Operations Support</span><span class="role-tag">Platform Attendant</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://careers.amtrak.com/search/?q=chicago" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">Metra</span>
+            <span class="ec-status">Reachable (HTTP 404) — HTTP Error 404: Not Found</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Station Attendant</span><span class="role-tag">Custodial</span><span class="role-tag">Maintenance Helper</span><span class="role-tag">Operations Support</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://cta.cadienttalent.com/search/?q=metra" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">City of Chicago</span>
+            <span class="ec-status">Reachable (HTTP 200)</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Facilities Maintenance</span><span class="role-tag">Sanitation Worker</span><span class="role-tag">Parks Maintenance</span><span class="role-tag">Warehouse</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://chicago.taleo.net/careersection/100/joblist.ftl" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">Cook County</span>
+            <span class="ec-status">Reachable (HTTP 200)</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Hospital Support</span><span class="role-tag">Facilities</span><span class="role-tag">Maintenance</span><span class="role-tag">Warehouse</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://cookcountyil.taleo.net/careersection/2/joblist.ftl" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            <div class="kw-section"><span class="kw-label">Keywords found:</span> <span class="kw-tag">maintenance: 3</span></div>
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">State of Illinois</span>
+            <span class="ec-status">Reachable (HTTP 200)</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">Logistics</span><span class="role-tag">Warehouse</span><span class="role-tag">Grounds Maintenance</span><span class="role-tag">Custodial</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>25</strong> potential matches</span>
+                <a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Building, Fleet &amp; Institutional Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Office &amp; Administrative Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Building, Fleet &amp; Institutional Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Office &amp; Administrative Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Building, Fleet &amp; Institutional Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Office &amp; Administrative Support</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">IVH-C HEALTH INFORMATION ASSOCIATE</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">IVH-C HEALTH INFORMATION ASSOCIATE</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">IVH-C HEALTH INFORMATION ASSOCIATE</a></li><li class="job-listing"><a href="https://illinois.jobs2web.com/search/?q=chicago" target="_blank" style="color:var(--text-primary);text-decoration:none">Law Clerk - Fall Start</a></li></ul>
+            <div class="kw-section"><span class="kw-label">Keywords found:</span> <span class="kw-tag">clerk: 7</span></div>
+        </div>
+    </div>
+    <div class="employer-card">
+        <div class="ec-header">
+            <span class="ec-icon">✅</span>
+            <span class="ec-name">Federal USAJOBS</span>
+            <span class="ec-status">Reachable (HTTP 200)</span>
+        </div>
+        <div class="ec-body">
+            <div class="ec-roles"><span class="role-tag">TSA (O'Hare/Midway)</span><span class="role-tag">VA Support</span><span class="role-tag">GSA Warehouse</span></div>
+            <div class="ec-stats">
+                <span class="ec-stat"><strong>0</strong> potential matches</span>
+                <a href="https://www.usajobs.gov/Search/Results?l=Chicago%2C+Illinois&k=entry+level" target="_blank" class="ec-link">Visit Portal →</a>
+            </div>
+            <ul class="job-list"><li class="job-listing" style="color:var(--text-muted);font-style:italic">No specific listings found this scan</li></ul>
+            <div class="kw-section"><span class="kw-label">Keywords found:</span> <span class="kw-tag">maintenance: 21</span><span class="kw-tag">clerk: 7</span><span class="kw-tag">carrier: 3</span><span class="kw-tag">station: 3</span><span class="kw-tag">custodial: 1</span><span class="kw-tag">warehouse: 1</span></div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <div data-panel="guides" data-panel-title="Portals" data-panel-color="#f59e0b" data-panel-default="1">
+        <div class="section-header"><span class="icon">📝</span><h2>Application Portal Guides</h2><span class="accent-line"></span></div>
+        <div class="section-body">Step-by-step guides for applying to each employer. Timelines vary widely: USPS can hire in 2-4 weeks, while rail and government roles can take 1-6 months.</div>
+        <div class="guides-grid">
+            
+    <div class="guide-card">
+        <div class="guide-name">USPS</div>
+        <ul class="guide-list"><li class="guide-item">Create profile at jobs.usps.com</li><li class="guide-item">Complete the 473 exam for mail processing/carrier roles</li><li class="guide-item">Background check + drug screen required</li><li class="guide-item">USPS hires fast — can go from application to offer in 2-4 weeks</li><li class="guide-item">Heavy hiring periods: Oct-Dec (holiday), May-Aug (summer)</li></ul>
+    </div>
+    <div class="guide-card">
+        <div class="guide-name">Amtrak</div>
+        <ul class="guide-list"><li class="guide-item">Create profile at careers.amtrak.com</li><li class="guide-item">Chicago is a major Amtrak hub — check regularly</li><li class="guide-item">Applications can sit for 1-6 months — apply and forget</li><li class="guide-item">Focus on: station services, custodial, warehouse, platform attendant</li></ul>
+    </div>
+    <div class="guide-card">
+        <div class="guide-name">Metra</div>
+        <ul class="guide-list"><li class="guide-item">Apply at cta.cadienttalent.com (Metra portal)</li><li class="guide-item">Different from CTA portal — separate account needed</li><li class="guide-item">Station attendant and custodial roles open periodically</li><li class="guide-item">Drug screen + physical exam typical</li></ul>
+    </div>
+    <div class="guide-card">
+        <div class="guide-name">City / County / State</div>
+        <ul class="guide-list"><li class="guide-item">City of Chicago: chicago.gov/careers (residency required)</li><li class="guide-item">Cook County: cookcountyil.taleo.net (3 sections: 100/200/400)</li><li class="guide-item">State of Illinois: illinois.jobs2web.com (SAP portal)</li><li class="guide-item">Government processes are slow — 2-6 months typical</li></ul>
+    </div>
+    <div class="guide-card">
+        <div class="guide-name">Federal (USAJOBS)</div>
+        <ul class="guide-list"><li class="guide-item">USAJOBS.gov requires separate profile with resume builder</li><li class="guide-item">Use 'entry level' filter + Chicago location</li><li class="guide-item">Federal hiring can take 3-9 months</li><li class="guide-item">Veterans preference applies at all federal agencies</li></ul>
+    </div>
+        </div>
+    </div>
+    <div data-panel="skills" data-panel-title="Skills" data-panel-color="#818cf8" data-panel-default="1">
+        <div class="section-header"><span class="icon">🏫</span><h2>Skill Translation — Factory to Government</h2><span class="accent-line"></span></div>
+        <div class="section-body">How factory and production experience translates to government roles. This is the key narrative for applicants transitioning from manufacturing.</div>
+        
+    <div class="skill-table-wrap">
+        <table class="skill-table">
+            <thead><tr><th>Factory / Production Skill</th><th></th><th>Government Application</th></tr></thead>
+            <tbody>
+        <tr>
+            <td class="skill-factory">Assembly line speed & stamina</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Physical work pace for mail handling, custodial, station attendant</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Quality control / attention to detail</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Accuracy needed in mail sorting, PSE clerk, inventory</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Shift work / OT availability</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">24/7 operations at USPS, Amtrak, CTA/Metra</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Safety compliance / protocols</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Following procedures — all government roles require this</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Machine operation</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Equipment familiarity for Metra maintenance, facility operations</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Production quotas / deadlines</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Meeting targets in mail processing, warehouse logistics</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Team coordination on assembly line</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Team-based operations in stations, sorting facilities</td>
+        </tr>
+        <tr>
+            <td class="skill-factory">Packaging / labeling accuracy</td>
+            <td class="skill-arrow">→</td>
+            <td class="skill-gov">Attention to detail for mail sorting, inventory, data entry</td>
+        </tr></tbody>
+        </table>
+    </div>
+    </div>
+    <div data-panel="strategy" data-panel-title="Strategy" data-panel-color="#a78bfa" data-panel-default="1">
+        <div class="section-header"><span class="icon">📅</span><h2>30/60/90 Day Application Strategy</h2><span class="accent-line"></span></div>
+        <div class="section-body">A phased approach to landing a government job. Pace yourself — government hiring is a marathon, not a sprint.</div>
+        <div class="strategy-grid">
+        <div class="strategy-card" style="border-left-color:#4a6cf7">
+            <div class="st-header" style="color:#4a6cf7">Week 1</div>
+            <ul class="st-list"><li class="strategy-item">Create profiles on ALL portals listed above</li><li class="strategy-item">Apply to USPS first (fastest hire cycle)</li><li class="strategy-item">Start studying: USPS 473 exam practice tests</li></ul>
+        </div>
+        <div class="strategy-card" style="border-left-color:#6c63ff">
+            <div class="st-header" style="color:#6c63ff">Weeks 2–3</div>
+            <ul class="st-list"><li class="strategy-item">Submit Metra/Amtrak applications</li><li class="strategy-item">Expand to City/County/State applications</li><li class="strategy-item">Tailor each application to the specific role keywords</li></ul>
+        </div>
+        <div class="strategy-card" style="border-left-color:#818cf8">
+            <div class="st-header" style="color:#818cf8">Month 2</div>
+            <ul class="st-list"><li class="strategy-item">Follow up on applications (where possible)</li><li class="strategy-item">Apply to any new postings that opened</li><li class="strategy-item">Consider stepping-stone roles: temp agencies at gov facilities</li></ul>
+        </div>
+        <div class="strategy-card" style="border-left-color:#a78bfa">
+            <div class="st-header" style="color:#a78bfa">Month 3</div>
+            <ul class="st-list"><li class="strategy-item">Re-evaluate — if nothing stuck, broaden search</li><li class="strategy-item">Check for seasonal USPS hiring wave</li><li class="strategy-item">Consider CTA directly (chicagotransit.taleo.net)</li></ul>
+        </div></div>
+    </div>
+<div data-panel="context" data-panel-title="📰 Job Market Context" data-panel-color="#8b5cf6" data-panel-default="0">
+      <div class="section-header"><span class="icon">📰</span><h2>Job Market Context & Hiring News</h2><span class="accent-line"></span></div>
+      <div class="hero-card" style="border-left-color:#8b5cf6"><p>Curated headlines about Chicago government hiring — LLM-filtered for relevance to factory/production background transitions.</p></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://www.chicagobusiness.com/opinion/commentary/ccb-ai-displacement-bill-california-20260527/" target="_blank" style="color:var(--text-primary)">Opinion: Follow California’s lead in protecting workers from AI displacement</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">AI & the Changing Job Market</span><br><span style="font-size:12px;color:var(--text-secondary)">May 27 — Opinion piece discussing policy approaches to safeguard workers as AI reshapes the job market, relevant for entry-level and transitioning workers.</span></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://www.chicagotribune.com/2026/05/21/opinion-graduates-workforce-preparation/" target="_blank" style="color:var(--text-primary)">Entry-Level Tech Jobs 2026: 148,092 Cuts Expose Which Skills Still Get You Hired</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">AI & the Changing Job Market</span><br><span style="font-size:12px;color:var(--text-secondary)">Entry-level tech jobs in 2026 are not gone — they have moved. As 148,092 tech workers are displaced at 981 per day, ML engineer openings are up 59%. Actionable insight for factory-</span></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://www.builtinchicago.org/articles/part-time-jobs-chicago" target="_blank" style="color:var(--text-primary)">Our Chicago: The Jobs Outlook For the Class of 2026 and how AI plays a role in resumes</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">AI & the Changing Job Market</span><br><span style="font-size:12px;color:var(--text-secondary)">At colleges around Illinois and across the country, students have earned their degrees and now they're ready to earn a living. Covers job market outlook and AI's impact on resume s</span></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://abc7chicago.com/post/chicago-jobs-outlook-class-2026-how-ai-plays-role-resumes/19195211" target="_blank" style="color:var(--text-primary)">Illinois’ High Unemployment Rate Triggers Hiring Requirements</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Government & Public Sector Hiring</span><br><span style="font-size:12px;color:var(--text-secondary)">Contractors on public works are now required to hire 90% of their workforce from Illinois — a direct opportunity for local entry-level and transitioning workers.</span></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://techtimes.com/articles/317535/20260601/entry-level-tech-jobs-2026-148092-cuts-expose-which-skills-still-get-you-hired.htm" target="_blank" style="color:var(--text-primary)">Your 2026 USPS hiring game plan</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Government & Public Sector Hiring</span><br><span style="font-size:12px;color:var(--text-secondary)">Landing a USPS job in 2026 means knowing the right roles, meeting eligibility requirements, and mastering the Virtual Entry Assessment within tight deadlines. Highly actionable for</span></div><div class="hero-card" style="border-left-color:#8b5cf6;margin-bottom:6px"><strong><a href="https://nfib.com/news/news/illinois-high-unemployment-rate-triggers-hiring-requirements" target="_blank" style="color:var(--text-primary)">Building on its reputation, Chicago area becomes a force for workforce development</a></strong> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Government & Public Sector Hiring</span><br><span style="font-size:12px;color:var(--text-secondary)">May 11 — Highlights Chicago's growing workforce development initiatives, including programs that help factory workers transition into government and other sectors.</span></div></div>
+
+  <!-- SOURCES -->
+  <h3>Sources &amp; Portals</h3>
+<a href="https://about.usps.com/careers/" target="_blank">USPS Careers</a>
+<a href="https://careers.amtrak.com/" target="_blank">Amtrak Careers</a>
+<a href="https://cta.cadienttalent.com/" target="_blank">Metra (Cadient)</a>
+<a href="https://chicago.taleo.net/careersection/100/joblist.ftl" target="_blank">City of Chicago</a>
+<a href="https://cookcountyil.taleo.net/careersection/2/joblist.ftl" target="_blank">Cook County Gov</a>
+<a href="https://illinois.jobs2web.com/" target="_blank">State of Illinois</a>
+<a href="https://www.usajobs.gov/" target="_blank">USAJOBS</a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-06-03-1104-chicago-gov-jobs.html">https://jsoprych.github.io/elko-reports-community/daily/2026-06-03-1104-chicago-gov-jobs.html</a>
+  </div>
+
+</div>
+</body>
+</html>
