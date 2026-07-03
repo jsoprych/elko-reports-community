@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Prediction Markets Weekly — 2026-07-03 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+        .market-row {
+            display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+            border-bottom: 1px solid var(--border); font-size: 13px;
+            transition: background 0.15s;
+        }
+        .market-row:hover { background: var(--bar-bg); }
+        .market-row:last-child { border-bottom: none; }
+        .market-row.opp-card {
+            border-left: 3px solid var(--accent); background: var(--bar-bg);
+        }
+        .market-q {
+            flex: 1; color: var(--text-primary); text-decoration: none;
+            min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .market-q:hover { color: var(--accent); }
+        .market-probs {
+            display: flex; align-items: center; gap: 6px; width: 170px; flex-shrink: 0;
+        }
+        .prob-yes { font-weight: 700; color: #22c55e; font-size: 12px; width: 34px; text-align: right; }
+        .prob-no  { font-weight: 700; color: #ef4444; font-size: 12px; width: 34px; }
+        .prob-bar-bg {
+            flex: 1; height: 7px; background: #ef4444; border-radius: 4px; overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .prob-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 6px rgba(34,197,94,0.3);
+        }
+        .cat-badge {
+            display: inline-block; font-size: 9px; font-weight: 700; color: #fff;
+            padding: 1px 7px; border-radius: 3px; letter-spacing: 0.4px;
+            text-transform: uppercase; white-space: nowrap;
+            margin-right: 6px; vertical-align: middle;
+        }
+        .cat-badge.macro    { background: #f59e0b; }
+        .cat-badge.politics { background: #ef4444; }
+        .cat-badge.tech     { background: #8b5cf6; }
+        .cat-badge.crypto   { background: #f97316; }
+        .cat-badge.sports   { background: #22c55e; }
+        .vol-bar-bg {
+            width: 60px; height: 4px; background: var(--bar-bg); border-radius: 2px;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .vol-bar-fill {
+            height: 100%; background: var(--accent); border-radius: 2px;
+            opacity: 0.6; transition: width 0.5s ease;
+        }
+        .market-vol {
+            font-size: 11px; color: var(--text-muted); width: 55px; text-align: right; flex-shrink: 0;
+        }
+        .event-card {
+            display: flex; gap: 12px; padding: 12px;
+            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+        }
+        .event-card:last-child { border-bottom: none; }
+        .event-rank {
+            font-size: 24px; font-weight: 800; color: var(--accent);
+            min-width: 30px; text-align: center; line-height: 1.2;
+        }
+        .event-body { flex: 1; }
+        .event-title {
+            font-size: 15px; font-weight: 600; color: var(--text-primary);
+            text-decoration: none; display: block; margin-bottom: 3px;
+        }
+        .event-title:hover { color: var(--accent); }
+        .event-meta {
+            font-size: 11px; color: var(--text-muted);
+        }
+        h4 {
+            font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .top10-row {
+            display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+            border-bottom: 1px solid var(--border); transition: background 0.15s;
+        }
+        .top10-row:hover { background: var(--bar-bg); }
+        .top10-row:last-child { border-bottom: none; }
+        .top10-rank {
+            font-size: 15px; font-weight: 800; min-width: 28px; text-align: center;
+        }
+        .top10-medal { font-size: 18px; min-width: 28px; text-align: center; }
+        .info-panel summary { transition: color 0.2s; }
+        .info-panel summary:hover { color: #818cf8; }
+        .info-panel[open] summary { margin-bottom: 4px; }
+        .info-panel[open] summary span:last-child { display: none; }
+        @media (max-width: 600px) {
+            .market-probs { width: 120px; }
+            .market-vol { display: none; }
+            .market-q { font-size: 12px; }
+            .vol-bar-bg { display: none; }
+        }
+    
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Prediction Markets</span>
+  <h1 class="report-title">Prediction Markets Weekly — 2026-07-03</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-03</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://polymarket.com/event/world-cup-winner" target="_blank" style="color:var(--accent);text-decoration:none;">World Cup Winner </a></h2>
+    <p>$3764.8M in volume across 60 markets. Leading market: <strong>Will Portugal win the 2026 FIFA World Cup?</strong> currently at <strong style="color:var(--accent);">6% Yes</strong>.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row"><div class="metric-card"><div class="metric-value">12%</div><div class="metric-label">US Recession by EOY 2026</div><div class="metric-sub">Probability</div></div>
+<div class="metric-card"><div class="metric-value">84%</div><div class="metric-label">Dems Take House 2026</div><div class="metric-sub">Probability</div></div>
+<div class="metric-card"><div class="metric-value">32%</div><div class="metric-label">Bitcoin Above $78K</div><div class="metric-sub">Today</div></div></div>
+
+  <!-- CONTENT (panel stack) -->
+  <details class="info-panel" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0;margin-bottom:16px;overflow:hidden">
+<summary style="cursor:pointer;padding:14px 18px;font-size:14px;font-weight:700;color:var(--accent);user-select:none;display:flex;align-items:center;gap:8px">
+    <span style="font-size:18px">📚</span> What Are Prediction Markets? <span style="font-size:11px;color:var(--text-muted);font-weight:400;margin-left:auto">click to expand</span>
+</summary>
+<div style="padding:0 18px 16px;font-size:13px;line-height:1.7;color:var(--text-secondary)">
+
+<p><strong>Prediction markets</strong> let people bet real money on future events — elections, Fed rate decisions, recession odds, even F1 championships. The price of each bet reflects the crowd's collective probability: a "Yes" share trading at 52¢ means the market believes there's a 52% chance the event happens.</p>
+
+<p>They work because <strong>money talks louder than polls</strong>. When traders put real capital behind their beliefs, the resulting odds tend to be more accurate than expert forecasts alone. Studies consistently show prediction markets outperform traditional polling and punditry.</p>
+
+<div style="background:var(--bar-bg);border-radius:8px;padding:12px 16px;margin:12px 0">
+    <strong style="color:var(--text-primary)">📈 Explosive Growth</strong>
+    <ul style="margin:8px 0 0;padding-left:18px">
+        <li><strong>$10.8B</strong> in weekly volume across major platforms (June 2026)</li>
+        <li><strong>Charles Schwab</strong>, Interactive Brokers, and Robinhood have all announced prediction market integration</li>
+        <li>CFTC-regulated exchanges (Kalshi) now operate alongside crypto-native platforms (Polymarket)</li>
+        <li>Prediction markets were <strong>more accurate than polls</strong> in the 2024 US election</li>
+        <li>Major media outlets (Bloomberg, WSJ, CNN) now routinely cite prediction market odds alongside traditional polls</li>
+    </ul>
+</div>
+
+<p><strong>Why this report exists:</strong> We track odds across 4 exchanges — Polymarket (real money, crypto), Kalshi (CFTC-regulated, US), PredictIt (academic), and Manifold (community play-money). Each exchange's odds tell a different story. The <em>difference</em> between them is often the most interesting signal.</p>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+    <a href="https://en.wikipedia.org/wiki/Prediction_market" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:4px">📖 Wikipedia: Prediction Markets</a>
+    <a href="https://en.wikipedia.org/wiki/Polymarket" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:4px">📖 Wikipedia: Polymarket</a>
+    <a href="https://en.wikipedia.org/wiki/Kalshi" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:4px">📖 Wikipedia: Kalshi</a>
+    <a href="https://polymarket.com" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:4px">🔗 Polymarket</a>
+    <a href="https://kalshi.com" target="_blank" style="font-size:11px;color:var(--accent);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:4px">🔗 Kalshi</a>
+</div>
+
+</div>
+</details>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🏆</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Top 10 Markets — Cross-Category</span>
+    </div><div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Highest volume markets across all categories — ranked</div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">🥇</span>
+            <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;">Will Isack Hadjar be the 2026 F1 Drivers' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">0%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:0%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$8.8M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">🥈</span>
+            <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;">Will Lewis Hamilton be the 2026 F1 Drivers' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">9%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:9%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$4.9M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">🥉</span>
+            <a href="https://polymarket.com/event/which-party-will-win-the-house-in-2026" target="_blank" class="market-q" style="flex:1;">Will the Democratic Party control the House after the 2026 Midterm elections?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">84%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:84%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$4.4M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Politics</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">4.</span>
+            <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;">Will Charles Leclerc be the 2026 F1 Drivers' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">1%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:1%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$3.9M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">5.</span>
+            <a href="https://polymarket.com/event/which-party-will-win-the-house-in-2026" target="_blank" class="market-q" style="flex:1;">Will the Republican Party control the House after the 2026 Midterm elections?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">16%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:16%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$3.7M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Politics</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">6.</span>
+            <a href="https://polymarket.com/event/f1-constructors-champion" target="_blank" class="market-q" style="flex:1;">Will Williams be the 2026 F1 Constructors' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">0%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:0%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$3.6M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">7.</span>
+            <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;">Will Kimi Antonelli be the 2026 F1 Drivers' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">57%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:57%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$3.6M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">8.</span>
+            <a href="https://polymarket.com/event/f1-constructors-champion" target="_blank" class="market-q" style="flex:1;">Will Haas be the 2026 F1 Constructors' Champion?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">0%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:0%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$3.1M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Sports</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">9.</span>
+            <a href="https://polymarket.com/event/which-party-will-win-the-senate-in-2026" target="_blank" class="market-q" style="flex:1;">Will the Democratic Party control the Senate after the 2026 Midterm elections?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">44%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:44%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$1.7M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Politics</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <span style="font-size:16px;min-width:28px;">10.</span>
+            <a href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" class="market-q" style="flex:1;">US recession by end of 2026?</a>
+            <span class="prob-yes" style="min-width:36px;text-align:right;">12%</span>
+            <span class="prob-bar-bg" style="width:80px;"><span class="prob-bar-fill" style="width:12%"></span></span>
+            <span class="market-vol" style="min-width:50px;text-align:right;">$1.6M</span>
+            <span style="font-size:10px;color:var(--text-muted);min-width:60px;text-align:right;">Macro</span>
+        </div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">📊</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Top Events by Volume</span>
+    </div><div class="event-card">  <div class="event-rank">1</div>  <div class="event-body">    <a href="https://polymarket.com/event/world-cup-winner" target="_blank" class="event-title">World Cup Winner </a>    <span class="event-meta">$3764.8M volume • 60 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-portugal-win-the-2026-fifa-world-cup-912" target="_blank" style="color:var(--text-secondary);">Will Portugal win the 2026 FIFA World Cup?</a><span style="float:right;font-weight:700;color:var(--accent);">6%</span></div>  </div></div><div class="event-card">  <div class="event-rank">2</div>  <div class="event-body">    <a href="https://polymarket.com/event/democratic-presidential-nominee-2028" target="_blank" class="event-title">Democratic Presidential Nominee 2028</a>    <span class="event-meta">$1222.0M volume • 128 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-gavin-newsom-win-the-2028-democratic-presidential-nomination-568" target="_blank" style="color:var(--text-secondary);">Will Gavin Newsom win the 2028 Democratic presidential nomination?</a><span style="float:right;font-weight:700;color:var(--accent);">20%</span></div>  </div></div><div class="event-card">  <div class="event-rank">3</div>  <div class="event-body">    <a href="https://polymarket.com/event/republican-presidential-nominee-2028" target="_blank" class="event-title">Republican Presidential Nominee 2028</a>    <span class="event-meta">$667.8M volume • 128 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-jd-vance-win-the-2028-republican-presidential-nomination" target="_blank" style="color:var(--text-secondary);">Will J.D. Vance win the 2028 Republican presidential nomination?</a><span style="float:right;font-weight:700;color:var(--accent);">38%</span></div>  </div></div><div class="event-card">  <div class="event-rank">4</div>  <div class="event-body">    <a href="https://polymarket.com/event/presidential-election-winner-2028" target="_blank" class="event-title">Presidential Election Winner 2028</a>    <span class="event-meta">$644.9M volume • 128 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-gavin-newsom-win-the-2028-us-presidential-election" target="_blank" style="color:var(--text-secondary);">Will Gavin Newsom win the 2028 US Presidential Election?</a><span style="float:right;font-weight:700;color:var(--accent);">12%</span></div>  </div></div><div class="event-card">  <div class="event-rank">5</div>  <div class="event-body">    <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="event-title">F1 Drivers' Champion</a>    <span class="event-meta">$182.4M volume • 32 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-lewis-hamilton-be-the-2026-f1-drivers-champion" target="_blank" style="color:var(--text-secondary);">Will Lewis Hamilton be the 2026 F1 Drivers' Champion?</a><span style="float:right;font-weight:700;color:var(--accent);">9%</span></div>  </div></div><div class="event-card">  <div class="event-rank">6</div>  <div class="event-body">    <a href="https://polymarket.com/event/next-prime-minister-of-ethiopia" target="_blank" class="event-title">Next Prime Minister of Ethiopia?</a>    <span class="event-meta">$128.6M volume • 33 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-shimelis-abdisa-be-the-next-prime-minister-of-ethiopia" target="_blank" style="color:var(--text-secondary);">Will Shimelis Abdisa be the next Prime Minister of Ethiopia?</a><span style="float:right;font-weight:700;color:var(--accent);">0%</span></div>  </div></div><div class="event-card">  <div class="event-rank">7</div>  <div class="event-body">    <a href="https://polymarket.com/event/netanyahu-out-before-2027" target="_blank" class="event-title">Netanyahu out by...?</a>    <span class="event-meta">$123.4M volume • 6 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/netanyahu-out-before-2027-684-719-226-657" target="_blank" style="color:var(--text-secondary);">Netanyahu out by end of 2026?</a><span style="float:right;font-weight:700;color:var(--accent);">46%</span></div>  </div></div><div class="event-card">  <div class="event-rank">8</div>  <div class="event-body">    <a href="https://polymarket.com/event/brazil-presidential-election" target="_blank" class="event-title">Brazil Presidential Election</a>    <span class="event-meta">$109.6M volume • 32 markets</span>    <div style="margin-top:8px;padding:8px 12px;background:var(--bar-bg);border-radius:6px;font-size:13px;"><a href="https://polymarket.com/event/will-renan-santos-win-the-2026-brazilian-presidential-election" target="_blank" style="color:var(--text-secondary);">Will Renan Santos win the 2026 Brazilian presidential election?</a><span style="float:right;font-weight:700;color:var(--accent);">10%</span></div>  </div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">📈</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Macro Dashboard</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;"><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🏦 Federal Reserve</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/fed-rate-cut-by-629" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Fed rate cut by July 2026 meeting?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">1%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:1.1%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">99%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$315.4K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/fed-rate-cut-by-629" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Fed rate cut by December 2026 meeting?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">20%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:19.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">80%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$216.9K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/fed-rate-cut-by-629" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Fed rate cut by September 2026 meeting?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">6%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:5.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">94%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$148.9K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/fed-rate-cut-by-629" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Fed rate cut by October 2026 meeting?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">13%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:12.8%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">87%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$63.2K</span>
+    </div><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">📉 Recession & Trade</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/us-recession-by-end-of-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">US recession by end of 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">12%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:11.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">88%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$1.6M</span>
+    </div></div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🏛</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Politics Pulse</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;"><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🗳 2026 Midterms</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-party-will-win-the-house-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Democratic Party control the House after the 2026 Midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">84%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:83.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">16%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$4.4M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-party-will-win-the-house-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Republican Party control the House after the 2026 Midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">16%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:16.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">84%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$3.7M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-party-will-win-the-senate-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Democratic Party control the Senate after the 2026 Midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">44%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:44.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">56%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$1.7M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-party-will-win-the-senate-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Republican Party control the Senate after the 2026 Midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">56%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:56.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">44%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$1.3M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/republican-senate-seats-after-the-2026-midterm-elections-927" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Republican Party hold exactly 54 Senate seats after the 2026 midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">2%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:1.6%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">98%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$754.8K</span>
+    </div></div><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">👑 Trump & More</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/republican-senate-seats-after-the-2026-midterm-elections-927" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the Republican Party hold exactly 52 Senate seats after the 2026 midterm elections?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">11%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:11.1%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">89%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$580.3K</span>
+    </div></div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🤖</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Tech & AI</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;"><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🧠 AI Model Race</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-company-has-best-ai-model-end-of-july-299" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will OpenAI have the best AI model at the end of July 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">2%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:1.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">99%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$327.4K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-company-has-best-ai-model-end-of-july-299" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Anthropic have the best AI model at the end of July 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">90%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:89.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">10%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$322.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-company-has-best-ai-model-end-of-july-299" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will xAI have the best AI model at the end of July 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.2%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$315.8K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-company-has-best-ai-model-end-of-july-299" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Google have the best AI model at the end of July 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">8%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:8.2%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">92%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$286.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/which-company-has-best-ai-model-end-of-july-299" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Z.ai have the best AI model at the end of July 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.1%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$286.7K</span>
+    </div></div><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">💰 IPOs & Tech</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/spacex-ipo-officially-added-to-nasdaq-100-in-2026-20260608205014294" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">SpaceX IPO: Officially added to Nasdaq-100 in 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">100%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:99.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">0%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$11.7K</span>
+    </div></div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🪙</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Crypto Corner</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;"><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">₿ Bitcoin</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-7-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $62,000 and $64,000 on July 7?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">32%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:32.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">68%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$15.0K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-3-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $64,000 and $66,000 on July 3?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">1%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:1.0%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">99%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$14.5K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-3-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $54,000 and $56,000 on July 3?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.1%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$14.4K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-3-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $56,000 and $58,000 on July 3?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.3%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$14.0K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-3-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $58,000 and $60,000 on July 3?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">2%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:1.7%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">98%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$12.9K</span>
+    </div></div><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🚨 Hacks & Regulation</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/bitcoin-price-on-july-3-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will the price of Bitcoin be between $60,000 and $62,000 on July 3?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">66%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:66.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">34%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$9.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/total-crypto-hack-value-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Over $1B crypto hack value in 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">96%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:96.2%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">4%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$8.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/total-crypto-hack-value-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Over $1.5B crypto hack value in 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">66%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:66.0%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">34%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$1.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/total-crypto-hack-value-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Over $3.5B crypto hack value in 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">52%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:51.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">48%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$215</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/total-crypto-hack-value-in-2026" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Over $1.2B crypto hack value in 2026?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">77%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:77.0%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">23%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$174</span>
+    </div></div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🏆</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Sports & Culture</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;"><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🏀 In Play</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Isack Hadjar be the 2026 F1 Drivers' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.4%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$8.8M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Lewis Hamilton be the 2026 F1 Drivers' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">9%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:8.7%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">91%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$4.9M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Charles Leclerc be the 2026 F1 Drivers' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">1%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.9%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">99%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$3.9M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/f1-constructors-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Williams be the 2026 F1 Constructors' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.4%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$3.6M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/2026-f1-drivers-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Kimi Antonelli be the 2026 F1 Drivers' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px;text-align:right">57%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:57.0%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#22c55e;min-width:42px">43%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$3.6M</span>
+    </div></div><div><h4 style="margin:0 0 8px;color:var(--text-secondary);">🏆 Coming Up</h4><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/f1-constructors-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Haas be the 2026 F1 Constructors' Champion?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.4%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$3.1M</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/nba-2027-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Cleveland Cavaliers win the 2027 NBA Finals?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">4%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:3.8%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">96%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$128.2K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/nba-2027-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Boston Celtics win the 2027 NBA Finals?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">6%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:5.5%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">94%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$114.7K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/nba-2027-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Brooklyn Nets win the 2027 NBA Finals?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">0%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.4%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">100%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$105.8K</span>
+    </div><div class="market-row" style="align-items:center;gap:14px;padding:10px 14px">
+        <a href="https://polymarket.com/event/nba-2027-champion" target="_blank" class="market-q" style="flex:1;font-size:14px;font-weight:500">Will Charlotte Hornets win the 2027 NBA Finals?</a>
+        <div style="display:flex;align-items:center;gap:8px;min-width:180px">
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px;text-align:right">1%</span>
+            <div style="flex:1;height:10px;background:#1e293b;border-radius:5px;overflow:hidden">
+                <div style="height:100%;width:0.9%;background:linear-gradient(90deg,#166534,#22c55e);border-radius:5px;transition:width 0.6s"></div>
+            </div>
+            <span style="font-weight:800;font-size:16px;color:#ef4444;min-width:42px">99%</span>
+        </div>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);min-width:60px;text-align:right">$87.4K</span>
+    </div></div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">📦</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Open Source Prediction Markets</span>
+    </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/openpredictionmarkets/socialpredict" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">GitHub - openpredictionmarkets/socialpredict: Easy to Deploy Prediction Market Platform · GitHub</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/kuestcom/prediction-market" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">kuestcom/prediction-market: Launch Your Own Web3 ... - GitHub</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/openpredictionmarkets/gantt" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">openpredictionmarkets/gantt</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/EwanBorgPad/pmAMM" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">EwanBorgPad/pmAMM</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/sublimestate/longtail-prediction-market" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">sublimestate/longtail-prediction-market</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/gr8estman/blockforecast-v4" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">gr8estman/blockforecast-v4</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/ZeitgeistPM/zeitgeist" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">zeitgeistpm/zeitgeist</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div>
+        <div class="oss-card" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <a href="https://github.com/Mosas2000/ProphetBase" target="_blank" style="font-size:13px;font-weight:600;color:var(--text-primary);text-decoration:none;display:block;margin-bottom:4px;">Mosas2000/ProphetBase</a>
+            <div style="font-size:11px;color:var(--text-secondary);line-height:1.4;"></div>
+            <span style="font-size:10px;color:var(--text-muted);margin-top:4px;display:inline-block;">exa</span>
+        </div></div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">📰</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Market Context & Trends</span>
+    </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.bloomberg.com/news/audio/2026-07-01/bloomberg-businessweek-daily-prediction-markets-podcast" target="_blank" class="market-q">Bloomberg Businessweek Daily: Questioning Prediction Markets</a>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://seekingalpha.com/article/4910379-draftkings-prediction-markets-are-eating-this-companys-lunch" target="_blank" class="market-q">DraftKings: Prediction Markets Are Eating This Company's Lunch (Rating Downgrade)</a>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.forbes.com/sites/nathangoldman/2026/07/01/prediction-markets-hit-24b-a-month-now-states-are-fighting-back/" target="_blank" class="market-q">Prediction Markets Hit $24 Billion A Month. States Are Fighting Back</a>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.cnbc.com/2026/07/02/prediction-markets-mostly-have-thinly-traded-contracts-.html" target="_blank" class="market-q">Prediction markets mostly have thinly traded contracts</a>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.investing.com/news/stock-market-news/spotify-asks-prediction-markets-to-remove-logo-after-chart-manipulation--bloomberg-93CH-4774234" target="_blank" class="market-q">Spotify asks prediction markets to remove logo after chart manipulation - Bloomberg By Investing.com</a>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.schwab.com/learn/story/stock-market-update-open" target="_blank" class="market-q">Markets Rise Early After Jobs Report Disappoints</a>
+        </div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🏰</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Kalshi — CFTC-Regulated</span>
+    </div><div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Real-money, US-only, CFTC-regulated exchange. Bid/ask spreads shown.</div><div style="font-size:12px;color:var(--text-muted);padding:8px 12px;font-style:italic">Data unavailable for this exchange — API pending or requires authentication.</div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🎓</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">PredictIt — Academic</span>
+    </div><div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Academic/political prediction market. US-legal. Real-money, capped at ~$850 per contract.</div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8416" target="_blank" class="market-q" style="flex:1;">Which party will win the 2026 election for governor of Georgia?: Republican</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8744" target="_blank" class="market-q" style="flex:1;">Who will win the Republican nomination in the LA-05 House primary?: Michael Echols</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8850" target="_blank" class="market-q" style="flex:1;">Who will be the next Cabinet member to leave office?: Markwayne Mullin</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8159" target="_blank" class="market-q" style="flex:1;">Which party will win the 2026 US Senate election in Maine?: Republican</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8294" target="_blank" class="market-q" style="flex:1;">Who will win the 2026 Wisconsin Democratic nomination for governor?: Sara Rodriguez</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8622" target="_blank" class="market-q" style="flex:1;">Who will win the Republican nomination in the AL-01 House primary?: Josh McKee</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8773" target="_blank" class="market-q" style="flex:1;">How many states will redistrict between April 30 and July 31?: 4</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://www.predictit.org/markets/detail/8808" target="_blank" class="market-q" style="flex:1;">What will be the margin in the Georgia GOP gubernatorial primary?: 6-7%</a>
+            <span style="font-weight:700;color:#059669;min-width:40px;text-align:right;">50%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">N/A</span>
+        </div>
+<div style="background:linear-gradient(135deg,var(--surface),var(--bar-bg));border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:8px">
+        <span style="font-size:20px;margin-right:10px">🤝</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-primary)">Manifold — Community</span>
+    </div><div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">Play-money prediction market. Largest community. M$ = mana (virtual currency).</div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/ScottAlexander/in-2028-will-ai-be-at-least-as-big" target="_blank" class="market-q" style="flex:1;">In 2028, will AI be at least as big a political issue as abortion?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">88%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$2,450,908</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/JRR/will-at-least-one-us-world-cup-game" target="_blank" class="market-q" style="flex:1;">Will at least one US World Cup game be moved because of Trump politics?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">2%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$7,763</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/Ricotta/will-consumer-ai-platforms-chatgpt" target="_blank" class="market-q" style="flex:1;">Will consumer AI platforms (ChatGPT, Claude, Perplexity, etc) face an ‘economic blackout’ protest ag</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">2%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$76,025</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/mariopasquato/llms-widely-used-in-economics-model" target="_blank" class="market-q" style="flex:1;">LLMs widely used in economics modeling by the end of 2026?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">31%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$1,027</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/MikhailTal/will-topcon-technology-share-of-glo-Z9SpZRI0Up" target="_blank" class="market-q" style="flex:1;">Will TOPCon technology share of global solar cell production exceed 90% for 2027?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">29%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$2,977</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/MikhailTal/will-topcon-technology-share-of-glo-gOc2SyltQZ" target="_blank" class="market-q" style="flex:1;">Will TOPCon technology share of global solar cell production exceed 90% for 2026?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">31%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$2,122</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/cash/will-americans-confidence-in-large-AANOn5PlIh" target="_blank" class="market-q" style="flex:1;">Will Americans' confidence in large technology companies decline in 2026, according to Gallup?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">53%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$286</span>
+        </div>
+        <div class="market-row" style="padding:8px 12px;">
+            <a href="https://manifold.markets/MikhailTal/will-topcon-technology-share-of-glo-tUt2c6IgSP" target="_blank" class="market-q" style="flex:1;">Will TOPCon technology share of global solar cell production exceed 90% for 2028?</a>
+            <span style="font-weight:700;color:#8b5cf6;min-width:40px;text-align:right;">29%</span>
+            <span style="font-size:11px;color:var(--text-muted);min-width:60px;text-align:right;">M$3,679</span>
+        </div>
+<div data-panel="context" data-panel-title="📰 Real-World Context" data-panel-color="#8b5cf6" data-panel-default="1">
+      <div class="section-header"><span class="icon">📰</span><h2>Real-World Context & News</h2><span class="accent-line"></span></div>
+      <div class="hero-card" style="border-left-color:#8b5cf6"><p>Curated headlines connecting market odds to real-world events. LLM-filtered for relevance.</p></div><div class="market-row"><a href="https://gizmodo.com/meta-is-building-a-prediction-markets-app-to-challenge-polymarket-and-kalshi-2000776311" target="_blank" class="market-q">Meta Building Prediction Markets App to Challenge Polymarket and Kalshi</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Prediction Market Platforms & Regulation</span></div><div class="market-row"><a href="https://www.coindesk.com/business/2026/06/29/kalshi-and-polymarket-could-become-m-and-a-targets-as-prediction-markets-consolidate-bernstein" target="_blank" class="market-q">Kalshi and Polymarket Could Become M&A Targets as Prediction Markets Consolidate: Bernstein</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Prediction Market Platforms & Regulation</span></div><div class="market-row"><a href="https://www.startribune.com/kalshi-polymarket-prediction-market-minnesota-law-felony/601863644" target="_blank" class="market-q">Kalshi, Polymarket Fight Minnesota Prediction Markets Ban</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Prediction Market Platforms & Regulation</span></div><div class="market-row"><a href="https://www.cnbc.com/2026/07/02/prediction-markets-mostly-have-thinly-traded-contracts-.html" target="_blank" class="market-q">Prediction Markets Mostly Have Thinly Traded Contracts</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Prediction Market Platforms & Regulation</span></div><div class="market-row"><a href="https://www.usatoday.com/story/news/2026/06/30/who-is-winning-the-midterms-latest-polls-congress-control-2026/90753045007/" target="_blank" class="market-q">Who Is Winning the Midterms? Latest Polls Show Who May Control Congress</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">US Midterm Elections 2026</span></div><div class="market-row"><a href="https://www.nytimes.com/interactive/2026/07/02/us/politics/trump-midterm-election-strategies.html" target="_blank" class="market-q">The Many Ways Trump Is Trying to Tip the Scales for the Midterms</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">US Midterm Elections 2026</span></div><div class="market-row"><a href="https://www.thestreet.com/fed/top-economist-delivers-blunt-fed-rate-warning-for-2026" target="_blank" class="market-q">Top Economist Delivers Blunt Fed Rate Warning for 2026</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Macro & Crypto Market Outlook</span></div><div class="market-row"><a href="https://finance.yahoo.com/markets/crypto/articles/crypto-market-today-july-2-214729127.html" target="_blank" class="market-q">Bitcoin Breaks Away from Tech Stocks to Surge Above $61,000</a> <span style="font-size:9px;background:#8b5cf6;color:#fff;padding:2px 6px;border-radius:3px">Macro & Crypto Market Outlook</span></div></div>
+
+  <!-- SOURCES -->
+  <a href="https://polymarket.com" target="_blank">Polymarket</a><a href="https://polymarket.com/markets" target="_blank">All Markets</a><a href="https://gamma-api.polymarket.com" target="_blank">Gamma API</a><a href="https://kalshi.com" target="_blank">Kalshi</a><a href="https://manifold.markets" target="_blank">Manifold</a><a href="https://metaculus.com" target="_blank">Metaculus</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-07-03-0804-prediction-markets.html">https://jsoprych.github.io/elko-reports-community/daily/2026-07-03-0804-prediction-markets.html</a>
+  </div>
+
+</div>
+</body>
+</html>
