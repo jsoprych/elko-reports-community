@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Daily Sweep | 2026-07-09 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.entity-card{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);transition:transform 0.15s,box-shadow 0.15s}
+.entity-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.source-pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:var(--accent);color:#fff}
+.news-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.news-bullet{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.news-sublinks{margin-top:4px;display:block;font-size:11px}
+.news-sublinks .links-label{font-weight:800;color:#1a7a3a;text-transform:uppercase;letter-spacing:0.5px;margin-right:2px}
+.news-sublinks a{color:var(--accent);text-decoration:none}
+.news-sublinks a:hover{text-decoration:underline}
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60632 Archer Heights</span>
+  <h1 class="report-title">60632 Archer Heights — Daily Sweep | 2026-07-09</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-09</span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOdDZhbTdkTjIya0F6RFJYZVQ2Z1gydERXdWt0anFWcUwwSjBFSDhQQUtfbU9ZaUtEaWVlalFiVS1GdWRJVzFmVmF0eWxaY3VUd2NsSkdfSXFmLTFqUnY0ZDZmaDZFMjFRQlFFeWtrOXIxTUlYSlA5a1lsNTJXZ2J1UlFRalZCTFhvSzM1MGhkVDBrVnFNVmRsVHloSG03Y2lLZjQtT0F5T1FQVHJoaThWYUpMa3ZabU43V2F0VHV5Zw" target="_blank" style="color:var(--accent);text-decoration:none">🚶 Best foot forward: Plans discussed at Moving Archer Forward meeting emphasize creating a pedestrian-friendly main street</a></h2>
+    <p>The Moving Archer Forward corridor study continues to shape the future of Archer Avenue, with the March 2026 community meeting emphasizing pedestrian-friendly design, protected bike lanes, and streetscape improvements. The Chicago Tribune editorial board has weighed in on the bike lane debate, while Southwest Regional Publishing reports mixed community reception to the planned upgrades. The 60632 business inventory now tracks 1,218 businesses across 133 unique types, with the industrial and retail sectors anchoring the corridor's economic base.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row"><div class="metric-card" style="background:linear-gradient(135deg,#4a6cf715,#6d8cff15);border:1px solid #4a6cf740;border-radius:12px;padding:20px 18px;text-align:center;min-width:140px;flex:1"><div class="metric-value" style="font-size:32px;font-weight:800;color:#4a6cf7;line-height:1.2">1218</div><div class="metric-label" style="font-size:12px;color:var(--text-secondary);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">Total Businesses</div></div><div class="metric-card" style="background:linear-gradient(135deg,#f59e0b15,#fbbf2415);border:1px solid #f59e0b40;border-radius:12px;padding:20px 18px;text-align:center;min-width:140px;flex:1"><div class="metric-value" style="font-size:32px;font-weight:800;color:#f59e0b;line-height:1.2">13</div><div class="metric-label" style="font-size:12px;color:var(--text-secondary);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">Industrial / Mfg</div></div><div class="metric-card" style="background:linear-gradient(135deg,#10b98115,#34d39915);border:1px solid #10b98140;border-radius:12px;padding:20px 18px;text-align:center;min-width:140px;flex:1"><div class="metric-value" style="font-size:32px;font-weight:800;color:#10b981;line-height:1.2">286</div><div class="metric-label" style="font-size:12px;color:var(--text-secondary);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">Retail / Food</div></div><div class="metric-card" style="background:linear-gradient(135deg,#8b5cf615,#a78bfa15);border:1px solid #8b5cf640;border-radius:12px;padding:20px 18px;text-align:center;min-width:140px;flex:1"><div class="metric-value" style="font-size:32px;font-weight:800;color:#8b5cf6;line-height:1.2">919</div><div class="metric-label" style="font-size:12px;color:var(--text-secondary);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">Other</div></div></div>
+
+  <!-- CONTENT (panel stack) -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:var(--accent)">📊 60632 Business Inventory Snapshot</h2>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Other">Other</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#4a6cf7;width:53.4%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">415</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Retail">Retail</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#f59e0b;width:16.5%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">128</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="School">School</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#10b981;width:7.7%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">60</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Fast Food">Fast Food</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#ef4444;width:7.7%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">60</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Restaurant">Restaurant</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#8b5cf6;width:4.5%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">35</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Yes">Yes</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#ec4899;width:4.1%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">32</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Church">Church</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#06b6d4;width:3.1%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">24</div></div></div>
+<div style="display:flex;align-items:center;margin-bottom:8px;gap:8px"><div style="width:100px;font-size:12px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Place Of Worship">Place Of Worship</div><div style="flex:1;background:var(--bar-bg);border-radius:4px;overflow:hidden;height:20px;position:relative"><div style="background:#84cc16;width:3.0%;height:100%;border-radius:4px;transition:width 0.3s;position:relative"></div><div class="tooltip" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:10px;color:#fff;opacity:0;transition:opacity 0.2s">23</div></div></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">📋 Recent Inventory Additions</h2>
+<table style="width:100%;border-collapse:collapse"><thead><tr style="background:var(--surface);border-bottom:2px solid var(--border)"><th style="padding:6px 10px;text-align:left;font-size:12px">Business</th><th style="padding:6px 10px;text-align:left;font-size:12px">Address</th><th style="padding:6px 10px;text-align:left;font-size:12px">Type</th></tr></thead><tbody><tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Saint Marys Church</td><td style="padding:6px 10px;font-size:12px">—</td><td style="padding:6px 10px;font-size:12px">Place Of Worship</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Little Caesars</td><td style="padding:6px 10px;font-size:12px">6764 West 95th Street</td><td style="padding:6px 10px;font-size:12px">Fast Food</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Starbucks</td><td style="padding:6px 10px;font-size:12px">6768 West 95th Street</td><td style="padding:6px 10px;font-size:12px">Cafe</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Aldi</td><td style="padding:6px 10px;font-size:12px">9640 South Ridgeland Avenue</td><td style="padding:6px 10px;font-size:12px">Supermarket</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">6500 W 95th Street (Chicago Ridge Mall)</td><td style="padding:6px 10px;font-size:12px">—</td><td style="padding:6px 10px;font-size:12px">Other</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">95th Street & Oak Park</td><td style="padding:6px 10px;font-size:12px">—</td><td style="padding:6px 10px;font-size:12px">Other</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Dunkin'</td><td style="padding:6px 10px;font-size:12px">9640 South Ridgeland Avenue</td><td style="padding:6px 10px;font-size:12px">Fast Food</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-size:13px;font-weight:600">Things Remembered</td><td style="padding:6px 10px;font-size:12px">—</td><td style="padding:6px 10px;font-size:12px">Gift</td></tr></tbody></table>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 16px;font-size:16px;font-weight:700;color:var(--accent)">🔍 Latest Research Findings</h2>
+<div class="news-item"><span class="news-bullet" style="background:#4a6cf7"></span><div><strong><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOdDZhbTdkTjIya0F6RFJYZVQ2Z1gydERXdWt0anFWcUwwSjBFSDhQQUtfbU9ZaUtEaWVlalFiVS1GdWRJVzFmVmF0eWxaY3VUd2NsSkdfSXFmLTFqUnY0ZDZmaDZFMjFRQlFFeWtrOXIxTUlYSlA5a1lsNTJXZ2J1UlFRalZCTFhvSzM1MGhkVDBrVnFNVmRsVHloSG03Y2lLZjQtT0F5T1FQVHJoaThWYUpMa3ZabU43V2F0VHV5Zw" target="_blank" style="color:var(--accent);text-decoration:none">1.</a></strong> Best foot forward: Plans discussed at Moving Archer Forward meeting emphasize creating a pedestrian-friendly main street<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Streetsblog Chicago — 2026-03-02</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Plans discussed at Moving Archer Forward meeting emphasize creating a pedestrian-friendly main street</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOdDZhbTdkTjIya0F6RFJYZVQ2Z1gydERXdWt0anFWcUwwSjBFSDhQQUtfbU9ZaUtEaWVlalFiVS1GdWRJVzFmVmF0eWxaY3VUd2NsSkdfSXFmLTFqUnY0ZDZmaDZFMjFRQlFFeWtrOXIxTUlYSlA5a1lsNTJXZ2J1UlFRalZCTFhvSzM1MGhkVDBrVnFNVmRsVHloSG03Y2lLZjQtT0F5T1FQVHJoaThWYUpMa3ZabU43V2F0VHV5Zw" target="_blank">Streetsblog Chicago</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#f59e0b"></span><div><strong><a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPVGo3LWZUSGVwZEhQOTBiZlV3Rm4zRExmTDhQd2trXzVfZzZ1S1MxY2RlZE5CT08ydDYzTEpidGo5WEJJdV9YYVhtc3Z0cEtjTm1pa05FQndiRFg0ZFhEbWVic0ZuZHhGMFhLejAxMTgwX0szU2hTbi1yT05VcDM1SF9DQlVNTVZ0bDhJc0JtY1YwSGpRYVFjb1RJNXhVcmd3Y1E" target="_blank" style="color:var(--accent);text-decoration:none">2.</a></strong> Reaction mixed to planned Archer Avenue upgrades<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Southwest Regional Publishing — 2026-03-11</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Reaction mixed to planned Archer Avenue upgrades</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPVGo3LWZUSGVwZEhQOTBiZlV3Rm4zRExmTDhQd2trXzVfZzZ1S1MxY2RlZE5CT08ydDYzTEpidGo5WEJJdV9YYVhtc3Z0cEtjTm1pa05FQndiRFg0ZFhEbWVic0ZuZHhGMFhLejAxMTgwX0szU2hTbi1yT05VcDM1SF9DQlVNTVZ0bDhJc0JtY1YwSGpRYVFjb1RJNXhVcmd3Y1E" target="_blank">Southwest Regional Publishing</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong><a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxPbmdHSzFta1gzWHg5eEY2RkhZZW1lU2tVOHRPRFQyemJReFVETzdiNHp1X2dsOGcybHBfSHV2aXlzN0lzRXFKSVRHQmltc1BDQVo0SHQ3QzY1UVJ2SkVEbWQ4RkNjQW9JMG9NSG12T0RKNTF4Y3NYTEltR0lORm1CMnE5bThSTlBCZnc" target="_blank" style="color:var(--accent);text-decoration:none">3.</a></strong> Letters: The Tribune Editorial Board criticizes Archer Avenue bike lanes while ignoring street safety data<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Chicago Tribune — 2026-05-07</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">The Tribune Editorial Board criticizes Archer Avenue bike lanes while ignoring street safety data</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxPbmdHSzFta1gzWHg5eEY2RkhZZW1lU2tVOHRPRFQyemJReFVETzdiNHp1X2dsOGcybHBfSHV2aXlzN0lzRXFKSVRHQmltc1BDQVo0SHQ3QzY1UVJ2SkVEbWQ4RkNjQW9JMG9NSG12T0RKNTF4Y3NYTEltR0lORm1CMnE5bThSTlBCZnc" target="_blank">Chicago Tribune</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#ef4444"></span><div><strong><a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNT0R1UHk0M2lpWUxidFVvc0dhRmQwbjlPaUhIRWJMSFJzbF9PVkF6blpaYmk1Tzl1WFljaW9MWEZLeXN4OE5adW5OSmxod0lqa1hZZjhyYWpxdFpkTzdxdm1aa2g5a0lsRkJxaWF6ajI1VHVqME42cHpRSWZFY2lialFmMmFLWUduRE9LVkZFZG53S2stZU9NY0REdEg4V3NwcFZYbldXNnc2QQ" target="_blank" style="color:var(--accent);text-decoration:none">4.</a></strong> Moving Archer Forward - Deadline Extended & Business Survey<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">McKinley Park News — 2025-10-04</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Moving Archer Forward - Deadline Extended & Business Survey</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNT0R1UHk0M2lpWUxidFVvc0dhRmQwbjlPaUhIRWJMSFJzbF9PVkF6blpaYmk1Tzl1WFljaW9MWEZLeXN4OE5adW5OSmxod0lqa1hZZjhyYWpxdFpkTzdxdm1aa2g5a0lsRkJxaWF6ajI1VHVqME42cHpRSWZFY2lialFmMmFLWUduRE9LVkZFZG53S2stZU9NY0REdEg4V3NwcFZYbldXNnc2QQ" target="_blank">McKinley Park News</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#8b5cf6"></span><div><strong><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQVTRyMWtCLXpDTjZROEkxRWRLZHVLQlpMNnVyVjFwam13Ni1BUGlFRFRFTENMZDVhTWlkYXRoeFp5NTk0aTZIVnk0eUpNZW9VbDdSYkRucUJmTTZCNGxOWkh3Ykg3WDlBMVFSYUExbzIxWlhVLU9MNUQ3MEtNUmpTTHVGbXBmWGFmN29JZDFwRkRaaUE" target="_blank" style="color:var(--accent);text-decoration:none">5.</a></strong> Sterling Bay breaks ground on Pulaski 55 Logistics Center<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Urbanize Chicago — 2024-07-20</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Sterling Bay breaks ground on Pulaski 55 Logistics Center</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQVTRyMWtCLXpDTjZROEkxRWRLZHVLQlpMNnVyVjFwam13Ni1BUGlFRFRFTENMZDVhTWlkYXRoeFp5NTk0aTZIVnk0eUpNZW9VbDdSYkRucUJmTTZCNGxOWkh3Ykg3WDlBMVFSYUExbzIxWlhVLU9MNUQ3MEtNUmpTTHVGbXBmWGFmN29JZDFwRkRaaUE" target="_blank">Urbanize Chicago</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#ec4899"></span><div><strong><a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdHJJMkJsTlZoTjFmNVdDRWhZYXN0YklUZjlvM3RqZ1QxLVpXbFljd3JSaVhMZ2NkRDJwWnhCaWRPSzhQVENuUXNzcm9nbmxwdjBwZ3ExN1FyR3JQTG01VFNreUhHNFZycW84bnNaRjQwRkdIYi1jS0pQQTdhZnVYYVlSaTBpbGE2QWNRRml0alJMRlQwM2RQbTJ0c0xZTmN1eVN2cVpPYXJFWEJXaFU1VzdjVDhqVU04X1VTV1d5b1V1Zw" target="_blank" style="color:var(--accent);text-decoration:none">6.</a></strong> Groundbreaking Held For New Greater Chicago Food Depository Building In Archer Heights<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Chicago YIMBY — 2022-11-25</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Groundbreaking Held For New Greater Chicago Food Depository Building In Archer Heights</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdHJJMkJsTlZoTjFmNVdDRWhZYXN0YklUZjlvM3RqZ1QxLVpXbFljd3JSaVhMZ2NkRDJwWnhCaWRPSzhQVENuUXNzcm9nbmxwdjBwZ3ExN1FyR3JQTG01VFNreUhHNFZycW84bnNaRjQwRkdIYi1jS0pQQTdhZnVYYVlSaTBpbGE2QWNRRml0alJMRlQwM2RQbTJ0c0xZTmN1eVN2cVpPYXJFWEJXaFU1VzdjVDhqVU04X1VTV1d5b1V1Zw" target="_blank">Chicago YIMBY</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPY2dSRWw2SUxGOXRfRTQ3X3hmU0VDS0ZUaFppMTBqdDBESFdPRFhCa3hBMjdmcWxaNGdRaVVXcWswVEpkNkZZZlRGWXB2YzFrZFRPMWZtdlh6OUVvazdLODNNLWF0UDJKRi1iZFZPMV9NVm5DSF9IWmEwUFhrMEZpWXNPQnNxRWJyMk12azNJZWkzT0Z6WWZzMWZsUURsY2ZkOHJpY2JRS1cyT2NPbkdYMU5UMU9kVEpFMEdr" target="_blank" style="color:var(--accent);text-decoration:none">7.</a></strong> Panda Express Eyes Southwest Side, But Some Neighbors Oppose Drive-Thru<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">Block Club Chicago — 2024-02-08</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Panda Express Eyes Southwest Side, But Some Neighbors Oppose Drive-Thru</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPY2dSRWw2SUxGOXRfRTQ3X3hmU0VDS0ZUaFppMTBqdDBESFdPRFhCa3hBMjdmcWxaNGdRaVVXcWswVEpkNkZZZlRGWXB2YzFrZFRPMWZtdlh6OUVvazdLODNNLWF0UDJKRi1iZFZPMV9NVm5DSF9IWmEwUFhrMEZpWXNPQnNxRWJyMk12azNJZWkzT0Z6WWZzMWZsUURsY2ZkOHJpY2JRS1cyT2NPbkdYMU5UMU9kVEpFMEdr" target="_blank">Block Club Chicago</a></span></div></div>
+<div class="news-item"><span class="news-bullet" style="background:#84cc16"></span><div><strong><a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE1mQllDQjJwUzhGS0tFcHM0a2pXRW9jYng2UUlNSG5jU3hQQjJpdmwtRFZrZGFnUDdiaUpYWWFfcHB2N1l0MFE5M0NpMGZSQms4VGFKOXAxQmtHX3NvblVDTzlORVVBVF9XVHJBR3F1SjRxb2ZPSWtldQ" target="_blank" style="color:var(--accent);text-decoration:none">8.</a></strong> Moving Archer Forward - City of Chicago (.gov)<span style="display:block;font-size:12px;color:var(--text-muted);margin:3px 0">City of Chicago (.gov) — 2025-05-03</span><p style="font-size:13px;margin:4px 0 6px;color:var(--text-secondary)">Moving Archer Forward official planning page</p><span class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE1mQllDQjJwUzhGS0tFcHM0a2pXRW9jYng2UUlNSG5jU3hQQjJpdmwtRFZrZGFnUDdiaUpYWWFfcHB2N1l0MFE5M0NpMGZSQms4VGFKOXAxQmtHX3NvblVDTzlORVVBVF9XVHJBR3F1SjRxb2ZPSWtldQ" target="_blank">City of Chicago (.gov)</a></span></div></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">🏗 Key Development Projects</h2>
+<table style="width:100%;border-collapse:collapse"><thead><tr style="background:var(--surface);border-bottom:2px solid var(--border)"><th style="padding:10px 12px;text-align:left">Project</th><th style="padding:10px 12px;text-align:left">Status</th><th style="padding:10px 12px;text-align:left">Details</th></tr></thead><tbody><tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 12px"><a href="https://www.chicago.gov/city/en/sites/moving-archer-forward/home.html" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Moving Archer Forward</a></td><td style="padding:10px 12px;font-size:13px">Active — Planning Phase</td><td style="padding:10px 12px;font-size:13px">City-led corridor study to redesign Archer Avenue with pedestrian safety, bike lanes, and streetscape improvements. Public meetings ongoing.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 12px"><a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPVGo3LWZUSGVwZEhQOTBiZlV3Rm4zRExmTDhQd2trXzVfZzZ1S1MxY2RlZE5CT08ydDYzTEpidGo5WEJJdV9YYVhtc3Z0cEtjTm1pa05FQndiRFg0ZFhEbWVic0ZuZHhGMFhLejAxMTgwX0szU2hTbi1yT05VcDM1SF9DQlVNTVZ0bDhJc0JtY1YwSGpRYVFjb1RJNXhVcmd3Y1E" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Archer Avenue Complete Streets</a></td><td style="padding:10px 12px;font-size:13px">Mixed Reception — Public Feedback</td><td style="padding:10px 12px;font-size:13px">CDOT proposal for protected bike lanes, signalized crosswalks, and lane reconfiguration. Mixed community response as of March 2026.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 12px"><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQVTRyMWtCLXpDTjZROEkxRWRLZHVLQlpMNnVyVjFwam13Ni1BUGlFRFRFTENMZDVhTWlkYXRoeFp5NTk0aTZIVnk0eUpNZW9VbDdSYkRucUJmTTZCNGxOWkh3Ykg3WDlBMVFSYUExbzIxWlhVLU9MNUQ3MEtNUmpTTHVGbXBmWGFmN29JZDFwRkRaaUE" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Pulaski 55 Logistics Center</a></td><td style="padding:10px 12px;font-size:13px">Under Construction — Sterling Bay</td><td style="padding:10px 12px;font-size:13px">Modern logistics facility at Pulaski & 55th. Sterling Bay development bringing warehousing and distribution jobs to the corridor.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 12px"><a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdHJJMkJsTlZoTjFmNVdDRWhZYXN0YklUZjlvM3RqZ1QxLVpXbFljd3JSaVhMZ2NkRDJwWnhCaWRPSzhQVENuUXNzcm9nbmxwdjBwZ3ExN1FyR3JQTG01VFNreUhHNFZycW84bnNaRjQwRkdIYi1jS0pQQTdhZnVYYVlSaTBpbGE2QWNRRml0alJMRlQwM2RQbTJ0c0xZTmN1eVN2cVpPYXJFWEJXaFU1VzdjVDhqVU04X1VTV1d5b1V1Zw" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Greater Chicago Food Depository Expansion</a></td><td style="padding:10px 12px;font-size:13px">Completed — Operating</td><td style="padding:10px 12px;font-size:13px">New distribution facility serving 800+ food pantries and shelters across Cook County. Major employer in the 60632 industrial corridor.</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 12px"><a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPY2dSRWw2SUxGOXRfRTQ3X3hmU0VDS0ZUaFppMTBqdDBESFdPRFhCa3hBMjdmcWxaNGdRaVVXcWswVEpkNkZZZlRGWXB2YzFrZFRPMWZtdlh6OUVvazdLODNNLWF0UDJKRi1iZFZPMV9NVm5DSF9IWmEwUFhrMEZpWXNPQnNxRWJyMk12azNJZWkzT0Z6WWZzMWZsUURsY2ZkOHJpY2JRS1cyT2NPbkdYMU5UMU9kVEpFMEdr" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Panda Express — Southwest Side</a></td><td style="padding:10px 12px;font-size:13px">Proposed — Zoning Review</td><td style="padding:10px 12px;font-size:13px">Panda Express seeks drive-thru permit on Southwest Side. Some neighbors oppose traffic impact. Under zoning review as of early 2024.</td></tr></tbody></table>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">💼 Business & Employment Opportunities</h2>
+<div style="margin-bottom:12px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px;flex-shrink:0">1</span><a href="https://www.indeed.com/jobs?q=warehouse+60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Warehouse & Logistics Jobs</a> — Indeed shows 50+ listings in 60632 area. Entry-level warehouse associate, forklift operator, order picker roles. Wages $16-22/hr. <a href="https://www.indeed.com/jobs?q=warehouse+60632" target="_blank" style="color:var(--accent)">Browse listings →</a></div>
+<div style="margin-bottom:12px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px;flex-shrink:0">2</span><a href="https://www.indeed.com/jobs?q=manufacturing+60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Manufacturing Positions</a> — Production line, CNC operator, quality control roles at firms along the 60632 industrial corridor. Wages $18-28/hr. <a href="https://www.indeed.com/jobs?q=manufacturing+60632" target="_blank" style="color:var(--accent)">Browse listings →</a></div>
+<div style="margin-bottom:12px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px;flex-shrink:0">3</span><a href="https://www.ziprecruiter.com/Jobs/In-60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Midway Airport Hiring</a> — TSA, airline ground crew, retail/concessions, cargo handling. Multiple employers hiring near Midway. <a href="https://www.ziprecruiter.com/Jobs/In-60632" target="_blank" style="color:var(--accent)">Browse listings →</a></div>
+<div style="margin-bottom:12px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px;flex-shrink:0">4</span><a href="https://www.glassdoor.com/Job/chicago-60632-jobs-SRCH_IL.0,8_IC1128808_KO9,16.htm" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Greater Chicago Food Depository</a> — Nonprofit distribution center in Archer Heights. Regular openings for drivers, warehouse staff, admin. <a href="https://www.glassdoor.com/Job/chicago-60632-jobs-SRCH_IL.0,8_IC1128808_KO9,16.htm" target="_blank" style="color:var(--accent)">Browse listings →</a></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">💰 For Sale / Good Buys</h2>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#f59e0b;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">1</span><a href="https://www.loopnet.com/search/industrial-properties/chicago-il/for-sale/?sk=60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">LoopNet Industrial — 60632 For Sale</a> — Browse industrial properties, warehouses, and commercial buildings available for purchase in the 60632 corridor. <a href="https://www.loopnet.com/search/industrial-properties/chicago-il/for-sale/?sk=60632" target="_blank" style="color:var(--accent)">View listings →</a></div>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#f59e0b;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">2</span><a href="https://www.crexi.com/properties?search=Chicago+IL+60632+industrial" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Crexi — Chicago Industrial Properties</a> — Commercial real estate exchange with current 60632-area listings including flex space, distribution centers, and development sites. <a href="https://www.crexi.com/properties?search=Chicago+IL+60632+industrial" target="_blank" style="color:var(--accent)">View listings →</a></div>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#f59e0b;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">3</span><a href="https://www.realtor.com/realestateandhomes-search/60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Realtor.com — 60632 Homes</a> — Residential properties for sale in Archer Heights. Single-family, multi-unit, and condos available. <a href="https://www.realtor.com/realestateandhomes-search/60632" target="_blank" style="color:var(--accent)">View listings →</a></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">🏠 For Rent</h2>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#10b981;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">1</span><a href="https://www.realtor.com/realestateandhomes-search/60632/type-rentals" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">2924 W 38th Pl Unit 2, Chicago, IL 60632</a> — Rental listing active as of July 2026 on Realtor.com. 60632 residential availability. <a href="https://www.realtor.com/realestateandhomes-search/60632/type-rentals" target="_blank" style="color:var(--accent)">View listings →</a></div>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#10b981;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">2</span><a href="https://www.loopnet.com/search/industrial-properties/chicago-il/for-lease/?sk=60632" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">LoopNet Industrial — 60632 For Lease</a> — Warehouses, flex space, distribution centers available for lease. Industrial vacancy rates remain tight in Chicago market. <a href="https://www.loopnet.com/search/industrial-properties/chicago-il/for-lease/?sk=60632" target="_blank" style="color:var(--accent)">View listings →</a></div>
+<div style="margin-bottom:10px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:#10b981;color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px">3</span><a href="https://www.apartments.com/chicago-il-60632/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Apartments.com — 60632 Rentals</a> — Residential apartments and houses for rent in Archer Heights and surrounding neighborhoods. <a href="https://www.apartments.com/chicago-il-60632/" target="_blank" style="color:var(--accent)">View listings →</a></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">🤖 AI Ecosystem Map — Enterprise Landscape</h2>
+<div class="entity-row"><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>OpenAI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Anthropic</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google-deepmind/default.svg" alt="Google DeepMind" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Google DeepMind</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" alt="xAI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>xAI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="Meta AI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Meta AI</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="Microsoft" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Microsoft</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="Amazon" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Amazon</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" alt="NVIDIA" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>NVIDIA</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>AMD</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Intel</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tsmc/default.svg" alt="TSMC" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>TSMC</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/asml/default.svg" alt="ASML" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>ASML</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" alt="Broadcom" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Broadcom</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" alt="Apple" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Apple</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>DeepSeek</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibaba/default.svg" alt="Alibaba" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Alibaba</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Baidu</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ibm/default.svg" alt="IBM" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>IBM</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Oracle</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/huggingface/default.svg" alt="Hugging Face" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Hugging Face</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/palantir/default.svg" alt="Palantir" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Palantir</span></div>
+<div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/salesforce/default.svg" alt="Salesforce" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Salesforce</span></div></div>
+</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent)">💾 Database Status</h2>
+<table style="width:100%;max-width:400px;border-collapse:collapse"><tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-size:13px">Total Businesses</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:right">1,218</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-size:13px">Industrial / Manufacturing</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:right">13</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-size:13px">Retail / Food Service</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:right">286</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-size:13px">Other</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:right">919</td></tr>
+<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 12px;font-size:13px">Unique Business Types</td><td style="padding:8px 12px;font-size:13px;font-weight:700;text-align:right">133</td></tr></table>
+</div>
+
+  <!-- SOURCES -->
+  <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxOdDZhbTdkTjIya0F6RFJYZVQ2Z1gydERXdWt0anFWcUwwSjBFSDhQQUtfbU9ZaUtEaWVlalFiVS1GdWRJVzFmVmF0eWxaY3VUd2NsSkdfSXFmLTFqUnY0ZDZmaDZFMjFRQlFFeWtrOXIxTUlYSlA5a1lsNTJXZ2J1UlFRalZCTFhvSzM1MGhkVDBrVnFNVmRsVHloSG03Y2lLZjQtT0F5T1FQVHJoaThWYUpMa3ZabU43V2F0VHV5Zw" target="_blank" class="source-pill">Streetsblog Chicago</a>
+<a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPVGo3LWZUSGVwZEhQOTBiZlV3Rm4zRExmTDhQd2trXzVfZzZ1S1MxY2RlZE5CT08ydDYzTEpidGo5WEJJdV9YYVhtc3Z0cEtjTm1pa05FQndiRFg0ZFhEbWVic0ZuZHhGMFhLejAxMTgwX0szU2hTbi1yT05VcDM1SF9DQlVNTVZ0bDhJc0JtY1YwSGpRYVFjb1RJNXhVcmd3Y1E" target="_blank" class="source-pill">Southwest Regional Publishing</a>
+<a href="https://news.google.com/rss/articles/CBMiigFBVV95cUxPbmdHSzFta1gzWHg5eEY2RkhZZW1lU2tVOHRPRFQyemJReFVETzdiNHp1X2dsOGcybHBfSHV2aXlzN0lzRXFKSVRHQmltc1BDQVo0SHQ3QzY1UVJ2SkVEbWQ4RkNjQW9JMG9NSG12T0RKNTF4Y3NYTEltR0lORm1CMnE5bThSTlBCZnc" target="_blank" class="source-pill">Chicago Tribune</a>
+<a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNT0R1UHk0M2lpWUxidFVvc0dhRmQwbjlPaUhIRWJMSFJzbF9PVkF6blpaYmk1Tzl1WFljaW9MWEZLeXN4OE5adW5OSmxod0lqa1hZZjhyYWpxdFpkTzdxdm1aa2g5a0lsRkJxaWF6ajI1VHVqME42cHpRSWZFY2lialFmMmFLWUduRE9LVkZFZG53S2stZU9NY0REdEg4V3NwcFZYbldXNnc2QQ" target="_blank" class="source-pill">McKinley Park News</a>
+<a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxQVTRyMWtCLXpDTjZROEkxRWRLZHVLQlpMNnVyVjFwam13Ni1BUGlFRFRFTENMZDVhTWlkYXRoeFp5NTk0aTZIVnk0eUpNZW9VbDdSYkRucUJmTTZCNGxOWkh3Ykg3WDlBMVFSYUExbzIxWlhVLU9MNUQ3MEtNUmpTTHVGbXBmWGFmN29JZDFwRkRaaUE" target="_blank" class="source-pill">Urbanize Chicago</a>
+<a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdHJJMkJsTlZoTjFmNVdDRWhZYXN0YklUZjlvM3RqZ1QxLVpXbFljd3JSaVhMZ2NkRDJwWnhCaWRPSzhQVENuUXNzcm9nbmxwdjBwZ3ExN1FyR3JQTG01VFNreUhHNFZycW84bnNaRjQwRkdIYi1jS0pQQTdhZnVYYVlSaTBpbGE2QWNRRml0alJMRlQwM2RQbTJ0c0xZTmN1eVN2cVpPYXJFWEJXaFU1VzdjVDhqVU04X1VTV1d5b1V1Zw" target="_blank" class="source-pill">Chicago YIMBY</a>
+<a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxPY2dSRWw2SUxGOXRfRTQ3X3hmU0VDS0ZUaFppMTBqdDBESFdPRFhCa3hBMjdmcWxaNGdRaVVXcWswVEpkNkZZZlRGWXB2YzFrZFRPMWZtdlh6OUVvazdLODNNLWF0UDJKRi1iZFZPMV9NVm5DSF9IWmEwUFhrMEZpWXNPQnNxRWJyMk12azNJZWkzT0Z6WWZzMWZsUURsY2ZkOHJpY2JRS1cyT2NPbkdYMU5UMU9kVEpFMEdr" target="_blank" class="source-pill">Block Club Chicago</a>
+<a href="https://news.google.com/rss/articles/CBMieEFVX3lxTE1mQllDQjJwUzhGS0tFcHM0a2pXRW9jYng2UUlNSG5jU3hQQjJpdmwtRFZrZGFnUDdiaUpYWWFfcHB2N1l0MFE5M0NpMGZSQms4VGFKOXAxQmtHX3NvblVDTzlORVVBVF9XVHJBR3F1SjRxb2ZPSWtldQ" target="_blank" class="source-pill">City of Chicago (.gov)</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-07-09-1408-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-07-09-1408-60632-daily-sweep.html</a>
+  </div>
+
+</div>
+</body>
+</html>
