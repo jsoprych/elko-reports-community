@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Formula One Fan Report — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.baseball-card { background: var(--surface); border-radius: var(--card-radius); padding: var(--spacing-md); margin-bottom: var(--spacing-md); border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+.bc-header { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.bc-photo-wrap { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+.bc-photo { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; background: var(--bar-bg); }
+.bc-number { position: absolute; bottom: -4px; right: -4px; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; border: 2px solid var(--bg); }
+.bc-name { font-size: 18px; font-weight: 700; }
+.bc-team { font-size: 13px; font-weight: 600; }
+.bc-standing { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.bc-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 10px; }
+.bc-stat { text-align: center; padding: 6px 4px; background: var(--bar-bg); border-radius: 6px; }
+.bc-stat-val { display: block; font-size: 20px; font-weight: 800; color: var(--text-primary); }
+.bc-stat-lbl { display: block; font-size: 9px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.bc-info { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+.bc-info-row { display: flex; gap: 8px; padding: 2px 0; border-bottom: 1px solid var(--border); }
+.bc-info-row:last-child { border-bottom: none; }
+.bc-info-lbl { font-weight: 600; color: var(--text-muted); min-width: 50px; }
+.bc-bio { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.bc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .bc-grid { grid-template-columns: 1fr; } }
+.f1-standings { width: 100%; border-collapse: collapse; font-size: 13px; }
+.f1-standings thead { background: var(--bar-bg); }
+.f1-standings th { text-align: left; padding: 8px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; }
+.f1-standings td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+.f1-standings tbody tr:hover { background: var(--bar-bg); }
+.td-pos { font-weight: 700; color: var(--text-muted); width: 30px; }
+.td-pts { font-weight: 700; color: var(--accent); }
+.td-driver { font-weight: 600; }
+.team-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.team-dot-flag { font-size: 14px; }
+.team-card { background: var(--surface); border-radius: var(--card-radius); padding: 14px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+.team-card-header { margin-bottom: 10px; }
+.team-card-name { font-size: 16px; font-weight: 700; }
+.team-card-full { font-size: 11px; color: var(--text-muted); }
+.team-card-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 12px; border-bottom: 1px solid var(--border); }
+.team-card-row:last-child { border-bottom: none; }
+.tcr-lbl { color: var(--text-muted); font-weight: 600; }
+.tcr-val { color: var(--text-primary); text-align: right; }
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+.tl-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+.td-circuit { color: var(--text-secondary); font-size: 12px; }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Formula One</span>
+  <h1 class="report-title">Formula One Fan Report</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-10</span>
+    <span>✍️ Hermes Agent</span>
+    <span>🔓 Public</span>
+    <span>📄 Fan Report</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>Kimi Antonelli Wins Miami GP — Third Straight Victory!</h2>
+    <p>The 19-year-old Italian phenom held off Lando Norris in a tense finish at the Miami International Autodrome to claim his third consecutive Grand Prix victory, becoming the first driver to reach 100 points in the 2026 season. Mercedes leads both championships as the grid heads to Imola next weekend.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+
+  <!-- CONTENT (panel stack) -->
+  <div data-panel="overview" data-panel-title=" Overview" data-panel-color="#4a6cf7" data-panel-default="1">
+<div class="section-header"><span class="icon">Overview</span><h2></h2><span class="accent-line"></span></div><div class="section-body">The 2026 Formula 1 season is OFF AND RACING! Through 4 rounds, Kimi Antonelli has won 3 straight (China, Japan, Miami), Mercedes leads the constructors by 70 points, and the new 2026 regulations (active aero, sustainable fuels, Cadillac as 11th team) have delivered unpredictable, edge-of-your-seat racing. The Miami GP weekend was a classic — Norris won the Sprint, but Antonelli won Sunday. Next up: Imola!</div>
+</div>
+
+<div data-panel="drivers" data-panel-title=" Drivers" data-panel-color="#22c55e" data-panel-default="1">
+<div class="section-header"><span class="icon">Drivers Championship</span><h2></h2><span class="accent-line"></span></div><table class="f1-standings"><thead><tr><th>#</th><th>Driver</th><th>Team</th><th>Pts</th></tr></thead><tbody><tr><td class="td-pos">1</td><td class="td-driver">🇮🇹 Kimi Antonelli</td><td><span class="team-dot" style="background:#00d2be"></span>Mercedes</td><td class="td-pts">100</td></tr><tr><td class="td-pos">2</td><td class="td-driver">🇬🇧 George Russell</td><td><span class="team-dot" style="background:#00d2be"></span>Mercedes</td><td class="td-pts">80</td></tr><tr><td class="td-pos">3</td><td class="td-driver">🇲🇨 Charles Leclerc</td><td><span class="team-dot" style="background:#dc0000"></span>Ferrari</td><td class="td-pts">59</td></tr><tr><td class="td-pos">4</td><td class="td-driver">🇬🇧 Lando Norris</td><td><span class="team-dot" style="background:#ff8700"></span>McLaren</td><td class="td-pts">51</td></tr><tr><td class="td-pos">5</td><td class="td-driver">🇬🇧 Lewis Hamilton</td><td><span class="team-dot" style="background:#dc0000"></span>Ferrari</td><td class="td-pts">51</td></tr><tr><td class="td-pos">6</td><td class="td-driver">🇦🇺 Oscar Piastri</td><td><span class="team-dot" style="background:#ff8700"></span>McLaren</td><td class="td-pts">43</td></tr><tr><td class="td-pos">7</td><td class="td-driver">🇳🇱 Max Verstappen</td><td><span class="team-dot" style="background:#1e41b1"></span>Red Bull</td><td class="td-pts">35</td></tr><tr><td class="td-pos">8</td><td class="td-driver">🇬🇧 Oliver Bearman</td><td><span class="team-dot" style="background:#ffffff"></span>Haas</td><td class="td-pts">12</td></tr><tr><td class="td-pos">9</td><td class="td-driver">🇫🇷 Pierre Gasly</td><td><span class="team-dot" style="background:#0090ff"></span>Alpine</td><td class="td-pts">10</td></tr><tr><td class="td-pos">10</td><td class="td-driver">🇪🇸 Fernando Alonso</td><td><span class="team-dot" style="background:#006f62"></span>Aston Martin</td><td class="td-pts">8</td></tr><tr><td class="td-pos">11</td><td class="td-driver">🇫🇷 Esteban Ocon</td><td><span class="team-dot" style="background:#ffffff"></span>Haas</td><td class="td-pts">6</td></tr><tr><td class="td-pos">12</td><td class="td-driver">🇹🇭 Alex Albon</td><td><span class="team-dot" style="background:#005aff"></span>Williams</td><td class="td-pts">5</td></tr><tr><td class="td-pos">13</td><td class="td-driver">🇪🇸 Carlos Sainz</td><td><span class="team-dot" style="background:#005aff"></span>Williams</td><td class="td-pts">4</td></tr><tr><td class="td-pos">14</td><td class="td-driver">🇳🇿 Liam Lawson</td><td><span class="team-dot" style="background:#6692ff"></span>Racing Bulls</td><td class="td-pts">3</td></tr><tr><td class="td-pos">15</td><td class="td-driver">🇦🇷 Franco Colapinto</td><td><span class="team-dot" style="background:#0090ff"></span>Alpine</td><td class="td-pts">2</td></tr></tbody></table>
+</div>
+
+<div data-panel="constructors" data-panel-title=" Constructors" data-panel-color="#6c63ff" data-panel-default="1">
+<div class="section-header"><span class="icon">Constructors Championship</span><h2></h2><span class="accent-line"></span></div><table class="f1-standings"><thead><tr><th>#</th><th>Constructor</th><th>Pts</th></tr></thead><tbody><tr><td class="td-pos">1</td><td><span class="team-dot" style="background:#00d2be"></span>Mercedes</td><td class="td-pts">180</td></tr><tr><td class="td-pos">2</td><td><span class="team-dot" style="background:#dc0000"></span>Ferrari</td><td class="td-pts">110</td></tr><tr><td class="td-pos">3</td><td><span class="team-dot" style="background:#ff8700"></span>McLaren</td><td class="td-pts">94</td></tr><tr><td class="td-pos">4</td><td><span class="team-dot" style="background:#1e41b1"></span>Red Bull</td><td class="td-pts">35</td></tr><tr><td class="td-pos">5</td><td><span class="team-dot" style="background:#0090ff"></span>Alpine</td><td class="td-pts">12</td></tr><tr><td class="td-pos">6</td><td><span class="team-dot" style="background:#ffffff"></span>Haas</td><td class="td-pts">18</td></tr><tr><td class="td-pos">7</td><td><span class="team-dot" style="background:#006f62"></span>Aston Martin</td><td class="td-pts">8</td></tr><tr><td class="td-pos">8</td><td><span class="team-dot" style="background:#005aff"></span>Williams</td><td class="td-pts">9</td></tr><tr><td class="td-pos">9</td><td><span class="team-dot" style="background:#6692ff"></span>Racing Bulls</td><td class="td-pts">3</td></tr><tr><td class="td-pos">10</td><td><span class="team-dot" style="background:#9c1f2c"></span>Audi</td><td class="td-pts">2</td></tr><tr><td class="td-pos">11</td><td><span class="team-dot" style="background:#0a0a0a"></span>Cadillac</td><td class="td-pts">0</td></tr></tbody></table>
+</div>
+
+<div data-panel="profiles" data-panel-title=" Profiles" data-panel-color="#818cf8" data-panel-default="1">
+<div class="section-header"><span class="icon">Driver Baseball Cards</span><h2></h2><span class="accent-line"></span></div><div class="section-body">Every driver profile shows career stats at a glance — like a baseball trading card!</div><div class="bc-grid"><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#00d2be">12</div>
+    </div>
+    <div>
+      <div class="bc-name">🇮🇹 Kimi Antonelli</div>
+      <div class="bc-team" style="color:#00d2be"><span class="team-dot" style="background:#00d2be"></span>Mercedes</div>
+      <div class="bc-standing">#1 in Drivers' Championship · 100 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">3</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">5</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">3</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">5</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val">250</span><span class="bc-stat-lbl">Career</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>25 Aug 2006 (age 19) · Bologna</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>Mercedes-AMG Petronas</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>12</span></div>
+  <div class="bc-bio">The Italian teenager is F1's breakout star — 3 straight wins (China, Japan, Miami) and the first driver to 100 points in 2026. Youngest driver on the grid.</div>
+</div><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#00d2be">63</div>
+    </div>
+    <div>
+      <div class="bc-name">🇬🇧 George Russell</div>
+      <div class="bc-team" style="color:#00d2be"><span class="team-dot" style="background:#00d2be"></span>Mercedes</div>
+      <div class="bc-standing">#2 in Drivers' Championship · 80 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">1</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">4</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">1</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val"></span><span class="bc-stat-lbl">Career</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>15 Feb 1998 (age 28) · King's Lynn</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>Mercedes-AMG Petronas</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>63</span></div>
+  <div class="bc-bio">The senior Mercedes man is holding his own against the rookie sensation. Consistent top-5 finishes keep him firmly in title contention.</div>
+</div><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#dc0000">16</div>
+    </div>
+    <div>
+      <div class="bc-name">🇲🇨 Charles Leclerc</div>
+      <div class="bc-team" style="color:#dc0000"><span class="team-dot" style="background:#dc0000"></span>Ferrari</div>
+      <div class="bc-standing">#3 in Drivers' Championship · 59 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">2</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val"></span><span class="bc-stat-lbl">Career</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>16 Oct 1997 (age 28) · Monte Carlo</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>Scuderia Ferrari HP</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>16</span></div>
+  <div class="bc-bio">Miami was rough — a last-lap spin dropped him from P3 to P8. Still holds third in the standings but Ferrari's SF-26 needs more pace to challenge Mercedes.</div>
+</div><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#ff8700">4</div>
+    </div>
+    <div>
+      <div class="bc-name">🇬🇧 Lando Norris</div>
+      <div class="bc-team" style="color:#ff8700"><span class="team-dot" style="background:#ff8700"></span>McLaren</div>
+      <div class="bc-standing">#4 in Drivers' Championship · 51 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">2</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">1</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val">1</span><span class="bc-stat-lbl">Title</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>13 Nov 1999 (age 26) · Glastonbury</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>McLaren-Mercedes</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>4</span></div>
+  <div class="bc-bio">The reigning World Champion is finding his stride — won the Miami Sprint and finished 2nd in the GP. Fighting to defend his crown against Mercedes' 1-2 punch.</div>
+</div><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#dc0000">44</div>
+    </div>
+    <div>
+      <div class="bc-name">🇬🇧 Lewis Hamilton</div>
+      <div class="bc-team" style="color:#dc0000"><span class="team-dot" style="background:#dc0000"></span>Ferrari</div>
+      <div class="bc-standing">#5 in Drivers' Championship · 51 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">1</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val">7</span><span class="bc-stat-lbl">Titles</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>7 Jan 1985 (age 41) · Stevenage</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>Scuderia Ferrari HP</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>44</span></div>
+  <div class="bc-bio">The 7-time champion's move to Ferrari was the story of the offseason. Fourth in Miami, tied with Norris on points. Adjusting to Ferrari's package.</div>
+</div><div class="baseball-card">
+  <div class="bc-header">
+    <div class="bc-photo-wrap">
+      <div class="bc-photo" style="background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:28px;">🏎️</div>
+      <div class="bc-number" style="background:#ff8700">81</div>
+    </div>
+    <div>
+      <div class="bc-name">🇦🇺 Oscar Piastri</div>
+      <div class="bc-team" style="color:#ff8700"><span class="team-dot" style="background:#ff8700"></span>McLaren</div>
+      <div class="bc-standing">#6 in Drivers' Championship · 43 pts</div>
+    </div>
+  </div>
+  <div class="bc-stats"><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Wins</span></div><div class="bc-stat"><span class="bc-stat-val">2</span><span class="bc-stat-lbl">Podiums</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">Poles</span></div><div class="bc-stat"><span class="bc-stat-val">0</span><span class="bc-stat-lbl">FLaps</span></div><div class="bc-stat"><span class="bc-stat-val"></span><span class="bc-stat-lbl">Career</span></div></div>
+  <div class="bc-info-row"><span class="bc-info-lbl">Born</span><span>6 Apr 2001 (age 25) · Melbourne</span></div><div class="bc-info-row"><span class="bc-info-lbl">2026 Team</span><span>McLaren-Mercedes</span></div><div class="bc-info-row"><span class="bc-info-lbl">Car #</span><span>81</span></div>
+  <div class="bc-bio">Miami podium finisher — 3rd in the GP behind Antonelli and Norris. Growing into a serious contender in McLaren's lineup.</div>
+</div></div>
+</div>
+
+<div data-panel="results" data-panel-title=" Results" data-panel-color="#f59e0b" data-panel-default="1">
+<div class="section-header"><span class="icon">Race Results</span><h2></h2><span class="accent-line"></span></div><table class="f1-standings">
+    <thead><tr><th>#</th><th>Grand Prix</th><th>Country</th><th>Winner</th><th>Pts</th></tr></thead>
+    <tbody><tr><td class="td-pos">1</td><td>Australian GP</td><td><span class="flag">AU</span> Australia</td><td><strong>George Russell</strong></td><td class="td-pts">Winner</td></tr><tr><td class="td-pos">2</td><td>Chinese GP</td><td><span class="flag">CN</span> China</td><td><strong>Kimi Antonelli</strong></td><td class="td-pts">Winner</td></tr><tr><td class="td-pos">3</td><td>Japanese GP (Suzuka)</td><td><span class="flag">JP</span> Japan</td><td><strong>Kimi Antonelli</strong></td><td class="td-pts">Winner</td></tr><tr><td class="td-pos">4</td><td>Miami GP</td><td><span class="flag">US</span> USA</td><td><strong>Kimi Antonelli</strong></td><td class="td-pts">Winner</td></tr></tbody>
+  </table>
+</div>
+
+<div data-panel="teams" data-panel-title=" Teams" data-panel-color="#a78bfa" data-panel-default="1">
+<div class="section-header"><span class="icon">Teams & Sponsors</span><h2></h2><span class="accent-line"></span></div><div class="section-body">Every F1 team relies on sponsors. Here's who backs each team in 2026.</div><div class="team-grid"><div class="team-card" style="border-left:4px solid #00d2be">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#00d2be"><span class="team-dot" style="background:#00d2be"></span>Mercedes</div>
+    <div class="team-card-full">Mercedes-AMG Petronas F1 Team</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Mercedes</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Toto Wolff</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Petronas, Ineos, Crown, TeamViewer, Marriott</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Antonelli (#12) · Russell (#63)</span></div>
+</div><div class="team-card" style="border-left:4px solid #dc0000">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#dc0000"><span class="team-dot" style="background:#dc0000"></span>Ferrari</div>
+    <div class="team-card-full">Scuderia Ferrari HP</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Ferrari</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Fred Vasseur</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">HP, Puma, Shell, Santander, Ray-Ban</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Leclerc (#16) · Hamilton (#44)</span></div>
+</div><div class="team-card" style="border-left:4px solid #ff8700">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#ff8700"><span class="team-dot" style="background:#ff8700"></span>McLaren</div>
+    <div class="team-card-full">McLaren F1 Team</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Mercedes</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Andrea Stella</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">OKX, Dell, Monster Energy, Google, Hugo Boss</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Norris (#4) · Piastri (#81)</span></div>
+</div><div class="team-card" style="border-left:4px solid #1e41b1">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#1e41b1"><span class="team-dot" style="background:#1e41b1"></span>Red Bull</div>
+    <div class="team-card-full">Oracle Red Bull Racing</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Honda RBPT</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Christian Horner</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Oracle, Bybit, Red Bull, Rauch, Puma</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Verstappen (#1) · Hadjar (#6)</span></div>
+</div><div class="team-card" style="border-left:4px solid #ffffff">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#ffffff"><span class="team-dot" style="background:#ffffff"></span>Haas</div>
+    <div class="team-card-full">MoneyGram Haas F1 Team</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Ferrari</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Ayao Komatsu</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">MoneyGram, AlpineStars, Chipotle, Fanduel</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Ocon (#31) · Bearman (#87)</span></div>
+</div><div class="team-card" style="border-left:4px solid #0090ff">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#0090ff"><span class="team-dot" style="background:#0090ff"></span>Alpine</div>
+    <div class="team-card-full">BWT Alpine F1 Team</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Alpine-Renault</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Oliver Oakes</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">BWT, MSC, Castrol</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Gasly (#10) · Colapinto (#43)</span></div>
+</div><div class="team-card" style="border-left:4px solid #006f62">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#006f62"><span class="team-dot" style="background:#006f62"></span>Aston Martin</div>
+    <div class="team-card-full">Aston Martin Aramco F1 Team</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Honda</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Mike Krack</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Aramco, Cognizant, Valvoline</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Alonso (#14) · Stroll (#18)</span></div>
+</div><div class="team-card" style="border-left:4px solid #6692ff">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#6692ff"><span class="team-dot" style="background:#6692ff"></span>Racing Bulls</div>
+    <div class="team-card-full">Visa Cash App Racing Bulls</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Honda RBPT</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Laurent Mekies</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Visa, CashApp, Hugo</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Lawson (#30) · Lindblad (#11)</span></div>
+</div><div class="team-card" style="border-left:4px solid #005aff">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#005aff"><span class="team-dot" style="background:#005aff"></span>Williams</div>
+    <div class="team-card-full">Williams Racing</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Mercedes</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">James Vowles</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Gulf Oil, Duracell, CrowdStrike</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Albon (#23) · Sainz (#55)</span></div>
+</div><div class="team-card" style="border-left:4px solid #9c1f2c">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#9c1f2c"><span class="team-dot" style="background:#9c1f2c"></span>Audi</div>
+    <div class="team-card-full">Audi F1 Team (formerly Sauber)</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Audi</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Mattia Binotto</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">Audi, Adidas</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Hulkenberg (#27) · Bortoleto (#5)</span></div>
+</div><div class="team-card" style="border-left:4px solid #0a0a0a">
+  <div class="team-card-header">
+    <div class="team-card-name" style="color:#0a0a0a"><span class="team-dot" style="background:#0a0a0a"></span>Cadillac</div>
+    <div class="team-card-full">Cadillac F1 Team (TWG Motorsports)</div>
+  </div>
+  <div class="team-card-row"><span class="tcr-lbl">Engine</span><span class="tcr-val">Ferrari</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Team Principal</span><span class="tcr-val">Graeme Lowdon</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Sponsors</span><span class="tcr-val">General Motors, Cadillac</span></div>
+  <div class="team-card-row"><span class="tcr-lbl">Drivers</span><span class="tcr-val">Bottas (#77) · Perez (#11)</span></div>
+</div></div>
+</div>
+
+<div data-panel="calendar" data-panel-title=" Calendar" data-panel-color="#f472b6" data-panel-default="1">
+<div class="section-header"><span class="icon">Upcoming Races</span><h2></h2><span class="accent-line"></span></div><div class="chart-container">
+  <div class="section-header"><span class="icon">📅</span><h2>Upcoming Races</h2><span class="accent-line"></span></div>
+  <table class="f1-standings">
+    <thead><tr><th>#</th><th>Grand Prix</th><th>Date</th><th>Country</th></tr></thead>
+    <tbody><tr><td class="td-pos">1</td><td><strong>Emilia Romagna GP</strong><br><span class="td-circuit">Imola</span></td><td>May 16-18</td><td><span class="flag">IT</span> Italy</td></tr><tr><td class="td-pos">2</td><td><strong>Monaco Grand Prix</strong><br><span class="td-circuit">Monte Carlo</span></td><td>May 23-25</td><td><span class="flag">MC</span> Monaco</td></tr><tr><td class="td-pos">3</td><td><strong>Spanish Grand Prix</strong><br><span class="td-circuit">Barcelona</span></td><td>Jun 6-8</td><td><span class="flag">ES</span> Spain</td></tr><tr><td class="td-pos">4</td><td><strong>Canadian Grand Prix</strong><br><span class="td-circuit">Montreal</span></td><td>Jun 13-15</td><td><span class="flag">CA</span> Canada</td></tr><tr><td class="td-pos">5</td><td><strong>Austrian Grand Prix</strong><br><span class="td-circuit">Red Bull Ring</span></td><td>Jun 27-29</td><td><span class="flag">AT</span> Austria</td></tr><tr><td class="td-pos">6</td><td><strong>British Grand Prix</strong><br><span class="td-circuit">Silverstone</span></td><td>Jul 4-6</td><td><span class="flag">GB</span> UK</td></tr></tbody>
+  </table>
+</div>
+</div>
+
+<div data-panel="history" data-panel-title=" History" data-panel-color="#34d399" data-panel-default="1">
+<div class="section-header"><span class="icon">This Week in F1 History</span><h2></h2><span class="accent-line"></span></div><div class="section-body">A look back at what happened this week (May 7-13) in Formula 1 history.</div><div class="timeline"><div class="timeline-item"><div class="tl-date">May 7, 2022</div><div class="tl-title">First Miami Grand Prix</div><div class="tl-desc">The inaugural F1 Miami GP was held around Hard Rock Stadium. Max Verstappen won.</div></div><div class="timeline-item"><div class="tl-date">May 8, 1982</div><div class="tl-title">Gilles Villeneuve's tragic passing</div><div class="tl-desc">The legendary Ferrari driver died in a crash during qualifying at the Belgian GP.</div></div><div class="timeline-item"><div class="tl-date">May 8, 2005</div><div class="tl-title">Oliver Bearman born</div><div class="tl-desc">Haas driver Oliver Bearman was born. Now 21 and one of F1's exciting young talents.</div></div><div class="timeline-item"><div class="tl-date">May 7, 1977</div><div class="tl-title">Williams F1 debut</div><div class="tl-desc">The Williams Grand Prix Engineering team made its F1 debut at the Spanish GP.</div></div><div class="timeline-item"><div class="tl-date">May 13, 1950</div><div class="tl-title">First-ever F1 World Championship race</div><div class="tl-desc">The British GP at Silverstone was the first official F1 race, won by Nino Farina.</div></div></div>
+</div>
+
+<div data-panel="news" data-panel-title=" News" data-panel-color="#f87171" data-panel-default="1">
+<div class="section-header"><span class="icon">Latest F1 News</span><h2></h2><span class="accent-line"></span></div><ul class="news-list"><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://sports.yahoo.com/articles/f1-free-live-streams-watch-060002782.html" target="_blank" style="color:var(--text-primary);text-decoration:none">FIA Investigates Red Bull and Ferrari Rotating Rear Wings After Verstappen Crashes</a></strong><br>
+      The FIA is scrutinizing the rotating rear wings used by Red Bull and Ferrari this season to ensure full compliance with regulations, following a series of crashes involving Max Verstappen.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://sports.yahoo.com/articles/f1-free-live-streams-watch-060002782.html" target="_blank">searxng/bing news</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://robbreport.com/motors/aviation/flexjet-formula-1-official-private-aviation-firm-1238439207/" target="_blank" style="color:var(--text-primary);text-decoration:none">F1 Considers Independent V8 Engine Builder for 2031 Rules Cycle</a></strong><br>
+      The FIA is exploring a move away from customer power units by 2031, potentially introducing a third-party V8 engine builder to reshape the sport's technical landscape.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://robbreport.com/motors/aviation/flexjet-formula-1-official-private-aviation-firm-1238439207/" target="_blank">searxng/bing news</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.msn.com/en-gb/cars/news/how-do-formula-1-cars-generate-downforce/ar-AA27BHtn?ocid=BingNewsVerp" target="_blank" style="color:var(--text-primary);text-decoration:none">Max Verstappen Saga Fuels Oscar Piastri Rumours; Sources Clarify Situation</a></strong><br>
+      Ongoing uncertainty around Max Verstappen's future has sparked speculation linking Oscar Piastri to top teams, though sources have moved to clarify the current state of the driver market.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.msn.com/en-gb/cars/news/how-do-formula-1-cars-generate-downforce/ar-AA27BHtn?ocid=BingNewsVerp" target="_blank">searxng/bing news</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.skysports.com/f1/live-blog/12433/12466779/f1-news-rumours-and-gossip-formula-1-latest-updates-on-teams-driver-transfer-market-and-contracts" target="_blank" style="color:var(--text-primary);text-decoration:none">McLaren Star Asks Team to Be 'Fired from F1 Services'</a></strong><br>
+      A McLaren driver has made a surprising request to be released from certain F1 services, raising questions about team dynamics and driver satisfaction.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.skysports.com/f1/live-blog/12433/12466779/f1-news-rumours-and-gossip-formula-1-latest-updates-on-teams-driver-transfer-market-and-contracts" target="_blank">searxng/google news</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.cio.com/article/4195140/operate-like-a-formula-1-team-the-new-ai-operating-model.html" target="_blank" style="color:var(--text-primary);text-decoration:none">Flexjet Signs Multi-Year Partnership with Formula 1 as Official Private Aviation Supplier</a></strong><br>
+      Formula 1 has announced a new multi-year partnership with Flexjet, designating the private aviation company as the sport's Official Private Aviation Supplier.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.cio.com/article/4195140/operate-like-a-formula-1-team-the-new-ai-operating-model.html" target="_blank">searxng/bing news</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.motorsport.com/f1/news/fia-looking-into-red-bull-and-ferraris-rotating-f1-wings-after-max-verstappens-crashes/10837274/" target="_blank" style="color:var(--text-primary);text-decoration:none">2026 F1 Driver and Constructor Standings: Updated After Monaco Grand Prix</a></strong><br>
+      The latest Formula 1 2026 championship standings following the Monaco Grand Prix, with Lewis Hamilton among the key contenders in a season reshaped by new regulations.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.motorsport.com/f1/news/fia-looking-into-red-bull-and-ferraris-rotating-f1-wings-after-max-verstappens-crashes/10837274/" target="_blank">brave</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://racingnews365.com/oscar-piastri-set-to-stay-at-mclaren-for-the-foreseeable-future" target="_blank" style="color:var(--text-primary);text-decoration:none">Monaco Grand Prix 2026: Start Time, Schedule, Weather, and How to Watch</a></strong><br>
+      Complete guide to the 2026 Monaco Grand Prix, including start times, weather forecast, race predictions, and streaming options for fans worldwide.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://racingnews365.com/oscar-piastri-set-to-stay-at-mclaren-for-the-foreseeable-future" target="_blank">brave</a></span>
+    </span>
+  </li><li class="news-item">
+    <span class="news-bullet" style="background:var(--accent)"></span>
+    <span class="news-text">
+      <strong><a href="https://www.motorsport.com/f1/news/f1-customer-power-units-2031/10837031/" target="_blank" style="color:var(--text-primary);text-decoration:none">F1 Austrian Grand Prix 2026: Full Event Centre with Live Updates and Results</a></strong><br>
+      Your one-stop hub for the 2026 Austrian Grand Prix weekend, featuring live updates, race reports, schedule, weather, and preview analysis.<br>
+      <span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.motorsport.com/f1/news/f1-customer-power-units-2031/10837031/" target="_blank">brave</a></span>
+    </span>
+  </li></ul>
+</div>
+
+  <!-- SOURCES -->
+  <h3>Sources</h3>
+<a href="https://www.formula1.com" target="_blank">Formula1.com</a>
+<a href="https://racingnews365.com" target="_blank">RacingNews365</a>
+<a href="https://www.total-motorsport.com" target="_blank">Total-Motorsport</a>
+<a href="https://en.wikipedia.org" target="_blank">Wikipedia</a>
+<a href="https://grokipedia.com" target="_blank">Grokipedia</a>
+<a href="https://planetf1.com" target="_blank">PlanetF1</a>
+<a href="https://www.skysports.com/f1" target="_blank">Sky Sports</a>
+<a href="https://www.motorsport.com/f1" target="_blank">Motorsport.com</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-07-10-1201-f1-weekly.html">https://jsoprych.github.io/elko-reports-community/research/2026-07-10-1201-f1-weekly.html</a>
+  </div>
+
+</div>
+</body>
+</html>
