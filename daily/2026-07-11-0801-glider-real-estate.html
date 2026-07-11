@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Real Estate Market Snapshot — 2026-07-11 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.dt { width:100%%; border-collapse:collapse; font-size:12px; }
+.dt th { text-align:left; padding:8px 10px; background:var(--surface); color:var(--text-secondary); font-weight:600; border-bottom:2px solid var(--border); white-space:nowrap; }
+.dt td { padding:6px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+.dt tr:hover td { background:var(--bar-bg); }
+.chart-container { overflow-x:auto; }
+@media (max-width:600px) { .dt { font-size:11px; } .dt th,.dt td { padding:4px 6px; } }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Real Estate Market Snapshot</span>
+  <h1 class="report-title">Real Estate Market Snapshot — 2026-07-11</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-11</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Public</span>
+    <span>📄 Report</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>National housing market (2026-03-31): 19,640 ZIPs tracked</h2>
+    <p>Average sale price $438,888, YoY change +11.9%. 696,195 homes sold. 97.4% sale-to-list ratio.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+
+  <!-- CONTENT (panel stack) -->
+  <div data-panel="overview" data-panel-title="🏠 Overview" data-panel-color="#4a6cf7" data-panel-default="1"><div class="section-header"><span class="icon">🏘️</span><h2>19,640 US ZIP Codes Tracked</h2><span class="accent-line"></span></div><div class="metric-row"><div class="metric-card"><div class="metric-value">$438,888</div><div class="metric-label">Avg Sale Price</div></div><div class="metric-card"><div class="metric-value">696,195</div><div class="metric-label">Homes Sold</div></div><div class="metric-card"><div class="metric-value" style="color:#22c55e">11.9%</div><div class="metric-label">YoY Change</div></div><div class="metric-card"><div class="metric-value">5.1</div><div class="metric-label">Months of Supply</div></div><div class="metric-card"><div class="metric-value">97.4%</div><div class="metric-label">Sale-to-List</div></div></div><div class="section-body" style="margin-top:12px;font-size:13px;color:var(--text-secondary);">Data period: <strong>2026-03-31</strong>. All Residential. 19,640 ZIPs with active sales.</div></div><div data-panel="volume" data-panel-title="📊 Top Volume" data-panel-color="#6c63ff" data-panel-default="1"><div class="section-header"><span class="icon">📊</span><h2>Top 25 ZIPs by Sales Volume</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>ZIP</th><th>State</th><th>Sold</th><th>Med. Price</th><th>YoY</th><th>List Price</th><th>Inventory</th><th>MoS</th><th>STL</th><th>DOM</th></tr></thead><tbody><tr><td>77493</td><td>Texas</td><td>639</td><td>$328,990</td><td>-1.8%</td><td>$369,945</td><td>923</td><td>4.3</td><td>91.8%</td><td>70d</td></tr><tr><td>29486</td><td>South Carolina</td><td>565</td><td>$413,990</td><td>0.4%</td><td>$425,495</td><td>663</td><td>3.5</td><td>99.4%</td><td>78d</td></tr><tr><td>77433</td><td>Texas</td><td>534</td><td>$432,338</td><td>-2.0%</td><td>$449,540</td><td>688</td><td>3.9</td><td>96.9%</td><td>82d</td></tr><tr><td>75071</td><td>Texas</td><td>531</td><td>$443,000</td><td>0.1%</td><td>$485,000</td><td>679</td><td>3.8</td><td>96.7%</td><td>90d</td></tr><tr><td>34293</td><td>Florida</td><td>498</td><td>$400,000</td><td>-5.9%</td><td>$410,000</td><td>625</td><td>3.8</td><td>96.1%</td><td>58d</td></tr><tr><td>34219</td><td>Florida</td><td>471</td><td>$400,000</td><td>3.9%</td><td>$423,685</td><td>775</td><td>4.9</td><td>97.6%</td><td>95d</td></tr><tr><td>73099</td><td>Oklahoma</td><td>461</td><td>$280,000</td><td>-0.4%</td><td>$299,000</td><td>641</td><td>4.2</td><td>98.7%</td><td>74d</td></tr><tr><td>34211</td><td>Florida</td><td>452</td><td>$525,000</td><td>-3.0%</td><td>$562,458</td><td>465</td><td>3.1</td><td>96.8%</td><td>77d</td></tr><tr><td>34787</td><td>Florida</td><td>438</td><td>$595,000</td><td>1.5%</td><td>$619,950</td><td>613</td><td>4.2</td><td>97.6%</td><td>53d</td></tr><tr><td>79928</td><td>Texas</td><td>438</td><td>$286,110</td><td>2.2%</td><td>$303,518</td><td>770</td><td>5.3</td><td>99.4%</td><td>105d</td></tr><tr><td>32092</td><td>Florida</td><td>435</td><td>$460,040</td><td>-4.3%</td><td>$470,980</td><td>547</td><td>3.8</td><td>98.0%</td><td>98d</td></tr><tr><td>89087</td><td>Nevada</td><td>434</td><td>$432,000</td><td>0.0%</td><td>$440,000</td><td>457</td><td>3.2</td><td>99.1%</td><td>51d</td></tr><tr><td>85387</td><td>Arizona</td><td>426</td><td>$442,990</td><td>1.2%</td><td>$465,000</td><td>687</td><td>4.8</td><td>99.3%</td><td>95d</td></tr><tr><td>78130</td><td>Texas</td><td>426</td><td>$305,000</td><td>-3.2%</td><td>$326,700</td><td>871</td><td>6.1</td><td>96.9%</td><td>111d</td></tr><tr><td>33701</td><td>Florida</td><td>426</td><td>$1,460,774</td><td>97.4%</td><td>$1,409,040</td><td>255</td><td>1.8</td><td>98.6%</td><td>41d</td></tr><tr><td>29526</td><td>South Carolina</td><td>423</td><td>$310,000</td><td>-3.1%</td><td>$340,000</td><td>895</td><td>6.3</td><td>97.3%</td><td>130d</td></tr><tr><td>78253</td><td>Texas</td><td>420</td><td>$323,750</td><td>6.5%</td><td>$335,000</td><td>768</td><td>5.5</td><td>98.7%</td><td>97d</td></tr><tr><td>78245</td><td>Texas</td><td>412</td><td>$287,871</td><td>-3.4%</td><td>$305,000</td><td>742</td><td>5.4</td><td>98.3%</td><td>110d</td></tr><tr><td>83642</td><td>Idaho</td><td>410</td><td>$489,990</td><td>-6.7%</td><td>$517,850</td><td>225</td><td>1.6</td><td>99.5%</td><td>74d</td></tr><tr><td>79938</td><td>Texas</td><td>400</td><td>$274,950</td><td>3.8%</td><td>$277,950</td><td>501</td><td>3.8</td><td>99.4%</td><td>101d</td></tr><tr><td>85326</td><td>Arizona</td><td>399</td><td>$388,640</td><td>-1.2%</td><td>$393,240</td><td>555</td><td>4.2</td><td>98.7%</td><td>79d</td></tr><tr><td>33837</td><td>Florida</td><td>392</td><td>$352,450</td><td>6.8%</td><td>$364,470</td><td>587</td><td>4.5</td><td>98.0%</td><td>59d</td></tr><tr><td>76227</td><td>Texas</td><td>379</td><td>$325,500</td><td>-12.0%</td><td>$364,900</td><td>723</td><td>5.7</td><td>97.3%</td><td>82d</td></tr><tr><td>32137</td><td>Florida</td><td>377</td><td>$399,000</td><td>-0.2%</td><td>$429,000</td><td>674</td><td>5.4</td><td>96.6%</td><td>89d</td></tr><tr><td>89011</td><td>Nevada</td><td>368</td><td>$495,000</td><td>-5.3%</td><td>$523,340</td><td>538</td><td>4.4</td><td>98.2%</td><td>96d</td></tr></tbody></table></div></div><div data-panel="appreciation" data-panel-title="📈 Appreciation" data-panel-color="#22c55e" data-panel-default="1"><div class="section-header"><span class="icon">📈</span><h2>YoY Appreciation Leaders</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>ZIP</th><th>State</th><th>Med. Price</th><th>YoY%</th><th>Sold</th></tr></thead><tbody><tr><td>33701</td><td>Florida</td><td>$1,460,774</td><td><span style="color:var(--success);font-weight:600;">+97.4%</span></td><td>426</td></tr><tr><td>33629</td><td>Florida</td><td>$1,510,000</td><td><span style="color:var(--success);font-weight:600;">+59.1%</span></td><td>189</td></tr><tr><td>19134</td><td>Pennsylvania</td><td>$175,000</td><td><span style="color:var(--success);font-weight:600;">+59.1%</span></td><td>116</td></tr><tr><td>10024</td><td>New York</td><td>$2,270,531</td><td><span style="color:var(--success);font-weight:600;">+55.0%</span></td><td>126</td></tr><tr><td>11201</td><td>New York</td><td>$1,775,000</td><td><span style="color:var(--success);font-weight:600;">+39.2%</span></td><td>109</td></tr><tr><td>29150</td><td>South Carolina</td><td>$265,000</td><td><span style="color:var(--success);font-weight:600;">+37.0%</span></td><td>120</td></tr><tr><td>20852</td><td>Maryland</td><td>$625,000</td><td><span style="color:var(--success);font-weight:600;">+35.9%</span></td><td>105</td></tr><tr><td>75214</td><td>Texas</td><td>$1,092,500</td><td><span style="color:var(--success);font-weight:600;">+32.4%</span></td><td>120</td></tr><tr><td>33401</td><td>Florida</td><td>$685,000</td><td><span style="color:var(--success);font-weight:600;">+29.2%</span></td><td>143</td></tr><tr><td>45385</td><td>Ohio</td><td>$270,000</td><td><span style="color:var(--success);font-weight:600;">+28.6%</span></td><td>109</td></tr><tr><td>85018</td><td>Arizona</td><td>$1,360,000</td><td><span style="color:var(--success);font-weight:600;">+28.3%</span></td><td>175</td></tr><tr><td>84032</td><td>Utah</td><td>$1,148,000</td><td><span style="color:var(--success);font-weight:600;">+26.9%</span></td><td>129</td></tr><tr><td>53209</td><td>Wisconsin</td><td>$190,000</td><td><span style="color:var(--success);font-weight:600;">+26.7%</span></td><td>110</td></tr><tr><td>53511</td><td>Wisconsin</td><td>$212,000</td><td><span style="color:var(--success);font-weight:600;">+26.6%</span></td><td>113</td></tr><tr><td>29615</td><td>South Carolina</td><td>$455,000</td><td><span style="color:var(--success);font-weight:600;">+26.4%</span></td><td>105</td></tr><tr><td>33133</td><td>Florida</td><td>$1,700,000</td><td><span style="color:var(--success);font-weight:600;">+25.9%</span></td><td>169</td></tr><tr><td>47711</td><td>Indiana</td><td>$212,500</td><td><span style="color:var(--success);font-weight:600;">+25.0%</span></td><td>108</td></tr><tr><td>70115</td><td>Louisiana</td><td>$610,000</td><td><span style="color:var(--success);font-weight:600;">+24.7%</span></td><td>106</td></tr><tr><td>84020</td><td>Utah</td><td>$923,000</td><td><span style="color:var(--success);font-weight:600;">+24.6%</span></td><td>119</td></tr><tr><td>85258</td><td>Arizona</td><td>$1,077,500</td><td><span style="color:var(--success);font-weight:600;">+24.6%</span></td><td>192</td></tr><tr><td>33408</td><td>Florida</td><td>$680,000</td><td><span style="color:var(--success);font-weight:600;">+24.5%</span></td><td>115</td></tr><tr><td>10011</td><td>New York</td><td>$2,125,000</td><td><span style="color:var(--success);font-weight:600;">+24.5%</span></td><td>120</td></tr><tr><td>44105</td><td>Ohio</td><td>$90,000</td><td><span style="color:var(--success);font-weight:600;">+24.1%</span></td><td>114</td></tr><tr><td>60611</td><td>Illinois</td><td>$535,750</td><td><span style="color:var(--success);font-weight:600;">+23.2%</span></td><td>228</td></tr><tr><td>33487</td><td>Florida</td><td>$825,000</td><td><span style="color:var(--success);font-weight:600;">+23.1%</span></td><td>125</td></tr></tbody></table></div></div><div data-panel="conditions" data-panel-title="🔥 Conditions" data-panel-color="#f59e0b" data-panel-default="1"><div class="section-header"><span class="icon">🔥</span><h2>20 Seller's Markets</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>ZIP</th><th>State</th><th>MoS</th><th>STL%</th><th>Med. Price</th><th>Sold</th></tr></thead><tbody><tr><td>94122</td><td>California</td><td>1.0</td><td>123.6%</td><td>$1,900,000</td><td>69</td></tr><tr><td>94114</td><td>California</td><td>1.8</td><td>119.7%</td><td>$2,136,500</td><td>70</td></tr><tr><td>94611</td><td>California</td><td>2.0</td><td>117.2%</td><td>$1,405,000</td><td>86</td></tr><tr><td>94112</td><td>California</td><td>1.9</td><td>116.6%</td><td>$1,340,000</td><td>70</td></tr><tr><td>14626</td><td>New York</td><td>0.4</td><td>116.1%</td><td>$271,000</td><td>51</td></tr><tr><td>14624</td><td>New York</td><td>0.3</td><td>115.9%</td><td>$240,000</td><td>59</td></tr><tr><td>14616</td><td>New York</td><td>0.4</td><td>115.3%</td><td>$206,650</td><td>70</td></tr><tr><td>14612</td><td>New York</td><td>1.0</td><td>113.6%</td><td>$264,000</td><td>51</td></tr><tr><td>14450</td><td>New York</td><td>0.5</td><td>113.3%</td><td>$355,000</td><td>56</td></tr><tr><td>94110</td><td>California</td><td>2.3</td><td>111.8%</td><td>$1,368,500</td><td>86</td></tr><tr><td>94087</td><td>California</td><td>1.5</td><td>111.6%</td><td>$2,945,000</td><td>69</td></tr><tr><td>94131</td><td>California</td><td>2.0</td><td>111.5%</td><td>$1,722,500</td><td>58</td></tr><tr><td>14609</td><td>New York</td><td>0.8</td><td>111.4%</td><td>$185,000</td><td>91</td></tr><tr><td>14606</td><td>New York</td><td>1.1</td><td>110.4%</td><td>$181,000</td><td>60</td></tr><tr><td>14580</td><td>New York</td><td>1.1</td><td>109.6%</td><td>$400,000</td><td>71</td></tr></tbody></table></div><div style="margin-top:24px;"></div><div class="section-header"><span class="icon">❄️</span><h2>20 Buyer's Markets</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>ZIP</th><th>State</th><th>MoS</th><th>STL%</th><th>Med. Price</th><th>Sold</th></tr></thead><tbody><tr><td>33132</td><td>Florida</td><td>22.1</td><td>94.9%</td><td>$550,000</td><td>81</td></tr><tr><td>33062</td><td>Florida</td><td>21.7</td><td>93.6%</td><td>$600,000</td><td>85</td></tr><tr><td>33316</td><td>Florida</td><td>20.0</td><td>92.5%</td><td>$1,259,300</td><td>43</td></tr><tr><td>78597</td><td>Texas</td><td>18.9</td><td>94.4%</td><td>$524,000</td><td>48</td></tr><tr><td>33304</td><td>Florida</td><td>18.9</td><td>94.0%</td><td>$900,000</td><td>81</td></tr><tr><td>33009</td><td>Florida</td><td>18.9</td><td>93.6%</td><td>$269,000</td><td>149</td></tr><tr><td>33319</td><td>Florida</td><td>18.4</td><td>93.5%</td><td>$150,000</td><td>109</td></tr><tr><td>90265</td><td>California</td><td>17.9</td><td>92.4%</td><td>$2,907,500</td><td>42</td></tr><tr><td>77650</td><td>Texas</td><td>17.7</td><td>95.3%</td><td>$422,500</td><td>48</td></tr><tr><td>33060</td><td>Florida</td><td>17.2</td><td>95.0%</td><td>$507,500</td><td>50</td></tr><tr><td>33020</td><td>Florida</td><td>17.1</td><td>93.7%</td><td>$447,500</td><td>74</td></tr><tr><td>33130</td><td>Florida</td><td>17.0</td><td>94.3%</td><td>$490,000</td><td>77</td></tr><tr><td>96761</td><td>Hawaii</td><td>16.8</td><td>94.0%</td><td>$927,500</td><td>68</td></tr><tr><td>33313</td><td>Florida</td><td>16.7</td><td>94.2%</td><td>$155,000</td><td>91</td></tr><tr><td>33301</td><td>Florida</td><td>16.6</td><td>94.8%</td><td>$630,000</td><td>63</td></tr></tbody></table></div></div><div data-panel="chicago" data-panel-title="🏙️ Chicago" data-panel-color="#ef4444" data-panel-default="1"><div class="section-header"><span class="icon">🏙️</span><h2>Chicago Metro (606xx)</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>ZIP</th><th>Med. Price</th><th>YoY%</th><th>List Price</th><th>Sold</th><th>Pending</th><th>Inv</th><th>MoS</th><th>STL%</th><th>DOM</th><th>Above List%</th></tr></thead><tbody><tr><td>60611</td><td>$535,750</td><td><span style="color:var(--success);font-weight:600;">+23.2%</span></td><td>$550,000</td><td>228</td><td>315</td><td>389</td><td>5.1</td><td>96.9%</td><td>82d</td><td>18.9%</td></tr><tr><td>60614</td><td>$700,000</td><td><span style="color:var(--danger);font-weight:600;">-6.0%</span></td><td>$800,000</td><td>217</td><td>321</td><td>188</td><td>2.6</td><td>101.0%</td><td>46d</td><td>41.5%</td></tr><tr><td>60657</td><td>$660,000</td><td><span style="color:var(--success);font-weight:600;">+17.9%</span></td><td>$575,000</td><td>208</td><td>304</td><td>175</td><td>2.5</td><td>101.7%</td><td>43d</td><td>47.6%</td></tr><tr><td>60622</td><td>$682,250</td><td><span style="color:var(--success);font-weight:600;">+6.4%</span></td><td>$699,000</td><td>190</td><td>263</td><td>144</td><td>2.3</td><td>101.2%</td><td>42d</td><td>44.2%</td></tr><tr><td>60618</td><td>$600,000</td><td><span style="color:var(--success);font-weight:600;">+4.4%</span></td><td>$675,000</td><td>179</td><td>268</td><td>149</td><td>2.5</td><td>100.5%</td><td>50d</td><td>35.8%</td></tr><tr><td>60613</td><td>$315,000</td><td><span style="color:var(--danger);font-weight:600;">-16.2%</span></td><td>$329,900</td><td>159</td><td>246</td><td>153</td><td>2.9</td><td>101.0%</td><td>50d</td><td>39.6%</td></tr><tr><td>60647</td><td>$675,000</td><td><span style="color:var(--danger);font-weight:600;">0.0%</span></td><td>$720,000</td><td>146</td><td>238</td><td>136</td><td>2.8</td><td>101.2%</td><td>39d</td><td>54.8%</td></tr><tr><td>60640</td><td>$386,020</td><td><span style="color:var(--success);font-weight:600;">+12.5%</span></td><td>$350,000</td><td>140</td><td>199</td><td>123</td><td>2.6</td><td>101.5%</td><td>43d</td><td>48.6%</td></tr><tr><td>60610</td><td>$474,000</td><td><span style="color:var(--success);font-weight:600;">+11.5%</span></td><td>$470,000</td><td>139</td><td>226</td><td>195</td><td>4.2</td><td>99.3%</td><td>49d</td><td>28.1%</td></tr><tr><td>60628</td><td>$172,500</td><td><span style="color:var(--danger);font-weight:600;">0.0%</span></td><td>$179,900</td><td>132</td><td>202</td><td>250</td><td>5.7</td><td>97.8%</td><td>72d</td><td>41.7%</td></tr><tr><td>60617</td><td>$192,000</td><td><span style="color:var(--danger);font-weight:600;">-1.0%</span></td><td>$202,400</td><td>125</td><td>205</td><td>226</td><td>5.4</td><td>96.9%</td><td>78d</td><td>26.4%</td></tr><tr><td>60605</td><td>$400,000</td><td><span style="color:var(--success);font-weight:600;">+4.7%</span></td><td>$384,950</td><td>119</td><td>162</td><td>144</td><td>3.6</td><td>100.5%</td><td>88d</td><td>49.6%</td></tr><tr><td>60620</td><td>$232,000</td><td><span style="color:var(--success);font-weight:600;">+7.9%</span></td><td>$260,000</td><td>111</td><td>171</td><td>207</td><td>5.6</td><td>97.9%</td><td>70d</td><td>43.2%</td></tr><tr><td>60654</td><td>$420,000</td><td><span style="color:var(--danger);font-weight:600;">-4.5%</span></td><td>$450,000</td><td>110</td><td>157</td><td>131</td><td>3.6</td><td>99.5%</td><td>65d</td><td>34.5%</td></tr><tr><td>60660</td><td>$334,225</td><td><span style="color:var(--success);font-weight:600;">+17.3%</span></td><td>$299,250</td><td>109</td><td>138</td><td>101</td><td>2.8</td><td>99.4%</td><td>60d</td><td>29.4%</td></tr><tr><td>60619</td><td>$227,285</td><td><span style="color:var(--danger);font-weight:600;">-1.2%</span></td><td>$245,500</td><td>108</td><td>186</td><td>239</td><td>6.6</td><td>98.0%</td><td>73d</td><td>28.7%</td></tr><tr><td>60607</td><td>$485,000</td><td><span style="color:var(--success);font-weight:600;">+2.1%</span></td><td>$499,950</td><td>101</td><td>163</td><td>145</td><td>4.3</td><td>100.3%</td><td>55d</td><td>49.5%</td></tr><tr><td>60634</td><td>$382,500</td><td><span style="color:var(--danger);font-weight:600;">-0.7%</span></td><td>$419,000</td><td>98</td><td>153</td><td>127</td><td>3.9</td><td>100.2%</td><td>60d</td><td>40.8%</td></tr><tr><td>60625</td><td>$420,000</td><td><span style="color:var(--danger);font-weight:600;">-11.6%</span></td><td>$479,950</td><td>97</td><td>138</td><td>79</td><td>2.4</td><td>101.5%</td><td>43d</td><td>44.3%</td></tr><tr><td>60643</td><td>$255,000</td><td><span style="color:var(--success);font-weight:600;">+4.9%</span></td><td>$254,700</td><td>88</td><td>139</td><td>132</td><td>4.5</td><td>99.5%</td><td>66d</td><td>39.8%</td></tr><tr><td>60616</td><td>$380,500</td><td><span style="color:var(--success);font-weight:600;">+14.8%</span></td><td>$375,000</td><td>86</td><td>144</td><td>147</td><td>5.1</td><td>99.3%</td><td>71d</td><td>32.6%</td></tr><tr><td>60638</td><td>$342,500</td><td><span style="color:var(--success);font-weight:600;">+12.7%</span></td><td>$337,000</td><td>86</td><td>120</td><td>105</td><td>3.7</td><td>97.8%</td><td>57d</td><td>29.1%</td></tr><tr><td>60642</td><td>$616,000</td><td><span style="color:var(--danger);font-weight:600;">-3.9%</span></td><td>$675,000</td><td>83</td><td>114</td><td>56</td><td>2.0</td><td>100.5%</td><td>44d</td><td>42.2%</td></tr><tr><td>60651</td><td>$405,000</td><td><span style="color:var(--success);font-weight:600;">+11.1%</span></td><td>$397,450</td><td>83</td><td>105</td><td>78</td><td>2.8</td><td>100.5%</td><td>74d</td><td>48.2%</td></tr><tr><td>60629</td><td>$285,000</td><td><span style="color:var(--danger);font-weight:600;">-3.4%</span></td><td>$329,900</td><td>82</td><td>136</td><td>114</td><td>4.2</td><td>98.1%</td><td>77d</td><td>35.4%</td></tr><tr><td>60630</td><td>$448,000</td><td><span style="color:var(--success);font-weight:600;">+2.9%</span></td><td>$475,000</td><td>74</td><td>102</td><td>78</td><td>3.2</td><td>99.5%</td><td>50d</td><td>43.2%</td></tr><tr><td>60641</td><td>$470,000</td><td><span style="color:var(--success);font-weight:600;">+9.6%</span></td><td>$535,000</td><td>71</td><td>106</td><td>77</td><td>3.3</td><td>100.0%</td><td>63d</td><td>39.4%</td></tr><tr><td>60608</td><td>$366,250</td><td><span style="color:var(--danger);font-weight:600;">-15.8%</span></td><td>$429,999</td><td>70</td><td>106</td><td>97</td><td>4.2</td><td>99.0%</td><td>106d</td><td>27.1%</td></tr><tr><td>60636</td><td>$140,000</td><td><span style="color:var(--danger);font-weight:600;">-7.6%</span></td><td>$199,000</td><td>67</td><td>116</td><td>123</td><td>5.5</td><td>98.3%</td><td>86d</td><td>35.8%</td></tr><tr><td>60612</td><td>$460,000</td><td><span style="color:var(--success);font-weight:600;">+10.8%</span></td><td>$492,000</td><td>64</td><td>89</td><td>80</td><td>3.8</td><td>98.7%</td><td>99d</td><td>23.4%</td></tr><tr><td>60649</td><td>$173,950</td><td><span style="color:var(--danger);font-weight:600;">-13.5%</span></td><td>$195,000</td><td>62</td><td>86</td><td>104</td><td>5.0</td><td>95.5%</td><td>119d</td><td>19.4%</td></tr><tr><td>60626</td><td>$250,000</td><td><span style="color:var(--danger);font-weight:600;">-6.5%</span></td><td>$275,000</td><td>59</td><td>93</td><td>78</td><td>4.0</td><td>100.2%</td><td>44d</td><td>42.4%</td></tr><tr><td>60637</td><td>$286,500</td><td><span style="color:var(--success);font-weight:600;">+1.6%</span></td><td>$344,500</td><td>56</td><td>114</td><td>163</td><td>8.7</td><td>97.8%</td><td>91d</td><td>26.8%</td></tr><tr><td>60615</td><td>$280,000</td><td><span style="color:var(--success);font-weight:600;">+14.8%</span></td><td>$332,500</td><td>55</td><td>90</td><td>154</td><td>8.4</td><td>97.1%</td><td>96d</td><td>27.3%</td></tr><tr><td>60623</td><td>$330,000</td><td><span style="color:var(--success);font-weight:600;">+9.5%</span></td><td>$382,500</td><td>55</td><td>81</td><td>107</td><td>5.8</td><td>97.5%</td><td>72d</td><td>27.3%</td></tr><tr><td>60601</td><td>$700,000</td><td><span style="color:var(--success);font-weight:600;">+31.5%</span></td><td>$670,000</td><td>54</td><td>100</td><td>131</td><td>7.3</td><td>98.8%</td><td>69d</td><td>33.3%</td></tr><tr><td>60609</td><td>$310,000</td><td><span style="color:var(--success);font-weight:600;">+20.2%</span></td><td>$289,900</td><td>52</td><td>74</td><td>95</td><td>5.5</td><td>98.5%</td><td>68d</td><td>32.7%</td></tr><tr><td>60652</td><td>$314,000</td><td><span style="color:var(--success);font-weight:600;">+16.3%</span></td><td>$319,950</td><td>50</td><td>71</td><td>60</td><td>3.6</td><td>100.1%</td><td>71d</td><td>42.0%</td></tr><tr><td>60639</td><td>$395,000</td><td><span style="color:var(--success);font-weight:600;">+2.3%</span></td><td>$400,000</td><td>49</td><td>64</td><td>61</td><td>3.7</td><td>99.6%</td><td>70d</td><td>36.7%</td></tr><tr><td>60631</td><td>$427,500</td><td><span style="color:var(--success);font-weight:600;">+6.9%</span></td><td>$559,900</td><td>49</td><td>67</td><td>40</td><td>2.4</td><td>99.4%</td><td>47d</td><td>30.6%</td></tr><tr><td>60655</td><td>$354,000</td><td><span style="color:var(--success);font-weight:600;">+14.2%</span></td><td>$350,000</td><td>47</td><td>68</td><td>42</td><td>2.7</td><td>98.9%</td><td>43d</td><td>34.0%</td></tr><tr><td>60624</td><td>$337,500</td><td><span style="color:var(--success);font-weight:600;">+12.5%</span></td><td>$350,000</td><td>46</td><td>73</td><td>99</td><td>6.5</td><td>98.0%</td><td>87d</td><td>23.9%</td></tr><tr><td>60645</td><td>$285,000</td><td><span style="color:var(--success);font-weight:600;">+9.6%</span></td><td>$315,000</td><td>45</td><td>78</td><td>77</td><td>5.1</td><td>97.6%</td><td>68d</td><td>31.1%</td></tr><tr><td>60646</td><td>$550,500</td><td><span style="color:var(--success);font-weight:600;">+9.7%</span></td><td>$625,000</td><td>45</td><td>69</td><td>53</td><td>3.5</td><td>99.5%</td><td>57d</td><td>40.0%</td></tr><tr><td>60621</td><td>$180,000</td><td><span style="color:var(--danger);font-weight:600;">-3.0%</span></td><td>$237,450</td><td>44</td><td>76</td><td>103</td><td>7.0</td><td>95.8%</td><td>75d</td><td>18.2%</td></tr><tr><td>60659</td><td>$550,000</td><td><span style="color:var(--success);font-weight:600;">+129.6%</span></td><td>$512,000</td><td>43</td><td>51</td><td>44</td><td>3.1</td><td>99.6%</td><td>52d</td><td>30.2%</td></tr><tr><td>60656</td><td>$390,500</td><td><span style="color:var(--success);font-weight:600;">+34.7%</span></td><td>$422,500</td><td>42</td><td>65</td><td>44</td><td>3.1</td><td>99.3%</td><td>68d</td><td>31.0%</td></tr><tr><td>60661</td><td>$436,000</td><td><span style="color:var(--success);font-weight:600;">+4.7%</span></td><td>$399,374</td><td>40</td><td>63</td><td>45</td><td>3.4</td><td>100.2%</td><td>96d</td><td>47.5%</td></tr><tr><td>60644</td><td>$295,000</td><td><span style="color:var(--success);font-weight:600;">+39.2%</span></td><td>$329,999</td><td>39</td><td>66</td><td>73</td><td>5.6</td><td>99.6%</td><td>83d</td><td>30.8%</td></tr><tr><td>60632</td><td>$355,000</td><td><span style="color:var(--success);font-weight:600;">+11.4%</span></td><td>$349,950</td><td>38</td><td>69</td><td>65</td><td>5.1</td><td>100.4%</td><td>55d</td><td>42.1%</td></tr><tr><td>60653</td><td>$410,750</td><td><span style="color:var(--success);font-weight:600;">+19.0%</span></td><td>$410,000</td><td>34</td><td>63</td><td>88</td><td>7.8</td><td>99.5%</td><td>105d</td><td>26.5%</td></tr><tr><td>60633</td><td>$209,500</td><td><span style="color:var(--danger);font-weight:600;">-2.6%</span></td><td>$249,900</td><td>26</td><td>33</td><td>39</td><td>4.5</td><td>94.7%</td><td>134d</td><td>7.7%</td></tr><tr><td>60606</td><td>$364,100</td><td><span style="color:var(--danger);font-weight:600;">-5.4%</span></td><td>$389,500</td><td>17</td><td>22</td><td>23</td><td>4.1</td><td>102.6%</td><td>88d</td><td>64.7%</td></tr><tr><td>60603</td><td>$570,000</td><td><span style="color:var(--danger);font-weight:600;">-13.0%</span></td><td>$725,000</td><td>13</td><td>20</td><td>22</td><td>5.1</td><td>99.0%</td><td>94d</td><td>38.5%</td></tr><tr><td>60602</td><td>$840,000</td><td><span style="color:var(--success);font-weight:600;">+154.2%</span></td><td>$675,000</td><td>10</td><td>15</td><td>25</td><td>7.5</td><td>98.2%</td><td>153d</td><td>30.0%</td></tr><tr><td>60699</td><td>$520,000</td><td><span style="color:var(--danger);font-weight:600;">-18.8%</span></td><td>$657,500</td><td>7</td><td>15</td><td>17</td><td>7.3</td><td>100.9%</td><td>91d</td><td>42.9%</td></tr><tr><td>60669</td><td>$520,000</td><td><span style="color:var(--danger);font-weight:600;">-18.8%</span></td><td>$657,500</td><td>7</td><td>15</td><td>17</td><td>7.3</td><td>100.9%</td><td>91d</td><td>42.9%</td></tr><tr><td>60604</td><td>$502,500</td><td><span style="color:var(--danger);font-weight:600;">-20.2%</span></td><td>$499,000</td><td>2</td><td>5</td><td>9</td><td>13.5</td><td>103.2%</td><td>153d</td><td>100.0%</td></tr></tbody></table></div></div><div data-panel="buckets" data-panel-title="💲 Price Buckets" data-panel-color="#a78bfa" data-panel-default="1"><div class="section-header"><span class="icon">💲</span><h2>Market by Price Range</h2><span class="accent-line"></span></div><div class="chart-container"><table class="dt"><thead><tr><th>Price Range</th><th>ZIPs</th><th>Avg MoS</th><th>Avg STL%</th><th>Total Sold</th></tr></thead><tbody><tr><td>Under $200k</td><td>3,645</td><td>6.1</td><td>94.6%</td><td>55,364</td></tr><tr><td>$200k-$350k</td><td>6,746</td><td>4.8</td><td>97.4%</td><td>235,993</td></tr><tr><td>$350k-$500k</td><td>4,234</td><td>4.7</td><td>98.2%</td><td>203,571</td></tr><tr><td>$500k-$750k</td><td>2,877</td><td>4.9</td><td>98.6%</td><td>124,185</td></tr><tr><td>$750k-$1M</td><td>1,029</td><td>5.0</td><td>98.7%</td><td>38,902</td></tr><tr><td>$1M+</td><td>1,109</td><td>5.7</td><td>98.9%</td><td>38,180</td></tr></tbody></table></div></div>
+
+  <!-- SOURCES -->
+  <h3>Sources</h3><a href="https://www.redfin.com/news/data-center/" target="_blank">Redfin Data Center</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/daily/2026-07-11-0801-glider-real-estate.html">https://jsoprych.github.io/elko-reports-community/daily/2026-07-11-0801-glider-real-estate.html</a>
+  </div>
+
+</div>
+</body>
+</html>
