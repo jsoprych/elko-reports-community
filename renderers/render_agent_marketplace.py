@@ -379,8 +379,8 @@ def main():
 
 {data['total_entries']} total entries tracked (+{data['new_entries']} today), {data['overlaps_count']} overlapping with the elko domain.
 
-\U0001f3c6 #1 tool: {top_tool['name']} ({top_tool['downloads']:,} downloads)
-\U0001f4ac Top trend: {data['trending'][0]['category']} ({data['trending'][0]['count']} new entries)
+🏆 #1 tool: {top_tool['name']} ({top_tool['downloads']:,} downloads)
+""" + (f"💬 Top trend: {data['trending'][0]['category']} ({data['trending'][0]['count']} new entries)\n" if data.get('trending') and len(data['trending']) > 0 else "") + f"""
 
 \u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014
 
