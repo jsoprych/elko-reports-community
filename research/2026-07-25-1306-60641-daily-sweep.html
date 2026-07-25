@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60641 Portage Park — Weekly Sweep | 2026-07-25 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.entity-card{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);transition:transform 0.15s,box-shadow 0.15s}
+.entity-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.source-pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:var(--accent);color:#fff;text-decoration:none}
+.source-pill:hover{opacity:0.9}
+.news-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.news-bullet{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.news-sublinks{margin-top:4px;display:block;font-size:11px}
+.news-sublinks .links-label{font-weight:800;color:#1a7a3a;text-transform:uppercase;letter-spacing:0.5px;margin-right:2px}
+.news-sublinks a{color:var(--accent);text-decoration:none}
+.news-sublinks a:hover{text-decoration:underline}
+table a{color:var(--accent);text-decoration:none}
+table a:hover{text-decoration:underline}
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60641 Portage Park</span>
+  <h1 class="report-title">60641 Portage Park — Weekly Sweep | 2026-07-25</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-25</span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://blockclubchicago.org/2026/05/05/long-awaited-overhaul-of-peoples-gas-site-in-portage-park-could-start-this-summer/" target="_blank" style="color:var(--accent);text-decoration:none">🏗️ $120M Peoples Gas Site Overhaul Could Start Construction This Summer</a></h2>
+    <p>Work on the long-awaited overhaul of the former People's Gas site at 3955 N. Kilpatrick Ave. is scheduled to begin in late summer 2026 under new developer Prairie Ridge Development. The $120 million project will bring 251 residential units across two buildings — a four-story building with 212 units and a three-story building with 39 units — plus four one-story retail buildings with 12–14 tenants. The first retail phase is expected by summer 2027, with apartments ready by fall 2028. The project, years in the making and held up by zoning delays and labor agreements, is the final major piece of the Six Corners revitalization puzzle.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+<div class="metric-row">
+  <div class="metric-card" style="border-top:3px solid #4a6cf7">
+    <div class="metric-label">Homes For Sale</div>
+    <div class="metric-number" style="background:linear-gradient(135deg,#4a6cf7,#6d8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">33</div>
+    <div class="metric-sub">Active listings · Median $480K</div>
+  </div>
+  <div class="metric-card" style="border-top:3px solid #f59e0b">
+    <div class="metric-label">Apartments For Rent</div>
+    <div class="metric-number" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">$1,650–$2,800</div>
+    <div class="metric-sub">2BR–4BR range · 60641</div>
+  </div>
+  <div class="metric-card" style="border-top:3px solid #10b981">
+    <div class="metric-label">New Units Approved</div>
+    <div class="metric-number" style="background:linear-gradient(135deg,#10b981,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent">251</div>
+    <div class="metric-sub">Peoples Gas site · Prairie Ridge Dev</div>
+  </div>
+  <div class="metric-card" style="border-top:3px solid #8b5cf6">
+    <div class="metric-label">Avg Hourly Wage</div>
+    <div class="metric-number" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent">$18–$23</div>
+    <div class="metric-sub">Entry range · Healthcare $60K–$85K/yr</div>
+  </div>
+</div>
+
+
+  <!-- CONTENT (panel stack) -->
+  
+<div class="panel">
+  <h3 style="margin:0 0 12px 0;font-size:17px;font-weight:700;color:var(--text-primary)">📰 Latest Research Findings</h3>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#4a6cf7"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://blockclubchicago.org/2026/05/05/long-awaited-overhaul-of-peoples-gas-site-in-portage-park-could-start-this-summer/" target="_blank" style="color:var(--accent);text-decoration:none">1. Peoples Gas Site Redevelopment Moves Forward After Years of Delays</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Prairie Ridge Development plans to break ground in late summer 2026 on the $120M mixed-use project at 3955 N. Kilpatrick. The revised plan calls for 251 units (down from 346) across two buildings with a courtyard pool, fitness center, and four retail buildings. The project finally cleared zoning in September 2024 after GW Properties sold it to Prairie Ridge in December 2024. Ald. Gardiner's labor agreement requirement was a key sticking point.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://blockclubchicago.org/2026/05/05/long-awaited-overhaul-of-peoples-gas-site-in-portage-park-could-start-this-summer/" target="_blank">Block Club Chicago</a> · <a href="https://blockclubchicago.org/2025/07/31/long-awaited-peoples-gas-project-in-portage-park-sold-to-new-developer/" target="_blank">Sale to Prairie Ridge</a> · <a href="https://blockclubchicago.org/2024/09/18/after-months-of-delays-110-million-six-corners-peoples-gas-project-finally-gets-city-approval/" target="_blank">City Approval</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#10b981"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://blockclubchicago.org/2025/02/18/pita-inn-burlington-and-wells-fargo-coming-to-six-corners/" target="_blank" style="color:var(--accent);text-decoration:none">2. Pita Inn, Burlington & Wells Fargo Coming to Former Sears Auto Center</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Novak Construction will build three standalone buildings at the former Sears Auto Center (4035 N. Cicero Ave.) housing Chicago's first Pita Inn location, a Burlington department store, and a Wells Fargo branch. Construction is slated to begin this year with completion projected for late 2026 — a major retail anchor for the Six Corners shopping district.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://blockclubchicago.org/2025/02/18/pita-inn-burlington-and-wells-fargo-coming-to-six-corners/" target="_blank">Block Club Chicago</a> · <a href="https://www.portageparkchamber.org/news/exciting-new-developmentscoming-to-six-corners" target="_blank">Portage Park Chamber</a> · <a href="https://nadignewspapers.com/pita-inn-burlington-wells-fargo-bank-planned-for-former-sears-auto-at-six-corners-ald-gardiner-says/" target="_blank">Nadig Newspapers</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://nadignewspapers.com/proposed-coffee-cafe-creamery-at-milwaukee-menard-avenues-gets-thumbs-up-from-gladstone-park-community/" target="_blank" style="color:var(--accent);text-decoration:none">3. Kind Brew Cafe & Creamery Gets Community Thumbs-Up in Gladstone Park</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Ald. Gardiner hosted a July 23 community meeting for The Kind Brew Cafe and Creamery at 5462 N. Milwaukee Ave., and the proposal was unanimously well-received by about 30 attendees. Construction is expected to take about four months, with zoning board approval anticipated in early fall 2026.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://nadignewspapers.com/proposed-coffee-cafe-creamery-at-milwaukee-menard-avenues-gets-thumbs-up-from-gladstone-park-community/" target="_blank">Nadig Newspapers</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#8b5cf6"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://blockclubchicago.org/2026/05/14/ald-gardiner-suing-city-for-1-million-after-being-cleared-of-ethics-violation/" target="_blank" style="color:var(--accent);text-decoration:none">4. Ald. Gardiner Sues City for $1M After Ethics Clearance</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Ald. James Gardiner (45th) is suing the City of Chicago, its Board of Ethics, and former Inspector General Deborah Witzburg for $1 million, alleging they "maliciously" conspired to charge him with ethics violations. Gardiner was cleared of all 10 violations in June 2025 after evidence emerged that the OIG withheld exculpatory material. He accrued over $100K in legal fees. Two challengers have already filed for the 45th Ward race.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://blockclubchicago.org/2026/05/14/ald-gardiner-suing-city-for-1-million-after-being-cleared-of-ethics-violation/" target="_blank">Block Club Chicago</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#ec4899"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://whatnow.com/chicago/restaurants/fork-and-coin-to-bring-pub-style-cuisine-and-supper-club-to-portage-park/" target="_blank" style="color:var(--accent);text-decoration:none">5. Fork & Coin — New Pub + Supper Club Opening at 3938 N. Central Ave</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Chef Drake Mandrell and partners are opening Fork & Coin, a pub-style restaurant with Asian influences and a membership-based supper club, at 3938 N. Central Ave. in Portage Park. The menu features burgers, fried pork belly, banh mi sandwiches, Korean makgeolli, and craft cocktails. Opening expected July 2026, right across from Portage Park itself.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://whatnow.com/chicago/restaurants/fork-and-coin-to-bring-pub-style-cuisine-and-supper-club-to-portage-park/" target="_blank">What Now Chicago</a> · <a href="https://themichellewardgroup.com/blog/where-chicago-is-actually-eating-this-summer-the-2026-openings-map" target="_blank">Summer 2026 Openings Map</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#06b6d4"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://blockclubchicago.org/2026/01/15/portage-park-breakfast-place-opens-after-years-of-anticipation/" target="_blank" style="color:var(--accent);text-decoration:none">6. Portage Park Breakfast Place Opens on Montrose — Four Years in the Making</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Areli Antunez and Alvaro Blancas opened Portage Park Breakfast Place at 5040 W. Montrose Ave. in December 2025, serving "new American" breakfast with Mexican-inspired touches. The co-owners, who met at M. Henry in Andersonville, are pursuing a liquor license for mimosas and bloody marys. The restaurant joins a growing Milwaukee Avenue food corridor alongside Migos Fine Foods and Moonflower.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://blockclubchicago.org/2026/01/15/portage-park-breakfast-place-opens-after-years-of-anticipation/" target="_blank">Block Club Chicago</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#84cc16"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://nadignewspapers.com/flowers-helps-decorate-six-corners-intersection-on-chicagos-nw-side/" target="_blank" style="color:var(--accent);text-decoration:none">7. Six Corners Beautification Project Brings Artful Flowers to Iconic Intersection</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Chicago artist Lee Klawans launched the "Beautify Six Corners with Artful Flowers Project," installing hundreds of colorful artificial flowers in the decorative pylons at the Six Corners intersection (Milwaukee/Irving Park/Cicero). The grassroots public art initiative, recognized by the Six Corners Chamber of Commerce, is funded through a GoFundMe campaign that supports ongoing maintenance and future installations.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://nadignewspapers.com/flowers-helps-decorate-six-corners-intersection-on-chicagos-nw-side/" target="_blank">Nadig Newspapers</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#ef4444"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://blockclubchicago.org/2026/02/18/pita-inn-burlington-and-wells-fargo-coming-to-six-corners/" target="_blank" style="color:var(--accent);text-decoration:none">8. Quesabirria Jalisco Expands to Portage Park — 3904 N. Cicero Ave</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">The acclaimed Pilsen quesabirria spot Quesabirria Jalisco opened its second location at 3904 N. Cicero Ave. in Portage Park earlier this year. The casual restaurant serves al pastor chicken, shrimp, and shredded beef quesabirria alongside tacos and birria ramen — adding to the growing dining scene along the Cicero Avenue corridor.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.theinfatuation.com/chicago/reviews/quesabirria-jalisco-tacos-2" target="_blank">The Infatuation</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3 style="margin:0 0 12px 0;font-size:17px;font-weight:700;color:var(--text-primary)">🏗️ Key Development Projects</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead>
+      <tr style="background:var(--bar-bg);text-align:left">
+        <th style="padding:10px 12px;border-bottom:2px solid var(--border);font-weight:700;color:var(--text-primary)">Project</th>
+        <th style="padding:10px 12px;border-bottom:2px solid var(--border);font-weight:700;color:var(--text-primary)">Status</th>
+        <th style="padding:10px 12px;border-bottom:2px solid var(--border);font-weight:700;color:var(--text-primary)">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><a href="https://blockclubchicago.org/2026/05/05/long-awaited-overhaul-of-peoples-gas-site-in-portage-park-could-start-this-summer/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Peoples Gas Site Redevelopment</a></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Construction Summer '26</span></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">$120M · 251 units across 2 buildings · 4 retail buildings · Pool, fitness center · Prairie Ridge Development · 3955 N. Kilpatrick Ave</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><a href="https://blockclubchicago.org/2025/02/18/pita-inn-burlington-and-wells-fargo-coming-to-six-corners/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Sears Auto Center Redevelopment</a></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Under Construction</span></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">Pita Inn (1st Chicago location) · Burlington · Wells Fargo · 3 standalone buildings · Novak Construction · 4035 N. Cicero Ave · Completion late 2026</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><a href="https://blockclubchicago.org/2024/01/09/luxury-apartments-at-old-six-corners-sears-are-up-for-rent/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">6 Corners Lofts</a></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Completed · Leasing</span></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">Luxury apartments in former Sears building · Target anchor tenant · Aldi · Novak Construction · 4712-4738 W. Irving Park Rd</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><a href="https://nadignewspapers.com/proposed-coffee-cafe-creamery-at-milwaukee-menard-avenues-gets-thumbs-up-from-gladstone-park-community/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Kind Brew Cafe & Creamery</a></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Community Approved</span></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">Coffee & dessert cafe with drive-through · 5462 N. Milwaukee Ave · Gladstone Park · ~4 month construction · Zoning board fall 2026</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><a href="https://nadignewspapers.com/6-flat-proposed-for-site-near-cicero-montrose-intersection-in-portage-park-on-chicagos-nw-side/" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Cicero-Montrose 6-Flat</a></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top"><span style="background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Proposed</span></td>
+        <td style="padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top">6-unit residential building proposed near Cicero-Montrose intersection · Portage Park · Infill development</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel">
+  <h3 style="margin:0 0 12px 0;font-size:17px;font-weight:700;color:var(--text-primary)">💼 Business & Employment Opportunities</h3>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#4a6cf7"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://www.jobtarget.com/jobs/jt-dq564kbv04/school-social-worker-sy-2627-belmont-campus-chicago-illinois" target="_blank" style="color:var(--accent);text-decoration:none">School Social Worker — Intrinsic Schools · $67K–$78K/yr</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Full-time position at Intrinsic Schools' Belmont Campus in 60641. Requires PEL: SSW license and graduate degree in social work. Fluency in Spanish preferred. Posted June 11, 2026.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.jobtarget.com/jobs/jt-dq564kbv04/school-social-worker-sy-2627-belmont-campus-chicago-illinois" target="_blank">Apply via JobTarget</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#10b981"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://www.jobtarget.com/jobs/jt-64lq8bavyi/bilingual-medical-assistant-english-spanish-chicago-illinois" target="_blank" style="color:var(--accent);text-decoration:none">Bilingual Medical Assistant — EPIC Health · $19–$23/hr</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">On-site position in 60641. Requires Medical Assistant experience, bilingual English/Spanish, and phlebotomy experience. Comprehensive health benefits, career growth opportunities. Posted July 3, 2026.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.jobtarget.com/jobs/jt-64lq8bavyi/bilingual-medical-assistant-english-spanish-chicago-illinois" target="_blank">Apply via JobTarget</a> · <a href="https://www.epichs.org" target="_blank">EPIC Health</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://www.jobtarget.com/jobs/jt-4nzbyfd537/behavioral-health-specialist-lpclmsw-chicago-illinois" target="_blank" style="color:var(--accent);text-decoration:none">Behavioral Health Specialist (LPC/LMSW) — EPIC Health · $60K–$85K/yr</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Hybrid position (in-clinic + telehealth) in 60641. Requires active Illinois LCSW or LCPC license. Bilingual Spanish/English strongly preferred. One patient per hour structure. Posted July 7, 2026.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.jobtarget.com/jobs/jt-4nzbyfd537/behavioral-health-specialist-lpclmsw-chicago-illinois" target="_blank">Apply via JobTarget</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#8b5cf6"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://epokagency.com/workspread/job/cook-part-time-at-unidine-chicago-il-60641-ff7ce912627e6735jktk-ZXBva2FnZW" target="_blank" style="color:var(--accent);text-decoration:none">Part-Time Cook — Unidine / St. Joseph Village · $18/hr</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Part-time cook position at St. Joseph Village, 4021 W. Belmont Ave. Knowledge of modified diets preferred. Free parking and uniforms. Also see <a href="https://www.chicago.gov/city/en/narr/misc/jobs/jobsnow.html" target="_blank" style="color:var(--accent)">City of Chicago Jobs Now portal</a> for public sector opportunities.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://epokagency.com/workspread/job/cook-part-time-at-unidine-chicago-il-60641-ff7ce912627e6735jktk-ZXBva2FnZW" target="_blank">Apply via Epok</a> · <a href="https://www.chicago.gov/city/en/narr/misc/jobs/jobsnow.html" target="_blank">City of Chicago Jobs</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3 style="margin:0 0 12px 0;font-size:17px;font-weight:700;color:var(--text-primary)">🏠 Homes For Sale & For Rent</h3>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#4a6cf7"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px">Portage Park Median Home Price: $480,000 (+13.7% YoY)</strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">As of February 2026, Portage Park's median sale price sits at $480,000 — up 13.7% year-over-year. Active listings range from a <a href="https://www.trulia.com/IL/Chicago,Portage_Park/" target="_blank" style="color:var(--accent)">$185,000 2BR condo</a> at 4856 W. Warner to a <a href="https://www.trulia.com/IL/Chicago,Portage_Park/" target="_blank" style="color:var(--accent)">$850,000 single-family home</a> near Portage Park itself. Currently ~33 homes for sale across the neighborhood.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.redfin.com/neighborhood/30954/IL/Chicago/Portage-Park" target="_blank">Redfin Portage Park</a> · <a href="https://www.trulia.com/IL/Chicago,Portage_Park/" target="_blank">Trulia</a> · <a href="https://www.zillow.com/portage-park-chicago-il/" target="_blank">Zillow</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#f59e0b"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://www.atproperties.com/12698012/5359-w-berenice-avenue-1-chicago-illinois-60641-nei" target="_blank" style="color:var(--accent);text-decoration:none">For Rent: 4BR/2BA at 5359 W. Berenice Ave #1 — $2,800/mo</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Spacious 4-bedroom, 2-bath rental with finished basement, central AC, in-unit laundry, and detached garage parking. Water and lawn care included. Pets up to 50 lbs welcome. Available August 15, 2026. Walkable to Portage Park, Blue Line, and Metra.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.atproperties.com/12698012/5359-w-berenice-avenue-1-chicago-illinois-60641-nei" target="_blank">@properties Listing</a> · <a href="https://www.compass.com/homedetails/5359-W-Berenice-Ave-Unit-1-Chicago-IL-60641/2AJLBM_pid/" target="_blank">Compass</a></div>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <span class="news-bullet" style="background:#10b981"></span>
+    <div style="flex:1">
+      <strong style="font-size:14px"><a href="https://www.compass.com/homedetails/4904-W-School-St-Unit-1-Chicago-IL-60641/2A6LOV_pid/" target="_blank" style="color:var(--accent);text-decoration:none">For Rent: 2BR/1BA at 4904 W. School St #1 — Estimated $1,650/mo</a></strong>
+      <p style="margin:4px 0;font-size:13px;color:var(--text-secondary);line-height:1.6">Beautiful 2-bedroom with hardwood floors, stainless steel appliances, walk-in closet, office nook, and garage parking. Heat, water, sewer, and scavenger included. Available immediately. Close to shopping, restaurants, and transit on the Portage Park / Jefferson Park border.</p>
+      <div class="news-sublinks"><span class="links-label">LINKS</span> <a href="https://www.compass.com/homedetails/4904-W-School-St-Unit-1-Chicago-IL-60641/2A6LOV_pid/" target="_blank">Compass Listing</a> · <a href="https://www.zillow.com/portage-park-chicago-il/rentals/" target="_blank">Zillow Rentals 60641</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3 style="margin:0 0 12px 0;font-size:17px;font-weight:700;color:var(--text-primary)">🤖 AI Ecosystem Map — Enterprise Landscape</h3>
+  <p style="font-size:12px;color:var(--text-muted);margin:0 0 10px 0">Tracking the 22 major enterprise AI players — hover for Wikipedia summaries.</p>
+  <div class="entity-row">
+    <div class="entity-card" data-name="OpenAI"><span>OpenAI</span></div>
+    <div class="entity-card" data-name="Anthropic"><span>Anthropic</span></div>
+    <div class="entity-card" data-name="Google DeepMind"><span>Google DeepMind</span></div>
+    <div class="entity-card" data-name="xAI"><span>xAI</span></div>
+    <div class="entity-card" data-name="Meta AI"><span>Meta AI</span></div>
+    <div class="entity-card" data-name="Microsoft"><span>Microsoft</span></div>
+    <div class="entity-card" data-name="Amazon"><span>Amazon</span></div>
+    <div class="entity-card" data-name="NVIDIA"><span>NVIDIA</span></div>
+    <div class="entity-card" data-name="AMD"><span>AMD</span></div>
+    <div class="entity-card" data-name="Intel"><span>Intel</span></div>
+    <div class="entity-card" data-name="TSMC"><span>TSMC</span></div>
+    <div class="entity-card" data-name="ASML"><span>ASML</span></div>
+    <div class="entity-card" data-name="Broadcom"><span>Broadcom</span></div>
+    <div class="entity-card" data-name="Apple"><span>Apple</span></div>
+    <div class="entity-card" data-name="DeepSeek"><span>DeepSeek</span></div>
+    <div class="entity-card" data-name="Alibaba"><span>Alibaba</span></div>
+    <div class="entity-card" data-name="Baidu"><span>Baidu</span></div>
+    <div class="entity-card" data-name="IBM"><span>IBM</span></div>
+    <div class="entity-card" data-name="Oracle"><span>Oracle</span></div>
+    <div class="entity-card" data-name="Hugging Face"><span>Hugging Face</span></div>
+    <div class="entity-card" data-name="Palantir"><span>Palantir</span></div>
+    <div class="entity-card" data-name="Salesforce"><span>Salesforce</span></div>
+  </div>
+</div>
+
+
+  <!-- SOURCES -->
+  
+<a href="https://blockclubchicago.org" target="_blank" class="source-pill">Block Club Chicago</a>
+<a href="https://nadignewspapers.com" target="_blank" class="source-pill">Nadig Newspapers</a>
+<a href="https://chicagoyimby.com" target="_blank" class="source-pill">Chicago YIMBY</a>
+<a href="https://www.portageparkchamber.org" target="_blank" class="source-pill">Portage Park Chamber</a>
+<a href="https://www.redfin.com" target="_blank" class="source-pill">Redfin</a>
+<a href="https://www.zillow.com" target="_blank" class="source-pill">Zillow</a>
+<a href="https://www.atproperties.com" target="_blank" class="source-pill">@properties</a>
+<a href="https://www.compass.com" target="_blank" class="source-pill">Compass</a>
+<a href="https://www.trulia.com" target="_blank" class="source-pill">Trulia</a>
+<a href="https://www.jobtarget.com" target="_blank" class="source-pill">JobTarget</a>
+<a href="https://www.chicago.gov" target="_blank" class="source-pill">City of Chicago</a>
+<a href="https://www.theinfatuation.com" target="_blank" class="source-pill">The Infatuation</a>
+<a href="https://whatnow.com" target="_blank" class="source-pill">What Now Chicago</a>
+<a href="https://chicago.suntimes.com" target="_blank" class="source-pill">Sun-Times</a>
+<a href="https://www.chicagotribune.com" target="_blank" class="source-pill">Chicago Tribune</a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-07-25-1306-60641-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-07-25-1306-60641-daily-sweep.html</a>
+  </div>
+
+</div>
+
+<style>
+.grok-popup {
+  position: fixed; z-index: 9999;
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  width: 320px; padding: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  pointer-events: none;
+  font-size: 13px; line-height: 1.6; overflow: hidden;
+}
+.grok-popup.visible { opacity: 1; visibility: visible; }
+.grok-popup .popup-thumb {
+  width: 100%; height: 120px;
+  object-fit: cover; border-radius: 10px 10px 0 0;
+  background: var(--bar-bg); display: block;
+}
+.grok-popup .popup-body { padding: 12px 16px 14px; }
+.grok-popup h3 { margin: 0 0 6px; font-size: 15px; font-weight: 700; }
+.grok-popup p { margin: 0 0 8px; font-size: 12.5px; color: var(--text-secondary); }
+.grok-popup .popup-link {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  text-decoration: none;
+}
+.grok-popup .popup-footer {
+  padding: 8px 16px; border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--text-muted);
+}
+</style>
+<script>
+(function(){
+  const SUMMARIES = {"AMD": {"extract": "Advanced Micro Devices, Inc. (AMD) is an American multinational semiconductor company headquartered in Santa Clara, California. It develops central processing units (CPUs), graphics processing units (GPUs), field-programmable gate arrays (FPGAs), system-on-chips (SoCs), and high-", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg/330px-2485_Augustine_Drive_headquarters_in_Santa_Clara%2C_California.jpg", "url": "https://en.wikipedia.org/wiki/Advanced_Micro_Devices"}, "ASML": {"extract": "ASML Holding N.V. is a Dutch multinational corporation that develops and manufactures photolithography machines, which are used to produce integrated circuits. It is the largest supplier for the semiconductor industry, as well as the most advanced producer of extreme ultraviolet ", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/ASML_headquarters_Veldhoven.jpg/330px-ASML_headquarters_Veldhoven.jpg", "url": "https://en.wikipedia.org/wiki/ASML_Holding"}, "Alibaba": {"extract": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/TaobaoCity_Alibaba_Xixi_Park.jpg/330px-TaobaoCity_Alibaba_Xixi_Park.jpg", "url": "https://en.wikipedia.org/wiki/Alibaba_Group"}, "Amazon": {"extract": "Amazon.com, Inc. is an American multinational technology company engaged in e-commerce, cloud computing, online advertising, digital streaming, entertainment, and artificial intelligence. Founded in 1994 by Jeff Bezos in Bellevue, Washington, the company originally started as an ", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon_Tower_I_topped_out%2C_June_2015.jpg/330px-Amazon_Tower_I_topped_out%2C_June_2015.jpg", "url": "https://en.wikipedia.org/wiki/Amazon_(company)"}, "Anthropic": {"extract": "Anthropic, PBC is an American artificial intelligence (AI) public benefit corporation headquartered in San Francisco, California, founded with the goal of promoting AI safety. Its flagship product is Claude, a series of large language models (LLMs). Anthropic was founded in 2021 ", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Anthropic"}, "Apple": {"extract": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, in Silicon Valley, and known for consumer electronics, software and online services. Founded in 1976 as Apple Computer Company by Steve Jobs, Steve Wozniak and Ronald Wayne, the com", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/330px-Apple_logo_black.svg.png", "url": "https://en.wikipedia.org/wiki/Apple_Inc."}, "Baidu": {"extract": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet services and artificial intelligence. It holds a dominant position in China's search engine market, and provides a wide variety of other internet services such as Baidu App, Baidu Baike, iQIYI, Bai", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg/330px-Baidu_Technology_Park_at_ZPark_Phase_II_%2820220502113650%29.jpg", "url": "https://en.wikipedia.org/wiki/Baidu"}, "Broadcom": {"extract": "Broadcom Inc. is an American multinational designer, developer, manufacturer, and global supplier of a wide range of semiconductor and infrastructure software products. Broadcom's product offerings serve the data center, networking, software, broadband, wireless, storage, and ind", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Broadcom_Headquarters_San_Jose.jpg/330px-Broadcom_Headquarters_San_Jose.jpg", "url": "https://en.wikipedia.org/wiki/Broadcom_Inc."}, "DeepSeek": {"extract": "Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd., doing business as DeepSeek, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chin", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/DeepSeek"}, "Google DeepMind": {"extract": "DeepMind Technologies Limited, trading as Google DeepMind or simply DeepMind, is a British-American artificial intelligence (AI) research laboratory which serves as a subsidiary of Alphabet Inc. Founded in the UK in 2010, it was acquired by Google in 2014, and merged with Google ", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Google_DeepMind"}, "Hugging Face": {"extract": "Hugging Face, Inc., is an American company based in New York City that develops computation tools for building applications using machine learning. Hugging Face's transformers library is built for natural language processing applications. The Hugging Face platform allows users to", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/Hugging_Face"}, "IBM": {"extract": "International Business Machines Corporation, doing business as IBM, is an American multinational technology company headquartered in Armonk, New York, and present in over 175 countries. It is a publicly traded company and one of the 30 companies in the Dow Jones Industrial Averag", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/IBM_CHQ_-_Oct_2014.jpg/330px-IBM_CHQ_-_Oct_2014.jpg", "url": "https://en.wikipedia.org/wiki/IBM"}, "Intel": {"extract": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units (CPUs) and related products for business and consumer markets. Intel was the world'", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Intel_Headquarters_in_2023.jpg/330px-Intel_Headquarters_in_2023.jpg", "url": "https://en.wikipedia.org/wiki/Intel"}, "Meta AI": {"extract": "Meta AI is a research division of Meta that develops artificial intelligence and augmented reality technologies.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Meta_AI_screenshot.jpg/330px-Meta_AI_screenshot.jpg", "url": "https://en.wikipedia.org/wiki/Meta_AI"}, "Microsoft": {"extract": "Microsoft Corporation is an American multinational technology company headquartered in Redmond, Washington. The company became influential in the rise of personal computers through software like Windows and has since expanded into areas such as Internet services, cloud computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Aerial_Microsoft_West_Campus_August_2009.jpg/330px-Aerial_Microsoft_West_Campus_August_2009.jpg", "url": "https://en.wikipedia.org/wiki/Microsoft"}, "NVIDIA": {"extract": "Nvidia Corporation is an American multinational technology company headquartered in Santa Clara, California. The company develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for data science, high-performance computing,", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2788-2888_San_Tomas_Expwy.jpg/330px-2788-2888_San_Tomas_Expwy.jpg", "url": "https://en.wikipedia.org/wiki/Nvidia"}, "OpenAI": {"extract": "OpenAI is an American artificial intelligence (AI) research organization headquartered in San Francisco, consisting of OpenAI Group PBC, a for-profit public benefit corporation (PBC), partially controlled by OpenAI Foundation, a nonprofit. OpenAI develops generative AI models, pa", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/OpenAI"}, "Oracle": {"extract": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California, in 1977 by Bob Miner, Ed Oates, and current chairman of the board and chief technology officer Larry Ellison, Oracle is among the 20 largest c", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Oracle_Campus_in_Austin_2018.jpg/330px-Oracle_Campus_in_Austin_2018.jpg", "url": "https://en.wikipedia.org/wiki/Oracle_Corporation"}, "Palantir": {"extract": "Palantir Technologies Inc. is an American publicly traded company that develops data integration and analytics software. Palantir is headquartered in Miami, Florida, and was founded in 2003 by Peter Thiel, Stephen Cohen, Joe Lonsdale, Alex Karp, and Nathan Gettings.", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Palantir_1_2018-09-06.jpg/330px-Palantir_1_2018-09-06.jpg", "url": "https://en.wikipedia.org/wiki/Palantir_Technologies"}, "Salesforce": {"extract": "Salesforce, Inc., is an American cloud-based software company headquartered in San Francisco, California. It is primarily known for its customer relationship management software and related applications which it delivers through a software as a service subscription business model", "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/330px-Salesforce.com_logo.svg.png", "url": "https://en.wikipedia.org/wiki/Salesforce"}, "TSMC": {"extract": "Taiwan Semiconductor Manufacturing Company Limited is a Taiwanese multinational semiconductor contract manufacturing and design company. Headquartered in Hsinchu Science Park, it is one of the world's largest non-U.S. companies by market capitalisation. It holds a commanding majo", "thumbnail": "https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Tsmc.svg/330px-Tsmc.svg.png", "url": "https://en.wikipedia.org/wiki/TSMC"}, "xAI": {"extract": "SpaceXAI, is a subsidiary of the American spaceflight company SpaceX working in the areas of artificial intelligence (AI) and social media.", "thumbnail": "", "url": "https://en.wikipedia.org/wiki/xAI_(company)"}};
+  const popup = document.createElement('div');
+  popup.className = 'grok-popup';
+  document.body.appendChild(popup);
+  let activeCard = null, hideTimer = null;
+
+  function showPopup(card, data) {
+    const name = card.getAttribute('data-name') || card.querySelector('span')?.textContent?.trim() || '';
+    const thumb = data.thumbnail
+      ? '<img class="popup-thumb" src="' + data.thumbnail + '" alt="" loading="lazy">'
+      : '';
+    const extract = data.extract
+      ? data.extract.substring(0, 300) + '…'
+      : 'No description available.';
+    popup.innerHTML = thumb +
+      '<div class="popup-body">' +
+      '<h3>' + name + '</h3>' +
+      '<p>' + extract + '</p>' +
+      '<a class="popup-link" href="' + data.url + '" target="_blank" rel="noopener">Read more on Wikipedia →</a>' +
+      '</div>' +
+      '<div class="popup-footer">Wikipedia</div>';
+    popup.classList.add('visible');
+    positionPopup(card);
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+    let left = rect.left + rect.width + 10;
+    let top = rect.top;
+    if (left + pw > window.innerWidth - 10) left = rect.left - pw - 10;
+    if (top + ph > window.innerHeight - 10) top = window.innerHeight - ph - 10;
+    if (top < 10) top = 10;
+    popup.style.left = left + 'px';
+    popup.style.top = top + 'px';
+  }
+
+  document.querySelectorAll('.entity-card').forEach(card => {
+    const name = card.querySelector('span')?.textContent?.trim();
+    if (!name || !SUMMARIES[name]) return;
+    card.style.cursor = 'pointer';
+    card.setAttribute('data-name', name);
+    card.addEventListener('mouseenter', function() {
+      clearTimeout(hideTimer);
+      activeCard = this;
+      showPopup(this, SUMMARIES[name]);
+    });
+    card.addEventListener('mouseleave', function() {
+      hideTimer = setTimeout(function() { popup.classList.remove('visible'); }, 200);
+    });
+    card.addEventListener('mousemove', function() {
+      if (popup.classList.contains('visible')) positionPopup(this);
+    });
+  });
+  popup.addEventListener('mouseenter', function() { clearTimeout(hideTimer); });
+  popup.addEventListener('mouseleave', function() { popup.classList.remove('visible'); });
+})();
+</script>
+
+</body>
+</html>
