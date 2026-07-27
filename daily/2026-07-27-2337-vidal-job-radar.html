@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Vidal Job Radar — 2026-07-27 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+/* ── Job Cards ── */
+.job-card, .training-card, .context-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.2s;
+}
+.job-card:hover, .training-card:hover, .context-card:hover { border-color: var(--accent); }
+.job-title-row, .training-title-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+.job-title, .training-title, .context-title {
+    font-size: 15px; font-weight: 600; color: var(--accent); text-decoration: none;
+}
+.job-title:hover, .training-title:hover, .context-title:hover { text-decoration: underline; }
+.job-meta, .training-meta {
+    display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary);
+}
+.job-company { font-weight: 600; color: var(--text-primary); }
+.job-salary { color: #22c55e; font-weight: 600; }
+.job-commute { color: var(--text-muted); }
+.job-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.job-tag {
+    background: var(--bar-bg); color: var(--text-secondary);
+    padding: 3px 8px; border-radius: 4px; font-size: 11px;
+}
+/* ── Badges ── */
+.badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-strong { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+.badge-good { background: #4a6cf722; color: #4a6cf7; border: 1px solid #4a6cf744; }
+.badge-reach { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b44; }
+.badge-cdl { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+.badge-apprentice { background: #8b5cf622; color: #8b5cf6; border: 1px solid #8b5cf644; }
+.badge-cert { background: #06b6d422; color: #06b6d4; border: 1px solid #06b6d444; }
+.badge-degree { background: #ec489922; color: #ec4899; border: 1px solid #ec489944; }
+.badge-other { background: var(--bar-bg); color: var(--text-secondary); }
+.paid-badge {
+    background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44;
+    padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700;
+}
+.pay-detail { color: #22c55e; font-weight: 600; }
+.train-detail { color: var(--text-muted); }
+.training-desc, .context-desc {
+    font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4;
+}
+.context-source { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-style: italic; }
+.candidate-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; margin-bottom: 12px;
+}
+.candidate-name { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.candidate-detail { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.skill-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.skill-tag {
+    background: var(--bar-bg); color: var(--accent); padding: 2px 8px;
+    border-radius: 4px; font-size: 10px; border: 1px solid var(--border);
+}
+.section-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.nav-btn {
+    background: var(--bar-bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 16px; font-size: 13px; cursor: pointer; color: var(--text-secondary);
+}
+.nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Vidal Job Radar</span>
+  <h1 class="report-title">Vidal Job Radar — 2026-07-27</h1>
+  <div class="report-meta">
+    <span>📅 2026-07-27</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Internal</span>
+    <span>📄 Weekly Newsletter</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2> 15 Jobs · 3 Strong Matches · 0 Paid Training Programs</h2>
+    <p>Weekly job radar for <strong>Vidal Saldivar</strong> — logistics and operations management roles within commuting distance of Plano, IL, plus paid training programs and apprenticeships that pay during training. Updated every Friday.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+    <div class="metric-row">
+        <div class="metric-card"><div class="metric-value">15</div><div class="metric-label">Jobs</div></div>
+        <div class="metric-card"><div class="metric-value">3</div><div class="metric-label">Strong Matches</div></div>
+        <div class="metric-card"><div class="metric-value">0</div><div class="metric-label">Paid Training</div></div>
+        <div class="metric-card"><div class="metric-value">2026-07-27</div><div class="metric-label">Date</div></div>
+    </div>
+
+  <!-- CONTENT (panel stack) -->
+  
+    <div data-panel="candidate" data-panel-title="Candidate" data-panel-color="#4a6cf7" data-panel-default="1">
+        <div class="section-header"><span class="icon"></span><h2>Candidate Profile</h2><span class="accent-line"></span></div>
+        <div class="candidate-card">
+            <div class="candidate-name">Vidal Saldivar</div>
+            <div class="candidate-detail">Plano, IL 60545 · Operations Manager · 15 years experience</div>
+            <div class="skill-tags"><span class="skill-tag">Operations Management</span><span class="skill-tag">Transportation & Logistics</span><span class="skill-tag">DOT Compliance</span><span class="skill-tag">Workforce Planning</span><span class="skill-tag">24/7 Dispatch Operations</span><span class="skill-tag">Performance Management</span><span class="skill-tag">Linehaul Coordination</span><span class="skill-tag">Fleet/Trailer Utilization</span></div>
+        </div>
+        <div class="pulse" style="display:flex;align-items:center;gap:10px;background:var(--bar-bg);padding:12px 16px;border-radius:10px;">
+            <span style="font-size:28px;"></span>
+            <span style="font-size:14px;color:var(--text-secondary);">
+                Searching within <strong style="color:var(--accent);">35 miles from Plano, IL (Aurora, Naperville, Joliet, Oswego, Yorkville, Plainfield, Bolingbrook, St Charles, North Aurora)</strong>
+            </span>
+        </div>
+    </div>
+
+    <div data-panel="jobs" data-panel-title="Job Openings (15)" data-panel-color="#22c55e" data-panel-default="1">
+        <div class="section-header"><span class="icon"></span><h2>Job Openings</h2><span class="accent-line"></span></div>
+        <div class="hero-card" style="border-left-color:#22c55e">
+            <p><strong>15</strong> logistics/operations roles found. <strong>3</strong> strong matches.</p>
+        </div>
+        
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.indeed.com/q-Logistics-Operations-Manager-l-Naperville,-IL-jobs.html" target="_blank" class="job-title">Logistics Operations Manager jobs in Naperville, IL - Indeed</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Indeed</span>
+                    <span class="job-location">Naperville, IL</span>
+                    
+                    <span class="job-commute">~30 min</span>
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.indeed.com/q-operations-manager-l-aurora,-il-jobs.html" target="_blank" class="job-title">Operations Manager Jobs, Employment in Aurora, IL | Indeed</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Aurora, IL</span>
+                    
+                    <span class="job-commute">~25 min</span>
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.ziprecruiter.com/Jobs/Operations-Manager/-in-Aurora,IL" target="_blank" class="job-title">$39k-$184k Operations Manager Jobs in Aurora, IL</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Aurora, IL</span>
+                    
+                    <span class="job-commute">~25 min</span>
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://en.wikipedia.org/wiki/Operations_management" target="_blank" class="job-title">Operations management - Wikipedia</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Wikipedia</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.merriam-webster.com/dictionary/operation" target="_blank" class="job-title">OPERATION Definition & Meaning - Merriam-Webster</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Merriam-Webster</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://oklahoma.gov/odot/programs-and-projects/programs/multimodal/transit-programs/section-5311-rural/cimarron-public-transit-system.html" target="_blank" class="job-title">CIMARRON PUBLIC TRANSIT SYSTEM - Oklahoma.gov</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Oklahoma.gov</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.ziprecruiter.com/Jobs/Dot-Compliance/-in-Chicago,IL?lk=JKXujriHKc-klRzCyaOZNg" target="_blank" class="job-title">$62k-$148k Dot Compliance Jobs Chicago, IL (NOW HIRING)</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://oklahoma.gov/odot.html" target="_blank" class="job-title">Oklahoma Department of Transportation (345)</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.ziprecruiter.com/Jobs/Dot-Compliance-Manager/--in-Illinois" target="_blank" class="job-title">$59k-$90k Dot Compliance Manager Jobs Illinois (NOW HIRING)</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.glassdoor.com/Job/chicago-dot-compliance-jobs-SRCH_IL.0,7_IC1128808_KO8,22.htm" target="_blank" class="job-title">411 dot compliance Jobs in Chicago, IL, May 2026 | Glassdoor</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.dispatchit.com/" target="_blank" class="job-title">Last-Mile Delivery Logistics Platform For Businesses | Dispatch</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://thedispatch.com/" target="_blank" class="job-title">The Dispatch: Independent Reporting and Thoughtful Analysis From …</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://work.dispatch.me/" target="_blank" class="job-title">Dispatch</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Chicago Western Suburbs</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.indeed.com/q-dispatcher-l-oswego,-il-jobs.html" target="_blank" class="job-title">Dispatcher Jobs, Employment in Oswego, IL | Indeed</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Oswego, IL</span>
+                    
+                    <span class="job-commute">~10-20 min</span>
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+        <div class="job-card">
+            <div class="job-card-header">
+                <div class="job-title-row">
+                    <a href="https://www.indeed.com/q-logistics-l-yorkville,-il-jobs.html" target="_blank" class="job-title">Logistics Jobs, Employment in Yorkville, IL | Indeed</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">See listing</span>
+                    <span class="job-location">Yorkville, IL</span>
+                    
+                    <span class="job-commute">~10-20 min</span>
+                </div>
+            </div>
+            <div class="job-tags"><span class="job-tag">Operations leadership role</span></div>
+        </div>
+    </div>
+
+    <div data-panel="training" data-panel-title="Training (10)" data-panel-color="#8b5cf6" data-panel-default="1">
+        <div class="section-header"><span class="icon"></span><h2>Paid Training & Apprenticeships</h2><span class="accent-line"></span></div>
+        <div class="hero-card" style="border-left-color:#8b5cf6">
+            <p><strong>10</strong> programs found. <strong>0</strong> pay during training.</p>
+        </div>
+        
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://iowadot.gov/drivers-licenses-ids/commercial-drivers/get-cdl" target="_blank" class="training-title">How to Get a CDL - Iowa Department of Transportation</a>
+                    <span class="badge badge-cdl">CDL</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Jun 8, 2026 · Find out who can apply for a commercial driver's license, and how to get one in Iowa.</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://iowadot.gov/drivers-licenses-ids/commercial-drivers" target="_blank" class="training-title">Commercial Drivers | Department of Transportation</a>
+                    <span class="badge badge-cdl">CDL</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Commercial Drivers A CDL is required to operate large vehicles, hazardous material transport, or passenger vehicles (15+ people) for commerce in the U.S.</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://www.roehl.jobs/truck-driver-jobs/detail/4232/cdl-driver-paid-training-chicago-il?zipcode=60653" target="_blank" class="training-title">Chicago, IL | Truck Driver on-the-job CDL Training</a>
+                    <span class="badge badge-cdl">CDL</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>brave</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Our <strong>paid, on-the-job CDL-A training program is available where we have customer demand</strong> (including in many states east of I35, including Wisconsin, Illinois, Indiana, Ohio, Pennsylvani</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://www.chicago.gov/city/en/depts/dhr/provdrs/dhr_administration/svcs/tuition-reimbursement.html" target="_blank" class="training-title">City of Chicago :: Tuition Reimbursement</a>
+                    <span class="badge badge-degree">Degree</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>brave</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">The general purpose of this policy is to increase the effectiveness of City services to the citizens of Chicago by encouraging the personal development of City employees through education and training</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://learn.org/financial-aid/fedex-tuition-reimbursement" target="_blank" class="training-title">FedEx Tuition Reimbursement & Requirements 2026 - Learn.org</a>
+                    <span class="badge badge-degree">Degree</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>brave</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">However, UPS’s Earn &amp; Learn program ... rather than pay tuition upfront. Amazon’s Career Choice program <strong>pays tuition upfront for select programs and schools</strong>....</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://www.callofdutyleague.com/" target="_blank" class="training-title">Official Site of the Call of Duty League | Call of Duty League</a>
+                    <span class="badge badge-other">Training</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Your home for scores, schedules, news, video highlights, rankings and more for Call of Duty League players and teams.</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://www.tradingview.com/" target="_blank" class="training-title">TradingView — Track All Markets</a>
+                    <span class="badge badge-other">Training</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">5 days ago · Trade directly on Supercharts through our supported, fully-verified, and user-reviewed brokers.</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://us.etrade.com/home?msockid=10f13ecd9887669113cb296e99226751" target="_blank" class="training-title">E*TRADE | Investing, Trading & Retirement</a>
+                    <span class="badge badge-other">Training</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">At E*TRADE, we make it easy to trade stocks, bonds, ETFs, mutual funds, and more. Watch our platform demos or join us live every …</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://us.etrade.com/home/welcome-back?msockid=10f13ecd9887669113cb296e99226751" target="_blank" class="training-title">Log in to E*TRADE</a>
+                    <span class="badge badge-other">Training</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Log in to your E*TRADE account to view balances, manage your portfolio, and trade securely online, anytime.</div>
+        </div>
+        <div class="training-card">
+            <div class="training-header">
+                <div class="training-title-row">
+                    <a href="https://en.wikipedia.org/wiki/Logistics" target="_blank" class="training-title">Logistics - Wikipedia</a>
+                    <span class="badge badge-other">Training</span>
+                    
+                </div>
+                <div class="training-meta">
+                    <span>searxng/bing</span>
+                    <span>Illinois</span>
+                    
+                    
+                </div>
+            </div>
+            <div class="training-desc">Logistical activities can be divided into three main areas: order processing, inventory management, and freight transportation. Modern …</div>
+        </div>
+    </div>
+
+    <div data-panel="context" data-panel-title="Market News (6)" data-panel-color="#f59e0b" data-panel-default="0">
+        <div class="section-header"><span class="icon"></span><h2>Industry News & Hiring Trends</h2><span class="accent-line"></span></div>
+        
+        <div class="context-card">
+            <a href="https://www.colliers.com/en/research/nrep-usind-colliers-supply-chain-solutions-report-march-2026" target="_blank" class="context-title">Colliers Supply Chain Solutions | State of the Industry Report | March 2026</a>
+            <div class="context-desc">Mar 10</div>
+            <div class="context-source">via searxng/google news</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.commercialcafe.com/blog/national-industrial-report/" target="_blank" class="context-title">June 2026 Industrial Report: Rising USMCA Uncertainty Threatens Cross-Border Logistics</a>
+            <div class="context-desc">Jun 26</div>
+            <div class="context-source">via searxng/google news</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.nucamp.co/blog/coding-bootcamp-chicago-il-top-10-tech-companies-to-work-for-in-chicago-in-2025" target="_blank" class="context-title">Top 10 Companies Hiring AI Engineers in Chicago, IL in 2026</a>
+            <div class="context-desc">Feb 25</div>
+            <div class="context-source">via searxng/google news</div>
+        </div>
+        <div class="context-card">
+            <a href="https://research.com/advice/is-demand-for-supply-chain-management-degree-graduates-growing-or-declining" target="_blank" class="context-title">2026 Is Demand for Supply Chain Management Degree Graduates Growing or Declining? | Research.com</a>
+            <div class="context-desc">2026 reveals the latest trends in demand for Supply Chain Management degree graduates-discover whether opportunities are growing or declining now. Explore the fully updated, comprehensive list of care</div>
+            <div class="context-source">via brave</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.freightwaves.com/news/freight-distress-report-supply-chain-providers-cut-more-than-1200-jobs" target="_blank" class="context-title">Freight Distress Report: Supply chain providers cut more than 1,200 jobs</a>
+            <div class="context-desc">3 days ago</div>
+            <div class="context-source">via searxng/google news</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.chicagotribune.com/2026/07/20/warehouse-truck-emissions-will-county-northpoint/" target="_blank" class="context-title">Studies raise alarms as more warehouses are built near homes and schools in Illinois</a>
+            <div class="context-desc">7 days ago</div>
+            <div class="context-source">via searxng/google news</div>
+        </div>
+    </div>
+
+  <!-- SOURCES -->
+  <h3>Sources</h3>
+<a href="https://www.indeed.com/q-Logistics-Operations-Manager-l-Naperville,-IL-jobs.html" target="_blank">Indeed — Logistics Operations Manager jobs in Naperville, I</a>
+<a href="https://www.indeed.com/q-operations-manager-l-aurora,-il-jobs.html" target="_blank">See listing — Operations Manager Jobs, Employment in Aurora, IL </a>
+<a href="https://www.ziprecruiter.com/Jobs/Operations-Manager/-in-Aurora,IL" target="_blank">See listing — $39k-$184k Operations Manager Jobs in Aurora, IL</a>
+<a href="https://en.wikipedia.org/wiki/Operations_management" target="_blank">Wikipedia — Operations management - Wikipedia</a>
+<a href="https://www.merriam-webster.com/dictionary/operation" target="_blank">Merriam-Webster — OPERATION Definition & Meaning - Merriam-Webster</a>
+<a href="https://oklahoma.gov/odot/programs-and-projects/programs/multimodal/transit-programs/section-5311-rural/cimarron-public-transit-system.html" target="_blank">Oklahoma.gov — CIMARRON PUBLIC TRANSIT SYSTEM - Oklahoma.gov</a>
+<a href="https://www.ziprecruiter.com/Jobs/Dot-Compliance/-in-Chicago,IL?lk=JKXujriHKc-klRzCyaOZNg" target="_blank">See listing — $62k-$148k Dot Compliance Jobs Chicago, IL (NOW HI</a>
+<a href="https://oklahoma.gov/odot.html" target="_blank">See listing — Oklahoma Department of Transportation (345)</a>
+<a href="https://www.ziprecruiter.com/Jobs/Dot-Compliance-Manager/--in-Illinois" target="_blank">See listing — $59k-$90k Dot Compliance Manager Jobs Illinois (NO</a>
+<a href="https://www.glassdoor.com/Job/chicago-dot-compliance-jobs-SRCH_IL.0,7_IC1128808_KO8,22.htm" target="_blank">See listing — 411 dot compliance Jobs in Chicago, IL, May 2026 |</a>
+<a href="https://www.dispatchit.com/" target="_blank">See listing — Last-Mile Delivery Logistics Platform For Business</a>
+<a href="https://thedispatch.com/" target="_blank">See listing — The Dispatch: Independent Reporting and Thoughtful</a>
+<a href="https://work.dispatch.me/" target="_blank">See listing — Dispatch</a>
+<a href="https://www.indeed.com/q-dispatcher-l-oswego,-il-jobs.html" target="_blank">See listing — Dispatcher Jobs, Employment in Oswego, IL | Indeed</a>
+<a href="https://www.indeed.com/q-logistics-l-yorkville,-il-jobs.html" target="_blank">See listing — Logistics Jobs, Employment in Yorkville, IL | Inde</a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href=""></a>
+  </div>
+
+</div>
+</body>
+</html>
