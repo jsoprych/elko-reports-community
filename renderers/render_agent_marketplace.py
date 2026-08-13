@@ -54,55 +54,58 @@ def render_section_header(icon, title):
 </div>"""
 
 
-def render_entity_grid(brand_svgs):
-    """Entity card grid for marketplace platforms."""
+def render_entity_grid(data, brand_svgs):
+    """Entity card grid for marketplace platforms (live source counts)."""
+    sources = data.get("sources", {})
     platforms = [
         {
+            "key": "github_topics",
             "slug": "github",
             "name": "GitHub Topics",
-            "desc": "Open-source extension repos tagged with agent/MCP topics",
-            "entries": "118 repos",
+            "desc": "Open-source agent/MCP repos tagged by topic",
         },
         {
-            "slug": "smithery",
-            "name": "Smithery.ai",
-            "desc": "MCP server marketplace with 5,000+ registered servers",
-            "entries": "Rate limited (429)",
+            "key": "claude_code_hub",
+            "slug": "claude",
+            "name": "Claude Code Hub",
+            "desc": "Claude Code plugins, skills, and hooks",
         },
         {
+            "key": "hermes_hub",
+            "slug": "hermes",
+            "name": "Hermes Skills Hub",
+            "desc": "elko's own agent skill registry",
+        },
+        {
+            "key": "community",
             "slug": "reddit",
-            "name": "Reddit Communities",
-            "desc": "r/ClaudeAI, r/ClaudeCode, r/LocalLLaMA, r/AIAgentTools",
-            "entries": "75 posts scanned",
-        },
-        {
-            "slug": "hn",
-            "name": "Hacker News",
-            "desc": "AI agent-related discussions and Show HNs",
-            "entries": "4 posts found",
+            "name": "Community (Reddit & HN)",
+            "desc": "r/ClaudeAI, r/ClaudeCode, Hacker News & awesome lists",
         },
     ]
 
     cards_html = ""
     for p in platforms:
         slug = p["slug"]
-        if slug == "hn":
-            # Hacker News — no SVG, use styled "Y"
-            img_html = '<div style="width:40px;height:40px;border-radius:8px;background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#ff6600;flex-shrink:0">Y</div>'
+        count = sources.get(p["key"], {}).get("count", 0)
+        dl = sources.get(p["key"], {}).get("total_downloads", 0)
+        entries_str = f"{count:,} entries"
+        if dl:
+            entries_str += f" \u00b7 {dl:,} downloads"
+
+        brand_entry = brand_svgs.get(slug, {})
+        svg_url = brand_entry.get("url", "")
+        if svg_url:
+            img_html = f'<img src="{svg_url}" width="40" height="40" style="object-fit:contain;border-radius:8px;background:var(--bar-bg);padding:4px;flex-shrink:0" alt="{p["name"]}">'
         else:
-            brand_entry = brand_svgs.get(slug, {})
-            svg_url = brand_entry.get("url", "")
-            if svg_url:
-                img_html = f'<img src="{svg_url}" width="40" height="40" style="object-fit:contain;border-radius:8px;background:var(--bar-bg);padding:4px;flex-shrink:0" alt="{p["name"]}">'
-            else:
-                img_html = f'<div style="width:40px;height:40px;border-radius:8px;background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--text-muted);flex-shrink:0">{p["name"][0]}</div>'
+            img_html = f'<div style="width:40px;height:40px;border-radius:8px;background:var(--bar-bg);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--text-muted);flex-shrink:0">{p["name"][0]}</div>'
 
         cards_html += f"""<div class="entity-card" style="display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:var(--surface);border-radius:var(--card-radius);border:1px solid var(--border);box-shadow:var(--card-shadow);transition:transform 0.2s">
   {img_html}
   <div style="flex:1;min-width:0">
     <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:2px">{p["name"]}</div>
     <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin-bottom:4px">{p["desc"]}</div>
-    <div style="font-size:11px;font-weight:600;color:var(--accent)">{p["entries"]}</div>
+    <div style="font-size:11px;font-weight:600;color:var(--accent)">{entries_str}</div>
   </div>
 </div>"""
 
@@ -209,36 +212,32 @@ def render_hot_topics(topics):
 
 
 def render_sources_table(sources):
-    """Sources and errors table."""
+    """Sources and errors table (live counts from collector)."""
     source_labels = {
         "github_topics": "GitHub Topics",
         "claude_code_hub": "Claude Code Hub",
         "hermes_hub": "Hermes Skills Hub",
         "community": "Community (Reddit/HN)",
     }
-    # Enrich with status from scanner output
-    source_status = {
-        "github_topics": {"entries": 100, "status": "OK"},
-        "claude_code_hub": {"entries": 20, "status": "404 (partial)"},
-        "hermes_hub": {"entries": 15, "status": "404 (partial)"},
-        "community": {"entries": 79, "status": "OK (Reddit 404)"},
-    }
 
     rows_html = ""
     for platform_key, info in sorted(sources.items(), key=lambda x: -x[1]["count"]):
         label = source_labels.get(platform_key, platform_key)
-        status_info = source_status.get(platform_key, {"entries": info["count"], "status": "OK"})
-        status_str = status_info.get("status", "OK")
-        status_class = "status-ok" if status_str == "OK" else ("status-warn" if "partial" in status_str else "status-err")
+        count = info.get("count", 0)
+        dl = info.get("total_downloads", 0)
+        status_str = "OK" if count > 0 else "No data"
+        status_class = "status-ok" if count > 0 else "status-err"
+        dl_str = f"{dl:,}" if dl else "\u2014"
         rows_html += f"""<tr>
   <td style="font-size:12px;font-weight:600">{label}</td>
-  <td style="font-size:12px;text-align:center">{info['count']}</td>
+  <td style="font-size:12px;text-align:center">{count:,}</td>
+  <td style="font-size:12px;text-align:center">{dl_str}</td>
   <td class="status-col"><span class="{status_class}">{status_str}</span></td>
 </tr>"""
 
     return render_section_header("\U0001F4CB", "Sources & Status") + f"""<div class="chart-container" style="margin:12px 0 24px">
 <table class="data-table">
-  <thead><tr><th>Source</th><th>Entries</th><th>Status</th></tr></thead>
+  <thead><tr><th>Source</th><th>Entries</th><th>Downloads</th><th>Status</th></tr></thead>
   <tbody>
 {rows_html}
   </tbody>
@@ -274,10 +273,12 @@ def render_suggestions(data):
 
     items_html = ""
     for s in suggestions:
-        confidence_symbol = "\U0001F7E2" if s.get("confidence") == "high" else "\U0001F7E1"
+        confidence = s.get("confidence", "medium")
+        confidence_symbol = "\U0001F7E2" if confidence == "high" else "\U0001F7E1"
+        color = "var(--success)" if confidence == "high" else "var(--warning)"
         items_html += f"""<li class="news-item">
-  <span class="news-bullet" style="background:var(--success) if s.get('confidence')=='high' else var(--warning)"></span>
-  <span class="news-text">{s['suggestion'][:250]}</span>
+  <span class="news-bullet" style="background:{color}"></span>
+  <span class="news-text">{s['suggestion'][:250]} <span style="font-size:10px;color:var(--text-muted);margin-left:6px">({confidence_symbol} {confidence})</span></span>
 </li>"""
 
     return render_section_header("\U0001F4A1", "Strategic Insights") + f"""<ul class="news-list">
@@ -294,8 +295,7 @@ def render_full_report(data):
 
     # Panels
     panels_html = ""
-    panels_html += render_entity_grid(brand_svgs)
-    panels_html += render_metric_row(data)
+    panels_html += render_entity_grid(data, brand_svgs)
     panels_html += render_bar_chart(data["top_tools"])
     panels_html += render_overlaps_section(data["overlaps"])
     panels_html += render_hot_topics(data["community_hot_topics"])
@@ -373,6 +373,23 @@ def main():
     # Email
     pages_url = f"https://jsoprych.github.io/elko-reports-community/daily/{DATE_STR}-{TIME_STR}-{SLUG}.html"
     github_url = f"https://github.com/jsoprych/elko-reports-community/blob/main/daily/{DATE_STR}-{TIME_STR}-{SLUG}.html"
+
+    # Verify Pages URL is live before emailing (Pages builds take 30-60s)
+    import urllib.request, time
+    verified = False
+    for attempt in range(8):
+        try:
+            if urllib.request.urlopen(pages_url, timeout=8).status == 200:
+                verified = True
+                break
+        except Exception:
+            pass
+        time.sleep(15)
+    if verified:
+        print(f"\u2705 Pages URL live: {pages_url}")
+    else:
+        print(f"\u26a0\ufe0f Pages URL not live after retries: {pages_url}")
+
     top_tool = data["top_tools"][0]
 
     body = f"""\U0001f916 Agent Marketplace Monitor \u2014 {DATE_STR}
@@ -399,6 +416,7 @@ Contact: reid@elko.ai"""
         recipient="johnsoprych@gmail.com",
         subject=f"\U0001f916 Agent Marketplace Monitor \u2014 {DATE_STR}",
         body=body,
+        pages_url=pages_url,
     )
     print(f"\\U0001f4e7 Emailed to johnsoprych@gmail.com")
 
