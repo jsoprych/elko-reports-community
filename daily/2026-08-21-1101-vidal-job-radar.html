@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Vidal Job Radar — 2026-08-21 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.job-card, .training-card, .context-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-bottom: 10px;
+    box-shadow: var(--card-shadow);
+}
+.job-num { font-size: 11px; color: var(--text-muted); margin-right: 6px; }
+.job-title-row, .training-title-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+.job-title, .training-title, .context-title {
+    font-size: 15px; font-weight: 600; color: var(--accent); text-decoration: none;
+}
+.job-title:hover, .training-title:hover { text-decoration: underline; }
+.job-meta, .training-meta {
+    display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary);
+}
+.job-company { font-weight: 600; color: var(--text-primary); }
+.job-salary { color: #22c55e; font-weight: 600; }
+.job-commute { color: var(--text-muted); }
+.indeed-link {
+    color: #2164f3; font-size: 11px; font-weight: 600; text-decoration: none;
+    padding: 2px 6px; background: #2164f310; border-radius: 4px;
+}
+.indeed-link:hover { background: #2164f320; }
+.job-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.job-tag { background: var(--bar-bg); color: var(--text-secondary); padding: 2px 7px; border-radius: 4px; font-size: 10px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-strong { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+.badge-good { background: #4a6cf722; color: #4a6cf7; border: 1px solid #4a6cf744; }
+.badge-reach { background: #f59e0b22; color: #f59e0b; border: 1px solid #f59e0b44; }
+.badge-cdl { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; }
+.badge-apprentice { background: #8b5cf622; color: #8b5cf6; border: 1px solid #8b5cf644; }
+.badge-cert { background: #06b6d422; color: #06b6d4; border: 1px solid #06b6d444; }
+.badge-degree { background: #ec489922; color: #ec4899; border: 1px solid #ec489944; }
+.badge-other { background: var(--bar-bg); color: var(--text-secondary); }
+.paid-badge { background: #22c55e22; color: #22c55e; border: 1px solid #22c55e44; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+.pay-detail { color: #22c55e; font-weight: 600; }
+.training-desc, .context-desc { font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-style: italic; }
+/* ── Cover Letter Details ── */
+.cv-details { margin-top: 10px; }
+.cv-summary {
+    cursor: pointer; font-size: 13px; font-weight: 600; color: var(--accent);
+    padding: 8px 12px; background: var(--bar-bg); border-radius: 6px;
+    display: inline-block; user-select: none;
+}
+.cv-summary:hover { background: var(--border); }
+.cv-content { margin-top: 8px; padding: 12px; background: var(--bar-bg); border-radius: 8px; border: 1px solid var(--border); }
+.cv-section { margin-bottom: 12px; }
+.cv-section h4 { font-size: 13px; color: var(--accent); margin: 0 0 6px 0; }
+.cv-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; white-space: pre-line; }
+.cl-text {
+    font-size: 13px; color: var(--text-primary); line-height: 1.6; white-space: pre-line;
+    background: var(--surface); padding: 10px 14px; border-radius: 6px;
+    border-left: 3px solid var(--accent); font-style: italic;
+}
+.salary-note { background: #22c55e0a; border: 1px solid #22c55e22; border-radius: 6px; padding: 8px 12px; }
+.copy-btn {
+    margin-top: 8px; padding: 6px 14px; background: var(--accent); color: #fff;
+    border: none; border-radius: 6px; font-size: 12px; cursor: pointer;
+}
+.copy-btn:hover { opacity: 0.9; }
+/* ── Company Intel ── */
+.company-intel { margin-top: 4px; }
+.company-summary { color: #f59e0b !important; }
+.ci-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+@media (max-width: 600px) { .ci-grid { grid-template-columns: 1fr; } }
+.ci-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 12px;
+}
+.ci-card strong { font-size: 11px; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.ci-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin: 0; }
+.ci-interview {
+    background: #f59e0b0a; border: 1px solid #f59e0b22; border-radius: 6px;
+    padding: 10px 12px; margin-top: 8px;
+}
+.ci-interview strong { font-size: 12px; color: #f59e0b; display: block; margin-bottom: 4px; }
+.ci-interview p { font-size: 12px; color: var(--text-primary); line-height: 1.5; margin: 0; font-style: italic; }
+/* ── Candidate card ── */
+.candidate-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; margin-bottom: 12px;
+}
+.candidate-name { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.candidate-detail { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.skill-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.skill-tag {
+    background: var(--bar-bg); color: var(--accent); padding: 2px 8px;
+    border-radius: 4px; font-size: 10px; border: 1px solid var(--border);
+}
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">Vidal Job Radar</span>
+  <h1 class="report-title">Vidal Job Radar — 2026-08-21</h1>
+  <div class="report-meta">
+    <span>📅 2026-08-21</span>
+    <span>✍️ Reid (Hermes Agent)</span>
+    <span>🔓 Internal</span>
+    <span>📄 Weekly Newsletter</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2>7 Jobs · 3 Strong Matches · 0 Paid Training Programs</h2>
+    <p>Weekly job radar for <strong>Vidal Saldivar</strong> — logistics and operations management roles within commuting distance of Plano, IL, plus paid training programs and apprenticeships. Each job card includes <strong>copy-paste ready cover letter snippets and resume customization notes</strong>. Updated every Friday.</p>
+  </div>
+
+  <!-- METRICS -->
+  
+    <div class="metric-row">
+        <div class="metric-card"><div class="metric-value">7</div><div class="metric-label">Jobs</div></div>
+        <div class="metric-card"><div class="metric-value">3</div><div class="metric-label">Strong Matches</div></div>
+        <div class="metric-card"><div class="metric-value">0</div><div class="metric-label">Paid Training</div></div>
+        <div class="metric-card"><div class="metric-value">2026-08-21</div><div class="metric-label">Date</div></div>
+    </div>
+
+  <!-- CONTENT (panel stack) -->
+  
+    <div data-panel="candidate" data-panel-title="Profile" data-panel-color="#4a6cf7" data-panel-default="1">
+        <div class="section-header"><span class="icon"></span><h2>Candidate Profile</h2><span class="accent-line"></span></div>
+        <div class="candidate-card">
+            <div class="candidate-name">Vidal Saldivar</div>
+            <div class="candidate-detail">Plano, IL 60545 · Operations Manager · 15 years · Currently: NORA Trans</div>
+            <div class="candidate-detail">Previous: FedEx Ground — 300+ daily linehaul movements, DOT compliance, Peak All Star x3, rose from Package Handler to Ops Manager</div>
+            <div class="skill-tags"><span class="skill-tag">Operations Management</span><span class="skill-tag">Transportation & Logistics</span><span class="skill-tag">DOT Compliance</span><span class="skill-tag">Workforce Planning</span><span class="skill-tag">24/7 Dispatch Operations</span><span class="skill-tag">Performance Management</span><span class="skill-tag">Linehaul Coordination</span><span class="skill-tag">Fleet/Trailer Utilization</span></div>
+        </div>
+    </div>
+
+    <div data-panel="jobs" data-panel-title="Jobs (7)" data-panel-color="#22c55e" data-panel-default="1">
+        <div class="section-header"><span class="icon"></span><h2>Job Openings</h2><span class="accent-line"></span></div>
+        <div class="hero-card" style="border-left-color:#22c55e">
+            <p><strong>7</strong> logistics/operations roles · <strong>3</strong> strong matches · Click <strong>📋 Resume Tweaks & Cover Letter</strong> on any card for copy-paste ready text</p>
+        </div>
+        
+        <div class="job-card" id="job-1">
+            <div class="job-card-header">
+                <span class="job-num">#1</span>
+                <div class="job-title-row">
+                    <a href="https://careers.nfiindustries.com/" target="_blank" class="job-title">Transportation Operations Manager</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">NFI Industries</span>
+                    <span class="job-location">North Aurora, IL</span>
+                    <span class="job-salary">$63,445 - $84,593 + 10% bonus</span>
+                    <span class="job-commute">~25 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Transportation+Operations+Manager&l=Aurora%2C+IL&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span><span class="job-tag">Safety program leadership</span><span class="job-tag">KPI/metrics management</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Lead with your DOT compliance experience from FedEx Linehaul — 300+ daily movements, zero violations. Move the Regional Linehaul Coordinator role above NORA on the resume.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• Add a metrics section: 'Improved SQI performance by X%' (from CPC role), 'Maintained X% on-time delivery across 300+ daily linehaul movements'.</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm excited to apply for the Transportation Operations Manager position at NFI Industries. Over 15 years in logistics and transportation operations, I've progressed from the warehouse floor to managing 62-person teams in 24/7 environments. My experience with DOT compliance, workforce planning, and performance management aligns closely with what you're looking for. I live in Plano, IL — a ~25 min commute to North Aurora.<br><br><br><br>My background directly addresses key requirements: dot compliance/regulations, safety program leadership, kpi/metrics management. I've managed DOT-regulated operations for over a decade. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $63,445 - $84,593 + 10% bonus. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: NFI Industries</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>NFI is a privately-held, family-owned 3PL founded in 1932. They operate 60M+ sq ft of warehouse space and a dedicated fleet across North America. They're one of the largest privately-held logistics companies in the US.</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Strong Illinois footprint — North Aurora DC (100K-500K sq ft, PC-249), plus Joliet and other Chicagoland facilities. The Aurora facility serves as a key Midwest distribution hub.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Family-owned culture with a focus on employee development. They emphasize 'talent management and team building.' Their values center on safety, integrity, and customer service. They're known for seasonal workforce management.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>NFI has been investing in automation and WMS technology (Manhattan preferred). They've also been expanding their dedicated fleet and last-mile delivery capabilities.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Ask about the Manhattan WMS implementation and how technology drives productivity. Discuss seasonal workforce management — NFI values this. Mention their family-owned history and ask about the career path from Ops Manager I to General Manager.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-2">
+            <div class="job-card-header">
+                <span class="job-num">#2</span>
+                <div class="job-title-row">
+                    <a href="https://careers.sysco.com/" target="_blank" class="job-title">Transportation Supervisor (CDL A)</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Sysco / SYGMA</span>
+                    <span class="job-location">Channahon, IL</span>
+                    <span class="job-salary">$65,000 - $85,000 est.</span>
+                    <span class="job-commute">~35 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Transportation+Supervisor&l=Channahon%2C+IL&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span><span class="job-tag">Safety program leadership</span><span class="job-tag">Large team leadership</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Lead with your DOT compliance experience from FedEx Linehaul — 300+ daily movements, zero violations. Move the Regional Linehaul Coordinator role above NORA on the resume.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• Emphasize scale: 'Currently lead 62 FTE across 3 tiers (Supervisors → Team Leads → Dispatchers) in a 24/7 operation.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm excited to apply for the Transportation Supervisor (CDL A) position at Sysco / SYGMA. Over 15 years in logistics and transportation operations, I've progressed from the warehouse floor to managing 62-person teams in 24/7 environments. My experience with DOT compliance, workforce planning, and performance management aligns closely with what you're looking for. I live in Plano, IL — a ~35 min commute to Channahon.<br><br><br><br>My background directly addresses key requirements: dot compliance/regulations, safety program leadership, large team leadership. I've managed DOT-regulated operations for over a decade. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $65,000 - $85,000 est.. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: Sysco / SYGMA</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>Sysco is the global leader in foodservice distribution with 71K+ employees and 333+ distribution facilities. SYGMA is their specialized logistics division for chain restaurant supply.</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Channahon, IL has a SYGMA facility — this is a key Midwest distribution point. Sysco also has operations in Des Plaines and elsewhere in Chicagoland.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Food safety is paramount. Strong team culture with emphasis on customer service. They manage complex multi-temperature supply chains.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>Sysco continues to expand its SYGMA network. They're investing in technology for route optimization and fleet management.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Ask about multi-temperature logistics and food safety protocols. Discuss DOT compliance for specialized delivery operations. Reference the complexity of time-sensitive foodservice distribution.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-3">
+            <div class="job-card-header">
+                <span class="job-num">#3</span>
+                <div class="job-title-row">
+                    <a href="https://www.dsv.com/en/careers" target="_blank" class="job-title">Operations Manager — Warehousing & Logistics</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">DSV Air & Sea</span>
+                    <span class="job-location">Aurora, IL</span>
+                    <span class="job-salary">$80,000 - $105,000 est.</span>
+                    <span class="job-commute">~25 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Operations+Manager+Warehouse&l=Aurora%2C+IL&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">KPI/metrics management</span><span class="job-tag">Safety program leadership</span><span class="job-tag">WMS/warehouse systems</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Add a metrics section: 'Improved SQI performance by X%' (from CPC role), 'Maintained X% on-time delivery across 300+ daily linehaul movements'.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• List any WMS, TMS, or dispatch software you've used at FedEx or NORA. Even if you don't know Manhattan, say 'Proficient with multiple TMS/WMS platforms; quick to adopt new systems.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm excited to apply for the Operations Manager — Warehousing & Logistics position at DSV Air & Sea. Over 15 years in logistics and transportation operations, I've progressed from the warehouse floor to managing 62-person teams in 24/7 environments. My experience with DOT compliance, workforce planning, and performance management aligns closely with what you're looking for. I live in Plano, IL — a ~25 min commute to Aurora.<br><br><br><br>My background directly addresses key requirements: kpi/metrics management, safety program leadership, wms/warehouse systems. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $80,000 - $105,000 est.. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: DSV Air & Sea</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>Simplifying our logistics setup has been our first priority. With DSV we have created a uniform, simple yet flexible system with just one …</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Check the job listing for specific facility location and scope.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Research the company's values, mission statement, and Glassdoor reviews before interviewing.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>Search 'DSV Air & Sea news 2026' for recent developments.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Look up the company on LinkedIn and Glassdoor. Find recent news mentions. Prepare 2-3 questions about their specific operations and growth plans.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-4">
+            <div class="job-card-header">
+                <span class="job-num">#4</span>
+                <div class="job-title-row">
+                    <a href="https://www.oberweis.com/careers" target="_blank" class="job-title">Logistics Operations Manager</a>
+                    <span class="badge badge-good">Good Fit</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Oberweis Dairy</span>
+                    <span class="job-location">North Aurora, IL</span>
+                    <span class="job-salary">$75,000 - $95,000 est.</span>
+                    <span class="job-commute">~25 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Logistics+Operations+Manager&l=North+Aurora%2C+IL&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span><span class="job-tag">Safety program leadership</span><span class="job-tag">Large team leadership</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Lead with your DOT compliance experience from FedEx Linehaul — 300+ daily movements, zero violations. Move the Regional Linehaul Coordinator role above NORA on the resume.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• Emphasize scale: 'Currently lead 62 FTE across 3 tiers (Supervisors → Team Leads → Dispatchers) in a 24/7 operation.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm excited to apply for the Logistics Operations Manager position at Oberweis Dairy. Over 15 years in logistics and transportation operations, I've progressed from the warehouse floor to managing 62-person teams in 24/7 environments. My experience with DOT compliance, workforce planning, and performance management aligns closely with what you're looking for. I live in Plano, IL — a ~25 min commute to North Aurora.<br><br><br><br>My background directly addresses key requirements: dot compliance/regulations, safety program leadership, large team leadership. I've managed DOT-regulated operations for over a decade. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $75,000 - $95,000 est.. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: Oberweis Dairy</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>Premium milk, Oberweis ice cream and more delivered to your door. Ice cream and dairy stores around the Midwest. A visit to one of …</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Check the job listing for specific facility location and scope.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Research the company's values, mission statement, and Glassdoor reviews before interviewing.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>Search 'Oberweis Dairy news 2026' for recent developments.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Look up the company on LinkedIn and Glassdoor. Find recent news mentions. Prepare 2-3 questions about their specific operations and growth plans.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-5">
+            <div class="job-card-header">
+                <span class="job-num">#5</span>
+                <div class="job-title-row">
+                    <a href="https://www.amazon.jobs/en/job_categories/fulfillment-operations-management" target="_blank" class="job-title">Operations Manager (Fulfillment Center)</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Amazon</span>
+                    <span class="job-location">Joliet, IL</span>
+                    <span class="job-salary">$91,000 - $136,500 + sign-on + RSUs</span>
+                    <span class="job-commute">~40 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Operations+Manager&l=Joliet%2C+IL&sc=0kf%3Aattr%28DSQF7%29%3B&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">KPI/metrics management</span><span class="job-tag">Safety program leadership</span><span class="job-tag">Large team leadership</span><span class="job-tag">Lean/Six Sigma experience valued</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Add a metrics section: 'Improved SQI performance by X%' (from CPC role), 'Maintained X% on-time delivery across 300+ daily linehaul movements'.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• Emphasize scale: 'Currently lead 62 FTE across 3 tiers (Supervisors → Team Leads → Dispatchers) in a 24/7 operation.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm writing to express my strong interest in the Operations Manager (Fulfillment Center) role at Amazon. With 15 years of transportation and logistics operations experience — including managing 300+ daily linehaul movements at FedEx Ground's busiest hub and now leading a 62-person, 24/7 mission-critical operation at NORA Trans — I bring the exact operational DNA this role demands. I live in Plano, IL — a ~40 min commute to Joliet.<br><br><br><br>My background directly addresses key requirements: kpi/metrics management, safety program leadership, large team leadership. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $91,000 - $136,500 + sign-on + RSUs. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: Amazon</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>Amazon operates one of the world's largest logistics networks. Fulfillment centers (FCs), sort centers, and delivery stations form their operations backbone. Joliet is a major node with multiple facilities.</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Joliet has multiple Amazon facilities — FC, sort center, and delivery stations. Channahon, Monee, and Markham also have nearby sites. This is one of Amazon's densest Midwest clusters.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Data-driven decision making, leadership principles (Customer Obsession, Ownership, Bias for Action, Deliver Results, Dive Deep). Fast-paced, high-expectation environment. Promotions based on demonstrated impact.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>Amazon continues to launch new operations sites annually. They're investing heavily in automation, robotics, and same-day delivery infrastructure. Their Career Choice program pays for employee education.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Use Amazon's Leadership Principles language: talk about 'Dive Deep' into metrics, 'Bias for Action' in the 24/7 NORA operation, 'Deliver Results' from Peak All Star awards. Ask about automation integration and how Ops Managers drive process improvement (Lean, Kaizen, Six Sigma).</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-6">
+            <div class="job-card-header">
+                <span class="job-num">#6</span>
+                <div class="job-title-row">
+                    <a href="https://careers.nfiindustries.com/careers-home/jobs/29704" target="_blank" class="job-title">Warehouse Operations Manager I</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">NFI Industries</span>
+                    <span class="job-location">North Aurora, IL</span>
+                    <span class="job-salary">$84,564 - $112,752 + 7.5% bonus</span>
+                    <span class="job-commute">~25 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Operations+Manager&l=Aurora%2C+IL&sc=0kf%3Aattr%28DSQF7%29%3B&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">KPI/metrics management</span><span class="job-tag">Safety program leadership</span><span class="job-tag">Lean/Six Sigma experience valued</span><span class="job-tag">WMS/warehouse systems</span><span class="job-tag">Bilingual preferred (Spanish)</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Add a metrics section: 'Improved SQI performance by X%' (from CPC role), 'Maintained X% on-time delivery across 300+ daily linehaul movements'.<br>• Highlight FedEx safety record and your Peak All Star awards as proof points. Add: 'Maintained [X]-year safety record.'<br>• Reframe process improvements as Lean: 'Led continuous improvement initiatives that streamlined dispatch workflows and reduced waste.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm writing to express my strong interest in the Warehouse Operations Manager I role at NFI Industries. With 15 years of transportation and logistics operations experience — including managing 300+ daily linehaul movements at FedEx Ground's busiest hub and now leading a 62-person, 24/7 mission-critical operation at NORA Trans — I bring the exact operational DNA this role demands. I live in Plano, IL — a ~25 min commute to North Aurora.<br><br><br><br>My background directly addresses key requirements: kpi/metrics management, safety program leadership, lean/six sigma experience valued. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $84,564 - $112,752 + 7.5% bonus. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: NFI Industries</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>NFI is a privately-held, family-owned 3PL founded in 1932. They operate 60M+ sq ft of warehouse space and a dedicated fleet across North America. They're one of the largest privately-held logistics companies in the US.</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Strong Illinois footprint — North Aurora DC (100K-500K sq ft, PC-249), plus Joliet and other Chicagoland facilities. The Aurora facility serves as a key Midwest distribution hub.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Family-owned culture with a focus on employee development. They emphasize 'talent management and team building.' Their values center on safety, integrity, and customer service. They're known for seasonal workforce management.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>NFI has been investing in automation and WMS technology (Manhattan preferred). They've also been expanding their dedicated fleet and last-mile delivery capabilities.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Ask about the Manhattan WMS implementation and how technology drives productivity. Discuss seasonal workforce management — NFI values this. Mention their family-owned history and ask about the career path from Ops Manager I to General Manager.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+        <div class="job-card" id="job-7">
+            <div class="job-card-header">
+                <span class="job-num">#7</span>
+                <div class="job-title-row">
+                    <a href="https://penske.jobs/naperville-il/operations-manager-supply-chain-logistics/" target="_blank" class="job-title">Operations Manager (Supply Chain/Logistics)</a>
+                    <span class="badge badge-strong">Strong Match</span>
+                </div>
+                <div class="job-meta">
+                    <span class="job-company">Penske Logistics</span>
+                    <span class="job-location">Naperville, IL</span>
+                    <span class="job-salary">$85,600 - $115,600 + bonus</span>
+                    <span class="job-commute">~30 min</span>
+                     <a href="https://www.indeed.com/jobs?q=Operations+Manager&l=Naperville%2C+IL&sc=0kf%3Aattr%28DSQF7%29%3B&fromage=14" target="_blank" class="indeed-link">🔍 Indeed</a>
+                </div>
+                <div class="job-tags"><span class="job-tag">DOT compliance/regulations</span><span class="job-tag">KPI/metrics management</span><span class="job-tag">P&L/budget responsibility</span><span class="job-tag">Safety program leadership</span><span class="job-tag">Large team leadership</span></div>
+            </div>
+            <details class="cv-details">
+                <summary class="cv-summary">📋 Resume Tweaks & Cover Letter (copy-paste ready)</summary>
+                <div class="cv-content">
+                    <div class="cv-section">
+                        <h4>🎯 Resume Customization for This Role</h4>
+                        <div class="cv-text">• Lead with your DOT compliance experience from FedEx Linehaul — 300+ daily movements, zero violations. Move the Regional Linehaul Coordinator role above NORA on the resume.<br>• Add a metrics section: 'Improved SQI performance by X%' (from CPC role), 'Maintained X% on-time delivery across 300+ daily linehaul movements'.<br>• Surface any budget ownership. Even indirect: 'Managed operational costs through trailer utilization optimization and workforce scheduling.'</div>
+                    </div>
+                    <div class="cv-section">
+                        <h4>✉️ Cover Letter Snippet</h4>
+                        <div class="cl-text">I'm writing to express my strong interest in the Operations Manager (Supply Chain/Logistics) role at Penske Logistics. With 15 years of transportation and logistics operations experience — including managing 300+ daily linehaul movements at FedEx Ground's busiest hub and now leading a 62-person, 24/7 mission-critical operation at NORA Trans — I bring the exact operational DNA this role demands. I live in Plano, IL — a ~30 min commute to Naperville.<br><br><br><br>My background directly addresses key requirements: dot compliance/regulations, kpi/metrics management, p&l/budget responsibility. I've managed DOT-regulated operations for over a decade. I would welcome the opportunity to discuss how my experience can drive results for your team.</div>
+                    </div>
+                    <div class="cv-section salary-note"><h4>💰 Salary Intel</h4><div class="cv-text">Target salary range: $85,600 - $115,600 + bonus. Current NORA comp for managing 62 FTE in 24/7 ops is below market — position accordingly.</div></div>
+                </div>
+            </details>
+            
+    <details class="cv-details company-intel">
+        <summary class="cv-summary company-summary">🏢 Company Intel: Penske Logistics</summary>
+        <div class="cv-content">
+            <div class="ci-grid">
+                <div class="ci-card"><strong>About</strong><p>Penske Logistics is a division of Penske Truck Leasing, operating across North America, South America, Europe, and Asia. They engineer supply chain and logistics solutions for market-leading companies, with a heavy focus on dedicated fleet operations. They run 3,300+ locations globally.</p></div>
+                <div class="ci-card"><strong>Local Presence</strong><p>Major Illinois presence — Naperville facility at 700 Enterprise Ct is one of their key Midwest operations. They run dedicated contracts for automotive, manufacturing, and CPG clients throughout Chicagoland.</p></div>
+                <div class="ci-card"><strong>Culture</strong><p>Safety-first culture. Known for promoting from within. Strong emphasis on operational metrics and continuous improvement. They use the term 'associates' and have a formalized leadership development track.</p></div>
+                <div class="ci-card"><strong>Recent News</strong><p>Penske continues to expand dedicated fleet operations in the Midwest. In 2025-2026, they've been investing in electric vehicle integration and fleet technology.</p></div>
+            </div>
+            <div class="ci-interview">
+                <strong>🎯 Interview Prep — Questions to Ask & Talking Points</strong>
+                <p>Ask about their dedicated contract model and how they balance customer-specific KPIs with fleet-wide efficiency. Mention the 'incident-free safety culture' they emphasize. Ask about career development paths for operations managers.</p>
+            </div>
+        </div>
+    </details>
+        </div>
+    </div>
+
+    <div data-panel="training" data-panel-title="Training (2)" data-panel-color="#8b5cf6" data-panel-default="0">
+        <div class="section-header"><span class="icon"></span><h2>Paid Training & Apprenticeships</h2><span class="accent-line"></span></div>
+        <div class="hero-card" style="border-left-color:#8b5cf6">
+            <p><strong>2</strong> programs · <strong>0</strong> pay during training</p>
+        </div>
+        
+        <div class="training-card">
+            <div class="training-title-row">
+                <a href="https://www.reddit.com/r/Truckers/comments/183wzeo/paid_cdl_training_near_carbondale_illinois_that/" target="_blank" class="training-title">r/Truckers on Reddit: Paid CDL training near Carbondale Illinois (that are not scams)</a>
+                <span class="badge badge-cdl">CDL</span>
+                
+            </div>
+            <div class="training-meta">
+                <span>brave</span><span>Illinois</span>
+            </div>
+            <div class="training-desc">Wilson Logistics out of Springfield MO will help you get your CDL and has a one year commitment to work for them</div>
+        </div>
+        <div class="training-card">
+            <div class="training-title-row">
+                <a href="https://hiring.amazon.com/why-amazon/career-advancement/higher-education-support" target="_blank" class="training-title">Amazon Career Choice - Tuition Reimbursement & Education Support</a>
+                <span class="badge badge-degree">Degree</span>
+                
+            </div>
+            <div class="training-meta">
+                <span>brave</span><span>Illinois</span>
+            </div>
+            <div class="training-desc">Learn about <strong>Career</strong> <strong>Choice</strong> and other <strong>Amazon</strong> programs to pay <strong>tuition</strong> for associates seeking higher education.</div>
+        </div>
+    </div>
+
+    <div data-panel="context" data-panel-title="News (6)" data-panel-color="#f59e0b" data-panel-default="0">
+        <div class="section-header"><span class="icon"></span><h2>Industry News</h2><span class="accent-line"></span></div>
+        
+        <div class="context-card">
+            <a href="https://www.colliers.com/en/research/nrep-usind-colliers-supply-chain-solutions-report-march-2026" target="_blank" class="context-title">Colliers Supply Chain Solutions | State of the Industry Report | March 2026</a>
+            <div class="context-desc">Mar 10</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.supplychaindive.com/news/claires-opens-illinois-distribution-center-to-boost-inventory-flow/823665/" target="_blank" class="context-title">Claire’s opens Illinois distribution center to boost inventory flow</a>
+            <div class="context-desc">Jun 25</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.freightwaves.com/news/167-logistics-and-transportation-companies-made-the-2026-inc-5000-here-are-the-freight-names-worth-knowing" target="_blank" class="context-title">167 Logistics and Transportation Companies Made the 2026 Inc. 5000. Here Are the Freight Names Worth Knowing.</a>
+            <div class="context-desc">Every year, Inc. magazine publishes its Inc. 5000, a ranking of the fastest-growing private companies in America based on three-year revenue growth, and</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.fleetowner.com/news/economics/article/55384935/2026-logistics-report-highlights-capacity-squeeze-regulation-and-ai-adoption-in-trucking" target="_blank" class="context-title">What a supply chain 'Forged in Disruption' will mean for trucking</a>
+            <div class="context-desc">The bumpy road for truckers isn't going to get much better anytime soon; that's the takeaway for for-hire truckload fleets from "Forged in Disruption," the 2026 State of Logistics Report. The message </div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.openpr.com/news/4598231/general-freight-trucking-market-report-2026-market-outlook" target="_blank" class="context-title">General Freight Trucking Market Report 2026 Market Outlook Supported By A Forecast 9.7% CAGR</a>
+            <div class="context-desc">The general freight trucking industry is on track for substantial growth as it adapts to evolving demands and technological advancements With increasing e commerce activity and a shift toward greener </div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.pwc.com/us/en/industries/consumer-markets/transportation-logistics/transportation-logistics-deals-outlook.html" target="_blank" class="context-title">Transportation and logistics: US Deals 2026 midyear outlook: M&A Trends</a>
+            <div class="context-desc">Explore the 2026 transportation and logistics M&A outlook as rail consolidation, tech-enabled logistics, and regulatory clarity reshape deal strategies and growth.</div>
+        </div>
+    </div>
+
+    <div data-panel="trends" data-panel-title="Trends" data-panel-color="#ec4899" data-panel-default="0">
+        <div class="section-header"><span class="icon"></span><h2>Industry Trends & Big Picture</h2><span class="accent-line"></span></div>
+        
+        <div class="context-card">
+            <a href="https://www.forbes.com/councils/forbestechcouncil/2026/08/13/the-human-navigator-why-finished-vehicle-logistics-needs-decision-intelligence-now/" target="_blank" class="context-title">The Human Navigator: Why Finished Vehicle Logistics Needs Decision Intelligence Now</a>
+            <div class="context-desc">To build true crisis resilience, executives must shift their strategy from basic automation to next-generation decision intelligence.</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.logisticsmgmt.com/article/ai_amplifying_human_capability" target="_blank" class="context-title">AI: Amplifying human capability</a>
+            <div class="context-desc">When I stepped into the role as chief editor of Logistics Management back in 2004, Walmart had just announced that its top 100 suppliers would be required to place RFID tags on all pallets and cases b</div>
+        </div>
+        <div class="context-card">
+            <a href="https://investigatemidwest.org/2025/10/06/threat-of-ice-raids-shadows-every-shift-in-chicagos-food-warehouses/" target="_blank" class="context-title">Threat of ICE raids shadows every shift in Chicago’s food warehouses</a>
+            <div class="context-desc">Oct 6, 2025</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.ttnews.com/articles/supply-chain-woes-accelerate-reshoring-near-shoring-trend" target="_blank" class="context-title">Supply Chain Woes Accelerate Reshoring, Nearshoring Trend</a>
+            <div class="context-desc">Nov 4, 2022</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.tmcnet.com/usubmit/2026/08/20/10433531.htm" target="_blank" class="context-title">Electric Car Rental Market to Reach USD 21.37 Billion by 2031, Driven by Fleet Electrification, Reports Mordor Intellige</a>
+            <div class="context-desc">According to the latest report by Mordor Intelligence, the electric car rental market size is projected to grow from USD 9.71 billion in 2025 to USD 10.90 billion in 2026, reaching USD 21.37 billion b</div>
+        </div>
+        <div class="context-card">
+            <a href="https://www.ttnews.com/articles/electric-truck-adoption-2026" target="_blank" class="context-title">As regulations fade, electric truck adoption will hinge on business cases</a>
+            <div class="context-desc">Rather than plan around a national transition to zero-emission trucks, fleets are weighing total cost of ownership, operational feasibility and customer expectations.</div>
+        </div>
+    </div>
+
+  <!-- SOURCES -->
+  <h3>Sources</h3>
+<a href="https://careers.nfiindustries.com/" target="_blank">NFI Industries — Transportation Operations Manager</a>
+<a href="https://careers.sysco.com/" target="_blank">Sysco / SYGMA — Transportation Supervisor (CDL A)</a>
+<a href="https://www.dsv.com/en/careers" target="_blank">DSV Air & Sea — Operations Manager — Warehousing & Logistics</a>
+<a href="https://www.oberweis.com/careers" target="_blank">Oberweis Dairy — Logistics Operations Manager</a>
+<a href="https://www.amazon.jobs/en/job_categories/fulfillment-operations-management" target="_blank">Amazon — Operations Manager (Fulfillment Center)</a>
+<a href="https://careers.nfiindustries.com/careers-home/jobs/29704" target="_blank">NFI Industries — Warehouse Operations Manager I</a>
+<a href="https://penske.jobs/naperville-il/operations-manager-supply-chain-logistics/" target="_blank">Penske Logistics — Operations Manager (Supply Chain/Logistics)</a>
+
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href=""></a>
+  </div>
+
+</div>
+</body>
+</html>
