@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60632 Archer Heights — Daily Sweep | 2026-08-22 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.entity-card{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);transition:transform 0.15s,box-shadow 0.15s}
+.entity-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.source-pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:var(--accent);color:#fff}
+.news-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.news-bullet{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.news-source{font-size:11px;color:var(--text-muted);font-weight:600}
+.news-sublinks{margin-top:4px;display:block;font-size:11px}
+.news-sublinks .links-label{font-weight:800;color:#1a7a3a;text-transform:uppercase;letter-spacing:0.5px;margin-right:2px}
+.news-sublinks a{color:var(--accent);text-decoration:none}
+.news-sublinks a:hover{text-decoration:underline}
+.bar-row{display:flex;align-items:center;gap:8px;margin:6px 0}
+.bar-label{width:170px;font-size:12px;color:var(--text-secondary);text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:18px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.4s}
+.bar-count{width:40px;font-size:12px;font-weight:700;color:var(--text-primary)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.data-table th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.data-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.data-table a{color:var(--accent);text-decoration:none}
+.data-table a:hover{text-decoration:underline}
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60632 Archer Heights</span>
+  <h1 class="report-title">60632 Archer Heights — Daily Sweep | 2026-08-22</h1>
+  <div class="report-meta">
+    <span>📅 2026-08-22</span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">🏗️ Ford City redevelopment clears Plan Commission — heads to City Council zoning committee</a></h2>
+    <p>The Chicago Plan Commission voted Thursday (Aug. 20) to approve Kurv Industrial's ~$200M plan to demolish the shuttered Ford City Mall and replace it with a four-building, 45-foot industrial campus spanning ~1.09M SF (904 parking, 216 loading spaces, 160 truck stalls). The roll call was 6 yes, 6 abstain, 1 recusal and 1 no. The proposal now moves to the City Council's Zoning Committee — expected no later than October — then a full Council vote. The developer anticipates closing by end of 2026 with a ~2-year construction timeline, and projects ~185 permanent and ~90 construction jobs.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row"><div class="metric-card" style="background:linear-gradient(135deg,#4a6cf7 0%,#6d8cff 100%)"><div class="metric-value">1218</div><div class="metric-label">Total Businesses</div></div><div class="metric-card" style="background:linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%)"><div class="metric-value">21</div><div class="metric-label">Industrial / Manufacturing</div></div><div class="metric-card" style="background:linear-gradient(135deg,#10b981 0%,#34d399 100%)"><div class="metric-value">301</div><div class="metric-label">Retail / Food Service</div></div><div class="metric-card" style="background:linear-gradient(135deg,#8b5cf6 0%,#a78bfa 100%)"><div class="metric-value">896</div><div class="metric-label">Other</div></div></div>
+
+  <!-- CONTENT (panel stack) -->
+  <div class="section-header"><h2>60632 Business Inventory Snapshot</h2></div><div class="bar-chart"><div class="bar-row"><span class="bar-label">Retail</span><div class="bar-track"><div class="bar-fill" style="width:100.0%;background:#4a6cf7"></div></div><span class="bar-count">128</span></div><div class="bar-row"><span class="bar-label">Fast Food</span><div class="bar-track"><div class="bar-fill" style="width:46.9%;background:#f59e0b"></div></div><span class="bar-count">60</span></div><div class="bar-row"><span class="bar-label">School</span><div class="bar-track"><div class="bar-fill" style="width:46.9%;background:#10b981"></div></div><span class="bar-count">60</span></div><div class="bar-row"><span class="bar-label">Place Of Worship</span><div class="bar-track"><div class="bar-fill" style="width:36.7%;background:#ef4444"></div></div><span class="bar-count">47</span></div><div class="bar-row"><span class="bar-label">Restaurant</span><div class="bar-track"><div class="bar-fill" style="width:27.3%;background:#8b5cf6"></div></div><span class="bar-count">35</span></div><div class="bar-row"><span class="bar-label">Bicycle Rental</span><div class="bar-track"><div class="bar-fill" style="width:18.0%;background:#ec4899"></div></div><span class="bar-count">23</span></div><div class="bar-row"><span class="bar-label">Commercial</span><div class="bar-track"><div class="bar-fill" style="width:14.1%;background:#06b6d4"></div></div><span class="bar-count">18</span></div><div class="bar-row"><span class="bar-label">Convenience</span><div class="bar-track"><div class="bar-fill" style="width:13.3%;background:#84cc16"></div></div><span class="bar-count">17</span></div></div><div class="section-header"><h2>Latest Research Findings</h2></div><div class="news-item"><span class="news-bullet" style="background:#4a6cf7"></span><div><strong>1. <a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Ford City redevelopment heads to City Council zoning committee after Plan Commission approval</a></strong> <span class="news-source">(Block Club Chicago)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Midwest RE Acquisitions LLC — an affiliate of Kurv Industrial (formerly Bridge Industrial) — won Plan Commission approval Aug. 20 to demolish the shuttered Ford City Mall and build a four-building warehouse campus. The proposal now heads to the City Council's zoning committee, expected no later than October, then a full Council vote. Developer counsel said closing is anticipated by end of year, with a ~2-year construction timeline (near end of 2028).</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener">Block Club (approval)</a> &bull; <a href="https://www.cbsnews.com/chicago/news/protests-chicago-plan-commission-vote-ford-city-mall-rezone-plan/" target="_blank" rel="noopener">CBS (approval)</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#f59e0b"></span><div><strong>2. <a href="https://patch.com/illinois/southside/chicago-plan-commission-greenlights-ford-city-redevelopment-city-council-vote" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Plan Commission vote tally: 6 yes, 6 abstain, 1 recusal, 1 no on Ford City rezoning</a></strong> <span class="news-source">(Patch)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Patch published the full roll-call: DPD Commissioner Ciere Boatright, CDOT's William Cheeks and four others voted yes; six members (including chair Laura Flores) abstained citing emotional ties to the mall; Ald. Derrick Curtis (18th) recused; Ald. Byron Sigcho-Lopez (25th) cast the lone no vote. Several commissioners questioned whether Kurv's proposal received enough community scrutiny.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://patch.com/illinois/southside/chicago-plan-commission-greenlights-ford-city-redevelopment-city-council-vote" target="_blank" rel="noopener">Patch (full vote)</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>3. <a href="https://www.bizjournals.com/chicago/news/2026/08/21/chicago-approves-ford-city-mall-redevelopment.html" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Kurv Industrial plans $200M redevelopment of Ford City Mall near Midway</a></strong> <span class="news-source">(Chicago Business Journal)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Kurv Industrial plans to transform the shuttered indoor mall into warehouses as part of a ~$200 million project near Chicago Midway International Airport. The redevelopment — four 45-ft industrial buildings totaling ~1.09M SF with 904 parking, 216 loading spaces and 160 truck stalls — is projected to create about 185 permanent jobs and 90 construction jobs.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.bizjournals.com/chicago/news/2026/08/21/chicago-approves-ford-city-mall-redevelopment.html" target="_blank" rel="noopener">Chicago Business Journal</a> &bull; <a href="https://abc7chicago.com/post/ford-city-mall-redevelopment-plans-go-before-chicago-plan-commission-thursday/19707265/" target="_blank" rel="noopener">ABC7 (renderings, jobs)</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#ef4444"></span><div><strong>4. <a href="https://www.cbsnews.com/chicago/news/protests-chicago-plan-commission-vote-ford-city-mall-rezone-plan/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Neighbors object as Ford City industrial campus advances: 'warehouses are at the bottom'</a></strong> <span class="news-source">(CBS News)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">The Plan Commission approved the industrial conversion despite objections from West Lawn neighbors, who raised concerns over truck traffic, air and noise pollution, and the loss of potential retail/commercial development. Protesters rallied outside City Hall ahead of the vote; Ald. Sigcho-Lopez pushed back, saying of economic development options, 'I do believe that warehouses are at the bottom.'</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.cbsnews.com/chicago/news/protests-chicago-plan-commission-vote-ford-city-mall-rezone-plan/" target="_blank" rel="noopener">CBS (protests + approval)</a> &bull; <a href="https://www.fox32chicago.com/news/ford-city-mall-could-be-demolished-200m-industrial-development" target="_blank" rel="noopener">FOX 32</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#8b5cf6"></span><div><strong>5. <a href="https://www.chicagoconstructionnews.com/chicago-plan-commission-to-consider-housing-industrial-and-commercial-projects-at-aug-20-meeting/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Moving Archer Forward corridor plan set for adoption at Aug. 20 Plan Commission</a></strong> <span class="news-source">(Chicago Construction News)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Alongside Ford City, the Aug. 20 Plan Commission agenda carried a resolution adopting the Moving Archer Forward corridor plan — a DPD + RTA planning effort for the 6.5-mile Archer Avenue corridor (Halsted to Cicero) spanning Archer Heights, Bridgeport, Brighton Park, Garfield Ridge and McKinley Park. The plan projects ~800 housing units, 280,000 SF of retail and ~835 jobs over 10-20 years across 31 ETOD sites.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.chicagoconstructionnews.com/chicago-plan-commission-to-consider-housing-industrial-and-commercial-projects-at-aug-20-meeting/" target="_blank" rel="noopener">Chicago Construction News</a> &bull; <a href="https://www.chicago.gov/city/en/depts/dcd/supp_info/chicago_plan_commission/August_2026_Plan_Commission_Hearing.html" target="_blank" rel="noopener">City Plan Commission agenda (Aug 2026)</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#ec4899"></span><div><strong>6. <a href="https://www.jll.com/en-us/insights/market-dynamics/chicago-industrial" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">JLL: Chicago industrial vacancy tightens to 4.5% in Q2 2026</a></strong> <span class="news-source">(JLL)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Chicago's industrial market stayed historically tight in Q2 2026: vacancy fell to 4.5%, 10.6M SF was leased (a fourth straight quarter above 10M SF), net absorption reached 5.8M SF, and average asking rent climbed to $8.12/SF. The tightness underpins continued demand for Southwest Side industrial redevelopment like Ford City.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.jll.com/en-us/insights/market-dynamics/chicago-industrial" target="_blank" rel="noopener">JLL market report</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong>7. <a href="https://www.prnewswire.com/news-releases/aspen-dental-grows-its-hometown-footprint-with-new-burbank-office-on-chicagos-southwest-side-302850330.html" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Aspen Dental opens new Burbank office on Chicago's Southwest Side</a></strong> <span class="news-source">(PR Newswire)</span><p style="margin:4px 0 2px;color:var(--text-secondary)">Aspen Dental opened a supported practice Aug. 13 at 7969 S. Cicero Ave (Scottsdale Shopping Center), serving Burbank, Oak Lawn, Bridgeview, Bedford Park and Chicago's Ashburn/Garfield Ridge. The new office offers same-day emergency care, onsite labs and Motto clear aligners, under practice owner Dr. Abigail Brier, DMD.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.prnewswire.com/news-releases/aspen-dental-grows-its-hometown-footprint-with-new-burbank-office-on-chicagos-southwest-side-302850330.html" target="_blank" rel="noopener">PR Newswire</a></span></div></div><div class="section-header"><h2>Key Development Projects</h2></div><table class="data-table"><thead><tr><th>Project</th><th>Status</th><th>Details</th></tr></thead><tbody><tr><td><a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener">Ford City Mall → Kurv Industrial campus</a></td><td>Approved — Plan Commission Aug. 20; next Zoning Committee (≤ Oct) → City Council</td><td>Four 45-ft buildings, ~1.09M SF, 904 parking, 216 loading, 160 truck stalls. ~$200M; 185 permanent + 90 construction jobs. Closing by end of 2026; ~2-yr build.</td></tr><tr><td><a href="https://www.chicago.gov/city/en/depts/dcd/supp_info/chicago_plan_commission/August_2026_Plan_Commission_Hearing.html" target="_blank" rel="noopener">Moving Archer Forward corridor plan</a></td><td>Adoption resolution on Aug. 20 Plan Commission agenda</td><td>6.5-mi Archer Ave (Halsted↔Cicero); DPD + RTA. ~800 housing units, 280K SF retail, 835 jobs, 31 ETOD sites over 10-20 yrs.</td></tr><tr><td><a href="https://chicago.suntimes.com/real-estate/2026/08/18/ford-city-mall-developer-kurv-industrial-first-city-hearing" target="_blank" rel="noopener">Ford City Heritage Plaza + CTA bus station</a></td><td>Part of Kurv plan (added Aug. 18)</td><td>Public heritage plaza ('80+ years of Chicago history'), new CTA bus station on Kostner, ~900 trees, 76th St rebuilt as public thoroughfare.</td></tr><tr><td><a href="https://www.prnewswire.com/news-releases/aspen-dental-grows-its-hometown-footprint-with-new-burbank-office-on-chicagos-southwest-side-302850330.html" target="_blank" rel="noopener">Aspen Dental — Burbank office</a></td><td>Opened Aug. 13, 2026</td><td>7969 S. Cicero Ave (Scottsdale Shopping Center); same-day emergency care, onsite labs; owner Dr. Abigail Brier, DMD.</td></tr></tbody></table><div class="section-header"><h2>Business & Employment Opportunities</h2></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>1. Ford City industrial campus — 185 permanent + 90 construction jobs</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Kurv Industrial's ~$200M redevelopment is projected to create ~185 permanent and ~90 construction jobs as it converts the mall into a modern employment center.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener">Block Club (jobs + timeline)</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>2. Zekelman Industries (Atlas Tube) — Expeditor, Chicago</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Warehouse/shipping expeditor supporting crane loading and inventory flow; base hourly ~$26.51, bonus + profit-sharing, 401(k) match, tuition assistance.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.ihiremanufacturing.com/jobs/view/526233372" target="_blank" rel="noopener">iHireManufacturing listing</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>3. Sewing Machine Operator — Archer Heights manufacturing facility</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Production sewing worker at an Archer Heights (Chicago) manufacturing/production facility, staffed via Express Employment Professionals Oak Lawn.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.expresspros.com/us-illinois-oak-lawn/job-seekers/job-openings/job-detail?jobId=14492189" target="_blank" rel="noopener">Express Pros Oak Lawn</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>4. Aspen Dental Burbank — Dental Hygienist</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">New Southwest Side office hiring a Dental Hygienist at $104k-$114.4k annually.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.ihiredental.com/jobs/view/530938305" target="_blank" rel="noopener">iHireDental listing</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#10b981"></span><div><strong>5. Archer Heights job board (aggregate)</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Browse all active Archer Heights, IL postings across Home Depot, dispatcher, warehouse and production roles.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.indeed.com/l-archer-heights,-il-jobs.html" target="_blank" rel="noopener">Indeed — Archer Heights</a></span></div></div><div class="section-header"><h2>For Sale / Good Buys</h2></div><div class="news-item"><span class="news-bullet" style="background:#f59e0b"></span><div><strong>1. 60632 industrial properties for sale (LoopNet)</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Browse active industrial, warehouse and flex listings for sale across ZIP 60632 and Archer Heights on LoopNet.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.loopnet.com/search/industrial-space/chicago-il-60632/for-sale/" target="_blank" rel="noopener">LoopNet 60632 for sale</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#f59e0b"></span><div><strong>2. Ford City Mall site (~74 acres) — under contract</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">Kurv Industrial is under contract to acquire the shuttered Ford City Mall from Namdar Realty Group (bought 2019 for $16.6M) for a ~$200M industrial conversion — a marquee Southwest Side land play near Midway.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://chicago.suntimes.com/real-estate/2026/08/18/ford-city-mall-developer-kurv-industrial-first-city-hearing" target="_blank" rel="noopener">Chicago Sun-Times (deal + scope)</a></span></div></div><div class="section-header"><h2>For Rent</h2></div><div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong>1. 2845 W 48th Pl, Chicago 60632 — industrial spaces</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">1,750 to 41,380 SF available; $9.95-$14.00/SF/yr. Built 1984.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.loopnet.com/Listing/2845-W-48th-Pl-Chicago-IL/35139374/" target="_blank" rel="noopener">LoopNet listing</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong>2. 2743 W 36th Pl, Chicago 60632 — industrial spaces</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">4,200 to 20,700 SF available; ~$9.95/SF/yr. Built 1947.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.loopnet.com/Listing/2743-W-36th-Pl-Chicago-IL/35139051/" target="_blank" rel="noopener">LoopNet listing</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong>3. 3950 S Karlov Ave — warehouse, 70,626 SF</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">70,626 SF with 28-30 ft ceilings, 42 grade-level docks, rail access (CSX); ~$6.60/SF/yr ($38,844/mo). M1-2 zoning.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://industrialspaces.net/chicago-il/warehouse-for-rent/3950-south-karlov-avenue/28817" target="_blank" rel="noopener">IndustrialSpaces listing</a></span></div></div><div class="news-item"><span class="news-bullet" style="background:#06b6d4"></span><div><strong>4. All 60632 industrial for-lease (LoopNet)</strong><p style="margin:4px 0 2px;color:var(--text-secondary)">12+ active industrial listings for lease in ZIP 60632.</p><span class="news-sublinks"><span class="links-label">Links</span> <a href="https://www.loopnet.com/search/industrial-space/chicago-il-60632/for-lease/" target="_blank" rel="noopener">LoopNet 60632 for lease</a></span></div></div><div class="section-header"><h2>AI Ecosystem Map — Enterprise Landscape</h2></div><div class="entity-row"><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/default.svg" alt="OpenAI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>OpenAI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/default.svg" alt="Anthropic" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Anthropic</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google-deepmind/default.svg" alt="Google DeepMind" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Google DeepMind</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/default.svg" alt="xAI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>xAI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta-ai/default.svg" alt="Meta AI" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Meta AI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/default.svg" alt="Microsoft" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Microsoft</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="Amazon" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Amazon</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/default.svg" alt="NVIDIA" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>NVIDIA</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>AMD</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Intel</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/tsmc/default.svg" alt="TSMC" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>TSMC</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/asml/default.svg" alt="ASML" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>ASML</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" alt="Broadcom" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Broadcom</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" alt="Apple" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Apple</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>DeepSeek</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibaba/default.svg" alt="Alibaba" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Alibaba</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Baidu</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ibm/default.svg" alt="IBM" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>IBM</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Oracle</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/hugging-face/default.svg" alt="Hugging Face" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Hugging Face</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/palantir/default.svg" alt="Palantir" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Palantir</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/salesforce/default.svg" alt="Salesforce" width="24" height="24" onerror="this.style.display='none'" style="border-radius:4px"><span>Salesforce</span></div></div><div class="section-header"><h2>Database Status</h2></div><table class="data-table"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total Businesses</td><td>1218</td></tr><tr><td>Industrial / Manufacturing</td><td>21</td></tr><tr><td>Retail / Food Service</td><td>301</td></tr><tr><td>Other</td><td>896</td></tr><tr><td>Unique Business Types</td><td>133</td></tr></tbody></table>
+
+  <!-- SOURCES -->
+  <a href="https://blockclubchicago.org/2026/08/20/ford-city-malls-redevelopment-into-warehouse-campus-moves-forward-after-city-commission-approval/" target="_blank" rel="noopener" class="source-pill">Block Club Chicago</a>
+<a href="https://patch.com/illinois/southside/chicago-plan-commission-greenlights-ford-city-redevelopment-city-council-vote" target="_blank" rel="noopener" class="source-pill">Patch</a>
+<a href="https://www.bizjournals.com/chicago/news/2026/08/21/chicago-approves-ford-city-mall-redevelopment.html" target="_blank" rel="noopener" class="source-pill">Chicago Business Journal</a>
+<a href="https://www.cbsnews.com/chicago/news/protests-chicago-plan-commission-vote-ford-city-mall-rezone-plan/" target="_blank" rel="noopener" class="source-pill">CBS News</a>
+<a href="https://www.chicagoconstructionnews.com/chicago-plan-commission-to-consider-housing-industrial-and-commercial-projects-at-aug-20-meeting/" target="_blank" rel="noopener" class="source-pill">Chicago Construction News</a>
+<a href="https://www.jll.com/en-us/insights/market-dynamics/chicago-industrial" target="_blank" rel="noopener" class="source-pill">JLL</a>
+<a href="https://www.prnewswire.com/news-releases/aspen-dental-grows-its-hometown-footprint-with-new-burbank-office-on-chicagos-southwest-side-302850330.html" target="_blank" rel="noopener" class="source-pill">PR Newswire</a>
+<a href="https://www.chicago.gov/city/en/depts/dcd/supp_info/chicago_plan_commission/August_2026_Plan_Commission_Hearing.html" target="_blank" rel="noopener" class="source-pill">Chicago Plan Commission (Aug 2026 agenda)</a>
+<a href="https://chicago.suntimes.com/real-estate/2026/08/18/ford-city-mall-developer-kurv-industrial-first-city-hearing" target="_blank" rel="noopener" class="source-pill">Chicago Sun-Times</a>
+<a href="https://abc7chicago.com/post/ford-city-mall-redevelopment-plans-go-before-chicago-plan-commission-thursday/19707265/" target="_blank" rel="noopener" class="source-pill">ABC7 Chicago</a>
+<a href="https://www.fox32chicago.com/news/ford-city-mall-could-be-demolished-200m-industrial-development" target="_blank" rel="noopener" class="source-pill">FOX 32 Chicago</a>
+<a href="https://www.loopnet.com/search/industrial-space/chicago-il-60632/for-lease/" target="_blank" rel="noopener" class="source-pill">LoopNet</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-08-22-1405-60632-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-08-22-1405-60632-daily-sweep.html</a>
+  </div>
+
+</div>
+</body>
+</html>
