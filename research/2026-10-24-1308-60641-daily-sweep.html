@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>60641 Portage Park — Weekly Sweep | 2026-10-24 — elko.ai</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a5a7a;
+    --text-muted: #8892b0;
+    --accent: #4a6cf7;
+    --accent-light: #6c63ff;
+    --accent-gradient: linear-gradient(135deg, #4a6cf7, #6c63ff);
+    --border: #e2e6f0;
+    --card-shadow: 0 2px 12px rgba(74,108,247,0.08);
+    --card-radius: 12px;
+    --bar-bg: #eef0f8;
+    --tag-bg: #eef0f8;
+    --tag-text: #4a6cf7;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --chart-colors: #4a6cf7, #6c63ff, #818cf8, #a78bfa, #c4b5fd, #f472b6, #fb7185, #f87171, #fbbf24, #34d399;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1118;
+      --surface: #1a1d2e;
+      --text-primary: #e2e4f0;
+      --text-secondary: #9ea0b8;
+      --text-muted: #6b6d8a;
+      --border: #2a2d40;
+      --card-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --bar-bg: #252840;
+      --tag-bg: #252840;
+      --tag-text: #818cf8;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    background: var(--bg); color: var(--text-primary);
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* BRAND HEADER — ELKO in blue, REPORTS in gray, clean byline */
+  .report-brand { margin-bottom: 8px; }
+  .brand-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+  }
+  .brand-elko {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 900; color: #4a6cf7;
+  }
+  .brand-reports {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 22px; font-weight: 600; color: #8892b0;
+  }
+
+  /* SERIES BADGE */
+  .series-badge {
+    display: inline-block; background: var(--accent-gradient);
+    color: #fff; font-size: 10px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .report-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 4px; }
+  .report-meta {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .report-meta span { display: flex; align-items: center; gap: 4px; }
+  .divider { border: none; height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* HERO / TOP STORY */
+  .hero-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent); margin-bottom: 24px;
+  }
+  .hero-card h2 {
+    font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+  }
+  .hero-card h2 a { color: var(--accent); text-decoration: none; }
+  .hero-card h2 a:hover { text-decoration: underline; }
+  .hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .metric-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 18px 14px; text-align: center;
+    transition: transform 0.2s; border: 1px solid var(--border);
+  }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-value {
+    font-size: 32px; font-weight: 800;
+    background: var(--accent-gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin: 28px 0 12px;
+  }
+  .section-header .icon { font-size: 20px; }
+  .section-header h2 { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .section-header .accent-line { flex: 1; height: 2px; background: var(--accent-gradient); border-radius: 2px; }
+  .section-body { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+
+  /* ENTITY CARDS */
+  .entity-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 20px;
+  }
+  .entity-card {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 14px;
+    border: 1px solid var(--border); text-align: center;
+    transition: transform 0.2s;
+  }
+  .entity-card:hover { transform: translateY(-2px); }
+  .entity-card img[src*="svg"] {
+    display: inline-block; width: 32px; height: 32px;
+    background: var(--bar-bg); border-radius: 6px; padding: 4px;
+    margin-bottom: 4px; object-fit: contain;
+  }
+  .entity-card { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .entity-label { font-size: 10px; color: var(--text-muted); }
+
+  /* ENTITY SVG BADGES (for news articles) */
+  .entity-badge { display: inline-block; margin: 2px 3px 2px 0; }
+  .entity-badge img { width: 18px; height: 18px; object-fit: contain; background: var(--bar-bg); border-radius: 3px; padding: 1px; vertical-align: middle; }
+
+  /* BAR CHARTS */
+  .chart-container { margin: 16px 0 24px; background: var(--surface); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px; border: 1px solid var(--border); }
+  .bar-row { display: flex; align-items: center; margin-bottom: 4px; gap: 0; }
+  .bar-label { width: 130px; font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 12px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; position: relative; }
+  .bar-fill::after {
+    content: attr(data-pct); position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; font-weight: 600; color: #fff;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .bar-fill:hover::after { opacity: 1; }
+  .bar-count { width: 36px; font-size: 12px; font-weight: 600; color: var(--text-muted); padding-left: 8px; flex-shrink: 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; margin: 16px 0 24px; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: var(--accent-gradient); border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 12px; padding: 10px 14px;
+    background: var(--surface); border-radius: var(--card-radius);
+    border: 1px solid var(--border); box-shadow: var(--card-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -20px; top: 16px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-gradient); border: 2px solid var(--bg);
+  }
+  .tl-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .tl-title { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; margin: 12px 0 20px; }
+  .news-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: var(--surface); border-radius: 8px;
+    border: 1px solid var(--border); transition: transform 0.2s;
+  }
+  .news-item:hover { transform: translateX(4px); }
+  .news-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .news-text { font-size: 13px; color: var(--text-secondary); }
+  .news-text strong { color: var(--text-primary); }
+  .news-sublinks { margin-top: 4px; display: block; font-size: 11px; }
+  .news-sublinks .links-label { font-weight: 800; color: #1a7a3a; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+  .news-sublinks a { color: var(--accent); text-decoration: none; }
+  .news-sublinks a:hover { text-decoration: underline; }
+
+  /* MARKET / DATA TABLE */
+  .td-green { color: #22c55e; font-weight: 700; }
+  .td-red { color: #ef4444; font-weight: 700; }
+  .td-price { font-size: 14px; }
+  .td-svg { width: 36px; text-align: center; }
+  .ticker-svg { width: 22px; height: 22px; object-fit: contain; }
+  .ticker-svg-fallback { display: inline-block; width: 22px; height: 22px; line-height: 22px; font-size: 8px; font-weight: 800; color: var(--text-muted); text-align: center; }
+
+  /* SOURCES */
+  .sources { margin-top: 32px; }
+  .sources h3 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .sources a {
+    display: inline-block; font-size: 11px; color: var(--accent);
+    text-decoration: none; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--tag-bg); border-radius: 12px; transition: 0.2s;
+  }
+  .sources a:hover { background: var(--accent); color: #fff; }
+
+  /* FEEDBACK BAR */
+  .feedback-bar {
+    background: var(--surface); border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow); padding: 16px 20px;
+    margin-bottom: 24px; border-left: 4px solid #f59e0b;
+    font-size: 13px; color: var(--text-secondary);
+  }
+  .feedback-bar strong { color: var(--text-primary); }
+
+  /* PANEL NAV — horizontal button bar with checkboxes */
+  .panel-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .panel-nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px 6px 10px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all 0.2s; font-size: 12px;
+    font-weight: 500; color: var(--text-primary);
+    user-select: none;
+  }
+  .panel-nav-btn:hover { box-shadow: var(--card-shadow); transform: translateY(-1px); }
+  .panel-nav-btn input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none;
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid var(--text-muted);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0;
+    position: relative; transition: all 0.15s;
+  }
+  .panel-nav-btn input[type="checkbox"]:checked {
+    border-color: var(--btn-color, var(--accent));
+    background: var(--btn-color, var(--accent));
+  }
+  .panel-nav-btn input[type="checkbox"]:checked::after {
+    content: "✓"; color: #fff; font-size: 10px; font-weight: 700;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel-nav-btn .nav-label {
+    cursor: pointer; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .panel-nav-btn .nav-color-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* COLLAPSIBLE PANEL */
+  .panel-section { transition: opacity 0.2s ease; }
+  .panel-section.panel-hidden { display: none; }
+
+  /* FOOTER */
+  .report-footer {
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 11px; color: var(--text-muted);
+  }
+  .report-footer .brand {
+    font-weight: 700; background: var(--accent-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .report-footer a { color: var(--accent); text-decoration: none; }
+  .report-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .report-title { font-size: 22px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .entity-row { grid-template-columns: repeat(2, 1fr); }
+    .bar-label { width: 90px; font-size: 11px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .container { padding: 0; }
+    .metric-card, .entity-card, .timeline-item, .news-item, .chart-container, .hero-card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  /* EXTRA CSS — injected by report generator */
+  
+.entity-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.entity-card{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);transition:transform 0.15s,box-shadow 0.15s}
+.entity-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.source-pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;margin:2px 4px 2px 0;background:var(--accent);color:#fff}
+.news-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}
+.news-bullet{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.news-sublinks{margin-top:4px;display:block;font-size:11px}
+.news-sublinks .links-label{font-weight:800;color:#1a7a3a;text-transform:uppercase;letter-spacing:0.5px;margin-right:2px}
+.news-sublinks a{color:var(--accent);text-decoration:none}
+.news-sublinks a:hover{text-decoration:underline}
+.dev-table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+.dev-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);padding:8px 10px;border-bottom:2px solid var(--border)}
+.dev-table td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-secondary)}
+.dev-table td.td-project{font-weight:700;min-width:200px}
+.dev-table td.td-project a{color:var(--accent);text-decoration:none}
+.dev-table td.td-project a:hover{text-decoration:underline}
+.dev-table td.td-status{color:var(--text-primary);white-space:nowrap;font-weight:600}
+@media (max-width:600px){.dev-table{font-size:12px}.dev-table td.td-status{white-space:normal}}
+
+</style>
+<script>
+(function(){
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+})();
+</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- BRAND HEADER — ELKO in blue, REPORTS in gray, links to elko.ai -->
+  <div class="report-brand">
+    <a href="https://elko.ai" target="_blank" class="brand-link">
+      <span class="brand-elko">ELKO</span>
+      <span class="brand-reports">REPORTS</span>
+    </a>
+  </div>
+
+  <!-- SERIES BADGE + TITLE + META -->
+  <span class="series-badge">60641 Portage Park</span>
+  <h1 class="report-title">60641 Portage Park — Weekly Sweep | 2026-10-24</h1>
+  <div class="report-meta">
+    <span>📅 2026-10-24</span>
+    <span>✍️ Hermes Agent (Reid)</span>
+    <span>🔓 Public</span>
+    <span>📄 Intelligence Brief</span>
+  </div>
+  <hr class="divider">
+
+  <!-- FEEDBACK BAR -->
+  <div class="feedback-bar">
+    <strong>💬 Feedback?</strong> Reply to this email or write to <a href="mailto:reid@elko.ai" style="color:var(--accent);text-decoration:none">reid@elko.ai</a>
+  </div>
+
+  <!-- TOP STORY -->
+  <div class="hero-card">
+    <h2><a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxOOVFMbkRnbHc2UWtVYWJGZ2xkZjR4VGk3UElOd1lOVEJxOFp1d3VTeVRyTTViWUtYR2x5UnJEVWVwbGNBYUswVmZGSFlZZVB4T3N4UFZ6aENtckxwTU1WVUh2UlhYNHN2MWRiX0Y4cUhFQXVUdlRvcFY2dnhFOHA1X01CbDNsNUxaZDVRV3lyalFNSXRTdEsyeWFIVE8?oc=5" target="_blank">🏙️ Six Corners Comeback Accelerates: Chicago’s First Pita Inn, Target &amp; Aldi Anchor the Historic District</a></h2>
+    <p>Six Corners — the historic shopping district where Irving Park Rd, Cicero Ave and Milwaukee Ave meet — is in the midst of its biggest transformation in decades. Chicago’s first Pita Inn is set to open at the former Sears Auto Center this winter, joining a Target-anchored residential redevelopment (6 Corners Lofts), an Aldi grocery, and the 10-story Clarendale Six Corners senior-living tower. The $100M+ Peoples Gas site overhaul — delayed for years by a labor dispute — won final approvals and could break ground soon, bringing hundreds more apartments and new retail to the corner.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metric-row"><div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#4a6cf7,#6d8cff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">118</div><div class="metric-label">Homes For Sale</div></div><div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">175</div><div class="metric-label">Apartments For Rent</div></div><div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#10b981,#34d399);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">500+</div><div class="metric-label">New Units Approved</div></div><div class="metric-card"><div class="metric-value" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$37.37</div><div class="metric-label">Avg Hourly Wage</div></div></div>
+
+  <!-- CONTENT (panel stack) -->
+  <div class="section-header"><span class="icon">📰</span><h2>Latest Research Findings</h2><span class="accent-line"></span></div><div class="section-body">A curated digest of the most recent Portage Park, Six Corners and Irving Park news from local sources — development, business openings, public safety, and 45th Ward politics.</div><ul class="news-list"><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMickFVX3lxTFBEV3kwa1lURmpUeUJtNWYwSnpkSk02TnB5WFVfd1EtNEVjcTR0QkVIZkJsYWcyVFJVNVRhZ203Y2puUk8xZ1hMYlBRUmVWRmNVQ2VOcjJiZ3NKYU1MX2VkNlZQMW9Ib09DaldaVmR1Z0VYdw?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">1. Father of four, beloved barber fatally shot in Portage Park smoke shop</a></strong><br>A father of four and longtime neighborhood barber was shot and killed inside a Portage Park smoke shop in early October. Neighbors and customers described him as a fixture of the community, and the killing has renewed calls for greater public-safety resources along the Milwaukee Avenue corridor.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMickFVX3lxTFBEV3kwa1lURmpUeUJtNWYwSnpkSk02TnB5WFVfd1EtNEVjcTR0QkVIZkJsYWcyVFJVNVRhZ203Y2puUk8xZ1hMYlBRUmVWRmNVQ2VOcjJiZ3NKYU1MX2VkNlZQMW9Ib09DaldaVmR1Z0VYdw?oc=5" target="_blank">Chicago Tribune</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxQZXVHZ1U2aXh1U0pWTy11c0lYUHVHVFVhZE5NQmN2WEFFVWduZmNwWGNyeWdzdHlmOUZvaE10el9ORkE0MnpBODRGTUxqbWJaTEZxa1paeGoybzRkZWUtWkxlUjVjbzctQnRMZkxsY3k0Nmk1Nm44ODkyN0NuOE5KZThpMXk2TXNYTVREbDNBcVpOcGNYX2laeVp1eXlUMWF1QjRQa3AtS0prY2hiMlgzN3Q3VXJkb2ZLOVdBT1R0Y2kxWGxCcVhGMDF0ZG5zUHc4X2E3NUxIN1RWMndGZnZMdlhTaldTdjjSAewBQVVfeXFMTURWZDhTYmlzWTN4TFZPVmNlYTFONHlYcjMwZ0U1OGUwQXI5bnZmbndJVUhOVEtEZ0ZueGMyTHdKUXN1WDNPR05xQmoyY0piQWw4QVU0aHVhRUh1WDdoc2RhMDdoOUpaeXpBQTVpNHZhTF9idkR0WElxWENRcWZUUkV0TVY1Vk16ZkIyQjNWQ1kzaW5UaThYc1BDLTdTZnJqTGNPWHRWTXJWUHhTbDlCVFFPRUZ6NmMzQjExNGp6Yi1KQV9ta1V0V1lLakdOeFVKZHp3V3BYMTlwNk5ReF95TlhlVHdTM0VNbjNqOFc?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">2. Burglary spree hits 15+ North Side businesses, including Portage Park's Terra Coffee and Subway</a></strong><br>Police are investigating a mid-October smash-and-grab spree that struck more than a dozen businesses across the Northwest and North sides, including Terra Coffee, Subway and Fry the Coop near Six Corners. Surveillance video shows crews using stolen vehicles to break storefronts and flee with cash registers.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxQZXVHZ1U2aXh1U0pWTy11c0lYUHVHVFVhZE5NQmN2WEFFVWduZmNwWGNyeWdzdHlmOUZvaE10el9ORkE0MnpBODRGTUxqbWJaTEZxa1paeGoybzRkZWUtWkxlUjVjbzctQnRMZkxsY3k0Nmk1Nm44ODkyN0NuOE5KZThpMXk2TXNYTVREbDNBcVpOcGNYX2laeVp1eXlUMWF1QjRQa3AtS0prY2hiMlgzN3Q3VXJkb2ZLOVdBT1R0Y2kxWGxCcVhGMDF0ZG5zUHc4X2E3NUxIN1RWMndGZnZMdlhTaldTdjjSAewBQVVfeXFMTURWZDhTYmlzWTN4TFZPVmNlYTFONHlYcjMwZ0U1OGUwQXI5bnZmbndJVUhOVEtEZ0ZueGMyTHdKUXN1WDNPR05xQmoyY0piQWw4QVU0aHVhRUh1WDdoc2RhMDdoOUpaeXpBQTVpNHZhTF9idkR0WElxWENRcWZUUkV0TVY1Vk16ZkIyQjNWQ1kzaW5UaThYc1BDLTdTZnJqTGNPWHRWTXJWUHhTbDlCVFFPRUZ6NmMzQjExNGp6Yi1KQV9ta1V0V1lLakdOeFVKZHp3V3BYMTlwNk5ReF95TlhlVHdTM0VNbjNqOFc?oc=5" target="_blank">ABC7 Chicago</a> • <a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE9CcWl4eFc4cWhLSEpVcnRseHdIeEhYOWd1eGpOZ2s2YXFJN1pxRHhpQ1hnUWNyYkRXM3JGeHBrdlpvMHppTXhoamRqYVlHZzhnNFlvOGVtRkp3cTBXeGZ0TUp3bkRJZU1ULW1vQTBKTjY4Si1MSFdQNTU4Y9IBgAFBVV95cUxNUzE4QW9oalB5YnFNdHNSZDgtTFZJMHhUX3lZV0VJdTNpRmdPamItek1ZUnVrcExZMzZnYVdXd25lZTFROW5YU0w4dFZWVzVkblJIdnV3X2hXVWhsdFVtQkk4SXB6MjNyZTBUZE05Z0tmc1ZMTk9qZk1sRG5mSW9RWQ?oc=5" target="_blank">WGN-TV</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxOTFBBQ09TRU5DZS15VUcxd0diaVVpdFd6ZVNvbWVDYm1GaUp5dkNTSnJJdkNMUVdjVTVWeFVXVXdJMzJvYUFmWmRqdGJ5WDdNakFYVncteXhaQ1FVQlljMGJXU3ViSUZXazZsTDU1dURaMEVOVEhpTTNzRlRCSHoydWN0TlVGNnpGWEZjNUhlV0ota09BNlJHeEtRaXF0bmw0M3ExalU0OWJ4cVJ6SEhOTHA2SWt4YjQxVEZpMFlDaFRySkpfckpxSVhB?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">3. Fork And Coin brings Japanese-style pub and supper club to Portage Park</a></strong><br>The Northwest Side food scene keeps growing: Fork And Coin opened in September with a Japanese-style pub menu and late-night supper-club concept, adding to a run of new Portage Park openings. It joins Turn Back Time Records &amp; Coffee and other recent arrivals on the neighborhood's commercial strips.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxOTFBBQ09TRU5DZS15VUcxd0diaVVpdFd6ZVNvbWVDYm1GaUp5dkNTSnJJdkNMUVdjVTVWeFVXVXdJMzJvYUFmWmRqdGJ5WDdNakFYVncteXhaQ1FVQlljMGJXU3ViSUZXazZsTDU1dURaMEVOVEhpTTNzRlRCSHoydWN0TlVGNnpGWEZjNUhlV0ota09BNlJHeEtRaXF0bmw0M3ExalU0OWJ4cVJ6SEhOTHA2SWt4YjQxVEZpMFlDaFRySkpfckpxSVhB?oc=5" target="_blank">Block Club Chicago</a> • <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxOT1JUd3d0TmZqTGZka0Iwc2xCMklidUl0OWc0cDBrWVhNa0pMZEZXS1l6TUJZUUs2RXpYSlJlbU42aDhkT0lOMjhsejZ1eVRNc0ZuaEZFS2xBaGFnVXVEZTJjc2FRTU9randhLXhHbmNvSWdCaHN5RHl1WWg5VVo1MWpvckdWTGpIRmFObjBVVXBBUHBzZ1FkS0VqQ21mNlNSR3J0ZW54N193Q0pmOUI3M3FVRQ?oc=5" target="_blank">WhatNow Chicago</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPUXhSTEVxQkExZzBqa0czMmJBM0JMR0hJWFB1UUxFbWlGbE5wY1JkQ2VZUUxVZUJpXzdCMktVeW82MHFEX3JHU05yVUxDcFhCMkdSMnMzVUlURGpDQlBfMVI0cEtnZ1U3OUdBd0xCMFFSSEhXdmtMaDBWZnJGS1ZkYy13SjAtNGhCZEhHcldrUmpvMjFlY05xUk5ocnB3VVNTLXdZ?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">4. Construction on Irving Park-Kilpatrick project expected to start in 2027</a></strong><br>A long-planned project at Irving Park Road and Kilpatrick Avenue — expected to bring new residential units and ground-floor commercial space to a key 60641 corridor — is targeting a 2027 construction start, according to the 45th Ward office and local reporting.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPUXhSTEVxQkExZzBqa0czMmJBM0JMR0hJWFB1UUxFbWlGbE5wY1JkQ2VZUUxVZUJpXzdCMktVeW82MHFEX3JHU05yVUxDcFhCMkdSMnMzVUlURGpDQlBfMVI0cEtnZ1U3OUdBd0xCMFFSSEhXdmtMaDBWZnJGS1ZkYy13SjAtNGhCZEhHcldrUmpvMjFlY05xUk5ocnB3VVNTLXdZ?oc=5" target="_blank">Nadig Newspapers</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPUTdhQlVicmgwMVRJX0tHcXgwTk1ZZlpHdEh6eDdOMzZXSzR6NW5TTkJHeFNIM3JEaVNpLTByMlk3VVVkVWFCSUhtQURDZkVxbGx2QmNUdGhsaGw5TUozSFVTdk9PYlo3QkNNTk5vRjU5azNEZjY2Y1NNcDJrRFdnZWJ3ZU84NVA0eTRkNXRXNVdvS2MydTdMTHRETGYzYzZ5UjdPNEdVQ0d5UGJlTWpSS0dSOVpXb19VOW05ZFdHUQ?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">5. Long-awaited $100M Peoples Gas site overhaul could start this summer</a></strong><br>After years of delays — including a labor showdown between the developer and Ald. Gardiner — the overhaul of the former Peoples Gas site at Six Corners won final city approval. The project calls for hundreds of new apartments plus retail, and construction was expected to begin this summer.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPUTdhQlVicmgwMVRJX0tHcXgwTk1ZZlpHdEh6eDdOMzZXSzR6NW5TTkJHeFNIM3JEaVNpLTByMlk3VVVkVWFCSUhtQURDZkVxbGx2QmNUdGhsaGw5TUozSFVTdk9PYlo3QkNNTk5vRjU5azNEZjY2Y1NNcDJrRFdnZWJ3ZU84NVA0eTRkNXRXNVdvS2MydTdMTHRETGYzYzZ5UjdPNEdVQ0d5UGJlTWpSS0dSOVpXb19VOW05ZFdHUQ?oc=5" target="_blank">Block Club Chicago</a> • <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQR1NFOEhGSnAydzUwb0xsbWdjZ1FMRkJzR2FfSGE3XzZUbk1tSzZmS2RIS1VXUWJqRy1QWU5sZ1ZXYzdycDl2dTVvNjc1R3BzNFNzUDFEWC1CQ19FZVJ3R0hkWURNZjNXaGRiMzBxa2U3SU04YVZTNW9tT3VWdXFYODVwaXpjWFJRVjZSU0U1YXJHU1JCczdhMzVzeWFlUjgyNHFEQW5FbHY1bUtkWUpxRjIyd3F2bHdkT21hbkFzZjdJX0E?oc=5" target="_blank">Block Club — labor dispute</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNUFdoMW11UVV1dGl5TjIyc3V1NGllQXVZbUtDYU1NREdObzZBVTZjQ0x6REt4c09DMlF1NGtKWmhody0wN21qdVNTd0F0R1BLV0oxOS05SHdGT0VyR1VIVkxVbURBZmk1Mm1pdWl0MkZrMDI2YlJ2MDk2MTlZR05tOXJZM0wwYl9tOFM1dHBoZEtvWG9KOGxZMUs2NVdKTC01U0FNUHc5YTExdGEyVXYycVZBeEgtU0VYeUNtUF9VSm0?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">6. 6-flat proposed for site near Cicero-Montrose intersection in Portage Park</a></strong><br>A six-flat residential building is proposed for a site near the Cicero-Montrose intersection, part of a steady wave of small infill development filling in Portage Park's residential blocks alongside the larger Six Corners megaprojects.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxNUFdoMW11UVV1dGl5TjIyc3V1NGllQXVZbUtDYU1NREdObzZBVTZjQ0x6REt4c09DMlF1NGtKWmhody0wN21qdVNTd0F0R1BLV0oxOS05SHdGT0VyR1VIVkxVbURBZmk1Mm1pdWl0MkZrMDI2YlJ2MDk2MTlZR05tOXJZM0wwYl9tOFM1dHBoZEtvWG9KOGxZMUs2NVdKTC01U0FNUHc5YTExdGEyVXYycVZBeEgtU0VYeUNtUF9VSm0?oc=5" target="_blank">Nadig Newspapers</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxQNHNwXzBGNmJJZ19NZkpfUVlYV1FhSno3UkRjdWNyazd2RmdVUFl0V1RLaXZCWHBEaG5GaExIaE5kTVF6RzhNSVowVFROeWhycTJLalFyWFRXU3llSnEwZFVKMmZjVmxUUkpDcnlaZDM4enJydjI2dFFuSjRXeFJSam9oNnBjYy1FeGE1Q21XVWc?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">7. 45th Ward Dems endorse S. Gronkiewicz-Doran for alderperson</a></strong><br>The 45th Ward Democratic organization endorsed challenger S. Gronkiewicz-Doran for alderperson, setting up a contested race against incumbent Ald. James Gardiner. The ward covers much of Portage Park and Six Corners, and the next municipal election will shape development and public-safety policy in 60641.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxQNHNwXzBGNmJJZ19NZkpfUVlYV1FhSno3UkRjdWNyazd2RmdVUFl0V1RLaXZCWHBEaG5GaExIaE5kTVF6RzhNSVowVFROeWhycTJLalFyWFRXU3llSnEwZFVKMmZjVmxUUkpDcnlaZDM4enJydjI2dFFuSjRXeFJSam9oNnBjYy1FeGE1Q21XVWc?oc=5" target="_blank">Nadig Newspapers</a> • <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxPNllzUllDZ1R2RktBY0M4X1lmaXcxVmIwVVBGT05lSWZ0QnFhQzFtMVUyYlg1S25zU2VIa3dsRDkyanRpYmhETWR4Y3JxYktTS2tpdHFGX0JVT08wMDhXZTBteEVwbUkxQzM4Z2M2Q0tReTFGbjh1OWVVby1rOFRaUldMVHJqckNnV3Ntdl9rZFpOVXFJdURDZjduRkpRSElmTHNnNWVWdTBtZGJkVXBWanpDZkJ1VWh0Nm9NT1Z3eFhsSHFG?oc=5" target="_blank">Block Club Chicago</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:var(--accent)"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPSUY4bFozZEpFUnUxN2VZMzE2RFVpVGVrczJYWG9aWHN5YmV4cjduc0lyTGtsR3JNLXFYMDhuRWliX2NFZjB5dkVWejNpY1lMalVkSElGbTctR3NtenBTNFlrbm5UcUo5Rlpxdi1QZGNpT2Mwc3NNUjVDTmV5OC1MUnh5emhKX2o3QTZnN05CTVYxZndOMjFfTVY3R1lGYmt0Rmk0TjFNeU9xenBlS1VncU5ocW8wYnU0S0k1SENB?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">8. Artists sought for murals along fence of vacant Six Corners site</a></strong><br>While the former Sears Auto Center awaits its Pita Inn/Burlington/Wells Fargo redevelopment, the 45th Ward is soliciting local artists to paint murals along the perimeter fence — a stopgap beautification effort meant to keep the vacant corner welcoming during construction.<br><span class="news-sublinks"><span class="links-label">SOURCE:</span> <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPSUY4bFozZEpFUnUxN2VZMzE2RFVpVGVrczJYWG9aWHN5YmV4cjduc0lyTGtsR3JNLXFYMDhuRWliX2NFZjB5dkVWejNpY1lMalVkSElGbTctR3NtenBTNFlrbm5UcUo5Rlpxdi1QZGNpT2Mwc3NNUjVDTmV5OC1MUnh5emhKX2o3QTZnN05CTVYxZndOMjFfTVY3R1lGYmt0Rmk0TjFNeU9xenBlS1VncU5ocW8wYnU0S0k1SENB?oc=5" target="_blank">Nadig Newspapers</a></span></span></li></ul><div class="section-header"><span class="icon">🏗️</span><h2>Key Development Projects</h2><span class="accent-line"></span></div><div class="section-body">Active and planned projects reshaping Six Corners and the Irving Park / Milwaukee Avenue corridors. Project names link to the latest source coverage.</div><table class="dev-table"><thead><tr><th>Project</th><th>Status</th><th>Details</th></tr></thead><tbody><tr><td class="td-project"><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPUTdhQlVicmgwMVRJX0tHcXgwTk1ZZlpHdEh6eDdOMzZXSzR6NW5TTkJHeFNIM3JEaVNpLTByMlk3VVVkVWFCSUhtQURDZkVxbGx2QmNUdGhsaGw5TUozSFVTdk9PYlo3QkNNTk5vRjU5azNEZjY2Y1NNcDJrRFdnZWJ3ZU84NVA0eTRkNXRXNVdvS2MydTdMTHRETGYzYzZ5UjdPNEdVQ0d5UGJlTWpSS0dSOVpXb19VOW05ZFdHUQ?oc=5" target="_blank">Six Corners Peoples Gas Site ($100M+)</a></td><td class="td-status">Approved / construction pending</td><td>Hundreds of apartments + retail. Labor dispute settled; final city approval secured.</td></tr><tr><td class="td-project"><a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxQM3VkMGF4alR5TzVZb2NTOXg4dWtyX0NhRzBndFB1NjZ0ZTZ0VVJxM2dSZl9rWUpXNUp2QmtWQlNnOVdzZjlEb1VFdENsZDZyQWlfMkg2T3NtRFJBSFpsVjJfUzh3dGttUENnZTlFa0pQdGxqTUF0S2xGMUFNM1JacXVHR3hLTWF6elo1QUZ6R3RBM0JWbzd5WDV6aWtIaDRt?oc=5" target="_blank">6 Corners Lofts (former Sears, Target-anchored)</a></td><td class="td-status">Complete — apartments leasing</td><td>Former Sears department store redeveloped with Target anchor + luxury apartments now for rent.</td></tr><tr><td class="td-project"><a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPTHl4X2llNDFwWlhpaGd1Vk9FZkxoTjN4Ukx5akJaRVlaWlprNG1ZRDFJMTJSV3NfQlpuYnNmWl96eEw5Z3RYWjN2VEhIb0JwOWRvS3ZQbkQwOUNxUzR1bDEyVjJsbVEtS3YxdTJSUkxRSE1UZzFhaGdjSi1PWEkzNlFISTZTVk9rcWJZQk55ZHhoUlU3VXREZm9EbVJQUS0y?oc=5" target="_blank">Clarendale Six Corners (senior living)</a></td><td class="td-status">Complete</td><td>10-story senior-living tower at 4715 W Irving Park Rd; Aldi on ground floor.</td></tr><tr><td class="td-project"><a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxOaktNM1diNjlIcUtTSlktUUJwZUdRV1ZmZzFjcFJaYmxTYXlRN2lKX0w3Mm9VY011UktJWVJEQnZXX05RQm4zeG1oaU5jcjZWZldKZ3Z0UmMyMk9jZzk4NWJtd2ZMcmRyWUFWTXI4bkY1OXhUY2JQRkloaVFIVVNhMmNkMTBfTG5PZTdpSUs3YTFkTjhkWmlWNS01cVZicWc?oc=5" target="_blank">Former Sears Auto Center (Pita Inn, Burlington, Wells Fargo)</a></td><td class="td-status">Under construction</td><td>Chicago’s first Pita Inn plus Burlington and Wells Fargo Bank; Pita Inn targets a winter opening.</td></tr><tr><td class="td-project"><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPUXhSTEVxQkExZzBqa0czMmJBM0JMR0hJWFB1UUxFbWlGbE5wY1JkQ2VZUUxVZUJpXzdCMktVeW82MHFEX3JHU05yVUxDcFhCMkdSMnMzVUlURGpDQlBfMVI0cEtnZ1U3OUdBd0xCMFFSSEhXdmtMaDBWZnJGS1ZkYy13SjAtNGhCZEhHcldrUmpvMjFlY05xUk5ocnB3VVNTLXdZ?oc=5" target="_blank">Irving Park–Kilpatrick project</a></td><td class="td-status">Planned — 2027 start</td><td>New residential + commercial on a key Irving Park Rd corridor site.</td></tr></tbody></table><div class="section-header"><span class="icon">💼</span><h2>Business &amp; Employment Opportunities</h2><span class="accent-line"></span></div><div class="section-body">Hiring momentum follows the Six Corners retail build-out. Chicago metro private-sector average hourly earnings were <strong>$37.37</strong> in September 2026 (BLS via FRED).</div><ul class="news-list"><li class="news-item"><span class="news-bullet" style="background:#10b981"></span><span class="news-text"><strong>Retail &amp; food-service hiring at new Six Corners anchors</strong> — Target (6 Corners Lofts), Aldi, Pita Inn, Panda Express and Burlington are all staffing up as they open along Irving Park / Milwaukee.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://jobs.target.com" target="_blank">Target Careers</a> • <a href="https://careers.aldi.us" target="_blank">Aldi Careers</a> • <a href="https://www.indeed.com/jobs?l=60641" target="_blank">Indeed 60641</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:#10b981"></span><span class="news-text"><strong>Chicago Park District</strong> — Portage Park’s namesake 36-acre park (pool, gym, senior center) hires seasonal lifeguards, recreation leaders and maintenance staff year-round.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.chicagoparkdistrict.com/about-us/jobs" target="_blank">Park District Jobs</a> • <a href="https://www.ziprecruiter.com/jobs/60641" target="_blank">ZipRecruiter 60641</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:#10b981"></span><span class="news-text"><strong>Local search by ZIP</strong> — browse open roles across 60641 on the major job boards.<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.indeed.com/jobs?l=60641" target="_blank">Indeed</a> • <a href="https://www.ziprecruiter.com/jobs/60641" target="_blank">ZipRecruiter</a> • <a href="https://www.simplyhired.com/search?l=60641" target="_blank">SimplyHired</a></span></span></li></ul><div class="section-header"><span class="icon">🏠</span><h2>Homes For Sale &amp; For Rent</h2><span class="accent-line"></span></div><div class="section-body">Realtor.com reports <strong>118 active listings</strong> (median $499,250) and <strong>175 rental properties</strong> (median $1,900/mo) in 60641 as of September 2026. Portage Park median rent is $2,146/mo.</div><ul class="news-list"><li class="news-item"><span class="news-bullet" style="background:#4a6cf7"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxPMW4wTmxQN0VnX3Z3aG4tZzU4bHVaR1ktY1hoOERFcDl4Z01MUWlRa2dsNGNsTFlSVkhYa1FscVJPNXE4NnVYaW8wREh3UnU2WFZDODZPdWtFa0xLN0RnbzhLMnFWMHJQVHdHNTVvLVB0emFpSXRQZ2ZybU5SeS13akplM3pBSS1zZ21oeHYyWjYxc2h2?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">3922 N Milwaukee Ave</a></strong> — Six Corners-area listing (Realtor.com).<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.realtor.com/realestateandhomes-search/60641" target="_blank">Realtor.com 60641</a> • <a href="https://www.zillow.com/chicago-il-60641/" target="_blank">Zillow 60641</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:#4a6cf7"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxOQU1hRndva09Fc3pWY3RaY2pLbEZSeWg0a3VEWWwwVms2TmtwbkhLX2xwM1FZVVVjM0gyaXpiRF9kbGNxUHJTLW1MNXBfc3NnaUVOUEZiM1M2bEJZamstRG5QVjBUb2xyekRmN1hWUUpHaHg4ZF95Nko0RkJVZVFGcWN1bGdxVDJKVFpraTYtekJCVkxN?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">5243 W Berteau Ave, Unit B</a></strong> — Portage Park condo listing (Realtor.com).<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.redfin.com/zipcode/60641" target="_blank">Redfin 60641</a> • <a href="https://www.realtor.com/local/market/illinois/zipcode-60641" target="_blank">60641 Market Data</a></span></span></li><li class="news-item"><span class="news-bullet" style="background:#4a6cf7"></span><span class="news-text"><strong><a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxQc2Z3V1dEY2VoREUwdzl1dGFBa21YblVtU2J3VnhXbG03NW1uR3Z1Q3ZIS0pYSGxEd1FDbFB2VW5uRS1CalpuUXEzTTlxWVlZY3kwM0U0M3Z1b3Vwbm9ZUklaVDl3bWkwSm41QS1fa3BRd3VLOWdmeC1zV3V5MFFCV3RpM1B0SXBWQm1lckNaV3VWY2otb3BNOVFYbnZ1enJZ?oc=5" target="_blank" style="color:var(--text-primary);text-decoration:none">4714 W Irving Park Rd, Apt 336</a></strong> — apartment in the Clarendale Six Corners building (Realtor.com).<br><span class="news-sublinks"><span class="links-label">LINKS:</span> <a href="https://www.apartments.com/chicago-il-60641/" target="_blank">Apartments.com 60641</a> • <a href="https://www.zillow.com/chicago-il-60641/rentals/" target="_blank">Zillow Rentals</a></span></span></li></ul><div class="section-header"><span class="icon">🤖</span><h2>AI Ecosystem Map — Enterprise Landscape</h2><span class="accent-line"></span></div><div class="section-body">The 22 companies defining the enterprise AI landscape — from frontier labs and cloud hyperscalers to silicon and data platforms.</div><div class="entity-row"><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/openai/light.svg" alt="OpenAI" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">OpenAI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/anthropic/mono.svg" alt="Anthropic" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Anthropic</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/google/color.svg" alt="Google DeepMind" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Google DeepMind</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/xai/mono.svg" alt="xAI" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">xAI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/meta/default.svg" alt="Meta AI" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Meta AI</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/microsoft/color.svg" alt="Microsoft" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Microsoft</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amazon/default.svg" alt="Amazon" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Amazon</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/nvidia/mono.svg" alt="NVIDIA" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">NVIDIA</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/amd/default.svg" alt="AMD" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">AMD</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/intel/default.svg" alt="Intel" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Intel</span></div><div class="entity-card"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/tsmc-text.svg" alt="TSMC" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">TSMC</span></div><div class="entity-card"><img src="https://raw.githubusercontent.com/jsoprych/elko-reports-community/main/assets/asml.svg" alt="ASML" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">ASML</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/broadcom/default.svg" alt="Broadcom" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Broadcom</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/apple/default.svg" alt="Apple" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Apple</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/deepseek/default.svg" alt="DeepSeek" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">DeepSeek</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/alibaba/color.svg" alt="Alibaba" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Alibaba</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/baidu/default.svg" alt="Baidu" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Baidu</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/ibm/default.svg" alt="IBM" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">IBM</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/oracle/default.svg" alt="Oracle" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Oracle</span></div><div class="entity-card"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Hugging Face</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/palantir/default.svg" alt="Palantir" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Palantir</span></div><div class="entity-card"><img src="https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/salesforce/default.svg" alt="Salesforce" loading="lazy" style="width:32px;height:32px;object-fit:contain;background:var(--bar-bg);border-radius:6px;padding:4px;margin-bottom:4px"><span class="entity-label" style="font-size:12px;font-weight:600;color:var(--text-primary)">Salesforce</span></div></div>
+
+  <!-- SOURCES -->
+  <a href="https://blockclubchicago.org" target="_blank">Block Club Chicago</a><a href="https://chicagoyimby.com" target="_blank">Chicago YIMBY</a><a href="https://nadignewspapers.com" target="_blank">Nadig Newspapers</a><a href="https://www.chicagotribune.com" target="_blank">Chicago Tribune</a><a href="https://urbanize.city/chicago" target="_blank">Urbanize Chicago</a><a href="https://chicago.eater.com" target="_blank">Eater Chicago</a><a href="https://abc7chicago.com" target="_blank">ABC7 Chicago</a><a href="https://wgntv.com" target="_blank">WGN-TV</a><a href="https://www.realtor.com" target="_blank">Realtor.com</a><a href="https://www.redfin.com" target="_blank">Redfin</a><a href="https://www.zillow.com" target="_blank">Zillow</a><a href="https://www.apartments.com" target="_blank">Apartments.com</a><a href="https://fred.stlouisfed.org" target="_blank">BLS / FRED</a><a href="https://www.chicago.gov" target="_blank">City of Chicago</a><a href="https://www.chicagoparkdistrict.com" target="_blank">Chicago Park District</a>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    Generated by <span class="brand">elko.ai</span> — Contact: <a href="mailto:reid@elko.ai">reid@elko.ai</a><br>
+    <a href="https://jsoprych.github.io/elko-reports-community/research/2026-10-24-1308-60641-daily-sweep.html">https://jsoprych.github.io/elko-reports-community/research/2026-10-24-1308-60641-daily-sweep.html</a>
+  </div>
+
+</div>
+</body>
+</html>
