@@ -260,7 +260,7 @@ SOURCES_HTML = (
     '</div>'
 )
 
-pages_url = "https://jsoprych.github.io/elko-reports-community/research/" + DATE_STR + "-" + TIME_STR + "-" + SLUG + ".html"
+pages_url = "https://jsoprych.github.io/x-elko-reports-community/research/" + DATE_STR + "-" + TIME_STR + "-" + SLUG + ".html"
 
 top_heading = (
     '<a href="https://chicago.suntimes.com/real-estate/2026/04/17/brookfield-breaks-ground-4-building-industrial-campus-back-of-the-yards" '
